@@ -5,7 +5,7 @@ body {
 	font-family: 'Source Sans Pro', sans-serif;
 	background-color: #cba;
 }
-#main {
+main {
 	max-width: 1024px;
 	margin: 0 auto;
 	display: flex;
@@ -64,40 +64,48 @@ h1 {
 	text-shadow: 0px 0px 10px #000;
 	font-size: 300%
 }
-.sayA, .sayP, .sayR {
+main div {
+/*.sayA, .sayP, .sayR {*/
 	padding: 1em;
 }
-.sayA {
+main div:nth-child(even) {
 	/*padding-left: 1em;*/
-	font-weight: 600;
 	background-color: rgba(255, 255, 255, 0.2);
 }
 
-.sayA::before {
-	content: "A: ";
-}
-.sayP {
+main div:nth-child(odd) {
 	/*padding-left: 1em;*/
 	background-color: rgba(255, 255, 255, 0.1);
 }
-.sayP::before {
-	content: "P: ";
+
+.who {
+	font-weight: bold;
+	text-transform: capitalize;
+	margin-right: 0.5em;
 }
-.sayR {
-	/*padding-left: 1em;*/
-	background-color: rgba(255, 255, 255, 0.1);
+
+div.red {
+	background-color: red !important;
 }
-.sayR::before {
-	content: "R: ";
+
+div.options {
+	padding: 0 !important;
+}
+
+div.options > div {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.command {
+	font-style: italic;
 }
 
 nav {
 	display: flex;
 	flex-direction: column;
 	border-bottom: 1px solid #765;
-/*	padding: 1em;*/
 	font-family: 'Source Sans Pro', sans-serif;
-	/*border-top: 1px solid black;*/
 }
 i {
 	padding: 0 0.2em;
@@ -123,40 +131,17 @@ nav > div:last-child {
 }
 
 div.options {
-	display: flex;
-	justify-content: space-between;
+	display: grid;
+	grid-auto-flow: column;
+	grid-auto-columns: 1fr;
+	column-gap: 0.5em;
+	/*	justify-content: space-between;*/
 }
 
-div.options > div {
-    margin: 0 0.2em;
-}
-
-div.options > div:first-child {
-    margin-left: 0;
-}
-
-div.options > div:last-child {
-    margin-right: 0;
-}
-
-/*div.options details {
-	display: inline;
-}
-
-div.options details summary {
-	background-color: rgba(255, 255, 255, 0.4);
-	padding: 0.5em 0.5em;
-}*/
 abbr {
 	color: #888;
 }
 
-.half {
-	width: 50%;
-}
-.third {
-	width: 33%;
-}
 .selected {
 	background-color: rgba(255,255,255,0.5);
 	border-radius: 7px;

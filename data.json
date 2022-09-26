@@ -7,17 +7,15 @@
 	"labels": {
         "idxL":         {"eng": "Labels", "ces": "Popisky", "tgl": "Labels"},
         "idxT":         {"eng": "Texts", "ces": "Texty", "tgl": "Texts"},
+	    "alleluia":     {"eng": "Alleluia", "ces": "Alleluia", "tgl": "Alleluia"},
         "heading":      {"eng": "Mass", "ces": "Mše", "tgl": "Misa"},
         "prayer":       {"eng": "Prayer", "ces": "Modlitba", "tgl": "Panalangin"},
         "silentPrayer": {"eng": "Silent prayer", "ces": "Tichá modlitba", "tgl": "Tahimik na panalangin"},
-        "lhm":          {"eng": "Lord have mercy", "ces": "Pane, smiluj se", "tgl": "Panginoon, maawa ka"},
         "read1":        {"eng": "First reading", "ces": "První ctení", "tgl": "Unang pagbasa"},
         "read2":        {"eng": "Second reading", "ces": "Druhé ctení", "tgl": "Ikalawang pagbasa"},
         "readE":        {"eng": "Proclaiming Gospel", "ces": "Ctení evangelia", "tgl": "Mabuting balita"},
         "psalm":        {"eng": "Psalm", "ces": "Žalm", "tgl": "Salmong tugunan"},
         "homily":       {"eng": "Homily", "ces": "Homilie", "tgl": "Pangaral"},
-        "ncc":          {"eng": "I believe in one God", "ces": "Verím v jednoho Boha", "tgl": "Sumasampalataya ako sa isang Diyos"},
-        "ac":           {"eng": "I believe in God", "ces": "Verím v Boha", "tgl": "Sumasampalataya ako sa Diyos"},
         "intercess":    {"eng": "Intercessions", "ces": "Prímluvy", "tgl": "Intercessions"},
         "offertory":    {"eng": "Offertory", "ces": "Prinášení daru chleba a vína", "tgl": "Offertory"},
         "breakhost":    {"eng": "Breaking Host", "ces": "Lámání chleba", "tgl": "Breaking Host"},
@@ -26,6 +24,7 @@
         "lblP":         {"eng": "Priest", "ces": "Knez", "tgl": "Pari"},
         "lblA":         {"eng": "All", "ces": "Všichni", "tgl": "Bayan"},
         "lblR":         {"eng": "Reader", "ces": "Zástupce shromáždených", "tgl": "Reader"},
+        "lblC":         {"eng": "Command", "ces": "Příkaz", "tgl": "Command"},
         "lstand":       {"eng": "Standing", "ces": "Stojíme", "tgl": "Standing"},
         "lsit":         {"eng": "Sitting", "ces": "Sedíme", "tgl": "Sitting"},
         "lkneel":       {"eng": "Kneeling", "ces": "Klecíme", "tgl": "Kneeling"},
@@ -35,17 +34,18 @@
         "font":         {"eng": "Font", "ces": "Písmo", "tgl": "Font"},
         "texts":        {"eng": "Texts", "ces": "Texty", "tgl": "Texts"},
         "author":       {"eng": "Author", "ces": "Autor", "tgl": "Author"},
-        "download":     {"eng": "Download", "ces": "Download", "tgl": "Download"},
-        "footnote":     {"eng": "This website is in the public domain", "ces": "Tato webová stránka je volné dílo", "tgl": "This website is in the public domain"}
+        "license":      {"eng": "License", "ces": "Licence", "tgl": "License"},
+        "source":       {"eng": "Source", "ces": "Zdroj", "tgl": "Source"}
 	},
 	"texts": {
 		"eng": [
-			{"c": "@{lstand}"},
+			{"c": "@icon{stand} @{lstand}"},
 			{"p": "In the name of the Father, and of the Son, and of the Holy Spirit."},
 			{"a": "Amen."},
 			{"p": "The grace of our Lord Jesus Christ, and the love of God, and the communion of the Holy Spirit be with you all."},
 			{"a": "And with your spirit."},
 			{"p": "Brothers and sisters, let us acknowledge our sins, and so prepare ourselves to celebrate the sacred mysteries."},
+			{"a": "@icon{kneel} @{silentPrayer}"},
 			[
 				{"a": "I confess to almighty God and to you, my brothers and sisters, that I have greatly sinned, in my thoughts and in my words, in what I have done and in what I have failed to do, through my fault, through my fault, through my most grievous fault. Therefore I ask blessed Mary ever-Virgin, all the Angels and Saints, and you, my brothers and sisters, to pray for me to the Lord our God."},
 				[
@@ -64,7 +64,7 @@
 				]
 			],
 			{"p": "May almighty God have mercy on us, forgive us our sins, and bring us to everlasting life."},
-			{"a": "Amen"},
+			{"a": "Amen."},
 			[
 				[
 					{"p": "Lord, have mercy."},
@@ -89,19 +89,21 @@
 			{"p": "@{prayer}... forever and ever."},
 			{"a": "Amen."},
 			{"c": "@{lsit}"},
-			{"r": "@{read1}... The word of the Lord."},
+			{"r": "@icon{bible} @{read1}... The word of the Lord."},
 			{"a": "Thanks be to God."},
-			{"r": "@{psalm}"},
-			{"r": "@{read2}... The word of the Lord."},
+			{"r": "@icon{bible} @{psalm}"},
+			{"r": "@icon{bible} @{read2}... The word of the Lord."},
+			{"a": "Thanks be to God."},
 			{"c": "@{lstand}"},
+			{"c": "@{alleluia}"},
 			{"p": "The Lord be with you."},
 			{"a": "And with your spirit."},
 			{"p": "A reading from the holy Gospel according to Matthew / Mark / Luke / John"},
 			{"a": "Glory to you, O Lord."},
-			{"p": "@{readE}... The word of the Lord."},
+			{"p": "@icon{bible} @{readE}... The word of the Lord."},
 			{"a": "Praise to you, Lord Jesus Christ."},
 			{"c": "@{lsit}"},
-			{"c": "@{homily}"},
+			{"c": "@icon{bubble} @{homily}"},
 			{"c": "@{lstand}"},
 			[
 				{"a": "I believe in one God, the Father almighty, maker of heaven and earth, of all things visible and invisible. I believe in one Lord Jesus Christ, the Only Begotten Son of God, born of the Father before all ages. God from God, Light from Light,  true God from true God, begotten, not made, consubstantial with the Father; through him all things were made. For us men and for our salvation he came down from heaven, and by the Holy Spirit was incarnate of the Virgin Mary, and became man. For our sake he was crucified under Pontius Pilate, he suffered death and was buried,  and rose again on the third day in accordance with the Scriptures. He ascended into heaven  and is seated at the right hand of the Father. He will come again in glory to judge the living and the dead and his kingdom will have no end. I believe in the Holy Spirit, the Lord, the giver of life, who proceeds from the Father and the Son, who with the Father and the Son is adored and glorified, who has spoken through the prophets. I believe in one, holy, catholic and apostolic Church. I confess one Baptism for the forgiveness of sins and I look forward to the resurrection of the dead and the life of the world to come. Amen."},
@@ -167,6 +169,12 @@
 			{"a": "Amen"},
 			{"p": "Go and announce the Gospel of the Lord."},
 			{"a": "Thanks be to God."}
+		],
+		"ces": [
+
+		],
+		"tgl": [
+
 		]
 	}
 }
