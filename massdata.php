@@ -20,9 +20,7 @@
             $this->ll = 'eng';
 
             if (array_key_exists('ll', $_GET)) {
-				echo "<!-- WEOREG -->";
                 if (array_key_exists($_GET['ll'], $this->jd['languages']) !== FALSE) {
-					echo "<!-- GREGEG -->";
                     $this->ll = $_GET['ll'];
                 }
             }

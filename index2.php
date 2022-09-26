@@ -52,7 +52,11 @@
         <span><?= $md->repls('@{headerimg}');?>: <a href="https://commons.wikimedia.org/wiki/File:Iglesia_de_San_Carlos_Borromeo,_Viena,_Austria,_2020-01-31,_DD_164-166_HDR.jpg">Iglesia de San Carlos Borromeo, Viena, Austria by Diego Delso</a> (<a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>)</span>
         <span><?= $md->repls('@{icons}');?>: <a href="https://fontawesome.com">Font Awesome Free 5.15.2 by @fontawesome</a> (<a href="https://fontawesome.com/license/free">Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License</a>)</span>
         <span><?= $md->repls('@{font}');?>: <a href="https://fonts.google.com/specimen/Source+Sans+Pro">Source Sans Pro by Paul D. Hunt</a> (<a href="https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL">Open Fonts License</a>)</span>
-        <span><?= $md->repls('@{texts}');?>: <a href="https://www.catholicbishops.ie/wp-content/uploads/2011/02/Order-of-Mass.pdf">English</a>, <a href="https://www.cirkev.cz/cs/mse-svata">Čeština</a>, <a href="https://ourparishpriest.blogspot.com/2018/12/holy-mass-in-filipino-tagalog.html">Tagalog</a></span>
+        <span><?= $md->repls('@{texts}');?>:
+        <?php foreach ($md->jd['languages'] as $code=>$info): ?>
+          <a href="<?= $info['source'] ?>"><?= $info['title'] ?></a>
+        <?php endforeach; ?>
+        </span>
     </footer>
   </body>
 </html>
