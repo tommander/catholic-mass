@@ -12,7 +12,8 @@
 			'walk' => 'fas fa-hiking',
 			'stand' => 'fas fa-male',
 			'sit' => 'fas fa-chair',
-			'kneel' => 'fas fa-pray'
+			'kneel' => 'fas fa-pray',
+			'transmiss' => 'fas fa-comment-slash'
 		];
 
         function __construct() {
@@ -60,7 +61,7 @@
         public function link($label = '', $text = '') {
             $putlabel = ($label != '') ? $label : $this->ll;
             $puttext = ($text != '') ? $text : $this->tl;
-            return "index2.php?ll=${putlabel}&tl=${puttext}";
+            return "index.php?ll=${putlabel}&tl=${puttext}";
         }
 
 		private function kv2html($key, $val) {
