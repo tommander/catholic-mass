@@ -13,7 +13,7 @@
 			'stand' => 'fas fa-male',
 			'sit' => 'fas fa-chair',
 			'kneel' => 'fas fa-pray',
-			'transmiss' => 'fas fa-comment-slash'
+			'booklink' => 'fas fa-book-reader'
 		];
 
         function __construct() {
@@ -69,7 +69,7 @@
 			$what = '';
 			$cls = '';
 			if ($key == 'reading') {
-				$what = "<a href=\"".$this->repls('@{dbrlink}')."\">".$this->repls('@{dbrtext}')."</a>";
+				$what = "<a href=\"".$this->repls('@{dbrlink}')."\">".$this->repls('@icon{booklink} @{dbrtext}')."</a>";
 			} else {
 				$who = $key;
 				$what = $this->repl($val);

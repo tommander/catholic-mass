@@ -52,9 +52,18 @@
         <span><?= $md->repls('@{headerimg}');?>: <a href="https://commons.wikimedia.org/wiki/File:Iglesia_de_San_Carlos_Borromeo,_Viena,_Austria,_2020-01-31,_DD_164-166_HDR.jpg">Iglesia de San Carlos Borromeo, Viena, Austria by Diego Delso</a> (<a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>)</span>
         <span><?= $md->repls('@{icons}');?>: <a href="https://fontawesome.com">Font Awesome Free 5.15.2 by @fontawesome</a> (<a href="https://fontawesome.com/license/free">Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License</a>)</span>
         <span><?= $md->repls('@{font}');?>: <a href="https://fonts.google.com/specimen/Source+Sans+Pro">Source Sans Pro by Paul D. Hunt</a> (<a href="https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL">Open Fonts License</a>)</span>
-        <span><?= $md->repls('@{texts}');?>:
+        <span><?= $md->repls('@{texts}');?>:<br>
         <?php foreach ($md->langs as $code=>$info): ?>
-          <a href="<?= $info['link'] ?>"><?= $info['title'] ?></a>
+          <?= $info['title'] ?><?php if (strcasecmp($info['author'], 'Tommander') !== 0): ?> by <q><?= $info['author']?></q><?php endif; ?> (
+          <?php if (!is_array($info['link'])): ?>
+           <a href="<?= $info['link'] ?>">source</a>
+          <?php else: ?>
+            <?php $cnt = 1; ?>
+            <?php foreach ($info['link'] as $lnk): ?>
+              <?= $cnt > 1 ? ", " : "" ?><a href="<?= $lnk ?>">source <?= $cnt++ ?></a>
+            <?php endforeach; ?>
+          <?php endif; ?>
+          )<br>
         <?php endforeach; ?>
         </span>
 		</div>

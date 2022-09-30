@@ -21,7 +21,7 @@
 		"announce": "Mga Anunsyo",
 		"lblP": "Pari",
 		"lblA": "Bayan",
-		"lblR": "Mambabasa",
+		"lblR": "Tagabasa",
 		"lstand": "Tumayo",
 		"lsit": "Umupo",
 		"lkneel": "Lumuhod",
@@ -42,13 +42,7 @@
 		{"p": "Mga kapatid, aminin nating ang ating mga kasalanan upang tayo’y maging marapat sa pagdiriwang ng banal na paghahaing ito."},
 		{"": "@icon{kneel} @{silentPrayer}"},
 		[
-			{"a": "@icon{transmiss} I confess to almighty God and to you, my brothers and sisters, that I have greatly sinned, in my thoughts and in my words, in what I have done and in what I have failed to do, through my fault, through my fault, through my most grievous fault. Therefore I ask blessed Mary ever-Virgin, all the Angels and Saints, and you, my brothers and sisters, to pray for me to the Lord our God."},
-			[
-				{"p": "@icon{transmiss} Have mercy on us, O Lord."},
-				{"a": "@icon{transmiss} For we have sinned against you."},
-				{"p": "@icon{transmiss} Show us, O Lord, your mercy."},
-				{"a": "@icon{transmiss} And grant us your salvation."}
-			],
+			{"a": "Inaamin ko sa makapangyarihang Diyos at sa inyo, mga kapatid, na lubha akong nagkasala, sa isip, sa salita, sa gawa, at sa aking pagkukulang, kaya isinasamo ko sa mahal na Birheng Maria, sa lahat ng mga anghel at mga banal, at sa inyo, mga kapatid, na ako'y ipanalangin sa Panginoong ating Diyos."},
 			[
 				{"p": "Sinugong Tagapagpagaling sa mga nagsisisi, Panginoon, kaawaan mo kami."},
 				{"a": "Panginoon, kaawaan mo kami."},
@@ -78,8 +72,11 @@
 				{"a": "Kyrie, eleison."}
 			]
 		],
-		{"p": "Papuri sa Diyos sa kaitaasan..."},
-		{"a": "... at sa lupa’y kapayapaan sa mga taong kinalulugdan niya, pinupuri ka namin, dinarangal ka namin, sinasamba ka namin, ipinagbubunyi ka namin dahil sa dakila mong angking kapurihan, panginoong Diyos Hari ng langit, Diyos Amang makapangyarihan sa lahat, panginoong Hesukristo, Bugtong na Anak, Panginoong Diyos, Kordero ng Diyos, Anak ng Ama, Ikaw na nag-aalis ng mga kasalanan ng sanlibutan, maawa ka sa amin. Ikaw na nag-aalis ng mga kasalanan ng sanlibutan, Tanggapin mo ang aming kahilingan, Ikaw na naluluklok sa kanan ng Ama, maawa ka sa amin, Sapagkat Ikaw lamang ang banal, Ikaw lamang ang Panginoon, Ikaw lamang, O Hesukristo, ang Kataas-taasan, Kasama ng Espiritu Santo, Sa kadakilaan ng Diyos Ama. Amen."},
+		{"": ""},
+		[
+			{"a": "Papuri sa Diyos sa kaitaasan at sa lupa’y kapayapaan sa mga taong kinalulugdan niya, pinupuri ka namin, dinarangal ka namin, sinasamba ka namin, ipinagbubunyi ka namin dahil sa dakila mong angking kapurihan, panginoong Diyos Hari ng langit, Diyos Amang makapangyarihan sa lahat, panginoong Hesukristo, Bugtong na Anak, Panginoong Diyos, Kordero ng Diyos, Anak ng Ama, Ikaw na nag-aalis ng mga kasalanan ng sanlibutan, maawa ka sa amin. Ikaw na nag-aalis ng mga kasalanan ng sanlibutan, Tanggapin mo ang aming kahilingan, Ikaw na naluluklok sa kanan ng Ama, maawa ka sa amin, Sapagkat Ikaw lamang ang banal, Ikaw lamang ang Panginoon, Ikaw lamang, O Hesukristo, ang Kataas-taasan, Kasama ng Espiritu Santo, Sa kadakilaan ng Diyos Ama. Amen."},
+			{"a": "Luwalhati sa Diyos sa kaitaasan, at sa lupa’y kapayapaan sa mga taong may magandang kalooban. Panginoong Diyos, Haring makalangit, makapangyarihang Diyos at Ama; sinasamba Ka namin, pinasasalamatan Ka namin, pinupuri Ka namin dahil sa Iyong kaluwalhatian. Panginoong Hesu Kristo, bugtong na Anak ng Ama, Panginoong Diyos, Kordero ng Diyos, ikaw na nag-aalis ng kasalanan ng sanlibutan, maawa ka sa amin. Ikaw na naluluklok sa kanan ng Ama, tanggapin Mo ang aming panalanangin. Sapagkat Ikaw lamang ang Banal, Ikaw lamang ang Panginoon, Ikaw lamang ang kataastaasang Hesu Kristo, kasama ang Espiritu Santo, sa kaluwalhatian ng Diyos Ama. Amen."}
+		],
 		{"p": "Manalangin tayo."},
 		{"p": "@{prayer}... magpasawalang hanggan."},
 		{"a": "Amen."},
@@ -128,11 +125,7 @@
 		{"": "@icon{kneel} @{lkneel}"},
 		{"p": "@{prayer}"},
 		{"p": "Ipagbunyi natin ang misteryo ng pananampalataya."},
-		[
-			{"a": "Si Kristo’y namatay! Si Kristo’y nabuhay! Si Kristo’y babalik sa wakes ng panahon."},
-			{"a": "@icon{transmiss} When we eat this Bread and drink this Cup, we proclaim your Death, O Lord, until you come again."},
-			{"a": "@icon{transmiss} Save us, Saviour of the world, for by your Cross and Resurrection you have set us free."}
-		],
+		{"a": "Si Kristo’y namatay! Si Kristo’y nabuhay! Si Kristo’y babalik sa wakes ng panahon."},
 		{"p": "@{prayer}... Sa pamamagitan ni Kristo, kasama niya, at sa kanya ang lahat ng parangal at papuri ay sa iyo, Diyos Amang makapangyarihan, kasama ng Espiritu Santo magpasawalang hanggan."},
 		{"a": "Amen."},
 		{"": "@icon{stand} @{lstand}"},
@@ -145,7 +138,7 @@
 		{"p": "Ang kapayapaan ng Panginoon ay laging sumainyo."},
 		{"a": "At sumainyo rin."},
 		{"p": "Magbigayan kayo ng kapayapaan sa isa’t isa."},
-		{"a": "@icon{peace} @icon{transmiss} Peace be with you."},
+		{"a": "@icon{peace} Kapayapaan."},
 		{"": "@icon{kneel} @{lkneel}"},
 		{"p": "@{breakhost}"},
 		{"a": "Kordero ng Diyos, na nag – aalis ng mga kasalanan ng sanlibutan, maawa ka sa amin. Kordero ng Diyos, na nag – aalis ng mga kasalanan ng sanlibutan, maawa ka sa amin. Kordero ng Diyos, na nag – aalis ng mga kasalanan ng sanlibutan, ipagkaloob mo sa amin ang kapayapaan."},

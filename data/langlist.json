@@ -1,14 +1,22 @@
 {
     "eng": {
         "title": "English",
+        "author": "Tommander",
         "link": "https://www.catholicbishops.ie/wp-content/uploads/2011/02/Order-of-Mass.pdf"
     },
     "ces": {
         "title": "Čeština",
-        "link": ""
+        "author": "Tommander",
+        "link": "https://www.cirkev.cz/cs/mse-svata"
     },
     "tgl": {
         "title": "Tagalog",
-        "link": ""
+        "author": "Tommander",
+        "link": [
+            "https://en.wiktionary.org/wiki/Appendix:Tagalog_Roman_Catholic_prayers",
+            "http://justus.anglican.org/resources/bcp/tagalog_HC.html",
+            "https://ourparishpriest.blogspot.com/2018/12/holy-mass-in-filipino-tagalog.html",
+            "https://philippinemissalettes.wordpress.com/sambuhay-missalette/sambuhay-tagalog/"
+        ]
     }
 }
