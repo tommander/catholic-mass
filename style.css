@@ -13,7 +13,7 @@ header {
 	display: flex;
 	justify-content: center;
 	height: 128px;
-	background-image: url('church.png');
+	background-image: url('images/church.png');
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: contain;
@@ -24,9 +24,13 @@ header {
 /* NAVIGATION */
 
 nav {
+	max-width: 1024px;
+	margin: 0 auto;
 	display: flex;
 	flex-direction: column;
 	border-bottom: 1px solid #765;
+	border-left: 1px solid #765;
+	border-right: 1px solid #765;
 	font-family: 'Source Sans Pro', sans-serif;
 }
 i {
@@ -137,8 +141,8 @@ footer {
 footer > div {
 	max-width: 1024px;
 	display: flex;
-	justify-content: space-between;
 	flex-flow: column;
+	margin: 0 1em;
 }
 footer a, footer a:link, footer a:visited {
 	color: #fed;

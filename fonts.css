@@ -3,84 +3,72 @@
     src: url('source-sans/SourceSansPro-ExtraLight.ttf') format('truetype');
     font-weight: 200;
     font-style: normal;
-    /* License to SSP (Source Sans Pro) available at https://tommander.cz/OFL.txt, obtained from https://fonts.google.com/specimen/Source+Sans+Pro */
   }
   @font-face {
     font-family: 'Source Sans Pro';
     src: url('source-sans/SourceSansPro-ExtraLightItalic.ttf') format('truetype');
     font-weight: 200;
     font-style: italic;
-    /* License to SSP (Source Sans Pro) available at https://tommander.cz/OFL.txt, obtained from https://fonts.google.com/specimen/Source+Sans+Pro */
   }
   @font-face {
     font-family: 'Source Sans Pro';
     src: url('source-sans/SourceSansPro-Light.ttf') format('truetype');
     font-weight: 300;
     font-style: normal;
-    /* License to SSP (Source Sans Pro) available at https://tommander.cz/OFL.txt, obtained from https://fonts.google.com/specimen/Source+Sans+Pro */
   }
   @font-face {
     font-family: 'Source Sans Pro';
     src: url('source-sans/SourceSansPro-LightItalic.ttf') format('truetype');
     font-weight: 300;
     font-style: italic;
-    /* License to SSP (Source Sans Pro) available at https://tommander.cz/OFL.txt, obtained from https://fonts.google.com/specimen/Source+Sans+Pro */
   }
   @font-face {
     font-family: 'Source Sans Pro';
     src: url('source-sans/SourceSansPro-Regular.ttf') format('truetype');
     font-weight: 400;
     font-style: normal;
-    /* License to SSP (Source Sans Pro) available at https://tommander.cz/OFL.txt, obtained from https://fonts.google.com/specimen/Source+Sans+Pro */
   }
   @font-face {
     font-family: 'Source Sans Pro';
     src: url('source-sans/SourceSansPro-Italic.ttf') format('truetype');
     font-weight: 400;
     font-style: italic;
-    /* License to SSP (Source Sans Pro) available at https://tommander.cz/OFL.txt, obtained from https://fonts.google.com/specimen/Source+Sans+Pro */
   }
   @font-face {
     font-family: 'Source Sans Pro';
     src: url('source-sans/SourceSansPro-SemiBold.ttf') format('truetype');
     font-weight: 600;
     font-style: normal;
-    /* License to SSP (Source Sans Pro) available at https://tommander.cz/OFL.txt, obtained from https://fonts.google.com/specimen/Source+Sans+Pro */
   }
   @font-face {
     font-family: 'Source Sans Pro';
     src: url('source-sans/SourceSansPro-SemiBoldItalic.ttf') format('truetype');
     font-weight: 600;
     font-style: italic;
-    /* License to SSP (Source Sans Pro) available at https://tommander.cz/OFL.txt, obtained from https://fonts.google.com/specimen/Source+Sans+Pro */
   }
   @font-face {
     font-family: 'Source Sans Pro';
     src: url('source-sans/SourceSansPro-Bold.ttf') format('truetype');
     font-weight: 700;
     font-style: normal;
-    /* License to SSP (Source Sans Pro) available at https://tommander.cz/OFL.txt, obtained from https://fonts.google.com/specimen/Source+Sans+Pro */
   }
   @font-face {
     font-family: 'Source Sans Pro';
     src: url('source-sans/SourceSansPro-BoldItalic.ttf') format('truetype');
     font-weight: 700;
     font-style: italic;
-    /* License to SSP (Source Sans Pro) available at https://tommander.cz/OFL.txt, obtained from https://fonts.google.com/specimen/Source+Sans+Pro */
   }
   @font-face {
     font-family: 'Source Sans Pro';
     src: url('source-sans/SourceSansPro-Black.ttf') format('truetype');
     font-weight: 900;
     font-style: normal;
-    /* License to SSP (Source Sans Pro) available at https://tommander.cz/OFL.txt, obtained from https://fonts.google.com/specimen/Source+Sans+Pro */
   }
   @font-face {
     font-family: 'Source Sans Pro';
     src: url('source-sans/SourceSansPro-BlackItalic.ttf') format('truetype');
     font-weight: 900;
     font-style: italic;
-    /* License to SSP (Source Sans Pro) available at https://tommander.cz/OFL.txt, obtained from https://fonts.google.com/specimen/Source+Sans+Pro */
   }
 
   @font-face {
@@ -88,84 +76,72 @@
     src: url('source-code/SourceCodePro-ExtraLight.ttf') format('truetype');
     font-weight: 200;
     font-style: normal;
-    /* License to SSP (Source Code Pro) available at https://tommander.cz/OFL.txt, obtained from https://fonts.google.com/specimen/Source+Code+Pro */
   }
   @font-face {
     font-family: 'Source Code Pro';
     src: url('source-code/SourceCodePro-ExtraLightItalic.ttf') format('truetype');
     font-weight: 200;
     font-style: italic;
-    /* License to SSP (Source Code Pro) available at https://tommander.cz/OFL.txt, obtained from https://fonts.google.com/specimen/Source+Code+Pro */
   }
   @font-face {
     font-family: 'Source Code Pro';
     src: url('source-code/SourceCodePro-Light.ttf') format('truetype');
     font-weight: 300;
     font-style: normal;
-    /* License to SSP (Source Code Pro) available at https://tommander.cz/OFL.txt, obtained from https://fonts.google.com/specimen/Source+Code+Pro */
   }
   @font-face {
     font-family: 'Source Code Pro';
     src: url('source-code/SourceCodePro-LightItalic.ttf') format('truetype');
     font-weight: 300;
     font-style: italic;
-    /* License to SSP (Source Code Pro) available at https://tommander.cz/OFL.txt, obtained from https://fonts.google.com/specimen/Source+Code+Pro */
   }
   @font-face {
     font-family: 'Source Code Pro';
     src: url('source-code/SourceCodePro-Regular.ttf') format('truetype');
     font-weight: 400;
     font-style: normal;
-    /* License to SSP (Source Code Pro) available at https://tommander.cz/OFL.txt, obtained from https://fonts.google.com/specimen/Source+Code+Pro */
   }
   @font-face {
     font-family: 'Source Code Pro';
     src: url('source-code/SourceCodePro-Italic.ttf') format('truetype');
     font-weight: 400;
     font-style: italic;
-    /* License to SSP (Source Code Pro) available at https://tommander.cz/OFL.txt, obtained from https://fonts.google.com/specimen/Source+Code+Pro */
   }
   @font-face {
     font-family: 'Source Code Pro';
     src: url('source-code/SourceCodePro-SemiBold.ttf') format('truetype');
     font-weight: 600;
     font-style: normal;
-    /* License to SSP (Source Code Pro) available at https://tommander.cz/OFL.txt, obtained from https://fonts.google.com/specimen/Source+Code+Pro */
   }
   @font-face {
     font-family: 'Source Code Pro';
     src: url('source-code/SourceCodePro-SemiBoldItalic.ttf') format('truetype');
     font-weight: 600;
     font-style: italic;
-    /* License to SSP (Source Code Pro) available at https://tommander.cz/OFL.txt, obtained from https://fonts.google.com/specimen/Source+Code+Pro */
   }
   @font-face {
     font-family: 'Source Code Pro';
     src: url('source-code/SourceCodePro-Bold.ttf') format('truetype');
     font-weight: 700;
     font-style: normal;
-    /* License to SSP (Source Code Pro) available at https://tommander.cz/OFL.txt, obtained from https://fonts.google.com/specimen/Source+Code+Pro */
   }
   @font-face {
     font-family: 'Source Code Pro';
     src: url('source-code/SourceCodePro-BoldItalic.ttf') format('truetype');
     font-weight: 700;
     font-style: italic;
-    /* License to SSP (Source Code Pro) available at https://tommander.cz/OFL.txt, obtained from https://fonts.google.com/specimen/Source+Code+Pro */
   }
   @font-face {
     font-family: 'Source Code Pro';
     src: url('source-code/SourceCodePro-Black.ttf') format('truetype');
     font-weight: 900;
     font-style: normal;
-    /* License to SSP (Source Code Pro) available at https://tommander.cz/OFL.txt, obtained from https://fonts.google.com/specimen/Source+Code+Pro */
   }
   @font-face {
     font-family: 'Source Code Pro';
     src: url('source-code/SourceCodePro-BlackItalic.ttf') format('truetype');
     font-weight: 900;
     font-style: italic;
-    /* License to SSP (Source Code Pro) available at https://tommander.cz/OFL.txt, obtained from https://fonts.google.com/specimen/Source+Code+Pro */
   }
 
   @font-face {
@@ -173,82 +149,70 @@
     src: url('source-serif/SourceSerifPro-ExtraLight.ttf') format('truetype');
     font-weight: 200;
     font-style: normal;
-    /* License to SSP (Source Serif Pro) available at https://tommander.cz/OFL.txt, obtained from https://fonts.google.com/specimen/Source+Serif+Pro */
   }
   @font-face {
     font-family: 'Source Serif Pro';
     src: url('source-serif/SourceSerifPro-ExtraLightItalic.ttf') format('truetype');
     font-weight: 200;
     font-style: italic;
-    /* License to SSP (Source Serif Pro) available at https://tommander.cz/OFL.txt, obtained from https://fonts.google.com/specimen/Source+Serif+Pro */
   }
   @font-face {
     font-family: 'Source Serif Pro';
     src: url('source-serif/SourceSerifPro-Light.ttf') format('truetype');
     font-weight: 300;
     font-style: normal;
-    /* License to SSP (Source Serif Pro) available at https://tommander.cz/OFL.txt, obtained from https://fonts.google.com/specimen/Source+Serif+Pro */
   }
   @font-face {
     font-family: 'Source Serif Pro';
     src: url('source-serif/SourceSerifPro-LightItalic.ttf') format('truetype');
     font-weight: 300;
     font-style: italic;
-    /* License to SSP (Source Serif Pro) available at https://tommander.cz/OFL.txt, obtained from https://fonts.google.com/specimen/Source+Serif+Pro */
   }
   @font-face {
     font-family: 'Source Serif Pro';
     src: url('source-serif/SourceSerifPro-Regular.ttf') format('truetype');
     font-weight: 400;
     font-style: normal;
-    /* License to SSP (Source Serif Pro) available at https://tommander.cz/OFL.txt, obtained from https://fonts.google.com/specimen/Source+Serif+Pro */
   }
   @font-face {
     font-family: 'Source Serif Pro';
     src: url('source-serif/SourceSerifPro-Italic.ttf') format('truetype');
     font-weight: 400;
     font-style: italic;
-    /* License to SSP (Source Serif Pro) available at https://tommander.cz/OFL.txt, obtained from https://fonts.google.com/specimen/Source+Serif+Pro */
   }
   @font-face {
     font-family: 'Source Serif Pro';
     src: url('source-serif/SourceSerifPro-SemiBold.ttf') format('truetype');
     font-weight: 600;
     font-style: normal;
-    /* License to SSP (Source Serif Pro) available at https://tommander.cz/OFL.txt, obtained from https://fonts.google.com/specimen/Source+Serif+Pro */
   }
   @font-face {
     font-family: 'Source Serif Pro';
     src: url('source-serif/SourceSerifPro-SemiBoldItalic.ttf') format('truetype');
     font-weight: 600;
     font-style: italic;
-    /* License to SSP (Source Serif Pro) available at https://tommander.cz/OFL.txt, obtained from https://fonts.google.com/specimen/Source+Serif+Pro */
   }
   @font-face {
     font-family: 'Source Serif Pro';
     src: url('source-serif/SourceSerifPro-Bold.ttf') format('truetype');
     font-weight: 700;
     font-style: normal;
-    /* License to SSP (Source Serif Pro) available at https://tommander.cz/OFL.txt, obtained from https://fonts.google.com/specimen/Source+Serif+Pro */
   }
   @font-face {
     font-family: 'Source Serif Pro';
     src: url('source-serif/SourceSerifPro-BoldItalic.ttf') format('truetype');
     font-weight: 700;
     font-style: italic;
-    /* License to SSP (Source Serif Pro) available at https://tommander.cz/OFL.txt, obtained from https://fonts.google.com/specimen/Source+Serif+Pro */
   }
   @font-face {
     font-family: 'Source Serif Pro';
     src: url('source-serif/SourceSerifPro-Black.ttf') format('truetype');
     font-weight: 900;
     font-style: normal;
-    /* License to SSP (Source Serif Pro) available at https://tommander.cz/OFL.txt, obtained from https://fonts.google.com/specimen/Source+Serif+Pro */
   }
   @font-face {
     font-family: 'Source Serif Pro';
     src: url('source-serif/SourceSerifPro-BlackItalic.ttf') format('truetype');
     font-weight: 900;
     font-style: italic;
-    /* License to SSP (Source Serif Pro) available at https://tommander.cz/OFL.txt, obtained from https://fonts.google.com/specimen/Source+Serif+Pro */
   }

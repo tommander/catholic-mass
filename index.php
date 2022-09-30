@@ -38,13 +38,13 @@
             <span>P = <?= $md->repls('@{lblP}') ?></span>
             <span>A = <?= $md->repls('@{lblA}') ?></span>
             <span>R = <?= $md->repls('@{lblR}') ?></span>
-            <span>C = <?= $md->repls('@{lblC}') ?></span>
         </div>
     </nav>
     <main>
 		<?= $md->html(); ?>
     </main>
     <footer>
+		<div>
 		<span><?= $md->repls('@{license}');?>: <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU GPL v3</a></span>
         <span><?= $md->repls('@{source}');?>: <a href="https://github.com/tommander/catholic-mass">Repository at GitHub.com</a></span>
         <span><?= $md->repls('@{author}');?>: <a href="mailto:tommander@tommander.cz">Tomáš <q>Tommander</q> Rajnoha</a></span>
@@ -57,6 +57,7 @@
           <a href="<?= $info['link'] ?>"><?= $info['title'] ?></a>
         <?php endforeach; ?>
         </span>
+		</div>
     </footer>
   </body>
 </html>
