@@ -16,7 +16,7 @@ Therefore I would be more than grateful for a help!
 
 ## Documentation
 
-Under construction as of Oct 1.
+[Under construction as of Oct 1.](Documentation.md "Documentation to "Order of Mass"")
 
 ## Plan
 
