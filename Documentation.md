@@ -153,6 +153,92 @@ Now I mentioned that the texts array may contain either an object or another arr
 
 This means the priest first says "Let's begin with greetings". Afterwards there are two options - either everyone says "Hello", or the priest first says "Hello" and everyone responds "Hi". No matter which of these two options was chosen, the priest eventually says "Nice greetings".
 
-## Massdata.php
+## Massdata.php (class MassData)
 
-This file 
+This class implements all the functionality to convert JSON language files to resulting HTML and some supporting features.
+
+### Class variables
+
+ - **$tl** (string, public) - current language of texts (three letter code, 'eng' by default)
+ - **$ll** (string, public) - current language of labels (three letter code, 'eng' by default)
+ - **$langs** (array, public) - content of `langlist.json` decoded into an associative array
+ - **$labels** (array, public) - content of the 'labels' object in the current main language file
+ - **$icons** (array, private) - translation of icon IDs to respective Font Awesome CSS classes
+
+### Class methods
+
+#### __construct()
+
+Sets `$tl` and `$ll` and then loads content from language files to `$langs` and `$labels`.
+
+#### replcbs(array $matches): string
+
+Callback for the method `repl()`, which replaces label IDs with respective label texts.
+
+This is a callback for [PHP function `preg_replace_callback_array`](https://www.php.net/manual/en/function.preg-replace-callback-array).
+
+#### replcb(array $matches): string
+
+Same as `replcbs()`, but wraps the text in the `span` html tag.
+
+This is a callback for [PHP function `preg_replace_callback_array`](https://www.php.net/manual/en/function.preg-replace-callback-array).
+
+#### replico(array $matches): string
+
+Replace icon IDs with the `i` html tag (Font Awesome).
+
+This is a callback for [PHP function `preg_replace_callback_array`](https://www.php.net/manual/en/function.preg-replace-callback-array).
+
+#### repl(string $text)
+
+Regex replacement of label and icon placeholders (uses the method `replcb`).
+
+Example:
+
+	$labels = ['hello' => 'Hello again'];
+	...
+	repls("@{hello} @icon{peace}")
+		=> "<span class="command">Hello again</span> <i class="far fa-handshake"></i>"
+
+#### repls(string $text)
+
+Regex replacement of label and icon placeholders (uses the method `replcbs`).
+
+Example:
+
+	$labels = ['hello' => 'Hello again'];
+	...
+	repls("@{hello} @icon{peace}")
+		=> "Hello again <i class="far fa-handshake"></i>"
+
+#### link($label, $text)
+
+Creates a URL to this web app using specified labels and/or text language.
+
+If a parameter is an empty string, the current chosen (or default) language is used.
+
+Example:
+
+	link('', '')
+		=> "index.php?ll=eng&tl=eng"
+	link('ces', '')
+		=> "index.php?ll=ces&tl=eng"
+	link('', 'ces')
+		=> "index.php?ll=eng&tl=ces"
+
+#### kv2html($key, $val)
+
+Converts a JSON object to an HTML code.
+
+Example:
+
+	JSON:
+		{"a": "Hello"}
+	Call:
+		kv2html("a", "Hello"}
+	Result:
+		<div><span class="who">A:</span><span class="what">Hello</span></div>
+
+#### html()
+
+Return the order of mass in HTML based on the current chosen labels and text languages.
