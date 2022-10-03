@@ -2,9 +2,7 @@
 
 God bless you!
 
-This is a simple static web app for a roman-catholic Order of Mass in different languages with separate choice for labels and mass language.
-
-You can use this app e.g. when you're learning a new language or traveling abroad.
+This is a simple static web app for a Roman Catholic Order of Mass in different languages with separate choice for labels and mass language.
 
 This app is currently deployed on [mass.tommander.cz](https://mass.tommander.cz) and this deployment site should be just for <q>end-users</q>; if you need the content in your app or website, please fork or download this project's code instead, don't scrape it from that site. Thank you.
 
@@ -23,6 +21,7 @@ Therefore I would be more than grateful for a help!
 ## Plan
 
  - More languages (probably German, Italian and Spanish would be great for now)
+ - Include prayers (instead of "prayer" placeholders)
  - Rosary
  - WCAG 2.1 (AA) and HTML/CSS verification
  - Minor changes
