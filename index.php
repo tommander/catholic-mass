@@ -1,12 +1,26 @@
 <?php
+/**
+ * @package OrderOfMass
+ */
+
+	define('OOM_BASE', 'orderofmass');
+
 	//Include MassData class and create an instance
 	require(__DIR__.DIRECTORY_SEPARATOR.'massdata.php');
     $md = new MassData();
 
-	/* 
-	  This function includes a link to a particular commit that was deployed. File "commit" is not in the repository; it makes sense only in a particular deployment site.
+	require(__DIR__.DIRECTORY_SEPARATOR.'readings.php');
+    $mr = new MassReadings();
+	$md->reads = $mr->lectio();
 
-	  The function is quite strict, so if the file does not exist or does not contain precisely 40 hexadecimal characters (lowercase), it returns an empty string.
+	/**  
+	 * This function returns a link to a particular commit that was deployed.
+
+	 * The function is quite strict, so if the file does not exist or does not contain precisely 40 hexadecimal characters (lowercase), it returns an empty string.
+	 * 
+	 * Note that the file "commit" is not in the repository; it makes sense only in a particular deployment site.
+	 * 
+	 * @return string HTML link ("a" tag) to a particular deployed commit.
 	*/
 	function showCommit() {
 		$commitFileName = __DIR__.DIRECTORY_SEPARATOR.'commit';
@@ -24,7 +38,7 @@
 
 ?>
 <!DOCTYPE html>
-<html lang="<?= $md->repls('${html}') ?>">
+<html lang="<?= $md->repls('@{html}') ?>">
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -39,23 +53,26 @@
       <h1><?= $md->repls('@{heading}') ?></h1>
     </header>
     <nav>
-        <div>
-            <span><?= $md->repls('@{idxL}') ?></span>
-            <span><?= $md->repls('@{idxT}') ?></span>
+		<form name="langSel" action="index.php" method="get">
+        <div id="navLabels">
+            <label for="LABELS_SELECTION"><?= $md->repls('@{idxL}') ?></label>
+            <label for="TEXTS_SELECTION"><?= $md->repls('@{idxT}') ?></label>
         </div>
-        <div>
-            <div>
+        <div id="navLangs">
+				<select name="ll" id="LABELS_SELECTION" onchange="document.forms['langSel'].submit();">
                 <?php foreach ($md->langs as $code=>$info): ?>
-                <a href="<?= $md->link($code, '') ?>"<?= ($code == $md->ll) ? " class=\"selected\"" : "" ?>><?= htmlspecialchars($info['title']) ?></a>
+					<option value="<?= htmlspecialchars($code) ?>"<?= $code == $md->ll ? ' selected="selected"' : '' ?>><?= htmlspecialchars($info['title']) ?></option>
                 <?php endforeach; ?>
-            </div>
-            <div>
+				</select>
+				<div><?= $md->repls('@su{'.$mr->sundayLabel().'}'); ?></div>
+				<select name="tl" id="TEXTS_SELECTION" onchange="document.forms['langSel'].submit();">
                 <?php foreach ($md->langs as $code=>$info): ?>
-                <a href="<?= $md->link('', $code) ?>"<?= ($code == $md->tl) ? "class=\"selected\"" : "" ?>><?= htmlspecialchars($info['title']) ?></a>
+					<option value="<?= htmlspecialchars($code) ?>"<?= $code == $md->tl ? ' selected="selected"' : '' ?>><?= htmlspecialchars($info['title']) ?></option>
                 <?php endforeach; ?>
-            </div>
+				</select>
         </div>
-        <div>
+		</form>
+        <div id="navLegend">
             <span>P = <?= $md->repls('@{lblP}') ?></span>
             <span>A = <?= $md->repls('@{lblA}') ?></span>
             <span>R = <?= $md->repls('@{lblR}') ?></span>

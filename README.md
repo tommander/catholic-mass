@@ -24,9 +24,6 @@ Therefore I would be more than grateful for a help!
  - Include prayers (instead of "prayer" placeholders)
  - Rosary
  - WCAG 2.1 (AA) and HTML/CSS verification
- - Minor changes
-   - Dropdown menu for languages
-   - Better font
-   - Improvement of the design
+ - Design improvements
 
 I'm also considering including readings directly using self-hosted [Open Bibles](https://github.com/seven1m/open-bibles). It would however need more Bible translations. It also needs some machine-readable [lectionary](https://catholic-resources.org/Lectionary/), however, I'm not sure, how many different versions of lectionary there is, so along with all the possible Bible translatons, copyrights, manual work etc. it might be a big big task. So this is will most probably be started only after all the above points are done.

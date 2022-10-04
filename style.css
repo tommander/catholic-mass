@@ -42,15 +42,15 @@ nav div {
 	justify-content: space-between;
 }
 
-nav > div:first-child {
+#navLabels {
 	padding: 0.5em 1em 0 1em;
 }
 
-nav > div:nth-child(2n+0) {
-	padding: 0em 1em;
+#navLangs {
+	padding: 0em 1em 0 1em;
 }
 
-nav > div:last-child {
+#navLegend {
 	padding: 0.5em 1em;
 	border-top: 1px solid #765;
 	margin-top: 0.5em;
@@ -78,16 +78,13 @@ main {
 }
 
 main div {
-/*.sayA, .sayP, .sayR {*/
 	padding: 1em;
 }
 main div:nth-child(even) {
-	/*padding-left: 1em;*/
 	background-color: rgba(255, 255, 255, 0.2);
 }
 
 main div:nth-child(odd) {
-	/*padding-left: 1em;*/
 	background-color: rgba(255, 255, 255, 0.1);
 }
 
@@ -144,8 +141,22 @@ footer a, footer a:link, footer a:visited {
 	color: #fed;
 }
 footer a:hover {
-	color: #fed;
+	color: #ffe;
 }
 footer a:active {
 	color: #fed;
+}
+
+/* COMMON */
+
+a, a:link, a:visited {
+	color: #00c;
+}
+
+a:hover {
+	color: #44f;
+}
+
+a:active {
+	color: #00c;
 }

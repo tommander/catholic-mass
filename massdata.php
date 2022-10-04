@@ -1,17 +1,29 @@
 <?php
+/**
+ * @package OrderOfMass
+ */
+
+	if (!defined('OOM_BASE')) {
+		die('This file cannot be viewed independently.');
+	}
+
 	/**
 	 * Class that helps to convert language JSON files to HTML
 	 */ 
     class MassData {
-		/** Texts language */
+		/** @var string $tl Texts language */
         public $tl = 'eng';
-		/** Labels language */
+		/** @var string $ll Labels language */
         public $ll = 'eng';
-		/** List of languages (from data/langlist.json) */
+		/** @var array $langs List of languages (from data/langlist.json) */
 		public $langs = [];
-		/** List of labels (from data/lng.json) */
+		/** @var array $labels List of labels (from data/lng.json) */
 		private $labels = [];
-		/** List of Font Awesome icons [iconid => iconclass] */
+		/** */
+		private $sundays = [];
+		/** */
+		public $reads = [];
+		/** @var array $icons List of Font Awesome icons [iconid => iconclass] */
 		private $icons = [
 			'cross' => 'fas fa-cross',
 			'bible' => 'fas fa-bible',
@@ -27,7 +39,10 @@
 		];
 
 		/**
-		 * Sets {@see $tl} and {@see $ll} and then loads content from language files to {@see $langs} and {@see $labels}
+		 * Class constructor that initializes internal properties
+		 * 
+		 * Sets {@see MassData::$tl} and {@see MassData::$ll} and then loads content from language files to {@see MassData::$langs} and {@see MassData::$labels}
+		 * @return void
 		 */
         function __construct() {
 			$this->langs = $this->loadJson('langlist');
@@ -51,6 +66,9 @@
 			$tmp = $this->loadJson($this->ll);
 			if (array_key_exists('labels', $tmp) && is_array($tmp['labels'])) {
 				$this->labels = $tmp['labels'];
+			}
+			if (array_key_exists('sundays', $tmp) && is_array($tmp['sundays'])) {
+				$this->sundays = $tmp['sundays'];
 			}
 		}
 
@@ -77,10 +95,9 @@
 		/**
 		 * This function replaces label IDs with respective label texts.
 		 *
-		 * @param array $matches Matches of the regex function. Should contain at least two items (0th as the complete string and 1st as the matched label ID)
+		 * @param string[] $matches Matches of the regex function. Should contain at least two items (0th as the complete string and 1st as the matched label ID)
 		 * @return string Text of the label or "???" if the label ID is unknown or an empty string in case of an error
 		 * @see https://www.php.net/manual/en/function.preg-replace-callback-array
-		 * @used-by repls()
 		 */
         private function replcbs(array $matches):string {
 			if ((!is_array($this->labels)) || count($matches) < 2) {
@@ -92,11 +109,10 @@
 		/**
 		 * This function replaces label IDs with respective label texts.
 		 * 
-		 * It is actually the same as {@see replcbs()}, but it wraps the returned value in a "span" tag with the class "command".
+		 * It is actually the same as {@see MassData::replcbs()}, but it wraps the returned value in a "span" tag with the class "command".
 		 *
-		 * @param array $matches Matches of the regex function. Should contain at least two items (0th as the complete string and 1st as the matched label ID)
+		 * @param string[] $matches Matches of the regex function. Should contain at least two items (0th as the complete string and 1st as the matched label ID)
 		 * @return string Text of the label or "???" if the label ID is unknown or an empty string in case of an error, in every case wrapped as noted in the description
-		 * @used-by repl()
 		 * @see https://www.php.net/manual/en/function.preg-replace-callback-array
 		 */
 		private function replcb(array $matches):string {
@@ -104,12 +120,38 @@
         }
 
 		/**
+		 * This function replaces Sunday IDs with respective Sunday texts.
+		 *
+		 * @param string[] $matches Matches of the regex function. Should contain at least two items (0th as the complete string and 1st as the matched Sunday ID)
+		 * @return string Text of the Sunday or "???" if the Sunday ID is unknown or an empty string in case of an error
+		 * @see https://www.php.net/manual/en/function.preg-replace-callback-array
+		 */
+        private function replsu(array $matches):string {
+			if ((!is_array($this->sundays)) || count($matches) < 2) {
+				return '';
+			}
+            return array_key_exists($matches[1], $this->sundays) ? $this->sundays[$matches[1]] : "???";
+        }
+
+		/**
+		 * This function replaces reading IDs with respective reading texts.
+		 *
+		 * @param string[] $matches Matches of the regex function. Should contain at least two items (0th as the complete string and 1st as the matched reading ID)
+		 * @return string Text of the reading or "???" if the reading ID is unknown or an empty string in case of an error
+		 * @see https://www.php.net/manual/en/function.preg-replace-callback-array
+		 */
+        private function replre(array $matches):string {
+			if ((!is_array($this->reads)) || count($matches) < 2) {
+				return '';
+			}
+            return array_key_exists($matches[1], $this->reads) ? $this->reads[$matches[1]] : "???";
+        }
+
+		/**
 		 * This function replaces icon IDs with respective Font Awesome icons.
 		 *
-		 * @param array $matches Matches of the regex function. Should contain at least two items (0th as the complete string and 1st as the matched icon ID)
+		 * @param string[] $matches Matches of the regex function. Should contain at least two items (0th as the complete string and 1st as the matched icon ID)
 		 * @return string Font Awesome icon in the form of an "i" tag with the respective CSS class or an empty string in case of an error
-		 * @used-by repl()
-		 * @used-by repls()
 		 * @see https://www.php.net/manual/en/function.preg-replace-callback-array
 		 */
         private function replico(array $matches):string {
@@ -124,11 +166,16 @@
 		 * 
 		 * @param string $text Text that may contain label/icon placeholders
 		 * @return string Text with replaced label/icon placeholders
-		 * @uses replcb()
-		 * @uses replico()
+		 * @uses MassData::replcb()
+		 * @uses MassData::replico()
 		 */
         public function repl(string $text) {
-            return preg_replace_callback_array(['/@\{([A-Za-z0-9]+)\}/' => 'self::replcb', '/@icon\{([A-Za-z0-9]+)\}/' => 'self::replico'], htmlspecialchars($text));
+            return preg_replace_callback_array([
+				'/@\{([A-Za-z0-9]+)\}/' => 'self::replcb', 
+				'/@su\{([A-Za-z0-9]+)\}/' => 'self::replsu', 
+				'/@re\{([A-Za-z0-9]+)\}/' => 'self::replre', 
+				'/@icon\{([A-Za-z0-9]+)\}/' => 'self::replico'],
+				htmlspecialchars($text));
         }
 
 		/**
@@ -136,11 +183,16 @@
 		 * 
 		 * @param string $text Text that may contain label/icon placeholders
 		 * @return string Text with replaced label/icon placeholders
-		 * @uses replcbs()
-		 * @uses replico()
+		 * @uses MassData::replcbs()
+		 * @uses MassData::replico()
 		 */
         public function repls(string $text) {
-            return preg_replace_callback_array(['/@\{([A-Za-z0-9]+)\}/' => 'self::replcbs', '/@icon\{([A-Za-z0-9]+)\}/' => 'self::replico'], htmlspecialchars($text));
+            return preg_replace_callback_array([
+				'/@\{([A-Za-z0-9]+)\}/' => 'self::replcbs',
+				'/@su\{([A-Za-z0-9]+)\}/' => 'self::replsu',
+				'/@re\{([A-Za-z0-9]+)\}/' => 'self::replre', 
+				'/@icon\{([A-Za-z0-9]+)\}/' => 'self::replico'],
+				htmlspecialchars($text));
         }
 
 		/**
@@ -150,7 +202,7 @@
 		 * @param string $text Language for texts (default '' stands for current texts language)
 		 * @return string Relative URL to the web app page with chosen languages as GET parameters
 		 */
-        public function link($label = '', $text = '') {
+        public function link(string $label = '', string $text = ''):string {
             $putlabel = (preg_match('/^[a-z]{3}$/', $label)) ? $label : $this->ll;
             $puttext = (preg_match('/^[a-z]{3}$/', $text)) ? $text : $this->tl;
             return "index.php?ll=${putlabel}&tl=${puttext}";
@@ -161,9 +213,11 @@
 		 * 
 		 * JSON object stands for a single piece of text (prayer, command, response etc.)
 		 * 
-		 * @param string $key "Who says that" (a single letter or empty string for a command)
+		 * @param string $key "Who says that" (a single letter A/P/R, an empty string for a command or "reading" for a link to external site with Sunday readings)
+		 * @param string $val "What do they say" (command, sentence, prayer etc. including label and icon placeholders). In case the key param is "reading", this parameter is ignored.
+		 * @return string JSON object translated into an HTML code ("div" tag)
 		 */
-		private function kv2html($key, $val) {
+		private function kv2html(string $key, string $val):string {
 			$skey = htmlspecialchars($key);
 			$sval = htmlspecialchars($val);
 			$who = '';
@@ -186,7 +240,12 @@
 			return "<div${cls}>${who}<span class=\"what\">${what}</span></div>\r\n";
 		}
 
-		public function html() {
+		/**
+		 * This function builds the Order of Mass HTML based on the current text language ({@see MassData::$tl})
+		 * 
+		 * @return string Respective HTML code
+		 */
+		public function html(): string {
 			$texts = $this->loadJson($this->tl);
 
 			if (!array_key_exists('texts', $texts)) {
@@ -228,6 +287,5 @@
 
 			return $ret;
 		}
-
     }
 ?>
