@@ -25,6 +25,26 @@
 			}
 		}
 
+		public function todaysMystery() {
+			switch (date('w')) {
+				case 0: return 'g';
+				case 1: return 'j';
+				case 2: return 's';
+				case 3: return 'g';
+				case 4: return 'l';
+				case 5: return 's';
+				case 6: return 'j';
+			}
+		}
+
+		public function nextSunday() {
+			$time = time();
+			while (date('w', $time) != '0') {
+				$time += 86400;
+			}
+			return $time;
+		}
+
 		public function sundayLabel() {
 			$time = time();
 			while (date('w', $time) != '0') {

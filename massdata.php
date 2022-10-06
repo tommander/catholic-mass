@@ -22,6 +22,8 @@
 		/** */
 		private $sundays = [];
 		/** */
+		private $mysteries = [];
+		/** */
 		public $reads = [];
 		/** @var array $icons List of Font Awesome icons [iconid => iconclass] */
 		private $icons = [
@@ -69,6 +71,9 @@
 			}
 			if (array_key_exists('sundays', $tmp) && is_array($tmp['sundays'])) {
 				$this->sundays = $tmp['sundays'];
+			}
+			if (array_key_exists('mysteries', $tmp) && is_array($tmp['mysteries'])) {
+				$this->mysteries = $tmp['mysteries'];
 			}
 		}
 
@@ -134,6 +139,20 @@
         }
 
 		/**
+		 * This function replaces Mystery IDs with respective names of Mysteries of the Rosary.
+		 *
+		 * @param string[] $matches Matches of the regex function. Should contain at least two items (0th as the complete string and 1st as the matched Mystery ID)
+		 * @return string Name of the Mystery or "???" if the Mystery ID is unknown or an empty string in case of an error
+		 * @see https://www.php.net/manual/en/function.preg-replace-callback-array
+		 */
+        private function replmy(array $matches):string {
+			if ((!is_array($this->mysteries)) || count($matches) < 2) {
+				return '';
+			}
+            return array_key_exists($matches[1], $this->mysteries) ? $this->mysteries[$matches[1]] : "???";
+        }
+
+		/**
 		 * This function replaces reading IDs with respective reading texts.
 		 *
 		 * @param string[] $matches Matches of the regex function. Should contain at least two items (0th as the complete string and 1st as the matched reading ID)
@@ -174,6 +193,7 @@
 				'/@\{([A-Za-z0-9]+)\}/' => 'self::replcb', 
 				'/@su\{([A-Za-z0-9]+)\}/' => 'self::replsu', 
 				'/@re\{([A-Za-z0-9]+)\}/' => 'self::replre', 
+				'/@my\{([A-Za-z0-9]+)\}/' => 'self::replmy', 
 				'/@icon\{([A-Za-z0-9]+)\}/' => 'self::replico'],
 				htmlspecialchars($text));
         }
@@ -191,6 +211,7 @@
 				'/@\{([A-Za-z0-9]+)\}/' => 'self::replcbs',
 				'/@su\{([A-Za-z0-9]+)\}/' => 'self::replsu',
 				'/@re\{([A-Za-z0-9]+)\}/' => 'self::replre', 
+				'/@my\{([A-Za-z0-9]+)\}/' => 'self::replmy', 
 				'/@icon\{([A-Za-z0-9]+)\}/' => 'self::replico'],
 				htmlspecialchars($text));
         }
@@ -240,20 +261,25 @@
 			return "<div${cls}>${who}<span class=\"what\">${what}</span></div>\r\n";
 		}
 
+		public function isRosary() {
+			return array_key_exists('sn', $_GET) && $_GET['sn'] == 'rosary';
+		}
+
 		/**
 		 * This function builds the Order of Mass HTML based on the current text language ({@see MassData::$tl})
 		 * 
 		 * @return string Respective HTML code
 		 */
 		public function html(): string {
+			$section = $this->isRosary() ? 'rosary' : 'texts';
 			$texts = $this->loadJson($this->tl);
 
-			if (!array_key_exists('texts', $texts)) {
+			if (!array_key_exists($section, $texts)) {
 				return '';
 			}
 
 			$ret = '';
-			foreach ($texts['texts'] as $one) {
+			foreach ($texts[$section] as $one) {
 				if (!is_array($one)) {
 					continue;
 				}

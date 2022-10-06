@@ -2,12 +2,18 @@
     "eng": {
         "title": "English",
         "author": "Tommander",
-        "link": "https://www.catholicbishops.ie/wp-content/uploads/2011/02/Order-of-Mass.pdf"
+        "link": [
+			"https://www.catholicbishops.ie/wp-content/uploads/2011/02/Order-of-Mass.pdf",
+			"https://www.usccb.org/how-to-pray-the-rosary"
+		]
     },
     "ces": {
         "title": "Čeština",
         "author": "Tommander",
-        "link": "https://www.cirkev.cz/cs/mse-svata"
+        "link": [
+			"https://www.cirkev.cz/cs/mse-svata",
+			"https://www.cirkev.cz/cs/modlitba2"
+		]
     },
     "tgl": {
         "title": "Tagalog",
@@ -16,7 +22,8 @@
             "https://en.wiktionary.org/wiki/Appendix:Tagalog_Roman_Catholic_prayers",
             "http://justus.anglican.org/resources/bcp/tagalog_HC.html",
             "https://ourparishpriest.blogspot.com/2018/12/holy-mass-in-filipino-tagalog.html",
-            "https://philippinemissalettes.wordpress.com/sambuhay-missalette/sambuhay-tagalog/"
+            "https://philippinemissalettes.wordpress.com/sambuhay-missalette/sambuhay-tagalog/",
+			"http://www.marysrosaries.com/Tagalog_prayers.html"
         ]
     }
 }

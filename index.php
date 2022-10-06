@@ -43,19 +43,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $md->repls('@{heading}') ?></title>
+    <title><?= $md->isRosary() ? $md->repls('@{rosary}') : $md->repls('@{heading}') ?></title>
     <link rel="stylesheet" href="fonts.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="fontawesome/css/all.css">
   </head>
   <body>
     <header>
-      <h1><?= $md->repls('@{heading}') ?></h1>
+      <h1><?= $md->isRosary() ? $md->repls('@{rosary}') : $md->repls('@{heading}') ?></h1>
     </header>
     <nav>
 		<form name="langSel" action="index.php" method="get">
         <div id="navLabels">
             <label for="LABELS_SELECTION"><?= $md->repls('@{idxL}') ?></label>
+            <label for="TYPE_SELECTION"><?= $md->repls('@{idxY}') ?></label>
             <label for="TEXTS_SELECTION"><?= $md->repls('@{idxT}') ?></label>
         </div>
         <div id="navLangs">
@@ -64,7 +65,10 @@
 					<option value="<?= htmlspecialchars($code) ?>"<?= $code == $md->ll ? ' selected="selected"' : '' ?>><?= htmlspecialchars($info['title']) ?></option>
                 <?php endforeach; ?>
 				</select>
-				<div><?= $md->repls('@su{'.$mr->sundayLabel().'}'); ?></div>
+				<select name="sn" id="TYPE_SELECTION" onchange="document.forms['langSel'].submit();">
+					<option value="mass"<?= $md->isRosary() ? "" : " selected=\"selected\"" ?>><?= $md->repls('@{heading}') ?></option>
+					<option value="rosary"<?= $md->isRosary() ? " selected=\"selected\"" : "" ?>><?= $md->repls('@{rosary}') ?></option>
+				</select>
 				<select name="tl" id="TEXTS_SELECTION" onchange="document.forms['langSel'].submit();">
                 <?php foreach ($md->langs as $code=>$info): ?>
 					<option value="<?= htmlspecialchars($code) ?>"<?= $code == $md->tl ? ' selected="selected"' : '' ?>><?= htmlspecialchars($info['title']) ?></option>
@@ -77,6 +81,15 @@
             <span>A = <?= $md->repls('@{lblA}') ?></span>
             <span>R = <?= $md->repls('@{lblR}') ?></span>
         </div>
+		<div id="navDate">
+		<?php if ($md->isRosary()): ?>
+			<div><?= date('d.m.Y') ?></div>
+			<div><?= $md->repls('@my{'.$mr->todaysMystery().'}') ?></div>
+		<?php else: ?>
+			<div><?= date('d.m.Y', $mr->nextSunday()) ?></div>
+			<div><?= $md->repls('@su{'.$mr->sundayLabel().'}') ?></div>
+		<?php endif; ?>
+		</div>
     </nav>
     <main>
 		<?= $md->html(); ?>
