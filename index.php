@@ -92,7 +92,7 @@
 		</div>
     </nav>
     <main>
-		<?= $md->html(); ?>
+		<?= $md->htmlObj(); ?>
     </main>
     <footer>
 		<div>

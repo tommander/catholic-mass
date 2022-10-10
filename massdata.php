@@ -25,6 +25,8 @@
 		private $mysteries = [];
 		/** */
 		public $reads = [];
+		/** */
+		public $bible = [];
 		/** @var array $icons List of Font Awesome icons [iconid => iconclass] */
 		private $icons = [
 			'cross' => 'fas fa-cross',
@@ -75,6 +77,9 @@
 			if (array_key_exists('mysteries', $tmp) && is_array($tmp['mysteries'])) {
 				$this->mysteries = $tmp['mysteries'];
 			}
+			if (array_key_exists('bible', $tmp) && is_array($tmp['bible'])) {
+				$this->bible = $tmp['bible'];
+			}
 		}
 
 		/**
@@ -83,18 +88,34 @@
 		 * @param string $fileName Name of the file, without directory and extension
 		 * @return array Content of the file or an empty array
 		 */
-		private function loadJson(string $fileName):array {
+		private function loadJson(string $fileName, $assoc = true):array|object {
 			$aFile = __DIR__.DIRECTORY_SEPARATOR.'data'.DIRECTORY_SEPARATOR.$fileName.'.json';
 			if (file_exists($aFile)) {
 				$aFileCont = file_get_contents($aFile);
 				if ($aFileCont !== FALSE) {
-					$a = json_decode($aFileCont, true);
-					if ($a !== NULL && is_array($a)) {
+					$a = json_decode($aFileCont, $assoc);
+					if ($a !== NULL) {
 						return $a;
 					}	
 				}		
 			}
 			return [];
+		}
+	
+		private function replbb($ref) {
+			if (preg_match('/^([A-Za-z0-9]+)\s+(.*)$/', $ref, $m) !== 1) {
+				return $ref;
+			}
+			if (count($m) < 3) {
+				return $ref;
+			}
+			if (!array_key_exists($m[1], $this->bible)) {
+				return $ref;
+			}
+			if (!array_key_exists('abbr', $this->bible[$m[1]])) {
+				return $ref;
+			}
+			return '@bib['.$this->bible[$m[1]]['title'].']{'.$this->bible[$m[1]]['abbr'].' '.$m[2].'}';
 		}
 
 		/**
@@ -152,6 +173,13 @@
             return array_key_exists($matches[1], $this->mysteries) ? $this->mysteries[$matches[1]] : "???";
         }
 
+		private function replbib(array $matches):string {
+			if (count($matches) < 3) {
+				return '';
+			}
+			return sprintf("<abbr title=\"%s\">%s</abbr>", $matches[1], $matches[2]);
+		}
+
 		/**
 		 * This function replaces reading IDs with respective reading texts.
 		 *
@@ -159,11 +187,34 @@
 		 * @return string Text of the reading or "???" if the reading ID is unknown or an empty string in case of an error
 		 * @see https://www.php.net/manual/en/function.preg-replace-callback-array
 		 */
-        private function replre(array $matches):string {
-			if ((!is_array($this->reads)) || count($matches) < 2) {
-				return '';
+        private function replre(string $which):object|array {
+            if (!array_key_exists($which, $this->reads)) {
+				return '???';
 			}
-            return array_key_exists($matches[1], $this->reads) ? $this->reads[$matches[1]] : "???";
+			$icon = '';
+			switch ($which) {
+				case 'r1': $icon = '@{read1} '; break;
+				case 'r2': $icon = '@{read2} '; break;
+				case 'p': $icon = '@{psalm} '; break;
+				case 'a': $icon = '@{alleluia} '; break;
+				case 'g': $icon = '@{readE} ';
+			}
+
+			$ret = $this->reads[$which];
+			if (is_string($ret)) {
+				$obj = new StdClass();
+				$obj->r = '@icon{bible} '.$icon.' ['.$this->replbb($ret).']';
+				return $obj;
+			} elseif (is_array($ret)) {
+				$rtn = [];
+				foreach ($ret as $one) {
+					$obj = new StdClass();
+					$obj->r = '@icon{bible} '.$icon.' ['.$this->replbb($one).']';
+					$rtn[] = $obj;
+				}
+				return $rtn;
+			}
+			return [];
         }
 
 		/**
@@ -192,8 +243,8 @@
             return preg_replace_callback_array([
 				'/@\{([A-Za-z0-9]+)\}/' => 'self::replcb', 
 				'/@su\{([A-Za-z0-9]+)\}/' => 'self::replsu', 
-				'/@re\{([A-Za-z0-9]+)\}/' => 'self::replre', 
 				'/@my\{([A-Za-z0-9]+)\}/' => 'self::replmy', 
+				'/@bib\[([^\]]+)\]\{([^\}]+)\}/' => 'self::replbib', 
 				'/@icon\{([A-Za-z0-9]+)\}/' => 'self::replico'],
 				htmlspecialchars($text));
         }
@@ -210,107 +261,67 @@
             return preg_replace_callback_array([
 				'/@\{([A-Za-z0-9]+)\}/' => 'self::replcbs',
 				'/@su\{([A-Za-z0-9]+)\}/' => 'self::replsu',
-				'/@re\{([A-Za-z0-9]+)\}/' => 'self::replre', 
 				'/@my\{([A-Za-z0-9]+)\}/' => 'self::replmy', 
 				'/@icon\{([A-Za-z0-9]+)\}/' => 'self::replico'],
 				htmlspecialchars($text));
         }
 
-		/**
-		 * Creates a URL to this web app using specified labels and/or text language.
-		 *
-		 * @param string $label Language for labels (default '' stands for current labels language)
-		 * @param string $text Language for texts (default '' stands for current texts language)
-		 * @return string Relative URL to the web app page with chosen languages as GET parameters
-		 */
-        public function link(string $label = '', string $text = ''):string {
-            $putlabel = (preg_match('/^[a-z]{3}$/', $label)) ? $label : $this->ll;
-            $puttext = (preg_match('/^[a-z]{3}$/', $text)) ? $text : $this->tl;
-            return "index.php?ll=${putlabel}&tl=${puttext}";
-        }
-
-		/**
-		 * Converts a JSON object to an HTML code.
-		 * 
-		 * JSON object stands for a single piece of text (prayer, command, response etc.)
-		 * 
-		 * @param string $key "Who says that" (a single letter A/P/R, an empty string for a command or "reading" for a link to external site with Sunday readings)
-		 * @param string $val "What do they say" (command, sentence, prayer etc. including label and icon placeholders). In case the key param is "reading", this parameter is ignored.
-		 * @return string JSON object translated into an HTML code ("div" tag)
-		 */
-		private function kv2html(string $key, string $val):string {
-			$skey = htmlspecialchars($key);
-			$sval = htmlspecialchars($val);
-			$who = '';
-			$what = '';
-			$cls = '';
-			if ($skey == 'reading') {
-				$what = "<a href=\"".$this->repls('@{dbrlink}')."\">".$this->repls('@icon{booklink} @{dbrtext}')."</a>";
-			} else {
-				$who = $skey;
-				$what = $this->repl($sval);
-				if (strcasecmp($who, 'a') === 0) {
-					$what = "<strong>${what}</strong>";
-				}
-			}
-			if ($who != '') {
-				$who = "<span class=\"who\">${who}:</span>";
-			} else {
-				$cls = " class=\"command\"";
-			}
-			return "<div${cls}>${who}<span class=\"what\">${what}</span></div>\r\n";
-		}
-
 		public function isRosary() {
 			return array_key_exists('sn', $_GET) && $_GET['sn'] == 'rosary';
 		}
 
-		/**
-		 * This function builds the Order of Mass HTML based on the current text language ({@see MassData::$tl})
-		 * 
-		 * @return string Respective HTML code
-		 */
-		public function html(): string {
-			$section = $this->isRosary() ? 'rosary' : 'texts';
-			$texts = $this->loadJson($this->tl);
+		public function objToHtml2(object $obj): string {
+			$who = '';
+			$what = '';
+			if (isset($obj->reading)) {
+				$what = "<a href=\"".$this->repls('@{dbrlink}')."\">".$this->repls('@icon{booklink} @{dbrtext}')."</a>";
+			} elseif (isset($obj->{""})) {
+				$what = $this->repl($obj->{""});
+			} elseif (isset($obj->{"p"})) {
+				$who = "<span class=\"who\">P:</span>";
+				$what = $this->repl($obj->{"p"});
+			} elseif (isset($obj->{"a"})) {
+				$who = "<span class=\"who\">A:</span>";
+				$what = "<strong>".$this->repl($obj->{"a"})."</strong>";
+			} elseif (isset($obj->{"r"})) {
+				$who = "<span class=\"who\">R:</span>";
+				$what = $this->repl($obj->{"r"});
+			}
 
-			if (!array_key_exists($section, $texts)) {
-				return '';
+			$cls = ($who == '') ? " class=\"command\"" : "";
+			return "<div${cls}>${who}<span class=\"what\">${what}</span></div>\r\n";
+		}
+
+		public function parseToHtml($row, $deep = true) {
+			if (is_object($row) && isset($row->read)) {
+				return $this->parseToHtml($this->replre($row->read));
+			} elseif (is_object($row)) {
+				return $this->objToHtml2($row);
+			} elseif (is_array($row)) {
+				$ret = $deep ? "<div class=\"options\">\r\n" : '';
+				foreach ($row as $rowrow) {
+					$ret .= $deep ? "<div>\r\n" : '';
+					$ret .= $this->parseToHtml($rowrow, false);
+					$ret .= $deep ? "</div>\r\n" : '';
+				}
+				$ret .= $deep ? "</div>\r\n" : '';
+				return $ret;
+			}
+
+		}
+
+		public function htmlObj(): string {
+			$section = $this->isRosary() ? 'rosary' : 'texts';
+			$texts = $this->loadJson($this->tl, false);
+
+			if (!isset($texts->{$section}) || !is_array($texts->{$section})) {
+				return var_export($texts, true);
 			}
 
 			$ret = '';
-			foreach ($texts[$section] as $one) {
-				if (!is_array($one)) {
-					continue;
-				}
-				
-				if (count($one) == 1) {
-					foreach($one as $k=>$v) {
-						$ret .= $this->kv2html($k, $v);
-					}
-					continue;
-				}
-
-				$ret .= "<div class=\"options\">\r\n";
-				foreach ($one as $oneone) {
-					$ret .= "<div>\r\n";
-					if (count($oneone) == 1) {
-						foreach($oneone as $k=>$v) {
-							$ret .= $this->kv2html($k, $v);
-						}
-					} else {
-						foreach ($oneone as $oneoneone) {
-							foreach($oneoneone as $k=>$v) {
-								$ret .= $this->kv2html($k, $v);
-							}
-	
-						}
-					}
-					$ret .= "</div>\r\n";
-				}
-				$ret .= "</div>\r\n";
+			foreach ($texts->{$section} as $row) {
+				$ret .= $this->parseToHtml($row);
 			}
-
 			return $ret;
 		}
     }
