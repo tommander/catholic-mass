@@ -4,6 +4,7 @@
 		"idxL": "Popisky",
 		"idxT": "Texty",
 		"idxY": "Typ",
+		"idxB": "Bible",
 		"alleluia": "Alleluia",
 		"heading": "Mše",
 		"prayer": "Modlitba",
@@ -394,8 +395,8 @@
 		"Mal": {"abbr": "Mal", "title": "Malachjáš"},
 
 		"Matt": {"abbr": "Mt", "title": "Matouš"},
-		"Mark": {"abbr": "Mk", "title": "Marek"},
-		"Luke": {"abbr": "L", "title": "Lukáš"},
+		"Mark": {"abbr": "Mr", "title": "Marek"},
+		"Luke": {"abbr": "Lk", "title": "Lukáš"},
 		"John": {"abbr": "J", "title": "Jan"},
 		"Acts": {"abbr": "Sk", "title": "Skutky apoštolů"},
 		"Rom": {"abbr": "Ř", "title": "Římanům"},

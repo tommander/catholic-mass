@@ -4,6 +4,7 @@
 		"idxL": "Labels",
 		"idxT":  "Texts",
 		"idxY":  "Type",
+		"idxB": "Bible",
 		"alleluia": "Alleluia",
 		"heading": "Mass",
 		"prayer": "Prayer",
@@ -125,32 +126,17 @@
 		{"a": "We lift them up to the Lord."},
 		{"p": "Let us give thanks to the Lord our God."},
 		{"a": "It is right and just."},
-		[
-			{"p": "It is truly right and just to give you thanks and raise to you a hymn of glory and praise, O Lord, Father of infinite goodness. For by the word of your Son’s Gospel you have brought together one Church from every people, tongue, and nation, and, having filled her with life by the power of your Spirit, you never cease through her to gather the whole human race into one. Manifesting the covenant of your love, she dispenses without ceasing the blessed hope of your Kingdom and shines bright as the sign of your faithfulness, which in Christ Jesus our Lord you promised would last for eternity. And so, with all the Powers of heaven, we worship you constantly on earth, while, with all the Church, as one voice we acclaim:"},
-			{"p": "It is truly right and just, our duty and our salvation, always and everywhere to give you thanks, Lord, holy Father, creator of the world and source of all life. For you never forsake the works of your wisdom, but by your providence are even now at work in our midst. With mighty hand and outstretched arm you led your people Israel through the desert. Now, as your Church makes her pilgrim journey in the world, you always accompany her by the power of the Holy Spirit and lead her along the paths of time to the eternal joy of your Kingdom, through Christ our Lord. And so, with the Angels and Saints, we, too, sing the hymn of your glory, as without end we acclaim:"},
-			{"p": "It is truly right and just, our duty and our salvation, always and everywhere to give you thanks, holy Father, Lord of heaven and earth, through Christ our Lord. For by your Word you created the world and you govern all things in harmony. You gave us the same Word made flesh as Mediator, and he has spoken your words to us and called us to follow him. He is the way that leads us to you, the truth that sets us free, the life that fills us with gladness. Through your Son you gather men and women, whom you made for the glory of your name, into one family, redeemed by the Blood of his Cross and signed with the seal of the Spirit. Therefore now and for ages unending, with all the Angels, we proclaim your glory, as in joyful celebration we acclaim:"},
-			{"p": "It is truly right and just, our duty and our salvation, always and everywhere to give you thanks, Father of mercies and faithful God. For you have given us Jesus Christ, your Son, as our Lord and Redeemer. He always showed compassion for children and for the poor, for the sick and for sinners, and he became a neighbor to the oppressed and the afflicted. By word and deed he announced to the world that you are our Father and that you care for all your sons and daughters. And so, with all the Angels and Saints, we exalt and bless your name and sing the hymn of your glory, as without end we acclaim:"}
-		],
+		{"p": "@{prayer}"},
 		{"a": "Holy, Holy, Holy Lord God of hosts. Heaven and earth are full of your glory. Hosanna in the highest. Blessed is he who comes in the name of the Lord. Hosanna in the highest."},
 		{"": "@icon{kneel} @{lkneel}"},
-		{"p": "You are indeed Holy and to be glorified, O God, who love the human race and who always walk with us on the journey of life. Blessed indeed is your Son, present in our midst when we are gathered by his love, and when, as once for the disciples, so now for us, he opens the Scriptures and breaks the bread. Therefore, Father most merciful, we ask that you send forth your Holy Spirit to sanctify these gifts of bread and wine, that they may become for us @icon{cross} the Body and Blood of our Lord Jesus Christ. On the day before he was to suffer, on the night of the Last Supper, he took bread and said the blessing, broke the bread and gave it to his disciples, saying:"},
-		{"p": "Take this, all of you, and eat of it, for this is my body, which will be given up for you."},
-		{"p": "In a similar way, when supper was ended, he took the chalice, gave you thanks and gave the chalice to his disciples, saying:"},
-		{"p": "Take this, all of you, and drink from it, for this is the chalice of my blood, the blood of the new and eternal covenant, which will be poured out for you and for many for the forgiveness of sins. Do this in memory of me."},
+		{"p": "@{prayer}"},
 		{"p": "The mystery of faith."},
 		[
 			{"a": "We proclaim your Death, O Lord, and profess your Resurrection  until you come again."},
 			{"a": "When we eat this Bread and drink this Cup, we proclaim your Death, O Lord, until you come again."},
 			{"a": "Save us, Saviour of the world, for by your Cross and Resurrection you have set us free."}
 		],
-		{"p": "Therefore, holy Father, as we celebrate the memorial of Christ your Son, our Savior, whom you led through his Passion and Death on the Cross to the glory of the Resurrection, and whom you have seated at your right hand, we proclaim the work of your love until he comes again and we offer you the Bread of life and the Chalice of blessing. Look with favor on the oblation of your Church, in which we show forth the paschal Sacrifice of Christ that has been handed on to us, and grant that, by the power of the Spirit of your love, we may be counted now and until the day of eternity among the members of your Son, in whose Body and Blood we have communion."},
-		[
-			{"p": "Lord, renew your Church by the light of the Gospel. Strengthen the bond of unity between the faithful and the pastors of your people, together with Francis our Pope, *N* our Bishop, and the whole Order of Bishops, that in a world torn by strife your people may shine forth as a prophetic sign of unity and concord."},
-			{"p": "And so, having called us to your table, Lord, confirm us in unity, so that, together with Francis our Pope and *N* our Bishop, with all Bishops, Priests and Deacons, and your entire people, as we walk your ways with faith and hope, we may strive to bring joy and trust into the world."},
-			{"p": "By our partaking of this mystery, almighty Father, give us life through your Spirit, grant that we may be conformed to the image of your Son, and confirm us in the bond of communion, together with Francis our Pope and *N* our Bishop, with all other Bishops, with Priests and Deacons, and with your entire people. Grant that all the faithful of the Church, looking into the signs of the times by the light of faith, may constantly devote themselves to the service of the Gospel. Keep us attentive to the needs of all that, sharing their grief and pain, their joy and hope, we may faithfully bring them the good news of salvation and go forward with them along the way of your Kingdom."},
-			{"p": "Bring your Church, O Lord, to perfect faith and charity, together with Francis our Pope and *N* our Bishop, with all Bishops, Priests and Deacons, and the entire people you have made your own. Open our eyes to the needs of our brothers and sisters; inspire in us words and actions to comfort those who labor and are burdened. Make us serve them truly, after the example of Christ and at his command. And may your Church stand as a living witness to truth and freedom, to peace and justice, that all people may be raised up to a new hope."}
-		],
-		{"p": "Remember our brothers and sisters, who have fallen asleep in the peace of your Christ, and all the dead, whose faith you alone have known. Admit them to rejoice in the light of your face, and in the resurrection give them the fullness of life. Grant also to us, when our earthly pilgrimage is done, that we may come to an eternal dwelling place and live with you for ever; there, in communion with the Blessed Virgin Mary, Mother of God, with the Apostles and Martyrs, and with all the Saints, we shall praise and exalt you through Jesus Christ, your Son."},
+		{"p": "@{prayer}"},
 		{"p": "Through him, and with him, and in him, O God, almighty Father, in the unity of the Holy Spirit, all glory and honour is yours, for ever and ever."},
 		{"a": "Amen."},
 		{"": "@icon{stand} @{lstand}"},
