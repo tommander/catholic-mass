@@ -1,5 +1,9 @@
 <?php
 
+if (!defined('OOM_BASE')) {
+	die('This file cannot be viewed independently.');
+}
+
 /**
  * Parse single string reference to elementary parts
  * 

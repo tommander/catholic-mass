@@ -3,9 +3,9 @@
  * @package OrderOfMass
  */
 
-	if (!defined('OOM_BASE')) {
-		die('This file cannot be viewed independently.');
-	}
+if (!defined('OOM_BASE')) {
+	die('This file cannot be viewed independently.');
+}
 
 	/**
 	 * Class that does something
@@ -16,7 +16,7 @@
 		function __construct() {
 			$year = date('Y');
 //			$year = '2023';
-			$calFile = __DIR__.DIRECTORY_SEPARATOR.'lectionaries'.DIRECTORY_SEPARATOR.'year'.$year.'.json';
+			$calFile = __DIR__.'/../lectionaries/year'.$year.'.json';
 			if (!file_exists($calFile)) {
 				$this->cal = $this->calendar($year);
 				file_put_contents($calFile, json_encode($this->cal));
@@ -69,7 +69,7 @@
 				return;
 			}
 
-			$lectFile = __DIR__.DIRECTORY_SEPARATOR.'lectionaries'.DIRECTORY_SEPARATOR.'lectionary.json';
+			$lectFile = __DIR__.'/../lectionaries/lectionary.json';
 			$lect = $this->loadJson($lectFile);
 			if (count($lect) == 0) {
 				return;

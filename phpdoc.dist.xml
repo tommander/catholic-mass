@@ -11,5 +11,10 @@
     </paths>
     <version number="latest">
 		<folder>latest</folder>
+		<api format="php">
+			<ignore hidden="true" symlinks="true">
+				<path>vendor/**/*</path>
+			</ignore>
+		</api>
     </version>
 </phpdocumentor>

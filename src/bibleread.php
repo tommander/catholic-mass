@@ -11,11 +11,11 @@
  * @link     mass.tommander.cz
  */
 
-//if (!defined('OOM_BASE')) {
-//    die('This file cannot be viewed independently.');
-//}
+if (!defined('OOM_BASE')) {
+    die('This file cannot be viewed independently.');
+}
 
-require 'biblerefparser.php';
+require __DIR__.'/biblerefparser.php';
 
 /**
  * Hello
@@ -25,82 +25,44 @@ require 'biblerefparser.php';
  * @author   Tommander <tommander@tommander.cz>
  * @license  GPL 3.0 https://www.gnu.org/licenses/gpl-3.0.html
  * @link     mass.tommander.cz
- */
-/*interface BibleRead
-{*/
-    
-    /**
-     * Hello
-     * 
-     * @param string $file Comment
-     */
-//    function __construct(string $file);
-
-    /**
-     * Short description
-     * 
-     * @param string $ref Reference
-     * 
-     * @return string|array Text of the reference
-     * 
-     * @access public
-     */
-//    function getByRef($ref);
-/* }*/
-
-/**
- * 
  */
 class CommonBible
 {
-    
-}
 
-/**
- * Hello
- *
- * @category FileReader
- * @package  OrderOfMass
- * @author   Tommander <tommander@tommander.cz>
- * @license  GPL 3.0 https://www.gnu.org/licenses/gpl-3.0.html
- * @link     mass.tommander.cz
- */
-class ZefaniaBible extends CommonBible // implements BibleRead
-{
     /**
-     * Hello
+     * Path to the Bible XML
      * 
-     * @var [type]
+     * @var string $_bibFile
      */
     private $_bibFile;
 
     /**
-     * Hello
+     * Parsed verse references
      * 
-     * @var [type]
+     * @var array $_parsedRef
      */
     private $_parsedRef;
 
     /**
-     * Hello
+     * Current book and chapter
      * 
-     * @var [type]
+     * @var array $_current
      */
     private $_current;
 
     /**
-     * Hello
+     * Type of XML (Zefania, USFX, OSIS)
      * 
-     * @var [type]
+     * @var int $_type
      */
-    //private $_textRef;
+    private $_type;
 
     /**
-     * Hello
+     * Reference to the variable, where to store correct verse text
      * 
-     * @var [type]
+     * @var string $_textRef
      */
-    public $brlog;
+    //private $_textRef;
 
     /**
      * Hello
@@ -115,20 +77,26 @@ class ZefaniaBible extends CommonBible // implements BibleRead
             'book' => '',
             'chap' => ''
         ];
-        //$this->_textRef = null;
-        $this->brlog = '';
+        if (preg_match('/zefania.xml$/', $this->_bibFile)) {
+            $this->_type = 0;
+        } elseif (preg_match('/usfx.xml$/', $this->_bibFile)) {
+            $this->_type = 1;
+        } elseif (preg_match('/osis.xml$/', $this->_bibFile)) {
+            $this->_type = 2;
+        }
+
     }
 
     /**
      * Hello
      * 
-     * @param XMLParser $parser  Hello
+     * @param XMLParser|resource $parser  Hello
      * @param string    $name    Hello
      * @param array     $attribs Hello
      * 
      * @return [type]
      */
-    private function _startHdl(XMLParser $parser, string $name, array $attribs)
+    private function _startHdl0($parser, string $name, array $attribs)
     {
         if ($name == 'BIBLEBOOK' && array_key_exists('BSNAME', $attribs)) {
             $this->_current['book'] = $attribs['BSNAME'];
@@ -149,161 +117,7 @@ class ZefaniaBible extends CommonBible // implements BibleRead
         }
     }
 
-    /**
-     * Hello
-     * 
-     * @param XMLParser $parser Hello
-     * @param string    $name   Hello
-     * 
-     * @return [type]
-     */
-    private function _endHdl(XMLParser $parser, string $name)
-    {
-        if ($name == 'BIBLEBOOK') {
-            $this->_current['book'] = '';
-        } elseif ($name == 'CHAPTER') {
-            $this->_current['chap'] = '';
-        } elseif ($name == 'VERS' && isset($this->_textRef)) {
-            $this->_textRef .= ' ';
-            unset($this->_textRef);// = null;
-        }
-    }
-
-    /**
-     * Hello
-     * 
-     * @param XMLParser $parser Hello
-     * @param string    $data   Hello
-     * 
-     * @return [type]
-     */
-    private function _midHdl(XMLParser $parser, string $data)
-    {
-        if (isset($this->_textRef)/* !== null*/) {
-            $this->_textRef .= $data;
-        }
-    }
-
-    /**
-     * Short description
-     * 
-     * @param string|string[] $ref Reference
-     * 
-     * @return string Text of the reference
-     * 
-     * @access public
-     */
-    function getByRef($ref)
-    {
-        if (!file_exists($this->_bibFile)) {
-            return '';
-        }
-
-        $this->_parsedRef = parseRefs($ref);
-        
-        $stream = fopen($this->_bibFile, 'r');
-        $parser = xml_parser_create();
-
-        xml_set_element_handler(
-            $parser, 
-            array($this, '_startHdl'),
-            array($this, '_endHdl')
-        );
-        xml_set_default_handler($parser, array($this, '_midHdl'));
-
-        while (($data = fread($stream, 16384))) {
-            xml_parse($parser, $data); // parse the current chunk
-        }
-
-        xml_parse($parser, '', true); // finalize parsing
-        xml_parser_free($parser);
-        fclose($stream);
-        unset($data);
-
-        $text = '';
-        foreach ($this->_parsedRef as $refK=>$refV) {
-            foreach ($refV as $refA) {
-                $text .= $refA[3];
-            }
-        }
-
-        return trim($text);
-    }
-}
-
-/**
- * Hello
- *
- * @category FileReader
- * @package  OrderOfMass
- * @author   Tommander <tommander@tommander.cz>
- * @license  GPL 3.0 https://www.gnu.org/licenses/gpl-3.0.html
- * @link     mass.tommander.cz
- */
-class UsfxBible extends CommonBible //implements BibleRead
-{
-    /**
-     * Hello
-     * 
-     * @var [type]
-     */
-    private $_bibFile;
-
-    /**
-     * Hello
-     * 
-     * @var [type]
-     */
-    private $_parsedRef;
-
-    /**
-     * Hello
-     * 
-     * @var [type]
-     */
-    private $_current;
-
-    /**
-     * Hello
-     * 
-     * @var [type]
-     */
-    //private $_textRef;
-
-    /**
-     * Hello
-     * 
-     * @var [type]
-     */
-    public $brlog;
-
-    /**
-     * Hello
-     * 
-     * @param string $file Comment
-     */
-    function __construct(string $file)
-    {
-        $this->_bibFile = $file;
-        $this->_parsedRef = [];
-        $this->_current = [
-            'book' => '',
-            'chap' => ''
-        ];
-        //$this->_textRef = null;
-        $this->brlog = '';
-    }
-
-    /**
-     * Hello
-     * 
-     * @param XMLParser $parser  Hello
-     * @param string    $name    Hello
-     * @param array     $attribs Hello
-     * 
-     * @return [type]
-     */
-    private function _startHdl(XMLParser $parser, string $name, array $attribs)
+    private function _startHdl1($parser, string $name, array $attribs)
     {
         if ($name == 'BOOK' && array_key_exists('ID', $attribs)) {
             $this->_current['book'] = $attribs['ID'];
@@ -334,153 +148,7 @@ class UsfxBible extends CommonBible //implements BibleRead
         }
     }
 
-    /**
-     * Hello
-     * 
-     * @param XMLParser $parser Hello
-     * @param string    $name   Hello
-     * 
-     * @return [type]
-     */
-    private function _endHdl(XMLParser $parser, string $name)
-    {
-    }
-
-    /**
-     * Hello
-     * 
-     * @param XMLParser $parser Hello
-     * @param string    $data   Hello
-     * 
-     * @return [type]
-     */
-    private function _midHdl(XMLParser $parser, string $data)
-    {
-        if (isset($this->_textRef)) {
-            $this->_textRef .= $data;
-        }
-    }
-
-    /**
-     * Short description
-     * 
-     * @param string|string[] $ref Reference
-     * 
-     * @return string Text of the reference
-     * 
-     * @access public
-     */
-    function getByRef($ref)
-    {
-        if (!file_exists($this->_bibFile)) {
-            return '';
-        }
-
-        $this->_parsedRef = parseRefs($ref);
-        
-        $stream = fopen($this->_bibFile, 'r');
-        $parser = xml_parser_create();
-
-        xml_set_element_handler(
-            $parser, 
-            array($this, '_startHdl'),
-            array($this, '_endHdl')
-        );
-        xml_set_default_handler($parser, array($this, '_midHdl'));
-
-        while (($data = fread($stream, 16384))) {
-            xml_parse($parser, $data); // parse the current chunk
-        }
-
-        xml_parse($parser, '', true); // finalize parsing
-        xml_parser_free($parser);
-        fclose($stream);
-        unset($data);
-
-        $text = '';
-        foreach ($this->_parsedRef as $refK=>$refV) {
-            foreach ($refV as $refA) {
-                $text .= $refA[3];
-            }
-        }
-
-        return trim($text);
-    }
-}
-
-/**
- * Hello
- *
- * @category FileReader
- * @package  OrderOfMass
- * @author   Tommander <tommander@tommander.cz>
- * @license  GPL 3.0 https://www.gnu.org/licenses/gpl-3.0.html
- * @link     mass.tommander.cz
- */
-class OsisBible extends CommonBible // implements BibleRead
-{
-    /**
-     * Hello
-     * 
-     * @var [type]
-     */
-    private $_bibFile;
-
-    /**
-     * Hello
-     * 
-     * @var [type]
-     */
-    private $_parsedRef;
-
-    /**
-     * Hello
-     * 
-     * @var [type]
-     */
-    private $_current;
-
-    /**
-     * Hello
-     * 
-     * @var [type]
-     */
-    //private $_textRef;
-
-    /**
-     * Hello
-     * 
-     * @var [type]
-     */
-    public $brlog;
-
-    /**
-     * Hello
-     * 
-     * @param string $file Comment
-     */
-    function __construct(string $file)
-    {
-        $this->_bibFile = $file;
-        $this->_parsedRef = [];
-        $this->_current = [
-            'book' => '',
-            'chap' => ''
-        ];
-        //$this->_textRef = null;
-        $this->brlog = '';
-    }
-
-    /**
-     * Hello
-     * 
-     * @param XMLParser $parser  Hello
-     * @param string    $name    Hello
-     * @param array     $attribs Hello
-     * 
-     * @return [type]
-     */
-    private function _startHdl(XMLParser $parser, string $name, array $attribs)
+    private function _startHdl2($parser, string $name, array $attribs)
     {
         if ($name == 'DIV'
             && array_key_exists('TYPE', $attribs)
@@ -508,6 +176,7 @@ class OsisBible extends CommonBible // implements BibleRead
         }
     }
 
+
     /**
      * Hello
      * 
@@ -516,7 +185,19 @@ class OsisBible extends CommonBible // implements BibleRead
      * 
      * @return [type]
      */
-    private function _endHdl(XMLParser $parser, string $name)
+    private function _endHdl0($parser, string $name)
+    {
+        if ($name == 'BIBLEBOOK') {
+            $this->_current['book'] = '';
+        } elseif ($name == 'CHAPTER') {
+            $this->_current['chap'] = '';
+        } elseif ($name == 'VERS' && isset($this->_textRef)) {
+            $this->_textRef .= ' ';
+            unset($this->_textRef);// = null;
+        }
+    }
+
+    private function _endHdl12($parser, string $name)
     {
     }
 
@@ -528,9 +209,9 @@ class OsisBible extends CommonBible // implements BibleRead
      * 
      * @return [type]
      */
-    private function _midHdl(XMLParser $parser, string $data)
+    private function _midHdl($parser, string $data)
     {
-        if (isset($this->_textRef)/* !== null*/) {
+        if (isset($this->_textRef)) {
             $this->_textRef .= $data;
         }
     }
@@ -555,18 +236,36 @@ class OsisBible extends CommonBible // implements BibleRead
         $stream = fopen($this->_bibFile, 'r');
         $parser = xml_parser_create();
 
-        xml_set_element_handler(
-            $parser, 
-            array($this, '_startHdl'),
-            array($this, '_endHdl')
-        );
+        switch($this->_type) {
+        case 0:
+            xml_set_element_handler(
+                $parser, 
+                array($this, '_startHdl0'),
+                array($this, '_endHdl0')
+            );
+            break;
+        case 1:
+            xml_set_element_handler(
+                $parser, 
+                array($this, '_startHdl1'),
+                array($this, '_endHdl12')
+            );
+            break;
+        case 2:
+            xml_set_element_handler(
+                $parser, 
+                array($this, '_startHdl2'),
+                array($this, '_endHdl12')
+            );
+            break;
+        }
         xml_set_default_handler($parser, array($this, '_midHdl'));
 
         while (($data = fread($stream, 16384))) {
-            xml_parse($parser, $data); // parse the current chunk
+            xml_parse($parser, $data);
         }
 
-        xml_parse($parser, '', true); // finalize parsing
+        xml_parse($parser, '', true);
         xml_parser_free($parser);
         fclose($stream);
         unset($data);

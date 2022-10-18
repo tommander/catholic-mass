@@ -8,47 +8,95 @@ if (!defined('OOM_BASE')) {
     die('This file cannot be viewed independently.');
 }
 
-require __DIR__.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'bibleread.php';
+require __DIR__.'/bibleread.php';
 
 /**
  * Class that helps to convert language JSON files to HTML
  */
 class MassData
 {
-    /**
-     * Hello
+    /** 
+     * Instance of CommonBible, which allows for reading from XML-encoded Bible
+     * translations.
      * 
-     * @var BibleRead 
+     * @var CommonBible 
      */
-    private $bibleread;
-    /** @var string $tl Texts language */
+    private $_biblexml;
+    /**
+     * Mass/texts language (from data/langlist.json)
+     * 
+     * @var string 
+     */
     public $tl = 'eng';
-    /** @var string $ll Labels language */
+    /**
+     * Web/labels language (from data/langlist.json)
+     *  
+     * @var string
+     */
     public $ll = 'eng';
-    /** @var string $bl Bible translation */
+    /** 
+     * Bible translation ID (from biblist.json)
+     * 
+     * This is used to correctly initialize (@see MassData::$_biblexml)
+     * 
+     * @var string
+     */
     public $bl = '';
-    /** @var array $langs List of languages (from data/langlist.json) */
+    /**
+     * List of available languages (from data/langlist.json)
+     * 
+     * @var array
+     */
     public $langs = [];
     /**
-     * Hello
+     * List of label translations (from data/xxx.json)
      * 
-     * @var array List of labels (from data/lng.json)
+     * @var array
      */
-    private $labels = [];
-    /** */
-    private $sundays = [];
-    /** */
-    private $mysteries = [];
-    /** */
+    private $_labels = [];
+    /** 
+     * List of Sunday name translations (from data/xxx.json)
+     * 
+     * @var array
+     */
+    private $_sundays = [];
+    /** 
+     * List of rosary mystery translations (from data/xxx.json)
+     * 
+     * @var array
+     */
+    private $_mysteries = [];
+    /** 
+     * Current year cycle lectionary (from {@see MassReadings::lectio()})
+     * 
+     * @var array
+     */
     public $reads = [];
-    /** */
-    public $bible = [];
-    /** */
+    /** 
+     * Bible books abbreviations and titles (from data/xxx.json)
+     * 
+     * @var array
+     */
+    private $_bible = [];
+    /** 
+     * List of available Bible translations (from biblist.json)
+     * 
+     * @var array
+     */
     public $bibtrans = [];
-    /** */
-    public $bibtransabbr = [];
-    /** @var array $icons List of Font Awesome icons [iconid => iconclass] */
-    private $icons = [
+    /** 
+     * List of Bible book abbreviations as used in the currently loaded Bible 
+     * translation (from biblist.json).
+     * 
+     * @var array
+     */
+    private $_bibtransabbr = [];
+    /** 
+     * List of available Font Awesome icons [iconid => iconclass]
+     * 
+     * @var array
+     */
+    private $_icons = [
         'cross' => 'fas fa-cross',
         'bible' => 'fas fa-bible',
         'bubble' => 'far fa-comment',
@@ -65,14 +113,14 @@ class MassData
     /**
      * Class constructor that initializes internal properties
      *
-     * Sets {@see MassData::$tl} and {@see MassData::$ll} and then loads content from language files to {@see MassData::$langs} and {@see MassData::$labels}
-     * @return void
+     * Sets {@see MassData::$tl} and {@see MassData::$ll} and then loads content
+     * from language files to {@see MassData::$langs} and {@see MassData::$labels}
      */
     public function __construct()
     {
-        $this->langs = $this->loadJson('data', 'langlist');
-        $this->bibtrans = $this->loadJson('', 'biblist');
-        $this->bibleread = null;
+        $this->langs = $this->_loadJson('data', 'langlist');
+        $this->bibtrans = $this->_loadJson('', 'biblist');
+        $this->_biblexml = null;
 
         if (array_key_exists('ll', $_GET)) {
             if (array_key_exists($_GET['ll'], $this->langs) !== false) {
@@ -95,47 +143,45 @@ class MassData
             foreach ($this->bibtrans as $biblang=>$biblist) {
                 foreach ($biblist as $bibid=>$bibdata) {
                     if ($bibid == $this->bl) {
-                        $bibfile = __DIR__.DIRECTORY_SEPARATOR.'openbibles'.DIRECTORY_SEPARATOR.$bibdata[1];
-                        $this->bibtransabbr = $bibdata[2];
-                        if (str_ends_with($bibdata[1], 'zefania.xml')) {
-                            $this->bibleread = new ZefaniaBible($bibfile);
-                        } elseif (str_ends_with($bibdata[1], 'usfx.xml')) {
-                            $this->bibleread = new UsfxBible($bibfile);
-                        } elseif (str_ends_with($bibdata[1], 'osis.xml')) {
-                            $this->bibleread = new OsisBible($bibfile);
-                        }
+                        $bibfile = __DIR__.'/../openbibles/'.$bibdata[1];
+                        $this->_bibtransabbr = $bibdata[2];
+                        $this->_biblexml = new CommonBible($bibfile);
                     }
                 }
             }
         }
 
-        $tmp = $this->loadJson('data', $this->ll);
+        $tmp = $this->_loadJson('data', $this->ll);
         if (array_key_exists('labels', $tmp) && is_array($tmp['labels'])) {
-            $this->labels = $tmp['labels'];
+            $this->_labels = $tmp['labels'];
         }
         if (array_key_exists('sundays', $tmp) && is_array($tmp['sundays'])) {
-            $this->sundays = $tmp['sundays'];
+            $this->_sundays = $tmp['sundays'];
         }
         if (array_key_exists('mysteries', $tmp) && is_array($tmp['mysteries'])) {
-            $this->mysteries = $tmp['mysteries'];
+            $this->_mysteries = $tmp['mysteries'];
         }
         if (array_key_exists('bible', $tmp) && is_array($tmp['bible'])) {
-            $this->bible = $tmp['bible'];
+            $this->_bible = $tmp['bible'];
         }
     }
 
     /**
      * Loads a JSON language file into an associative array
      *
+     * @param string $dirname  Name of the directory
      * @param string $fileName Name of the file, without directory and extension
+     * @param bool   $assoc    Whether to create associative arrays instead of
+     *                         objects when reading a JSON
+     * 
      * @return array Content of the file or an empty array
      */
-    private function loadJson(string $dirname, string $fileName, $assoc = true)
+    private function _loadJson(string $dirname, string $fileName, $assoc = true)
     {
         if ($dirname != '') {
-            $aFile = __DIR__ . DIRECTORY_SEPARATOR . $dirname . DIRECTORY_SEPARATOR . $fileName . '.json';
+            $aFile = __DIR__."/../${dirname}/${fileName}.json";
         } else {
-            $aFile = __DIR__ . DIRECTORY_SEPARATOR . $fileName . '.json';
+            $aFile = __DIR__."/../${fileName}.json";
         }
         if (file_exists($aFile)) {
             $aFileCont = file_get_contents($aFile);
@@ -149,7 +195,15 @@ class MassData
         return [];
     }
 
-    private function replbb($ref)
+    /**
+     * Changes a Bible verse reference into a placeholder (e.g. `$bib[Psalms]{Ps 1.1}` and, if Bible translation
+     * is defined, adds the respective text.
+     * 
+     * @param string $ref Bible verse reference
+     * 
+     * @return string
+     */
+    private function _replbb($ref)
     {
         if (preg_match('/^([A-Za-z0-9]+)\s+(.*)$/', $ref, $m) !== 1) {
             return $ref;
@@ -157,32 +211,36 @@ class MassData
         if (count($m) < 3) {
             return $ref;
         }
-        if (!array_key_exists($m[1], $this->bible)) {
+        if (!array_key_exists($m[1], $this->_bible)) {
             return $ref;
         }
-        if (!array_key_exists('abbr', $this->bible[$m[1]])) {
+        if (!array_key_exists('abbr', $this->_bible[$m[1]])) {
             return $ref;
         }
+        echo "<!-- GEGEG \"$ref\" -->";
         $addition = '';
-        if ($this->bibleread !== NULL && array_key_exists($m[1], $this->bibtransabbr)) {
-            $addition = ' '.$this->bibleread->getByRef($this->bibtransabbr[$m[1]].' '.$m[2]);
+        if ($this->_biblexml !== null && array_key_exists($m[1], $this->_bibtransabbr)) {
+            echo "<!-- UGA \"".$this->_bibtransabbr[$m[1]].' '.$m[2]."\" -->";
+            $addition = ' '.$this->_biblexml->getByRef($this->_bibtransabbr[$m[1]].' '.$m[2]);
         }
-        return '@bib[' . $this->bible[$m[1]]['title'] . ']{' . $this->bible[$m[1]]['abbr'] . ' ' . $m[2] . '}'.$addition;
+        return '@bib[' . $this->_bible[$m[1]]['title'] . ']{' . $this->_bible[$m[1]]['abbr'] . ' ' . $m[2] . '}'.$addition;
     }
 
     /**
      * This function replaces label IDs with respective label texts.
      *
      * @param string[] $matches Matches of the regex function. Should contain at least two items (0th as the complete string and 1st as the matched label ID)
+     * 
      * @return string Text of the label or "???" if the label ID is unknown or an empty string in case of an error
+     * 
      * @see https://www.php.net/manual/en/function.preg-replace-callback-array
      */
     private function replcbs(array $matches): string
     {
-        if ((!is_array($this->labels)) || count($matches) < 2) {
+        if ((!is_array($this->_labels)) || count($matches) < 2) {
             return '';
         }
-        return array_key_exists($matches[1], $this->labels) ? $this->labels[$matches[1]] : "???";
+        return array_key_exists($matches[1], $this->_labels) ? $this->_labels[$matches[1]] : "???";
     }
 
     /**
@@ -208,10 +266,10 @@ class MassData
      */
     private function replsu(array $matches): string
     {
-        if ((!is_array($this->sundays)) || count($matches) < 2) {
+        if ((!is_array($this->_sundays)) || count($matches) < 2) {
             return '';
         }
-        return array_key_exists($matches[1], $this->sundays) ? $this->sundays[$matches[1]] : "???";
+        return array_key_exists($matches[1], $this->_sundays) ? $this->_sundays[$matches[1]] : "???";
     }
 
     /**
@@ -223,10 +281,10 @@ class MassData
      */
     private function replmy(array $matches): string
     {
-        if ((!is_array($this->mysteries)) || count($matches) < 2) {
+        if ((!is_array($this->_mysteries)) || count($matches) < 2) {
             return '';
         }
-        return array_key_exists($matches[1], $this->mysteries) ? $this->mysteries[$matches[1]] : "???";
+        return array_key_exists($matches[1], $this->_mysteries) ? $this->_mysteries[$matches[1]] : "???";
     }
 
     private function replbib(array $matches): string
@@ -270,13 +328,13 @@ class MassData
         $ret = $this->reads[$which];
         if (is_string($ret)) {
             $obj = new StdClass();
-            $obj->r = '@icon{bible} ' . $icon . ' [' . $this->replbb($ret) . ']';
+            $obj->r = '@icon{bible} ' . $icon . ' [' . $this->_replbb($ret) . ']';
             return $obj;
         } elseif (is_array($ret)) {
             $rtn = [];
             foreach ($ret as $one) {
                 $obj = new StdClass();
-                $obj->r = '@icon{bible} ' . $icon . ' [' . $this->replbb($one) . ']';
+                $obj->r = '@icon{bible} ' . $icon . ' [' . $this->_replbb($one) . ']';
                 $rtn[] = $obj;
             }
             return $rtn;
@@ -293,10 +351,10 @@ class MassData
      */
     private function replico(array $matches): string
     {
-        if ((!is_array($this->icons)) || count($matches) < 2 || (!array_key_exists($matches[1], $this->icons))) {
+        if ((!is_array($this->_icons)) || count($matches) < 2 || (!array_key_exists($matches[1], $this->_icons))) {
             return '';
         }
-        return "<i class=\"" . $this->icons[$matches[1]] . "\"></i>";
+        return "<i class=\"" . $this->_icons[$matches[1]] . "\"></i>";
     }
 
     /**
@@ -391,7 +449,7 @@ class MassData
     public function htmlObj(): string
     {
         $section = $this->isRosary() ? 'rosary' : 'texts';
-        $texts = $this->loadJson('data', $this->tl, false);
+        $texts = $this->_loadJson('data', $this->tl, false);
 
         if (!isset($texts->{$section}) || !is_array($texts->{$section})) {
             return var_export($texts, true);
