@@ -1,100 +1,226 @@
 <?php
-
 /**
- * @package OrderOfMass
+ * Main file for the Order of Mass app
+ *
+ * PHP version 7.4
+ *
+ * @category MainClass
+ * @package  OrderOfMass
+ * @author   Tommander <tommander@tommander.cz>
+ * @license  GPL 3.0 https://www.gnu.org/licenses/gpl-3.0.html
+ * @link     mass.tommander.cz
  */
+
+namespace OrderOfMass;
 
 if (!defined('OOM_BASE')) {
     die('This file cannot be viewed independently.');
 }
 
-require __DIR__.'/bibleread.php';
 
 /**
  * Class that helps to convert language JSON files to HTML
  */
 class MassData
 {
-    /** 
+    /**
      * Instance of CommonBible, which allows for reading from XML-encoded Bible
      * translations.
-     * 
-     * @var CommonBible 
+     *
+     * @var CommonBible
      */
     private $_biblexml;
+
     /**
      * Mass/texts language (from data/langlist.json)
-     * 
-     * @var string 
+     *
+     * This is in the form of an
+     * (https://en.wikipedia.org/wiki/List_of_ISO_639-2_codes)[ISO_639-2 code]
+     *
+     * @var string
      */
     public $tl = 'eng';
+
     /**
      * Web/labels language (from data/langlist.json)
-     *  
+     *
+     * This is in the form of an
+     * (https://en.wikipedia.org/wiki/List_of_ISO_639-2_codes)[ISO_639-2 code]
+     *
      * @var string
      */
     public $ll = 'eng';
-    /** 
+
+    /**
      * Bible translation ID (from biblist.json)
-     * 
-     * This is used to correctly initialize (@see MassData::$_biblexml)
-     * 
+     *
+     * This is used to correctly initialize {@see MassData::$_biblexml}
+     *
      * @var string
      */
     public $bl = '';
+
     /**
      * List of available languages (from data/langlist.json)
-     * 
-     * @var array
+     *
+     * The array looks like this (numbers are explained below):
+     *
+     * ```
+     * [
+     *   '1' => [
+     *     'title' => '2',
+     *     'author' => '3',
+     *     'link' => '4'
+     *   ]
+     * ]
+     * ```
+     *
+     * 1. Language three-letter code
+     * 2. Language name (in that language, i.e. <q>English</q>, <q>Deutsch</q>, ...)
+     * 3. Author of that translation (not the language, obviously)
+     * 4. Either a URL or simple array of URLs (sources of information)
+     *
+     * @var array<string, array<string, string|string[]>>
      */
     public $langs = [];
+
     /**
      * List of label translations (from data/xxx.json)
-     * 
-     * @var array
+     *
+     * `xxx` stands for the three-letter language code
+     *
+     * - Array key is a label ID (e.g. <q>holycomm</q>)
+     * - Array value is that label's translated full text (e.g. <q>Holy
+     *   Communion</q>)
+     *
+     * @var array<string, string>
      */
     private $_labels = [];
-    /** 
+
+    /**
      * List of Sunday name translations (from data/xxx.json)
-     * 
-     * @var array
+     *
+     * `xxx` stands for the three-letter language code
+     *
+     * - Array key is the code of a particular Sunday (e.g. <q>SIOT2</q>)
+     * - Array value is the translated full name of that Sunday (e.g. <q>2. Sunday
+     *   in Ordinary time</q>)
+     *
+     * @var array<string, string>
      */
     private $_sundays = [];
-    /** 
+
+    /**
      * List of rosary mystery translations (from data/xxx.json)
-     * 
-     * @var array
+     *
+     * `xxx` stands for the three-letter language code
+     *
+     * The array looks like this:
+     *
+     * ```
+     * [
+     *   'j' => '', //translation of "Joyful mysteries"
+     *   's' => '', //translation of "Sorrowful mysteries"
+     *   'g' => '', //translation of "Glorious mysteries"
+     *   'l' => '' //translation of "Luminous mysteries"
+     * ]
+     * ```
+     *
+     * @var array<string, string>
      */
     private $_mysteries = [];
-    /** 
-     * Current year cycle lectionary (from {@see MassReadings::lectio()})
-     * 
-     * @var array
+
+    /**
+     * Closest next Sunday readings
+     *
+     * The array looks like this:
+     *
+     * ```
+     * [
+     *   'r1' => 'Gn 1:1', //first reading
+     *   'r2' => 'Ex 1:2-3', //second reading
+     *   'p' => 'Ps 1:4', //responsorial psalm
+     *   'a' => 'Ps 1:5+6', //alleluia
+     *   'g' => 'Mk 1:7' //gospel
+     * ]
+     * ```
+     *
+     * @var array<string, string>
+     *
+     * @see MassReadings::lectio()
      */
     public $reads = [];
-    /** 
+
+    /**
      * Bible books abbreviations and titles (from data/xxx.json)
-     * 
-     * @var array
+     *
+     * `xxx` stands for the three-letter language code
+     *
+     * The array looks like this (numbers are explained below):
+     *
+     * ```
+     * [
+     *   '1' => '['abbr' => '2', 'title' => '3']'
+     * ]
+     * ```
+     *
+     * 1. Common abbreviation as used in the lectionary
+     * 2. Translated book abbreviation
+     * 3. Translated book title
+     *
+     * @var array<string, array<string, string>>
      */
     private $_bible = [];
-    /** 
+
+    /**
      * List of available Bible translations (from biblist.json)
-     * 
-     * @var array
+     *
+     * The array looks like this (numbers are explained below):
+     *
+     * ```
+     * [
+     *   '1' => [
+     *     '2' => [
+     *       '3',
+     *       '4',
+     *       [
+     *         '5' => '6'
+     *       ]
+     *     ]
+     *   ]
+     * ]
+     * ```
+     *
+     * 1. Language code
+     * 2. Bible code
+     * 3. Bible translation name
+     * 4. Bible translation file
+     * 5. Common Bible book abbreviation
+     * 6. Bible book abbreviation as used in that translation's XML file
+     *
+     * @var array<string, array<string|array<string, string>>>
      */
     public $bibtrans = [];
-    /** 
-     * List of Bible book abbreviations as used in the currently loaded Bible 
+
+    /**
+     * List of Bible book abbreviations as used in the currently loaded Bible
      * translation (from biblist.json).
-     * 
-     * @var array
+     *
+     * - Array key is the common Bible book abbreviation as used in `biblist.json`
+     * - Array value is the Bible book abbreviation as used in the Bible translation
+     *   XML file
+     *
+     * @var array<string, string>
      */
     private $_bibtransabbr = [];
-    /** 
-     * List of available Font Awesome icons [iconid => iconclass]
-     * 
-     * @var array
+
+    /**
+     * List of available Font Awesome icons
+     *
+     * - Array key is the icon ID as used in the placeholder `@icon{iconID}`
+     * - Array value is the CSS class of the `<i>` tag that Font Awesome uses
+     *
+     * @var array<string, string>
      */
     private $_icons = [
         'cross' => 'fas fa-cross',
@@ -113,8 +239,9 @@ class MassData
     /**
      * Class constructor that initializes internal properties
      *
-     * Sets {@see MassData::$tl} and {@see MassData::$ll} and then loads content
-     * from language files to {@see MassData::$langs} and {@see MassData::$labels}
+     * Sets {@see MassData::$tl} and {@see MassData::$ll}
+     * and then loads content from language files to
+     * {@see MassData::$langs} and {@see MassData::$_labels}
      */
     public function __construct()
     {
@@ -167,13 +294,13 @@ class MassData
     }
 
     /**
-     * Loads a JSON language file into an associative array
+     * Loads a JSON file
      *
      * @param string $dirname  Name of the directory
      * @param string $fileName Name of the file, without directory and extension
      * @param bool   $assoc    Whether to create associative arrays instead of
      *                         objects when reading a JSON
-     * 
+     *
      * @return array Content of the file or an empty array
      */
     private function _loadJson(string $dirname, string $fileName, $assoc = true)
@@ -196,11 +323,12 @@ class MassData
     }
 
     /**
-     * Changes a Bible verse reference into a placeholder (e.g. `$bib[Psalms]{Ps 1.1}` and, if Bible translation
-     * is defined, adds the respective text.
-     * 
-     * @param string $ref Bible verse reference
-     * 
+     * Changes a Bible verse reference into a placeholder (e.g.
+     * `$bib[Psalms]{Ps 1.1}`) and, if Bible translation is defined, adds the
+     * respective text.
+     *
+     * @param string $ref Bible verse reference (e.g. `Ps 1.1`)
+     *
      * @return string
      */
     private function _replbb($ref)
@@ -217,10 +345,8 @@ class MassData
         if (!array_key_exists('abbr', $this->_bible[$m[1]])) {
             return $ref;
         }
-        echo "<!-- GEGEG \"$ref\" -->";
         $addition = '';
         if ($this->_biblexml !== null && array_key_exists($m[1], $this->_bibtransabbr)) {
-            echo "<!-- UGA \"".$this->_bibtransabbr[$m[1]].' '.$m[2]."\" -->";
             $addition = ' '.$this->_biblexml->getByRef($this->_bibtransabbr[$m[1]].' '.$m[2]);
         }
         return '@bib[' . $this->_bible[$m[1]]['title'] . ']{' . $this->_bible[$m[1]]['abbr'] . ' ' . $m[2] . '}'.$addition;
@@ -230,9 +356,9 @@ class MassData
      * This function replaces label IDs with respective label texts.
      *
      * @param string[] $matches Matches of the regex function. Should contain at least two items (0th as the complete string and 1st as the matched label ID)
-     * 
+     *
      * @return string Text of the label or "???" if the label ID is unknown or an empty string in case of an error
-     * 
+     *
      * @see https://www.php.net/manual/en/function.preg-replace-callback-array
      */
     private function replcbs(array $matches): string
@@ -327,13 +453,13 @@ class MassData
 
         $ret = $this->reads[$which];
         if (is_string($ret)) {
-            $obj = new StdClass();
+            $obj = new \StdClass();
             $obj->r = '@icon{bible} ' . $icon . ' [' . $this->_replbb($ret) . ']';
             return $obj;
         } elseif (is_array($ret)) {
             $rtn = [];
             foreach ($ret as $one) {
-                $obj = new StdClass();
+                $obj = new \StdClass();
                 $obj->r = '@icon{bible} ' . $icon . ' [' . $this->_replbb($one) . ']';
                 $rtn[] = $obj;
             }

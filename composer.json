@@ -1,8 +1,11 @@
 {
 	"require": {
-		"squizlabs/php_codesniffer": "*"
+		"squizlabs/php_codesniffer": "*",
+        "php-di/php-di": "*"
 	},
-	"require-dev": {
-		"friendsofphp/php-cs-fixer": "*"
-	}
+    "autoload": {
+        "psr-4": {
+            "OrderOfMass\\": "src/"
+        }
+    }
 }

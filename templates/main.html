@@ -1,0 +1,82 @@
+<!--
+    @@LANG@@
+    @@TITLE@@
+    @@IDXL@@
+    @@IDXY@@
+    @@IDXB@@
+    @@IDXT@@
+    @@CBL@@
+    @@CBY@@
+    @@CBB@@
+    @@CBT@@
+    @@LEGP@@
+    @@LEGA@@
+    @@LEGR@@
+    @@DATEL@@
+    @@DATER@@
+    @@MAIN@@
+    @@LINKS@@
+-->
+<!DOCTYPE html>
+<html lang="@@LANG@@">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@@TITLE@@</title>
+    <link rel="stylesheet" href="fonts.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="fontawesome/css/all.css">
+  </head>
+  <body>
+    <header>
+      <h1>@@TITLE@@</h1>
+    </header>
+    <nav>
+        <form name="langSel" action="index.php" method="get">
+        <div id="navLabels">
+            <label for="LABELS_SELECTION">@@IDXL@@</label>
+            <label for="TYPE_SELECTION">@@IDXY@@</label>
+            <label for="BIBLE_SELECTION">@@IDXB@@</label>
+            <label for="TEXTS_SELECTION">@@IDXT@@</label>
+        </div>
+        <div id="navLangs">
+                <select name="ll" id="LABELS_SELECTION" onchange="submitForm()">
+                @@CBL@@
+                </select>
+                <select name="sn" id="TYPE_SELECTION" onchange="submitForm()">
+                @@CBY@@
+                </select>
+                <select name="bl" id="BIBLE_SELECTION" onchange="submitForm()">
+                @@CBB@@
+                </select>
+                <select name="tl" id="TEXTS_SELECTION" onchange="submitForm()">
+                @@CBT@@
+                </select>
+        </div>
+        </form>
+        <div id="navLegend">
+            <span>P = @@LEGP@@</span>
+            <span>A = @@LEGA@@</span>
+            <span>R = @@LEGR@@</span>
+        </div>
+        <div id="navDate">
+            <div>@@DATEL@@</div>
+            <div>@@DATER@@</div>
+        </div>
+    </nav>
+    <main>
+        @@MAIN@@
+    </main>
+    <footer>
+        <div>
+            @@LINKS@@
+        </div>
+    </footer>
+    <script type="text/javascript">
+        function submitForm() {
+            document.forms['langSel'].submit();
+        }
+    </script>
+  </body>
+</html>

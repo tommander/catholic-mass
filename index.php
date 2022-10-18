@@ -1,9 +1,9 @@
 <?php
 /**
- * Hello
- * 
+ * Index file for the Order of Mass app
+ *
  * PHP version 7.4
- * 
+ *
  * @category MainFile
  * @package  OrderOfMass
  * @author   Tommander <tommander@tommander.cz>
@@ -11,11 +11,11 @@
  * @link     mass.tommander.cz
  */
 
+namespace OrderOfMass;
+
 define('OOM_BASE', 'orderofmass');
 
-require __DIR__.'/src/functions.php';
-require __DIR__.'/src/massdata.php';
-require __DIR__.'/src/readings.php';
+require __DIR__.'/vendor/autoload.php';
 
 //Include MassData class and create an instance
 $md = new MassData();
@@ -101,7 +101,7 @@ $md->reads = $mr->lectio();
     <footer>
         <div>
         <span><?php echo $md->repls('@{license}');?>: <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU GPL v3</a></span>
-        <span><?php echo $md->repls('@{source}');?>: <a href="https://github.com/tommander/catholic-mass">Repository at GitHub.com</a><?php echo showCommit(); ?></span>
+        <span><?php echo $md->repls('@{source}');?>: <a href="https://github.com/tommander/catholic-mass">Repository at GitHub.com</a><?php echo MassHelper::showCommit(); ?></span>
         <span><?php echo $md->repls('@{author}');?>: <a href="mailto:tommander@tommander.cz">Tomáš <q>Tommander</q> Rajnoha</a></span>
         <span>&nbsp;</span>
         <span><?php echo $md->repls('@{headerimg}');?>: <a href="https://commons.wikimedia.org/wiki/File:Iglesia_de_San_Carlos_Borromeo,_Viena,_Austria,_2020-01-31,_DD_164-166_HDR.jpg">Iglesia de San Carlos Borromeo, Viena, Austria by Diego Delso</a> (<a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>)</span>

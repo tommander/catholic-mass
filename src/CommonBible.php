@@ -1,9 +1,9 @@
 <?php
 /**
- * Bible reader
- * 
+ * Bible XML reader
+ *
  * PHP version 7.4
- * 
+ *
  * @category FileReader
  * @package  OrderOfMass
  * @author   Tommander <tommander@tommander.cz>
@@ -11,11 +11,11 @@
  * @link     mass.tommander.cz
  */
 
+namespace OrderOfMass;
+
 if (!defined('OOM_BASE')) {
     die('This file cannot be viewed independently.');
 }
-
-require __DIR__.'/biblerefparser.php';
 
 /**
  * Hello
@@ -28,48 +28,47 @@ require __DIR__.'/biblerefparser.php';
  */
 class CommonBible
 {
-
     /**
      * Path to the Bible XML
-     * 
+     *
      * @var string $_bibFile
      */
     private $_bibFile;
 
     /**
      * Parsed verse references
-     * 
+     *
      * @var array $_parsedRef
      */
     private $_parsedRef;
 
     /**
      * Current book and chapter
-     * 
+     *
      * @var array $_current
      */
     private $_current;
 
     /**
      * Type of XML (Zefania, USFX, OSIS)
-     * 
+     *
      * @var int $_type
      */
     private $_type;
 
     /**
      * Reference to the variable, where to store correct verse text
-     * 
+     *
      * @var string $_textRef
      */
     //private $_textRef;
 
     /**
      * Hello
-     * 
+     *
      * @param string $file Comment
      */
-    function __construct(string $file)
+    public function __construct(string $file)
     {
         $this->_bibFile = $file;
         $this->_parsedRef = [];
@@ -84,16 +83,15 @@ class CommonBible
         } elseif (preg_match('/osis.xml$/', $this->_bibFile)) {
             $this->_type = 2;
         }
-
     }
 
     /**
      * Hello
-     * 
+     *
      * @param XMLParser|resource $parser  Hello
      * @param string    $name    Hello
      * @param array     $attribs Hello
-     * 
+     *
      * @return [type]
      */
     private function _startHdl0($parser, string $name, array $attribs)
@@ -104,7 +102,7 @@ class CommonBible
             $this->_current['chap'] = $attribs['CNUMBER'];
         } elseif ($name == 'VERS' && array_key_exists('VNUMBER', $attribs)) {
             $vers = $attribs['VNUMBER'];
-            $currChapver = chapVer($this->_current['chap'], $vers);
+            $currChapver = MassHelper::chapVer($this->_current['chap'], $vers);
             foreach ($this->_parsedRef as $refRaw=>&$refElems) {
                 foreach ($refElems as &$refElem) {
                     if (strcasecmp($refElem[0], $this->_current['book']) == 0) {
@@ -127,7 +125,7 @@ class CommonBible
             $vers = $attribs['ID'];
             $b = true;
             try {
-                $currChapver = chapVer($this->_current['chap'], $vers);
+                $currChapver = MassHelper::chapVer($this->_current['chap'], $vers);
             } catch (\Throwable $th) {
                 $b = false;
             }
@@ -160,7 +158,7 @@ class CommonBible
             $this->_current['chap'] = $attribs['N'];
         } elseif ($name == 'VERSE' && array_key_exists('N', $attribs)) {
             $vers = $attribs['N'];
-            $currChapver = chapVer($this->_current['chap'], $vers);
+            $currChapver = MassHelper::chapVer($this->_current['chap'], $vers);
             foreach ($this->_parsedRef as $refRaw=>&$refElems) {
                 foreach ($refElems as &$refElem) {
                     if (strcasecmp($refElem[0], $this->_current['book']) == 0) {
@@ -179,10 +177,10 @@ class CommonBible
 
     /**
      * Hello
-     * 
+     *
      * @param XMLParser $parser Hello
      * @param string    $name   Hello
-     * 
+     *
      * @return [type]
      */
     private function _endHdl0($parser, string $name)
@@ -203,10 +201,10 @@ class CommonBible
 
     /**
      * Hello
-     * 
+     *
      * @param XMLParser $parser Hello
      * @param string    $data   Hello
-     * 
+     *
      * @return [type]
      */
     private function _midHdl($parser, string $data)
@@ -218,46 +216,46 @@ class CommonBible
 
     /**
      * Short description
-     * 
+     *
      * @param string|string[] $ref Reference
-     * 
+     *
      * @return string Text of the reference
-     * 
+     *
      * @access public
      */
-    function getByRef($ref)
+    public function getByRef($ref)
     {
         if (!file_exists($this->_bibFile)) {
             return '';
         }
 
-        $this->_parsedRef = parseRefs($ref);
-        
+        $this->_parsedRef = MassHelper::parseRefs($ref);
+
         $stream = fopen($this->_bibFile, 'r');
         $parser = xml_parser_create();
 
         switch($this->_type) {
-        case 0:
-            xml_set_element_handler(
-                $parser, 
-                array($this, '_startHdl0'),
-                array($this, '_endHdl0')
-            );
-            break;
-        case 1:
-            xml_set_element_handler(
-                $parser, 
-                array($this, '_startHdl1'),
-                array($this, '_endHdl12')
-            );
-            break;
-        case 2:
-            xml_set_element_handler(
-                $parser, 
-                array($this, '_startHdl2'),
-                array($this, '_endHdl12')
-            );
-            break;
+            case 0:
+                xml_set_element_handler(
+                    $parser,
+                    array($this, '_startHdl0'),
+                    array($this, '_endHdl0')
+                );
+                break;
+            case 1:
+                xml_set_element_handler(
+                    $parser,
+                    array($this, '_startHdl1'),
+                    array($this, '_endHdl12')
+                );
+                break;
+            case 2:
+                xml_set_element_handler(
+                    $parser,
+                    array($this, '_startHdl2'),
+                    array($this, '_endHdl12')
+                );
+                break;
         }
         xml_set_default_handler($parser, array($this, '_midHdl'));
 
