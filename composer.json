@@ -1,11 +1,12 @@
 {
 	"require": {
 		"squizlabs/php_codesniffer": "*",
-        "php-di/php-di": "*"
+        "php-di/php-di": "*",
+        "ocramius/proxy-manager": "*"
 	},
     "autoload": {
         "psr-4": {
-            "OrderOfMass\\": "src/"
+            "TMD\\OrderOfMass\\": "src/"
         }
     }
 }

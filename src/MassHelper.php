@@ -11,7 +11,7 @@
  * @link     mass.tommander.cz
  */
 
-namespace OrderOfMass;
+namespace TMD\OrderOfMass;
 
 if (!defined('OOM_BASE')) {
     die('This file cannot be viewed independently.');
@@ -22,6 +22,10 @@ if (!defined('OOM_BASE')) {
  */
 class MassHelper
 {
+    public function __construct() {
+        die('Please do not create instances of '.self::class);
+    }
+
     /**
      * This function returns a link to a particular commit that was deployed.
 
@@ -171,5 +175,35 @@ class MassHelper
     public static function chapVer(int $chap, int $ver): int
     {
         return (int)sprintf('%d%04d', $chap, $ver);
+    }
+
+    /**
+     * Loads a JSON lectionary file into an associative array
+     *
+     * @param string $fileName Path to the file incl. full file name
+     * @param bool $assoc JSON objects will be converted to associative arrays
+     *                    instead of objects (default: `true`)
+     * 
+     * @return mixed Content of the file or an empty array
+     */
+    public static function loadJson(string $fileName, bool $assoc = true)
+    {
+        $fileName2 = __DIR__.'/../'.$fileName;
+
+        if (!file_exists($fileName2)) {
+            return [];
+        }
+
+        $aFileCont = file_get_contents($fileName2);
+        if ($aFileCont === false) {
+            return [];
+        }
+        
+        $a = json_decode($aFileCont, $assoc);
+        if ($a === null) {
+            return [];
+        }
+        
+        return $a;
     }
 }

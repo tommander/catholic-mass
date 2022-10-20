@@ -11,7 +11,7 @@
  * @link     mass.tommander.cz
  */
 
-namespace OrderOfMass;
+namespace TMD\OrderOfMass;
 
 if (!defined('OOM_BASE')) {
     die('This file cannot be viewed independently.');
@@ -243,11 +243,11 @@ class MassData
      * and then loads content from language files to
      * {@see MassData::$langs} and {@see MassData::$_labels}
      */
-    public function __construct()
+    public function __construct(CommonBible $commonBible)
     {
-        $this->langs = $this->_loadJson('data', 'langlist');
-        $this->bibtrans = $this->_loadJson('', 'biblist');
-        $this->_biblexml = null;
+        $this->langs = MassHelper::loadJson('assets/json/langlist.json');
+        $this->bibtrans = MassHelper::loadJson('assets/json/biblist.json');
+        $this->_biblexml = $commonBible;
 
         if (array_key_exists('ll', $_GET)) {
             if (array_key_exists($_GET['ll'], $this->langs) !== false) {
@@ -272,13 +272,13 @@ class MassData
                     if ($bibid == $this->bl) {
                         $bibfile = __DIR__.'/../openbibles/'.$bibdata[1];
                         $this->_bibtransabbr = $bibdata[2];
-                        $this->_biblexml = new CommonBible($bibfile);
+                        $this->_biblexml->defineFile($bibfile);
                     }
                 }
             }
         }
 
-        $tmp = $this->_loadJson('data', $this->ll);
+        $tmp = MassHelper::loadJson('assets/json/lang/'.$this->ll.'.json');
         if (array_key_exists('labels', $tmp) && is_array($tmp['labels'])) {
             $this->_labels = $tmp['labels'];
         }
@@ -291,35 +291,6 @@ class MassData
         if (array_key_exists('bible', $tmp) && is_array($tmp['bible'])) {
             $this->_bible = $tmp['bible'];
         }
-    }
-
-    /**
-     * Loads a JSON file
-     *
-     * @param string $dirname  Name of the directory
-     * @param string $fileName Name of the file, without directory and extension
-     * @param bool   $assoc    Whether to create associative arrays instead of
-     *                         objects when reading a JSON
-     *
-     * @return array Content of the file or an empty array
-     */
-    private function _loadJson(string $dirname, string $fileName, $assoc = true)
-    {
-        if ($dirname != '') {
-            $aFile = __DIR__."/../${dirname}/${fileName}.json";
-        } else {
-            $aFile = __DIR__."/../${fileName}.json";
-        }
-        if (file_exists($aFile)) {
-            $aFileCont = file_get_contents($aFile);
-            if ($aFileCont !== false) {
-                $a = json_decode($aFileCont, $assoc);
-                if ($a !== null) {
-                    return $a;
-                }
-            }
-        }
-        return [];
     }
 
     /**
@@ -575,7 +546,7 @@ class MassData
     public function htmlObj(): string
     {
         $section = $this->isRosary() ? 'rosary' : 'texts';
-        $texts = $this->_loadJson('data', $this->tl, false);
+        $texts = MassHelper::loadJson('assets/json/lang/'.$this->tl.'.json', false);
 
         if (!isset($texts->{$section}) || !is_array($texts->{$section})) {
             return var_export($texts, true);

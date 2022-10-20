@@ -11,7 +11,7 @@
  * @link     mass.tommander.cz
  */
 
-namespace OrderOfMass;
+namespace TMD\OrderOfMass;
 
 if (!defined('OOM_BASE')) {
     die('This file cannot be viewed independently.');
@@ -68,14 +68,19 @@ class CommonBible
      *
      * @param string $file Comment
      */
-    public function __construct(string $file)
+    public function __construct()
     {
-        $this->_bibFile = $file;
+        $this->_bibFile = '';
         $this->_parsedRef = [];
         $this->_current = [
             'book' => '',
             'chap' => ''
         ];
+        $this->_type = -1;
+    }
+
+    public function defineFile(string $file) {
+        $this->_bibFile = $file;
         if (preg_match('/zefania.xml$/', $this->_bibFile)) {
             $this->_type = 0;
         } elseif (preg_match('/usfx.xml$/', $this->_bibFile)) {

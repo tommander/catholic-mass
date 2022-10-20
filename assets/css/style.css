@@ -13,7 +13,7 @@ header {
 	display: flex;
 	justify-content: center;
 	height: 128px;
-	background-image: url('images/church.png');
+	background-image: url('../img/church.png');
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: contain;

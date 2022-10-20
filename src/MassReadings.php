@@ -11,7 +11,7 @@
  * @link     mass.tommander.cz
  */
 
-namespace OrderOfMass;
+namespace TMD\OrderOfMass;
 
 if (!defined('OOM_BASE')) {
     die('This file cannot be viewed independently.');
@@ -33,13 +33,11 @@ class MassReadings
     public function __construct()
     {
         $year = date('Y');
-        //			$year = '2023';
-        $calFile = __DIR__.'/../lectionaries/year'.$year.'.json';
-        if (!file_exists($calFile)) {
+        $calFile = 'assets/json/lectionaries/year'.$year.'.json';
+        $this->cal = MassHelper::loadJson($calFile);
+        if (count($this->cal) === 0) {
             $this->cal = $this->calendar($year);
-            file_put_contents($calFile, json_encode($this->cal));
-        } else {
-            $this->cal = $this->loadJson($calFile);
+            file_put_contents(__DIR__.'/../'.$calFile, json_encode($this->cal));
         }
     }
 
@@ -91,8 +89,7 @@ class MassReadings
             return;
         }
 
-        $lectFile = __DIR__.'/../lectionaries/lectionary.json';
-        $lect = $this->loadJson($lectFile);
+        $lect = MassHelper::loadJson('assets/json/lectlist.json');
         if (count($lect) == 0) {
             return;
         }
@@ -118,26 +115,6 @@ class MassReadings
     public function weekdayCycle($year)
     {
         return ($year % 2 == 0) ? "II" : "I";
-    }
-
-    /**
-     * Loads a JSON lectionary file into an associative array
-     *
-     * @param string $fileName Path to the file incl. full file name
-     * @return array Content of the file or an empty array
-     */
-    private function loadJson(string $fileName): array
-    {
-        if (file_exists($fileName)) {
-            $aFileCont = file_get_contents($fileName);
-            if ($aFileCont !== false) {
-                $a = json_decode($aFileCont, true);
-                if ($a !== null && is_array($a)) {
-                    return $a;
-                }
-            }
-        }
-        return [];
     }
 
     /**
