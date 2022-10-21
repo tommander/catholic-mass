@@ -22,9 +22,14 @@ if (!defined('OOM_BASE')) {
  */
 class MassHelper
 {
-    public function __construct() {
+
+
+    public function __construct()
+    {
         die('Please do not create instances of '.self::class);
-    }
+
+    }//end __construct()
+
 
     /**
      * This function returns a link to a particular commit that was deployed.
@@ -50,7 +55,9 @@ class MassHelper
         }
 
         return sprintf(' (<a href="https://github.com/tommander/catholic-mass/commit/%s">commit %s</a>)', $commit, substr($commit, 0, 7));
-    }
+
+    }//end showCommit()
+
 
     /**
      * Parse single string reference to elementary parts
@@ -69,30 +76,36 @@ class MassHelper
      */
     public static function parseRef(string $ref): array
     {
-        //Check that book reference and the rest of the reference was found
+        // Check that book reference and the rest of the reference was found
         if (preg_match('/^([\p{L}0-9]+)\s+(.*)$/u', $ref, $mat) !== 1 || count($mat) < 3) {
             return [];
         }
 
-        //Save basic reference parts for clarity
-        /*    $tmp = [
+        // Save basic reference parts for clarity
+        /*
+            $tmp = [
                 'book' => $mat[1],
                 'ref' => [],
                 'text' => ''
             ];*/
-        $tmp = [$mat[1], 0, 0, ''];
+        $tmp  = [
+            $mat[1],
+            0,
+            0,
+            '',
+        ];
         $chap = '';
 
-        //Split reference into single verses or verse ranges
+        // Split reference into single verses or verse ranges
         $rngArr = [];
         $rngTok = strtok($mat[2], ',+');
         while ($rngTok !== false) {
             $rngArr[] = $rngTok;
-            $rngTok = strtok(',+');
+            $rngTok   = strtok(',+');
         }
 
-        //Unification of all single verse/verse range refs, so that
-        //they all have book and chapter
+        // Unification of all single verse/verse range refs, so that
+        // they all have book and chapter
         $rng = [];
         foreach ($rngArr as $rngOne) {
             if (preg_match('/(([0-9]+):)?(\d+)(-)?(([0-9]+):)?(\d+)?/', $rngOne, $mat2) === 1/* && count($mat2) == 4*/) {
@@ -100,20 +113,25 @@ class MassHelper
                     if ($mat2[2] != '') {
                         $chap = $mat2[2];
                     }
+
                     $tmp[1] = MassHelper::chapVer($chap, $mat2[3]);
                     $tmp[2] = $tmp[1];
-                } elseif (count($mat2) == 8) {
+                } else if (count($mat2) == 8) {
                     if ($mat2[2] != '') {
                         $chap = $mat2[2];
                     }
+
                     $tmp[1] = MassHelper::chapVer($chap, $mat2[3]);
                     if ($mat2[6] != '') {
                         $chap = $mat2[6];
                     }
+
                     $tmp[2] = MassHelper::chapVer($chap, $mat2[7]);
                 }
+
                 $rng[] = $tmp;
-                /*            if ($mat2[2] != '') {
+                /*
+                    if ($mat2[2] != '') {
                                 $tmp['chap'] = trim($mat2[2]);
                             }
                             $ver = trim($mat2[3]);
@@ -122,12 +140,12 @@ class MassHelper
                             }
                             $tmp['ver'] = $ver;
                             $rng[] = $tmp;*/
-            }
-        }
+            }//end if
+        }//end foreach
 
         return $rng;
         /*
-        $rng = [
+            $rng = [
             "Ps 29:3b+9b-10" => [
                 [
                     "book" => "Ps",
@@ -142,9 +160,11 @@ class MassHelper
                     "text => ""
                 ]
             ]
-        ];
+            ];
         */
-    }
+
+    }//end parseRef()
+
 
     /**
      * Function that allows for parsing either string reference or array of string
@@ -160,33 +180,37 @@ class MassHelper
     {
         if (is_string($refs)) {
             return [$refs => MassHelper::parseRef($refs)];
-        } elseif (is_array($refs)) {
+        } else if (is_array($refs)) {
             $arr = [];
             foreach ($refs as $oneref) {
                 $arr[$oneref] = MassHelper::parseRef($oneref);
             }
+
             return $arr;
         }
-    }
+
+    }//end parseRefs()
+
 
     /**
      *
      */
     public static function chapVer(int $chap, int $ver): int
     {
-        return (int)sprintf('%d%04d', $chap, $ver);
-    }
+        return (int) sprintf('%d%04d', $chap, $ver);
+
+    }//end chapVer()
+
 
     /**
      * Loads a JSON lectionary file into an associative array
      *
      * @param string $fileName Path to the file incl. full file name
-     * @param bool $assoc JSON objects will be converted to associative arrays
-     *                    instead of objects (default: `true`)
-     * 
+     * @param bool   $assoc    JSON objects will be converted to associative arraysinstead of objects (default: `true`)
+     *
      * @return mixed Content of the file or an empty array
      */
-    public static function loadJson(string $fileName, bool $assoc = true)
+    public static function loadJson(string $fileName, bool $assoc=true)
     {
         $fileName2 = __DIR__.'/../'.$fileName;
 
@@ -198,12 +222,15 @@ class MassHelper
         if ($aFileCont === false) {
             return [];
         }
-        
+
         $a = json_decode($aFileCont, $assoc);
         if ($a === null) {
             return [];
         }
-        
+
         return $a;
-    }
-}
+
+    }//end loadJson()
+
+
+}//end class

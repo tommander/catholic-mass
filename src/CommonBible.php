@@ -28,6 +28,7 @@ if (!defined('OOM_BASE')) {
  */
 class CommonBible
 {
+
     /**
      * Path to the Bible XML
      *
@@ -52,7 +53,7 @@ class CommonBible
     /**
      * Type of XML (Zefania, USFX, OSIS)
      *
-     * @var int $_type
+     * @var integer $_type
      */
     private $_type;
 
@@ -61,7 +62,8 @@ class CommonBible
      *
      * @var string $_textRef
      */
-    //private $_textRef;
+    // private $_textRef;
+
 
     /**
      * Hello
@@ -70,32 +72,37 @@ class CommonBible
      */
     public function __construct()
     {
-        $this->_bibFile = '';
+        $this->_bibFile   = '';
         $this->_parsedRef = [];
-        $this->_current = [
+        $this->_current   = [
             'book' => '',
-            'chap' => ''
+            'chap' => '',
         ];
-        $this->_type = -1;
-    }
+        $this->_type      = -1;
 
-    public function defineFile(string $file) {
+    }//end __construct()
+
+
+    public function defineFile(string $file)
+    {
         $this->_bibFile = $file;
         if (preg_match('/zefania.xml$/', $this->_bibFile)) {
             $this->_type = 0;
-        } elseif (preg_match('/usfx.xml$/', $this->_bibFile)) {
+        } else if (preg_match('/usfx.xml$/', $this->_bibFile)) {
             $this->_type = 1;
-        } elseif (preg_match('/osis.xml$/', $this->_bibFile)) {
+        } else if (preg_match('/osis.xml$/', $this->_bibFile)) {
             $this->_type = 2;
         }
-    }
+
+    }//end defineFile()
+
 
     /**
      * Hello
      *
      * @param XMLParser|resource $parser  Hello
-     * @param string    $name    Hello
-     * @param array     $attribs Hello
+     * @param string             $name    Hello
+     * @param array              $attribs Hello
      *
      * @return [type]
      */
@@ -103,12 +110,12 @@ class CommonBible
     {
         if ($name == 'BIBLEBOOK' && array_key_exists('BSNAME', $attribs)) {
             $this->_current['book'] = $attribs['BSNAME'];
-        } elseif ($name == 'CHAPTER' && array_key_exists('CNUMBER', $attribs)) {
+        } else if ($name == 'CHAPTER' && array_key_exists('CNUMBER', $attribs)) {
             $this->_current['chap'] = $attribs['CNUMBER'];
-        } elseif ($name == 'VERS' && array_key_exists('VNUMBER', $attribs)) {
-            $vers = $attribs['VNUMBER'];
+        } else if ($name == 'VERS' && array_key_exists('VNUMBER', $attribs)) {
+            $vers        = $attribs['VNUMBER'];
             $currChapver = MassHelper::chapVer($this->_current['chap'], $vers);
-            foreach ($this->_parsedRef as $refRaw=>&$refElems) {
+            foreach ($this->_parsedRef as $refRaw => &$refElems) {
                 foreach ($refElems as &$refElem) {
                     if (strcasecmp($refElem[0], $this->_current['book']) == 0) {
                         if ($currChapver >= $refElem[1] && $currChapver <= $refElem[2]) {
@@ -118,24 +125,27 @@ class CommonBible
                 }
             }
         }
-    }
+
+    }//end _startHdl0()
+
 
     private function _startHdl1($parser, string $name, array $attribs)
     {
         if ($name == 'BOOK' && array_key_exists('ID', $attribs)) {
             $this->_current['book'] = $attribs['ID'];
-        } elseif ($name == 'C' && array_key_exists('ID', $attribs)) {
+        } else if ($name == 'C' && array_key_exists('ID', $attribs)) {
             $this->_current['chap'] = $attribs['ID'];
-        } elseif ($name == 'V' && array_key_exists('ID', $attribs)) {
+        } else if ($name == 'V' && array_key_exists('ID', $attribs)) {
             $vers = $attribs['ID'];
-            $b = true;
+            $b    = true;
             try {
                 $currChapver = MassHelper::chapVer($this->_current['chap'], $vers);
             } catch (\Throwable $th) {
                 $b = false;
             }
+
             if ($b) {
-                foreach ($this->_parsedRef as $refRaw=>&$refElems) {
+                foreach ($this->_parsedRef as $refRaw => &$refElems) {
                     foreach ($refElems as &$refElem) {
                         if (strcasecmp($refElem[0], $this->_current['book']) == 0) {
                             if ($currChapver >= $refElem[1] && $currChapver <= $refElem[2]) {
@@ -145,11 +155,14 @@ class CommonBible
                     }
                 }
             }
-        } elseif ($name == 'VE' && isset($this->_textRef)) {
+        } else if ($name == 'VE' && isset($this->_textRef)) {
             $this->_textRef .= ' ';
-            unset($this->_textRef);// = null;
-        }
-    }
+            unset($this->_textRef);
+            // = null;
+        }//end if
+
+    }//end _startHdl1()
+
 
     private function _startHdl2($parser, string $name, array $attribs)
     {
@@ -159,12 +172,12 @@ class CommonBible
             && array_key_exists('OSISID', $attribs)
         ) {
             $this->_current['book'] = $attribs['OSISID'];
-        } elseif ($name == 'CHAPTER' && array_key_exists('N', $attribs)) {
+        } else if ($name == 'CHAPTER' && array_key_exists('N', $attribs)) {
             $this->_current['chap'] = $attribs['N'];
-        } elseif ($name == 'VERSE' && array_key_exists('N', $attribs)) {
-            $vers = $attribs['N'];
+        } else if ($name == 'VERSE' && array_key_exists('N', $attribs)) {
+            $vers        = $attribs['N'];
             $currChapver = MassHelper::chapVer($this->_current['chap'], $vers);
-            foreach ($this->_parsedRef as $refRaw=>&$refElems) {
+            foreach ($this->_parsedRef as $refRaw => &$refElems) {
                 foreach ($refElems as &$refElem) {
                     if (strcasecmp($refElem[0], $this->_current['book']) == 0) {
                         if ($currChapver >= $refElem[1] && $currChapver <= $refElem[2]) {
@@ -173,11 +186,12 @@ class CommonBible
                     }
                 }
             }
-        } elseif ($name == 'VERSE' && array_key_exists('EID', $attribs) && isset($this->_textRef)) {
+        } else if ($name == 'VERSE' && array_key_exists('EID', $attribs) && isset($this->_textRef)) {
             $this->_textRef .= ' ';
             unset($this->_textRef);
         }
-    }
+
+    }//end _startHdl2()
 
 
     /**
@@ -192,17 +206,22 @@ class CommonBible
     {
         if ($name == 'BIBLEBOOK') {
             $this->_current['book'] = '';
-        } elseif ($name == 'CHAPTER') {
+        } else if ($name == 'CHAPTER') {
             $this->_current['chap'] = '';
-        } elseif ($name == 'VERS' && isset($this->_textRef)) {
+        } else if ($name == 'VERS' && isset($this->_textRef)) {
             $this->_textRef .= ' ';
-            unset($this->_textRef);// = null;
+            unset($this->_textRef);
+            // = null;
         }
-    }
+
+    }//end _endHdl0()
+
 
     private function _endHdl12($parser, string $name)
     {
-    }
+
+    }//end _endHdl12()
+
 
     /**
      * Hello
@@ -217,7 +236,9 @@ class CommonBible
         if (isset($this->_textRef)) {
             $this->_textRef .= $data;
         }
-    }
+
+    }//end _midHdl()
+
 
     /**
      * Short description
@@ -239,30 +260,49 @@ class CommonBible
         $stream = fopen($this->_bibFile, 'r');
         $parser = xml_parser_create();
 
-        switch($this->_type) {
-            case 0:
-                xml_set_element_handler(
-                    $parser,
-                    array($this, '_startHdl0'),
-                    array($this, '_endHdl0')
-                );
-                break;
-            case 1:
-                xml_set_element_handler(
-                    $parser,
-                    array($this, '_startHdl1'),
-                    array($this, '_endHdl12')
-                );
-                break;
-            case 2:
-                xml_set_element_handler(
-                    $parser,
-                    array($this, '_startHdl2'),
-                    array($this, '_endHdl12')
-                );
-                break;
-        }
-        xml_set_default_handler($parser, array($this, '_midHdl'));
+        switch ($this->_type) {
+        case 0:
+            xml_set_element_handler(
+                $parser,
+                [
+                    $this,
+                    '_startHdl0',
+                ],
+                [
+                    $this,
+                    '_endHdl0',
+                ]
+            );
+            break;
+        case 1:
+            xml_set_element_handler(
+                $parser,
+                [
+                    $this,
+                    '_startHdl1',
+                ],
+                [
+                    $this,
+                    '_endHdl12',
+                ]
+            );
+            break;
+        case 2:
+            xml_set_element_handler(
+                $parser,
+                [
+                    $this,
+                    '_startHdl2',
+                ],
+                [
+                    $this,
+                    '_endHdl12',
+                ]
+            );
+            break;
+        }//end switch
+
+        xml_set_default_handler($parser, [$this, '_midHdl']);
 
         while (($data = fread($stream, 16384))) {
             xml_parse($parser, $data);
@@ -274,12 +314,15 @@ class CommonBible
         unset($data);
 
         $text = '';
-        foreach ($this->_parsedRef as $refK=>$refV) {
+        foreach ($this->_parsedRef as $refK => $refV) {
             foreach ($refV as $refA) {
                 $text .= $refA[3];
             }
         }
 
         return trim($text);
-    }
-}
+
+    }//end getByRef()
+
+
+}//end class

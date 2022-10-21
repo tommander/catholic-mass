@@ -8,5 +8,11 @@
         "psr-4": {
             "TMD\\OrderOfMass\\": "src/"
         }
+    },
+    "scripts": {
+        "qa": [
+            "phpcs --standard=phpcs.xml.dist --",
+            "phpcbf --standard=phpcs.xml.dist --"
+        ]
     }
 }
