@@ -4,6 +4,7 @@
 
     <file>src/</file>
 
+    <exclude-pattern>*/libs/*</exclude-pattern>
     <exclude-pattern>*/vendor/*</exclude-pattern>
     <exclude-pattern>*/tests/*</exclude-pattern>
 

@@ -14,6 +14,7 @@
 		<api format="php">
 			<ignore hidden="true" symlinks="true">
 				<path>vendor/**/*</path>
+				<path>libs/**/*</path>
 			</ignore>
 		</api>
     </version>
