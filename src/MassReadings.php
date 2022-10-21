@@ -4,11 +4,9 @@
  *
  * PHP version 7.4
  *
- * @category Lectionary
- * @package  OrderOfMass
- * @author   Tommander <tommander@tommander.cz>
- * @license  GPL 3.0 https://www.gnu.org/licenses/gpl-3.0.html
- * @link     mass.tommander.cz
+ * @package OrderOfMass
+ * @author  Tommander <tommander@tommander.cz>
+ * @license GPL 3.0 https://www.gnu.org/licenses/gpl-3.0.html
  */
 
 namespace TMD\OrderOfMass;
@@ -20,11 +18,9 @@ if (!defined('OOM_BASE')) {
 /**
  * Support class for lectionary for the Order of Mass app
  *
- * @category Lectionary
- * @package  OrderOfMass
- * @author   Tommander <tommander@tommander.cz>
- * @license  GPL 3.0 https://www.gnu.org/licenses/gpl-3.0.html
- * @link     mass.tommander.cz
+ * @package OrderOfMass
+ * @author  Tommander <tommander@tommander.cz>
+ * @license GPL 3.0 https://www.gnu.org/licenses/gpl-3.0.html
  */
 class MassReadings
 {

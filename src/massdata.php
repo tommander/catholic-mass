@@ -4,16 +4,14 @@
  *
  * PHP version 7.4
  *
- * @category MainClass
- * @package  OrderOfMass
- * @author   Tommander <tommander@tommander.cz>
- * @license  GPL 3.0 https://www.gnu.org/licenses/gpl-3.0.html
- * @link     mass.tommander.cz
+ * @package OrderOfMass
+ * @author  Tommander <tommander@tommander.cz>
+ * @license GPL 3.0 https://www.gnu.org/licenses/gpl-3.0.html
  */
 
 namespace TMD\OrderOfMass;
 
-if (!defined('OOM_BASE')) {
+if (defined('OOM_BASE') === false) {
     die('This file cannot be viewed independently.');
 }
 
@@ -30,7 +28,7 @@ class MassData
      *
      * @var CommonBible
      */
-    private $_biblexml;
+    private $biblexml;
 
     /**
      * Mass/texts language (from data/langlist.json)
@@ -55,7 +53,7 @@ class MassData
     /**
      * Bible translation ID (from biblist.json)
      *
-     * This is used to correctly initialize {@see MassData::$_biblexml}
+     * This is used to correctly initialize {@see MassData::$biblexml}
      *
      * @var string
      */
@@ -96,7 +94,7 @@ class MassData
      *
      * @var array<string, string>
      */
-    private $_labels = [];
+    private $labels = [];
 
     /**
      * List of Sunday name translations (from data/xxx.json)
@@ -109,7 +107,7 @@ class MassData
      *
      * @var array<string, string>
      */
-    private $_sundays = [];
+    private $sundays = [];
 
     /**
      * List of rosary mystery translations (from data/xxx.json)
@@ -129,7 +127,7 @@ class MassData
      *
      * @var array<string, string>
      */
-    private $_mysteries = [];
+    private $mysteries = [];
 
     /**
      * Closest next Sunday readings
@@ -171,7 +169,7 @@ class MassData
      *
      * @var array<string, array<string, string>>
      */
-    private $_bible = [];
+    private $bible = [];
 
     /**
      * List of available Bible translations (from biblist.json)
@@ -213,7 +211,7 @@ class MassData
      *
      * @var array<string, string>
      */
-    private $_bibtransabbr = [];
+    private $bibtransabbr = [];
 
     /**
      * List of available Font Awesome icons
@@ -223,7 +221,7 @@ class MassData
      *
      * @var array<string, string>
      */
-    private $_icons = [
+    private $icons = [
         'cross'    => 'fas fa-cross',
         'bible'    => 'fas fa-bible',
         'bubble'   => 'far fa-comment',
@@ -243,58 +241,61 @@ class MassData
      *
      * Sets {@see MassData::$tl} and {@see MassData::$ll}
      * and then loads content from language files to
-     * {@see MassData::$langs} and {@see MassData::$_labels}
+     * {@see MassData::$langs} and {@see MassData::$labels}
+     *
+     * @param CommonBible $commonBible Hello
      */
     public function __construct(CommonBible $commonBible)
     {
-        $this->langs     = MassHelper::loadJson('assets/json/langlist.json');
-        $this->bibtrans  = MassHelper::loadJson('assets/json/biblist.json');
-        $this->_biblexml = $commonBible;
+        $this->langs    = MassHelper::loadJson('assets/json/langlist.json');
+        $this->bibtrans = MassHelper::loadJson('assets/json/biblist.json');
+        $this->biblexml = $commonBible;
 
-        if (array_key_exists('ll', $_GET)) {
+        if (array_key_exists('ll', $_GET) === true) {
             if (array_key_exists($_GET['ll'], $this->langs) !== false) {
-                if (preg_match('/^[a-z]{3}$/', $_GET['ll'])) {
+                if (preg_match('/^[a-z]{3}$/', $_GET['ll']) === 1) {
                     $this->ll = $_GET['ll'];
                 }
             }
         }
 
-        if (array_key_exists('tl', $_GET)) {
+        if (array_key_exists('tl', $_GET) === true) {
             if (array_key_exists($_GET['tl'], $this->langs) !== false) {
-                if (preg_match('/^[a-z]{3}$/', $_GET['tl'])) {
+                if (preg_match('/^[a-z]{3}$/', $_GET['tl']) === 1) {
                     $this->tl = $_GET['tl'];
                 }
             }
         }
 
-        if (array_key_exists('bl', $_GET)) {
+        if (array_key_exists('bl', $_GET) === true) {
             $this->bl = $_GET['bl'];
             foreach ($this->bibtrans as $biblang => $biblist) {
                 foreach ($biblist as $bibid => $bibdata) {
-                    if ($bibid == $this->bl) {
+                    if ($bibid === $this->bl) {
                         $bibfile = __DIR__.'/../openbibles/'.$bibdata[1];
-                        $this->_bibtransabbr = $bibdata[2];
-                        $this->_biblexml->defineFile($bibfile);
+
+                        $this->bibtransabbr = $bibdata[2];
+                        $this->biblexml->defineFile($bibfile);
                     }
                 }
             }
         }
 
         $tmp = MassHelper::loadJson('assets/json/lang/'.$this->ll.'.json');
-        if (array_key_exists('labels', $tmp) && is_array($tmp['labels'])) {
-            $this->_labels = $tmp['labels'];
+        if (array_key_exists('labels', $tmp) === true && is_array($tmp['labels']) === true) {
+            $this->labels = $tmp['labels'];
         }
 
-        if (array_key_exists('sundays', $tmp) && is_array($tmp['sundays'])) {
-            $this->_sundays = $tmp['sundays'];
+        if (array_key_exists('sundays', $tmp) === true && is_array($tmp['sundays']) === true) {
+            $this->sundays = $tmp['sundays'];
         }
 
-        if (array_key_exists('mysteries', $tmp) && is_array($tmp['mysteries'])) {
-            $this->_mysteries = $tmp['mysteries'];
+        if (array_key_exists('mysteries', $tmp) === true && is_array($tmp['mysteries']) === true) {
+            $this->mysteries = $tmp['mysteries'];
         }
 
-        if (array_key_exists('bible', $tmp) && is_array($tmp['bible'])) {
-            $this->_bible = $tmp['bible'];
+        if (array_key_exists('bible', $tmp) === true && is_array($tmp['bible']) === true) {
+            $this->bible = $tmp['bible'];
         }
 
     }//end __construct()
@@ -309,7 +310,7 @@ class MassData
      *
      * @return string
      */
-    private function _replbb($ref)
+    private function replbb($ref)
     {
         if (preg_match('/^([A-Za-z0-9]+)\s+(.*)$/', $ref, $m) !== 1) {
             return $ref;
@@ -319,22 +320,22 @@ class MassData
             return $ref;
         }
 
-        if (!array_key_exists($m[1], $this->_bible)) {
+        if (array_key_exists($m[1], $this->bible) === false) {
             return $ref;
         }
 
-        if (!array_key_exists('abbr', $this->_bible[$m[1]])) {
+        if (array_key_exists('abbr', $this->bible[$m[1]]) === false) {
             return $ref;
         }
 
         $addition = '';
-        if ($this->_biblexml !== null && array_key_exists($m[1], $this->_bibtransabbr)) {
-            $addition = ' '.$this->_biblexml->getByRef($this->_bibtransabbr[$m[1]].' '.$m[2]);
+        if ($this->biblexml !== null && array_key_exists($m[1], $this->bibtransabbr) === true) {
+            $addition = ' '.$this->biblexml->getByRef($this->bibtransabbr[$m[1]].' '.$m[2]);
         }
 
-        return '@bib['.$this->_bible[$m[1]]['title'].']{'.$this->_bible[$m[1]]['abbr'].' '.$m[2].'}'.$addition;
+        return '@bib['.$this->bible[$m[1]]['title'].']{'.$this->bible[$m[1]]['abbr'].' '.$m[2].'}'.$addition;
 
-    }//end _replbb()
+    }//end replbb()
 
 
     /**
@@ -348,11 +349,14 @@ class MassData
      */
     private function replcbs(array $matches): string
     {
-        if ((!is_array($this->_labels)) || count($matches) < 2) {
+        if ((is_array($this->labels)) === false || count($matches) < 2) {
             return '';
         }
 
-        return array_key_exists($matches[1], $this->_labels) ? $this->_labels[$matches[1]] : "???";
+        if (array_key_exists($matches[1], $this->labels) === true) {
+            
+        }
+        return  ? $this->labels[$matches[1]] : "???";
 
     }//end replcbs()
 
@@ -362,7 +366,8 @@ class MassData
      *
      * It is actually the same as {@see MassData::replcbs()}, but it wraps the returned value in a "span" tag with the class "command".
      *
-     * @param  string[] $matches Matches of the regex function. Should contain at least two items (0th as the complete string and 1st as the matched label ID)
+     * @param string[] $matches Matches of the regex function. Should contain at least two items (0th as the complete string and 1st as the matched label ID)
+     *
      * @return string Text of the label or "???" if the label ID is unknown or an empty string in case of an error, in every case wrapped as noted in the description
      * @see    https://www.php.net/manual/en/function.preg-replace-callback-array
      */
@@ -382,11 +387,11 @@ class MassData
      */
     private function replsu(array $matches): string
     {
-        if ((!is_array($this->_sundays)) || count($matches) < 2) {
+        if ((!is_array($this->sundays)) || count($matches) < 2) {
             return '';
         }
 
-        return array_key_exists($matches[1], $this->_sundays) ? $this->_sundays[$matches[1]] : "???";
+        return array_key_exists($matches[1], $this->sundays) ? $this->sundays[$matches[1]] : "???";
 
     }//end replsu()
 
@@ -400,11 +405,11 @@ class MassData
      */
     private function replmy(array $matches): string
     {
-        if ((!is_array($this->_mysteries)) || count($matches) < 2) {
+        if ((!is_array($this->mysteries)) || count($matches) < 2) {
             return '';
         }
 
-        return array_key_exists($matches[1], $this->_mysteries) ? $this->_mysteries[$matches[1]] : "???";
+        return array_key_exists($matches[1], $this->mysteries) ? $this->mysteries[$matches[1]] : "???";
 
     }//end replmy()
 
@@ -454,13 +459,13 @@ class MassData
         $ret = $this->reads[$which];
         if (is_string($ret)) {
             $obj    = new \StdClass();
-            $obj->r = '@icon{bible} '.$icon.' ['.$this->_replbb($ret).']';
+            $obj->r = '@icon{bible} '.$icon.' ['.$this->replbb($ret).']';
             return $obj;
         } else if (is_array($ret)) {
             $rtn = [];
             foreach ($ret as $one) {
                 $obj    = new \StdClass();
-                $obj->r = '@icon{bible} '.$icon.' ['.$this->_replbb($one).']';
+                $obj->r = '@icon{bible} '.$icon.' ['.$this->replbb($one).']';
                 $rtn[]  = $obj;
             }
 
@@ -481,11 +486,11 @@ class MassData
      */
     private function replico(array $matches): string
     {
-        if ((!is_array($this->_icons)) || count($matches) < 2 || (!array_key_exists($matches[1], $this->_icons))) {
+        if ((!is_array($this->icons)) || count($matches) < 2 || (!array_key_exists($matches[1], $this->icons))) {
             return '';
         }
 
-        return "<i class=\"".$this->_icons[$matches[1]]."\"></i>";
+        return "<i class=\"".$this->icons[$matches[1]]."\"></i>";
 
     }//end replico()
 

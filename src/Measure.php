@@ -29,6 +29,8 @@ class Measure
 
     /**
      * Starts measuring
+     *
+     * @return void
      */
     public function start()
     {

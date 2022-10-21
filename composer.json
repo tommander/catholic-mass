@@ -1,9 +1,12 @@
 {
 	"require": {
-		"squizlabs/php_codesniffer": "*",
         "php-di/php-di": "*",
         "ocramius/proxy-manager": "*"
 	},
+    "require-dev": {
+		"squizlabs/php_codesniffer": "*",
+        "vimeo/psalm": "*"
+    },
     "autoload": {
         "psr-4": {
             "TMD\\OrderOfMass\\": "src/"
@@ -12,7 +15,8 @@
     "scripts": {
         "qa": [
             "phpcs --standard=phpcs.xml.dist --",
-            "phpcbf --standard=phpcs.xml.dist --"
+            "phpcbf --standard=phpcs.xml.dist --",
+            "psalm"
         ]
     }
 }
