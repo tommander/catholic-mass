@@ -5,7 +5,8 @@
 	},
     "require-dev": {
 		"squizlabs/php_codesniffer": "*",
-        "vimeo/psalm": "*"
+        "vimeo/psalm": "*",
+        "evert/phpdoc-md": "*"
     },
     "autoload": {
         "psr-4": {
@@ -17,6 +18,10 @@
             "phpcs --standard=phpcs.xml.dist --",
             "phpcbf --standard=phpcs.xml.dist --",
             "psalm"
+        ],
+        "docs": [
+            "php phpDocumentor.phar",
+            "phpdocmd .docs/structure.xml ../mass-wiki/phpdoc"
         ]
     }
 }
