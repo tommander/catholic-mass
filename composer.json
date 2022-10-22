@@ -5,8 +5,7 @@
 	},
     "require-dev": {
 		"squizlabs/php_codesniffer": "*",
-        "vimeo/psalm": "*",
-        "evert/phpdoc-md": "*"
+        "vimeo/psalm": "*"
     },
     "autoload": {
         "psr-4": {
