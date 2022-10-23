@@ -16,11 +16,16 @@
         "qa": [
             "phpcs --standard=phpcs.xml.dist --",
             "phpcbf --standard=phpcs.xml.dist --",
-            "psalm"
+            "psalm --no-diff"
+        ],
+        "qa-full": [
+            "phpcs --standard=phpcs.xml.dist --",
+            "phpcbf --standard=phpcs.xml.dist --",
+            "psalm --show-info=true --no-diff"
         ],
         "docs": [
             "php phpDocumentor.phar",
-            "phpdocmd .docs/structure.xml ../mass-wiki/phpdoc"
+            "libs-dev/bin/phpdocmd .docs/structure.xml ../mass-wiki/phpdoc"
         ]
     }
 }

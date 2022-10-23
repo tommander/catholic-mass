@@ -1,12 +1,18 @@
 <?php
 /**
+ * Main class of the Order of Mass app
  *
+ * PHP version 7.4
+ *
+ * @package OrderOfMass
+ * @author  Tommander <tommander@tommander.cz>
+ * @license GPL 3.0 https://www.gnu.org/licenses/gpl-3.0.html
  */
 
 namespace TMD\OrderOfMass;
 
 /**
- *
+ * Main class of the Order of Mass app
  */
 class MassMain
 {
@@ -17,13 +23,6 @@ class MassMain
      * @var \DI\Container
      */
     private $container;
-
-    /**
-     * Start time of {@see MassMain::run()}
-     *
-     * @var integer
-     */
-    private $startTime;
 
 
     /**
@@ -47,12 +46,24 @@ class MassMain
     }//end __construct()
 
 
+    /**
+     * Creates a content of `select` HTML tag from an array
+     *
+     * @param array $def    Array defining the content of the combobox
+     * @param bool  $simple Whether `optgroup` tags are being used
+     *
+     * @return string
+     */
     private function comboBoxContent(array $def, bool $simple): string
     {
         $ret = '';
-        if ($simple) {
+        if ($simple === true) {
             foreach ($def as $opt) {
-                $sel  = $opt['sel'] ? ' selected="selected"' : '';
+                $sel = '';
+                if ($opt['sel'] === true) {
+                    $sel = ' selected="selected"';
+                }
+
                 $ret .= sprintf("<option value=\"%s\"%s>%s</option>\r\n", $opt['value'], $sel, $opt['text']);
             }
 
@@ -60,16 +71,20 @@ class MassMain
         }
 
         foreach ($def as $grp => $lst) {
-            if ($grp) {
+            if ($grp !== '') {
                 $ret .= sprintf("<optgroup label=\"\">\r\n", $grp);
             }
 
             foreach ($lst as $opt) {
-                $sel  = $opt['sel'] ? ' selected="selected"' : '';
+                $sel = '';
+                if ($opt['sel'] === true) {
+                    $sel = ' selected="selected"';
+                }
+
                 $ret .= sprintf("<option value=\"%s\"%s>%s</option>\r\n", $opt['value'], $sel, $opt['text']);
             }
 
-            if ($grp) {
+            if ($grp !== '') {
                 $ret .= "</optgroup>\r\n";
             }
         }
@@ -79,6 +94,13 @@ class MassMain
     }//end comboBoxContent()
 
 
+    /**
+     * Creates a list of links for the main page footer
+     *
+     * @param array $def Array of links
+     *
+     * @return string
+     */
     private function linksContent(array $def): string
     {
         $ret = '';
@@ -88,12 +110,12 @@ class MassMain
                 continue;
             }
 
-            if (! is_array($one)) {
+            if (is_array($one) !== true) {
                 continue;
             }
 
-            if (array_key_exists('licenseurl', $one)
-                && array_key_exists('licensetext', $one)
+            if (array_key_exists('licenseurl', $one) === true
+                && array_key_exists('licensetext', $one) === true
             ) {
                 $ret .= sprintf(
                     "<span>%s: <a href=\"%s\">%s</a> (<a href=\"%s\">%s</a>)</span>\r\n",
@@ -106,11 +128,16 @@ class MassMain
                 continue;
             }
 
-            if (array_key_exists('list', $one)) {
+            if (array_key_exists('list', $one) === true) {
                 foreach ($one['list'] as $key => $data) {
-                    $author = ($data['author'] !== 'Tommander') ? ' by '.$data['author'] : '';
-                    $links  = '';
-                    $cnt    = 1;
+                    $author = '';
+                    if ($data['author'] !== 'Tommander') {
+                        $author = ' by '.$data['author'];
+                    }
+
+                    $links = '';
+                    $cnt   = 1;
+
                     foreach ($data['link'] as $lnk) {
                         if ($cnt > 1) {
                             $links .= ', ';
@@ -148,10 +175,11 @@ class MassMain
 
 
     /**
+     * Prepares an associative array for replacement of content placeholders in an HTML template
      *
-     * @return array<string, mixed>
+     * @return array<string, mixed> Key is a replacement placeholder, value is the content to replace with
      */
-    private function _prepareHtmlData()
+    private function prepareHtmlData()
     {
         $massData        = $this->container->get(MassData::class);
         $massReadings    = $this->container->get(MassReadings::class);
@@ -197,7 +225,7 @@ class MassMain
                 ],
             ],
         ];
-        if (array_key_exists($massData->ll, $massData->bibtrans)) {
+        if (array_key_exists($massData->ll, $massData->bibtrans) === true) {
             $grplabel = $massData->langs[$massData->ll]['title'];
             $comboboxB[$grplabel] = [];
             foreach ($massData->bibtrans[$massData->ll] as $bibleid => $bibledata) {
@@ -209,7 +237,7 @@ class MassMain
             }
         }
 
-        if (array_key_exists($massData->tl, $massData->bibtrans) && $massData->ll != $massData->tl) {
+        if (array_key_exists($massData->tl, $massData->bibtrans) === true && $massData->ll !== $massData->tl) {
             $grplabel = $massData->langs[$massData->tl]['title'];
             $comboboxB[$grplabel] = [];
             foreach ($massData->bibtrans[$massData->tl] as $bibleid => $bibledata) {
@@ -265,9 +293,24 @@ class MassMain
             ],
         ];
 
+        $title = '@{heading}';
+        if ($massData->isRosary() === true) {
+            $title = '@{rosary}';
+        }
+
+        $dateL = time();
+        if ($massData->isRosary() !== true) {
+            $dateL = $massReadings->nextSunday();
+        }
+
+        $dateR = '@su{'.$massReadings->sundayLabel().'}';
+        if ($massData->isRosary() === true) {
+            $dateR = '@my{'.$massReadings->todaysMystery().'}';
+        }
+
         return [
             '/@@LANG@@/'    => $massData->repls('@{html}'),
-            '/@@TITLE@@/'   => $massData->repls($massData->isRosary() ? '@{rosary}' : '@{heading}'),
+            '/@@TITLE@@/'   => $massData->repls($title),
             '/@@IDXL@@/'    => $massData->repls('@{idxL}'),
             '/@@IDXY@@/'    => $massData->repls('@{idxY}'),
             '/@@IDXB@@/'    => $massData->repls('@{idxB}'),
@@ -279,15 +322,15 @@ class MassMain
             '/@@LEGP@@/'    => $massData->repls('@{lblP}'),
             '/@@LEGA@@/'    => $massData->repls('@{lblA}'),
             '/@@LEGR@@/'    => $massData->repls('@{lblR}'),
-            '/@@DATEL@@/'   => $massData->isRosary() ? date('d.m.Y') : date('d.m.Y', $massReadings->nextSunday()),
-            '/@@DATER@@/'   => $massData->isRosary() ? $massData->repls('@my{'.$massReadings->todaysMystery().'}') : $massData->repls('@su{'.$massReadings->sundayLabel().'}'),
+            '/@@DATEL@@/'   => date('d.m.Y', $dateL),
+            '/@@DATER@@/'   => $massData->repls($dateR),
             '/@@MAIN@@/'    => $massData->htmlObj(),
             '/@@LINKS@@/'   => $this->linksContent($links),
             '/@@MEMPEAK@@/' => \memory_get_peak_usage(true),
             '/@@MEMUSE@@/'  => \memory_get_usage(true),
         ];
 
-    }//end _prepareHtmlData()
+    }//end prepareHtmlData()
 
 
     /**
@@ -301,19 +344,13 @@ class MassMain
         $meas->start();
 
         $template = __DIR__.'/../assets/html/main.html';
-        if (!file_exists($template)) {
-            echo 'Err1';
+        if (file_exists($template) !== true) {
             return;
         }
 
-        $htmldata = $this->_prepareHtmlData();
-        if (!$htmldata) {
-            echo 'Err2';
-            return;
-        }
-
-        $content = file_get_contents($template);
-        $content = preg_replace(
+        $htmldata = $this->prepareHtmlData();
+        $content  = file_get_contents($template);
+        $content  = preg_replace(
             array_keys($htmldata),
             array_values($htmldata),
             $content
@@ -321,7 +358,7 @@ class MassMain
 
         echo $content;
         echo "<!-- \r\n";
-        var_dump($meas->finish());
+        var_export($meas->finish());
         echo "\r\n -->\r\n";
         return;
 

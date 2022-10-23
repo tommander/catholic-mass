@@ -11,16 +11,12 @@
 
 namespace TMD\OrderOfMass;
 
-if (defined('OOM_BASE') === false) {
+if (defined('OOM_BASE') !== true) {
     die('This file cannot be viewed independently.');
 }
 
 /**
  * Hello
- *
- * @package OrderOfMass
- * @author  Tommander <tommander@tommander.cz>
- * @license GPL 3.0 https://www.gnu.org/licenses/gpl-3.0.html
  */
 class CommonBible
 {
@@ -28,36 +24,44 @@ class CommonBible
     /**
      * Path to the Bible XML
      *
-     * @var string $bibFile
+     * @var string
      */
     private $bibFile;
 
     /**
      * Parsed verse references
      *
-     * @var array $parsedRef
+     * @var array
      */
     private $parsedRef;
 
     /**
      * Current book and chapter
      *
-     * @var array $current
+     * @var array
      */
     private $current;
 
     /**
      * Type of XML (Zefania, USFX, OSIS)
      *
-     * @var integer $type
+     * @var integer
      */
     private $type;
 
     /**
-     * Reference to the variable, where to store correct verse text
+     * Whether to collect text
      *
-     * @var string $_textRef
+     * @var boolean
      */
+    private $doCollect;
+
+    /**
+     * Collected text
+     *
+     * @var string
+     */
+    private $textOut;
 
 
     /**
@@ -70,8 +74,11 @@ class CommonBible
         $this->current   = [
             'book' => '',
             'chap' => '',
+            'vers' => '',
         ];
         $this->type      = -1;
+        $this->doCollect = false;
+        $this->textOut   = '';
 
     }//end __construct()
 
@@ -98,11 +105,44 @@ class CommonBible
 
 
     /**
+     * Start collecting text
+     *
+     * @return void
+     */
+    private function startCollecting()
+    {
+        $currChapver = MassHelper::chapVer(intval($this->current['chap']), intval($this->current['vers']));
+        foreach ($this->parsedRef as $refRaw) {
+            $this->doCollect = strcasecmp($refRaw[0], $this->current['book']) === 0
+                && $currChapver >= intval($refRaw[1])
+                && $currChapver <= intval($refRaw[2]);
+        }
+
+    }//end startCollecting()
+
+
+    /**
+     * Stop collecting text
+     *
+     * @return void
+     */
+    private function stopCollecting()
+    {
+        if ($this->doCollect === false) {
+            return;
+        }
+
+        $this->doCollect = false;
+
+    }//end stopCollecting()
+
+
+    /**
      * Hello
      *
-     * @param XMLParser|resource $parser  Hello
-     * @param string             $name    Hello
-     * @param array              $attribs Hello
+     * @param \XMLParser|resource $parser  Hello
+     * @param string              $name    Hello
+     * @param array               $attribs Hello
      *
      * @return void
      */
@@ -113,17 +153,8 @@ class CommonBible
         } else if ($name === 'CHAPTER' && array_key_exists('CNUMBER', $attribs) === true) {
             $this->current['chap'] = $attribs['CNUMBER'];
         } else if ($name === 'VERS' && array_key_exists('VNUMBER', $attribs) === true) {
-            $vers        = $attribs['VNUMBER'];
-            $currChapver = MassHelper::chapVer($this->current['chap'], $vers);
-            foreach ($this->parsedRef as $refRaw => &$refElems) {
-                foreach ($refElems as &$refElem) {
-                    if (strcasecmp($refElem[0], $this->current['book']) === 0) {
-                        if ($currChapver >= $refElem[1] && $currChapver <= $refElem[2]) {
-                            $this->_textRef = &$refElem[3];
-                        }
-                    }
-                }
-            }
+            $this->current['vers'] = $attribs['VNUMBER'];
+            $this->startCollecting();
         }
 
     }//end startHdl0()
@@ -145,29 +176,10 @@ class CommonBible
         } else if ($name === 'C' && array_key_exists('ID', $attribs) === true) {
             $this->current['chap'] = $attribs['ID'];
         } else if ($name === 'V' && array_key_exists('ID', $attribs) === true) {
-            $vers = $attribs['ID'];
-            $b    = true;
-            try {
-                $currChapver = MassHelper::chapVer($this->current['chap'], $vers);
-            } catch (\Throwable $th) {
-                $b = false;
-            }
-
-            if ($b === true) {
-                foreach ($this->parsedRef as $refRaw => &$refElems) {
-                    foreach ($refElems as &$refElem) {
-                        if (strcasecmp($refElem[0], $this->current['book']) === 0) {
-                            if ($currChapver >= $refElem[1] && $currChapver <= $refElem[2]) {
-                                $this->_textRef = &$refElem[3];
-                            }
-                        }
-                    }
-                }
-            }
-        } else if ($name === 'VE' && isset($this->_textRef) === true) {
-            $this->_textRef .= ' ';
-            unset($this->_textRef);
-            // = null;
+            $this->current['vers'] = $attribs['ID'];
+            $this->startCollecting();
+        } else if ($name === 'VE') {
+            $this->stopCollecting();
         }//end if
 
     }//end startHdl1()
@@ -193,20 +205,10 @@ class CommonBible
         } else if ($name === 'CHAPTER' && array_key_exists('N', $attribs) === true) {
             $this->current['chap'] = $attribs['N'];
         } else if ($name === 'VERSE' && array_key_exists('N', $attribs) === true) {
-            $vers        = $attribs['N'];
-            $currChapver = MassHelper::chapVer($this->current['chap'], $vers);
-            foreach ($this->parsedRef as $refRaw => &$refElems) {
-                foreach ($refElems as &$refElem) {
-                    if (strcasecmp($refElem[0], $this->current['book']) === 0) {
-                        if ($currChapver >= $refElem[1] && $currChapver <= $refElem[2]) {
-                            $this->_textRef = &$refElem[3];
-                        }
-                    }
-                }
-            }
-        } else if ($name === 'VERSE' && array_key_exists('EID', $attribs) === true && isset($this->_textRef) === true) {
-            $this->_textRef .= ' ';
-            unset($this->_textRef);
+            $this->current['vers'] = $attribs['N'];
+            $this->startCollecting();
+        } else if ($name === 'VERSE' && array_key_exists('EID', $attribs) === true) {
+            $this->stopCollecting();
         }
 
     }//end startHdl2()
@@ -215,8 +217,8 @@ class CommonBible
     /**
      * Hello
      *
-     * @param XMLParser $parser Hello
-     * @param string    $name   Hello
+     * @param \XMLParser $parser Hello
+     * @param string     $name   Hello
      *
      * @return void
      */
@@ -226,10 +228,8 @@ class CommonBible
             $this->current['book'] = '';
         } else if ($name === 'CHAPTER') {
             $this->current['chap'] = '';
-        } else if ($name === 'VERS' && isset($this->_textRef) === true) {
-            $this->_textRef .= ' ';
-            unset($this->_textRef);
-            // = null;
+        } else if ($name === 'VERS') {
+            $this->stopCollecting();
         }
 
     }//end endHdl0()
@@ -252,15 +252,15 @@ class CommonBible
     /**
      * Hello
      *
-     * @param XMLParser $parser Hello
-     * @param string    $data   Hello
+     * @param \XMLParser $parser Hello
+     * @param string     $data   Hello
      *
      * @return void
      */
     private function midHdl($parser, string $data)
     {
-        if (isset($this->_textRef) === true) {
-            $this->_textRef .= $data;
+        if ($this->doCollect === true) {
+            $this->textOut .= $data;
         }
 
     }//end midHdl()
@@ -277,11 +277,12 @@ class CommonBible
      */
     public function getByRef($ref)
     {
-        if (file_exists($this->bibFile) === false) {
+        if (file_exists($this->bibFile) !== true) {
             return '';
         }
 
         $this->parsedRef = MassHelper::parseRefs($ref);
+        $this->textOut   = '';
 
         $stream = fopen($this->bibFile, 'r');
         $parser = xml_parser_create();
@@ -330,7 +331,8 @@ class CommonBible
 
         xml_set_default_handler($parser, [$this, 'midHdl']);
 
-        while (($data = fread($stream, 16384)) !== false) {
+        while (feof($stream) !== true) {
+            $data = fread($stream, 16384);
             xml_parse($parser, $data);
         }
 
@@ -339,14 +341,7 @@ class CommonBible
         fclose($stream);
         unset($data);
 
-        $text = '';
-        foreach ($this->parsedRef as $refK => $refV) {
-            foreach ($refV as $refA) {
-                $text .= $refA[3];
-            }
-        }
-
-        return trim($text);
+        return trim($this->textOut);
 
     }//end getByRef()
 

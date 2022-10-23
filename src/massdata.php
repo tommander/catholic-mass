@@ -11,10 +11,9 @@
 
 namespace TMD\OrderOfMass;
 
-if (defined('OOM_BASE') === false) {
+if (defined('OOM_BASE') !== true) {
     die('This file cannot be viewed independently.');
 }
-
 
 /**
  * Class that helps to convert language JSON files to HTML
@@ -144,7 +143,7 @@ class MassData
      * ]
      * ```
      *
-     * @var array<string, string>
+     * @var array
      *
      * @see MassReadings::lectio()
      */
@@ -251,7 +250,7 @@ class MassData
         $this->bibtrans = MassHelper::loadJson('assets/json/biblist.json');
         $this->biblexml = $commonBible;
 
-        if (array_key_exists('ll', $_GET) === true) {
+        if (array_key_exists('ll', $_GET) === true && is_string($_GET['ll']) === true) {
             if (array_key_exists($_GET['ll'], $this->langs) !== false) {
                 if (preg_match('/^[a-z]{3}$/', $_GET['ll']) === 1) {
                     $this->ll = $_GET['ll'];
@@ -259,7 +258,7 @@ class MassData
             }
         }
 
-        if (array_key_exists('tl', $_GET) === true) {
+        if (array_key_exists('tl', $_GET) === true && is_string($_GET['tl']) === true) {
             if (array_key_exists($_GET['tl'], $this->langs) !== false) {
                 if (preg_match('/^[a-z]{3}$/', $_GET['tl']) === 1) {
                     $this->tl = $_GET['tl'];
@@ -267,12 +266,12 @@ class MassData
             }
         }
 
-        if (array_key_exists('bl', $_GET) === true) {
+        if (array_key_exists('bl', $_GET) === true && is_string($_GET['bl']) === true) {
             $this->bl = $_GET['bl'];
             foreach ($this->bibtrans as $biblang => $biblist) {
                 foreach ($biblist as $bibid => $bibdata) {
                     if ($bibid === $this->bl) {
-                        $bibfile = __DIR__.'/../openbibles/'.$bibdata[1];
+                        $bibfile = __DIR__.'/../libs/open-bibles/'.$bibdata[1];
 
                         $this->bibtransabbr = $bibdata[2];
                         $this->biblexml->defineFile($bibfile);
@@ -329,7 +328,7 @@ class MassData
         }
 
         $addition = '';
-        if ($this->biblexml !== null && array_key_exists($m[1], $this->bibtransabbr) === true) {
+        if (array_key_exists($m[1], $this->bibtransabbr) === true) {
             $addition = ' '.$this->biblexml->getByRef($this->bibtransabbr[$m[1]].' '.$m[2]);
         }
 
@@ -349,14 +348,13 @@ class MassData
      */
     private function replcbs(array $matches): string
     {
-        if ((is_array($this->labels)) === false || count($matches) < 2) {
+        if (count($matches) < 2
+            || array_key_exists($matches[1], $this->labels) === false
+        ) {
             return '';
         }
 
-        if (array_key_exists($matches[1], $this->labels) === true) {
-            
-        }
-        return  ? $this->labels[$matches[1]] : "???";
+        return $this->labels[$matches[1]];
 
     }//end replcbs()
 
@@ -381,17 +379,20 @@ class MassData
     /**
      * This function replaces Sunday IDs with respective Sunday texts.
      *
-     * @param  string[] $matches Matches of the regex function. Should contain at least two items (0th as the complete string and 1st as the matched Sunday ID)
+     * @param string[] $matches Matches of the regex function. Should contain at least two items (0th as the complete string and 1st as the matched Sunday ID)
+     *
      * @return string Text of the Sunday or "???" if the Sunday ID is unknown or an empty string in case of an error
      * @see    https://www.php.net/manual/en/function.preg-replace-callback-array
      */
     private function replsu(array $matches): string
     {
-        if ((!is_array($this->sundays)) || count($matches) < 2) {
+        if (count($matches) < 2
+            || array_key_exists($matches[1], $this->sundays) === false
+        ) {
             return '';
         }
 
-        return array_key_exists($matches[1], $this->sundays) ? $this->sundays[$matches[1]] : "???";
+        return $this->sundays[$matches[1]];
 
     }//end replsu()
 
@@ -399,21 +400,32 @@ class MassData
     /**
      * This function replaces Mystery IDs with respective names of Mysteries of the Rosary.
      *
-     * @param  string[] $matches Matches of the regex function. Should contain at least two items (0th as the complete string and 1st as the matched Mystery ID)
+     * @param string[] $matches Matches of the regex function. Should contain at least two items (0th as the complete string and 1st as the matched Mystery ID)
+     *
      * @return string Name of the Mystery or "???" if the Mystery ID is unknown or an empty string in case of an error
      * @see    https://www.php.net/manual/en/function.preg-replace-callback-array
      */
     private function replmy(array $matches): string
     {
-        if ((!is_array($this->mysteries)) || count($matches) < 2) {
+        if (count($matches) < 2
+            || array_key_exists($matches[1], $this->mysteries) === false
+        ) {
             return '';
         }
 
-        return array_key_exists($matches[1], $this->mysteries) ? $this->mysteries[$matches[1]] : "???";
+        return $this->mysteries[$matches[1]];
 
     }//end replmy()
 
 
+    /**
+     * Replaces bible verse reference placeholders with translated references and book names in the mouse-hover hint.
+     *
+     * @param string[] $matches Matches of the regex function.
+     *
+     * @return string
+     * @see    https://www.php.net/manual/en/function.preg-replace-callback-array
+     */
     private function replbib(array $matches): string
     {
         if (count($matches) < 3) {
@@ -428,14 +440,23 @@ class MassData
     /**
      * This function replaces reading IDs with respective reading texts.
      *
-     * @param  string[] $matches Matches of the regex function. Should contain at least two items (0th as the complete string and 1st as the matched reading ID)
-     * @return string Text of the reading or "???" if the reading ID is unknown or an empty string in case of an error
+     * Reading ID can be:
+     *
+     * - `r1` for first reading;
+     * - `r2` for second reading;
+     * - `p` for responsorial psalm;
+     * - `a` for alleluia;
+     * - `g` for gospel
+     *
+     * @param string $which Reading ID
+     *
+     * @return \stdClass|\stdClass[]|null Text of the reading or "???" if the reading ID is unknown or an empty string in case of an error
      * @see    https://www.php.net/manual/en/function.preg-replace-callback-array
      */
     private function replre(string $which)
     {
-        if (!array_key_exists($which, $this->reads)) {
-            return '???';
+        if (array_key_exists($which, $this->reads) === false) {
+            return null;
         }
 
         $icon = '';
@@ -457,14 +478,14 @@ class MassData
         }
 
         $ret = $this->reads[$which];
-        if (is_string($ret)) {
-            $obj    = new \StdClass();
+        if (is_string($ret) === true) {
+            $obj    = new \stdClass();
             $obj->r = '@icon{bible} '.$icon.' ['.$this->replbb($ret).']';
             return $obj;
-        } else if (is_array($ret)) {
+        } else if (is_array($ret) === true) {
             $rtn = [];
             foreach ($ret as $one) {
-                $obj    = new \StdClass();
+                $obj    = new \stdClass();
                 $obj->r = '@icon{bible} '.$icon.' ['.$this->replbb($one).']';
                 $rtn[]  = $obj;
             }
@@ -472,7 +493,7 @@ class MassData
             return $rtn;
         }
 
-        return [];
+        return null;
 
     }//end replre()
 
@@ -480,13 +501,16 @@ class MassData
     /**
      * This function replaces icon IDs with respective Font Awesome icons.
      *
-     * @param  string[] $matches Matches of the regex function. Should contain at least two items (0th as the complete string and 1st as the matched icon ID)
+     * @param string[] $matches Matches of the regex function. Should contain at least two items (0th as the complete string and 1st as the matched icon ID)
+     *
      * @return string Font Awesome icon in the form of an "i" tag with the respective CSS class or an empty string in case of an error
      * @see    https://www.php.net/manual/en/function.preg-replace-callback-array
      */
     private function replico(array $matches): string
     {
-        if ((!is_array($this->icons)) || count($matches) < 2 || (!array_key_exists($matches[1], $this->icons))) {
+        if (count($matches) < 2
+            || array_key_exists($matches[1], $this->icons) === false
+        ) {
             return '';
         }
 
@@ -498,14 +522,15 @@ class MassData
     /**
      * Regex replacement of label and icon placeholders in a text.
      *
-     * @param  string $text Text that may contain label/icon placeholders
+     * @param string $text Text that may contain label/icon placeholders
+     *
      * @return string Text with replaced label/icon placeholders
      * @uses   MassData::replcb()
      * @uses   MassData::replico()
      */
     public function repl(string $text)
     {
-        return preg_replace_callback_array(
+        $ret = preg_replace_callback_array(
             [
                 '/@\{([A-Za-z0-9]+)\}/'          => 'self::replcb',
                 '/@su\{([A-Za-z0-9]+)\}/'        => 'self::replsu',
@@ -515,6 +540,11 @@ class MassData
             ],
             htmlspecialchars($text)
         );
+        if (is_string($ret) === true) {
+            return $ret;
+        }
+
+        return '';
 
     }//end repl()
 
@@ -522,14 +552,15 @@ class MassData
     /**
      * Regex replacement of label and icon placeholders in a text.
      *
-     * @param  string $text Text that may contain label/icon placeholders
+     * @param string $text Text that may contain label/icon placeholders
+     *
      * @return string Text with replaced label/icon placeholders
      * @uses   MassData::replcbs()
      * @uses   MassData::replico()
      */
     public function repls(string $text)
     {
-        return preg_replace_callback_array(
+        $ret = preg_replace_callback_array(
             [
                 '/@\{([A-Za-z0-9]+)\}/'     => 'self::replcbs',
                 '/@su\{([A-Za-z0-9]+)\}/'   => 'self::replsu',
@@ -538,69 +569,123 @@ class MassData
             ],
             htmlspecialchars($text)
         );
+        if (is_string($ret) === true) {
+            return $ret;
+        }
+
+        return '';
 
     }//end repls()
 
 
+    /**
+     * Checks whether rosary was chosen as the content type
+     *
+     * @return bool
+     */
     public function isRosary()
     {
-        return array_key_exists('sn', $_GET) && $_GET['sn'] == 'rosary';
+        return array_key_exists('sn', $_GET) === true && $_GET['sn'] === 'rosary';
 
     }//end isRosary()
 
 
+    /**
+     * Convert original JSON object to an HTML representation
+     *
+     * @param object $obj JSON object
+     *
+     * @return string
+     */
     public function objToHtml2(object $obj): string
     {
         $who  = '';
         $what = '';
-        if (isset($obj->reading)) {
+        $cls  = '';
+
+        if (isset($obj->reading) === true) {
             $what = "<a href=\"".$this->repls('@{dbrlink}')."\">".$this->repls('@icon{booklink} @{dbrtext}')."</a>";
-        } else if (isset($obj->{""})) {
+        } else if (isset($obj->{""}) === true) {
             $what = $this->repl($obj->{""});
-        } else if (isset($obj->{"p"})) {
+        } else if (isset($obj->{"p"}) === true) {
             $who  = "<span class=\"who\">P:</span>";
             $what = $this->repl($obj->{"p"});
-        } else if (isset($obj->{"a"})) {
+        } else if (isset($obj->{"a"}) === true) {
             $who  = "<span class=\"who\">A:</span>";
             $what = "<strong>".$this->repl($obj->{"a"})."</strong>";
-        } else if (isset($obj->{"r"})) {
+        } else if (isset($obj->{"r"}) === true) {
             $who  = "<span class=\"who\">R:</span>";
             $what = $this->repl($obj->{"r"});
         }
 
-        $cls = ($who == '') ? " class=\"command\"" : "";
+        if ($who === '') {
+            $cls = ' class="command"';
+        }
+
         return "<div${cls}>${who}<span class=\"what\">${what}</span></div>\r\n";
 
     }//end objToHtml2()
 
 
+    /**
+     * Parses one item from JSON content array into HTML
+     *
+     * @param mixed $row  JSON content array item
+     * @param mixed $deep Flag to make sure sublevel arrays do not create unnecessary `div` tags
+     *
+     * @return string
+     */
     public function parseToHtml($row, $deep=true)
     {
-        if (is_object($row) && isset($row->read)) {
+        if (is_object($row) === true && isset($row->read) === true) {
             return $this->parseToHtml($this->replre($row->read));
-        } else if (is_object($row)) {
+        } else if (is_object($row) === true) {
             return $this->objToHtml2($row);
-        } else if (is_array($row)) {
-            $ret = $deep ? "<div class=\"options\">\r\n" : '';
-            foreach ($row as $rowrow) {
-                $ret .= $deep ? "<div>\r\n" : '';
-                $ret .= $this->parseToHtml($rowrow, false);
-                $ret .= $deep ? "</div>\r\n" : '';
+        } else if (is_array($row) === true) {
+            $ret = '';
+            if ($deep === true) {
+                $ret = "<div class=\"options\">\r\n";
             }
 
-            $ret .= $deep ? "</div>\r\n" : '';
+            foreach ($row as $rowrow) {
+                if ($deep === true) {
+                    $ret .= "<div>\r\n";
+                }
+
+                $ret .= $this->parseToHtml($rowrow, false);
+
+                if ($deep === true) {
+                    $ret .= "</div>\r\n";
+                }
+            }
+
+            if ($deep === true) {
+                $ret .= "</div>\r\n";
+            }
+
             return $ret;
-        }
+        }//end if
+
+        return '';
 
     }//end parseToHtml()
 
 
+    /**
+     * Returns complete mass/rosary HTML content
+     *
+     * @return string
+     */
     public function htmlObj(): string
     {
-        $section = $this->isRosary() ? 'rosary' : 'texts';
-        $texts   = MassHelper::loadJson('assets/json/lang/'.$this->tl.'.json', false);
+        $section = 'texts';
+        if ($this->isRosary() === true) {
+            $section = 'rosary';
+        }
 
-        if (!isset($texts->{$section}) || !is_array($texts->{$section})) {
+        $texts = MassHelper::loadJson('assets/json/lang/'.$this->tl.'.json', false);
+
+        if (isset($texts->{$section}) === false || is_array($texts->{$section}) === false) {
             return var_export($texts, true);
         }
 

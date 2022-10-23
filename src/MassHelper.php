@@ -11,17 +11,20 @@
 
 namespace TMD\OrderOfMass;
 
-if (!defined('OOM_BASE')) {
+if (defined('OOM_BASE') !== true) {
     die('This file cannot be viewed independently.');
 }
 
 /**
- *
+ * Class for helper function of the Order of Mass app
  */
 class MassHelper
 {
 
 
+    /**
+     * Do. Not. Call. Me.
+     */
     public function __construct()
     {
         die('Please do not create instances of '.self::class);
@@ -43,12 +46,12 @@ class MassHelper
     public static function showCommit()
     {
         $commitFileName = __DIR__.'/../commit';
-        if (!file_exists($commitFileName)) {
+        if (file_exists($commitFileName) === false) {
             return '';
         }
 
         $commit = trim(file_get_contents($commitFileName));
-        if (!preg_match('/^[a-f0-9]{40}$/', $commit)) {
+        if (preg_match('/^[a-f0-9]{40}$/', $commit) !== 1) {
             return '';
         }
 
@@ -74,18 +77,12 @@ class MassHelper
      */
     public static function parseRef(string $ref): array
     {
-        // Check that book reference and the rest of the reference was found
+        // Check that book reference and the rest of the reference was found.
         if (preg_match('/^([\p{L}0-9]+)\s+(.*)$/u', $ref, $mat) !== 1 || count($mat) < 3) {
             return [];
         }
 
-        // Save basic reference parts for clarity
-        /*
-            $tmp = [
-                'book' => $mat[1],
-                'ref' => [],
-                'text' => ''
-            ];*/
+        // Save basic reference parts for clarity.
         $tmp  = [
             $mat[1],
             0,
@@ -94,7 +91,7 @@ class MassHelper
         ];
         $chap = '';
 
-        // Split reference into single verses or verse ranges
+        // Split reference into single verses or verse ranges.
         $rngArr = [];
         $rngTok = strtok($mat[2], ',+');
         while ($rngTok !== false) {
@@ -103,63 +100,39 @@ class MassHelper
         }
 
         // Unification of all single verse/verse range refs, so that
-        // they all have book and chapter
+        // they all have book and chapter.
         $rng = [];
         foreach ($rngArr as $rngOne) {
-            if (preg_match('/(([0-9]+):)?(\d+)(-)?(([0-9]+):)?(\d+)?/', $rngOne, $mat2) === 1/* && count($mat2) == 4*/) {
-                if (count($mat2) == 4) {
-                    if ($mat2[2] != '') {
+            if (preg_match('/(([0-9]+):)?(\d+)(-)?(([0-9]+):)?(\d+)?/', $rngOne, $mat2) === 1) {
+                if (count($mat2) === 4) {
+                    if ($mat2[2] !== '') {
                         $chap = $mat2[2];
                     }
 
-                    $tmp[1] = MassHelper::chapVer($chap, $mat2[3]);
+                    $tmp[1] = MassHelper::chapVer(intval($chap), intval($mat2[3]));
                     $tmp[2] = $tmp[1];
-                } else if (count($mat2) == 8) {
-                    if ($mat2[2] != '') {
+                } else if (count($mat2) === 8) {
+                    if ($mat2[2] !== '') {
                         $chap = $mat2[2];
                     }
 
-                    $tmp[1] = MassHelper::chapVer($chap, $mat2[3]);
-                    if ($mat2[6] != '') {
+                    $tmp[1] = MassHelper::chapVer(intval($chap), intval($mat2[3]));
+                    if ($mat2[6] !== '') {
                         $chap = $mat2[6];
                     }
 
-                    $tmp[2] = MassHelper::chapVer($chap, $mat2[7]);
+                    $tmp[2] = MassHelper::chapVer(intval($chap), intval($mat2[7]));
                 }
 
-                $rng[] = $tmp;
-                /*
-                    if ($mat2[2] != '') {
-                                $tmp['chap'] = trim($mat2[2]);
-                            }
-                            $ver = trim($mat2[3]);
-                            if (strpos($ver, '-')) {
-                                $ver = explode('-', $ver);
-                            }
-                            $tmp['ver'] = $ver;
-                            $rng[] = $tmp;*/
+                $rng[] = [
+                    $mat[1],
+                    $tmp[1],
+                    $tmp[2],
+                ];
             }//end if
         }//end foreach
 
         return $rng;
-        /*
-            $rng = [
-            "Ps 29:3b+9b-10" => [
-                [
-                    "book" => "Ps",
-                    "chap" => "29",
-                    "ver" => "3b",
-                    "text => ""
-                ],
-                [
-                    "book" => "Ps",
-                    "chap" => "29",
-                    "ver" => ["9b", "10"],
-                    "text => ""
-                ]
-            ]
-            ];
-        */
 
     }//end parseRef()
 
@@ -168,7 +141,7 @@ class MassHelper
      * Function that allows for parsing either string reference or array of string
      * references
      *
-     * @param string|string[] $refs Reference(s)
+     * @param mixed $refs Reference(s)
      *
      * @return array
      *
@@ -176,22 +149,31 @@ class MassHelper
      */
     public static function parseRefs($refs): array
     {
-        if (is_string($refs)) {
-            return [$refs => MassHelper::parseRef($refs)];
-        } else if (is_array($refs)) {
+        if (is_string($refs) === true) {
+            return MassHelper::parseRef($refs);
+        }
+
+        if (is_array($refs) === true) {
             $arr = [];
             foreach ($refs as $oneref) {
-                $arr[$oneref] = MassHelper::parseRef($oneref);
+                $arr = array_merge($arr, MassHelper::parseRef($oneref));
             }
 
             return $arr;
         }
 
+        return [];
+
     }//end parseRefs()
 
 
     /**
+     * Creates a chapter-verse number (chapter number followed by verse number with exactly four digits (zero-padded))
      *
+     * @param int $chap Chapter
+     * @param int $ver  Verse
+     *
+     * @return int
      */
     public static function chapVer(int $chap, int $ver): int
     {
@@ -212,7 +194,7 @@ class MassHelper
     {
         $fileName2 = __DIR__.'/../'.$fileName;
 
-        if (!file_exists($fileName2)) {
+        if (file_exists($fileName2) !== true) {
             return [];
         }
 
