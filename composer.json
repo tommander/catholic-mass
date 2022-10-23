@@ -25,7 +25,7 @@
         ],
         "docs": [
             "php phpDocumentor.phar",
-            "libs-dev/bin/phpdocmd .docs/structure.xml ../mass-wiki/phpdoc"
+            "php libs-dev/phpdoc-md/bin/phpdocmd .docs/structure.xml ../mass-wiki/phpdoc"
         ]
     }
 }
