@@ -18,8 +18,15 @@ if (defined('OOM_BASE') !== true) {
 /**
  * Hello
  */
-class CommonBible
+class BibleXML
 {
+
+    /**
+     * Logger
+     *
+     * @var Logger
+     */
+    private $logger;
 
     /**
      * Path to the Bible XML
@@ -63,12 +70,22 @@ class CommonBible
      */
     private $textOut;
 
+    /**
+     * Is index?
+     *
+     * @var boolean
+     */
+    private $isIndex = false;
+
 
     /**
      * Hello
+     *
+     * @param Logger $logger Logger
      */
-    public function __construct()
+    public function __construct(Logger $logger)
     {
+        $this->logger    = $logger;
         $this->bibFile   = '';
         $this->parsedRef = [];
         $this->current   = [
@@ -92,14 +109,16 @@ class CommonBible
      */
     public function defineFile(string $file)
     {
-        $this->bibFile = $file;
-        if (preg_match('/zefania.xml$/', $this->bibFile) === 1) {
+        if (preg_match('/zefania.xml$/', $file) === 1) {
             $this->type = 0;
-        } else if (preg_match('/usfx.xml$/', $this->bibFile) === 1) {
+        } else if (preg_match('/usfx.xml$/', $file) === 1) {
             $this->type = 1;
-        } else if (preg_match('/osis.xml$/', $this->bibFile) === 1) {
+        } else if (preg_match('/osis.xml$/', $file) === 1) {
             $this->type = 2;
         }
+
+        $this->bibFile = 'libs/open-bibles/'.$file;
+        $this->isIndex = file_exists(Helper::fullFilename($this->bibFile.'.json'));
 
     }//end defineFile()
 
@@ -111,11 +130,15 @@ class CommonBible
      */
     private function startCollecting()
     {
-        $currChapver = MassHelper::chapVer(intval($this->current['chap']), intval($this->current['vers']));
+        $currChapver = Helper::chapVer(intval($this->current['chap']), intval($this->current['vers']));
         foreach ($this->parsedRef as $refRaw) {
-            $this->doCollect = strcasecmp($refRaw[0], $this->current['book']) === 0
+            if (strcasecmp($refRaw[0], $this->current['book']) === 0
                 && $currChapver >= intval($refRaw[1])
-                && $currChapver <= intval($refRaw[2]);
+                && $currChapver <= intval($refRaw[2])
+            ) {
+                $this->doCollect = true;
+                break;
+            }
         }
 
     }//end startCollecting()
@@ -132,6 +155,7 @@ class CommonBible
             return;
         }
 
+        $this->textOut  .= ' ';
         $this->doCollect = false;
 
     }//end stopCollecting()
@@ -281,8 +305,42 @@ class CommonBible
             return '';
         }
 
-        $this->parsedRef = MassHelper::parseRefs($ref);
+        $this->parsedRef = Helper::parseRefs($ref);
         $this->textOut   = '';
+
+        if ($this->isIndex === true) {
+            $indexJson = Helper::loadJson($this->bibFile.'.json');
+            if (array_key_exists('index', $indexJson) !== true) {
+                return '';
+            }
+
+            $stream = fopen($this->bibFile, 'r');
+            try {
+                foreach ($this->parsedRef as $ref) {
+                    if (array_key_exists($ref[0], $indexJson['index']) !== true
+                        || array_key_exists($ref[1], $indexJson['index'][$ref[0]]) !== true
+                        || array_key_exists($ref[2], $indexJson['index'][$ref[0]]) !== true
+                    ) {
+                        continue;
+                    }
+
+                    $readBegin = intval($indexJson['index'][$ref[0]][$ref[1]][0]);
+                    $readEnd   = intval($indexJson['index'][$ref[0]][$ref[2]][1]);
+                    if (fseek($stream, ($readBegin + 2)) === 0) {
+                        $data = fread($stream, ($readEnd - $readBegin));
+                        if (is_string($data) === true) {
+                            $this->textOut .= $data;
+                        }
+                    }
+                }
+            } finally {
+                fclose($stream);
+            }//end try
+
+            $this->textOut = preg_replace('~<f caller="\+">.*?<\/f>~si', '', $this->textOut);
+            $this->textOut = strip_tags($this->textOut);
+            return $this->textOut;
+        }//end if
 
         $stream = fopen($this->bibFile, 'r');
         $parser = xml_parser_create();

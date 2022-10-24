@@ -15,27 +15,33 @@
     </header>
     <nav>
         <form name="langSel" action="index.php" method="get">
-        <div id="navLabels">
-            <label for="LABELS_SELECTION">@@IDXL@@</label>
-            <label for="TYPE_SELECTION">@@IDXY@@</label>
-            <label for="BIBLE_SELECTION">@@IDXB@@</label>
-            <label for="TEXTS_SELECTION">@@IDXT@@</label>
-        </div>
-        <div id="navLangs">
-                <select name="ll" id="LABELS_SELECTION" onchange="submitForm()">
+            <div id="navSettings">
+                <div>
+                <div><label for="LABELS_SELECTION">@@IDXL@@</label></div>
+                <div><select name="ll" id="LABELS_SELECTION" onchange="submitForm()">
                 @@CBL@@
-                </select>
-                <select name="sn" id="TYPE_SELECTION" onchange="submitForm()">
+                </select></div>
+            </div>
+            <div>
+                <div><label for="TYPE_SELECTION">@@IDXY@@</label></div>
+                <div><select name="sn" id="TYPE_SELECTION" onchange="submitForm()">
                 @@CBY@@
-                </select>
-                <select name="bl" id="BIBLE_SELECTION" onchange="submitForm()">
+                </select></div>
+            </div>
+            <div>
+                <div><label for="BIBLE_SELECTION">@@IDXB@@</label></div>
+                <div><select name="bl" id="BIBLE_SELECTION" onchange="submitForm()">
                 @@CBB@@
-                </select>
-                <select name="tl" id="TEXTS_SELECTION" onchange="submitForm()">
+                </select></div>
+            </div>
+            <div>
+                <div><label for="TEXTS_SELECTION">@@IDXT@@</label></div>
+                <div><select name="tl" id="TEXTS_SELECTION" onchange="submitForm()">
                 @@CBT@@
-                </select>
+                </select></div>
+            </div>
         </div>
-        </form>
+    </form>
         <div id="navLegend">
             <span>P = @@LEGP@@</span>
             <span>A = @@LEGA@@</span>

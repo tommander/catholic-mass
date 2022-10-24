@@ -36,28 +36,23 @@ nav {
 i {
 	padding: 0 0.2em;
 }
-nav div {
+#navSettings, #navLegend, #navDate {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	padding: 0.5em 1em;
 }
 
-#navLabels {
-	padding: 0.5em 1em 0 1em;
-}
-
-#navLangs {
-	padding: 0em 1em 0 1em;
+#navSettings > div {
+	display: flex;
+	flex-direction: column;
 }
 
 #navLegend {
-	padding: 0.5em 1em;
 	border-top: 1px solid #765;
-	margin-top: 0.5em;
 }
 
 #navDate {
-	padding: 0.5em 1em;
 	border-top: 1px solid #765;
 }
 

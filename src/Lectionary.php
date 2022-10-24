@@ -18,87 +18,35 @@ if (defined('OOM_BASE') !== true) {
 /**
  * Support class for lectionary for the Order of Mass app
  */
-class MassReadings
+class Lectionary
 {
 
     /**
-     * Calendar
+     * Logger
+     *
+     * @var Logger
+     */
+    private $logger;
+
+    /**
+     * Lectionary
      *
      * @var array
      */
-    private $cal = [];
+    private $lectionary = [];
 
 
     /**
      * Prepare calendar of Sundays
+     *
+     * @param Logger $logger Logger
      */
-    public function __construct()
+    public function __construct(Logger $logger)
     {
-        $year      = date('Y');
-        $calFile   = 'assets/json/lectionaries/year'.$year.'.json';
-        $this->cal = MassHelper::loadJson($calFile);
-        if (count($this->cal) === 0) {
-            $this->cal = $this->calendar(intval($year));
-            file_put_contents(__DIR__.'/../'.$calFile, json_encode($this->cal));
-        }
+        $this->logger     = $logger;
+        $this->lectionary = Helper::loadJson('assets/json/lectlist.json');
 
     }//end __construct()
-
-
-    /**
-     * Returns today's kind of the Holy Rosary mystery
-     *
-     * | Week day | Mystery   |
-     * | -------- | --------- |
-     * | Su       | Glorious  |
-     * | Mo       | Joyful    |
-     * | Tu       | Sorrowful |
-     * | We       | Glorious  |
-     * | Th       | Luminous  |
-     * | Fr       | Sorrowful |
-     * | Sa       | Joyful    |
-     *
-     * @return string g/s/j/l
-     */
-    public function todaysMystery()
-    {
-        switch (date('w')) {
-        case 0:
-            return 'g';
-        case 1:
-            return 'j';
-        case 2:
-            return 's';
-        case 3:
-            return 'g';
-        case 4:
-            return 'l';
-        case 5:
-            return 's';
-        case 6:
-            return 'j';
-        }
-
-        return '';
-
-    }//end todaysMystery()
-
-
-    /**
-     * Returns the timestamp of the next Sunday (or today, if it's Sunday)
-     *
-     * @return int
-     */
-    public function nextSunday()
-    {
-        $time = time();
-        while (date('w', $time) !== '0') {
-            $time += 86400;
-        }
-
-        return $time;
-
-    }//end nextSunday()
 
 
     /**
@@ -106,9 +54,11 @@ class MassReadings
      *
      * Example: returns SIOT2 for the 2nd Sunday in Ordinary Time, which in 2022 is on 16th of January
      *
+     * @param int $time Unix timestamp
+     *
      * @return string|null
      */
-    public function sundayLabel()
+    public function sundayLabel($time)
     {
         $time = time();
         while (date('w', $time) !== '0') {
@@ -117,7 +67,8 @@ class MassReadings
 
         $date = date('d.m.Y', $time);
 
-        foreach ($this->cal as $dt) {
+        $calendar = $this->calendar(intval(date('Y', $time)));
+        foreach ($calendar as $dt) {
             foreach ($dt as $dat => $id) {
                 if ($dat === $date) {
                     return $id;
@@ -131,80 +82,31 @@ class MassReadings
 
 
     /**
-     * Returns readings from lectionary for the next Sunday (or today, if it's Sunday)
+     * Returns readings from lectionary for the next Sunday after the given date (or that date, if it's Sunday)
+     *
+     * @param int $time Unix timestamp
      *
      * @return array
      */
-    public function lectio()
+    public function getReadings($time)
     {
-        $cid = $this->sundayLabel();
+        $cid = $this->sundayLabel($time);
         if ($cid === null) {
             return;
         }
 
-        $lect = MassHelper::loadJson('assets/json/lectlist.json');
-        if (count($lect) === 0) {
+        if (array_key_exists($cid, $this->lectionary) !== true) {
             return;
         }
 
-        if (array_key_exists($cid, $lect) !== true) {
+        $sc = Helper::sundayCycle(intval(date('Y', $time)));
+        if (array_key_exists($sc, $this->lectionary[$cid]) !== true) {
             return;
         }
 
-        $sc = $this->sundayCycle(intval(date('Y')));
-        if (array_key_exists($sc, $lect[$cid]) !== true) {
-            return;
-        }
+        return $this->lectionary[$cid][$sc];
 
-        return $lect[$cid][$sc];
-
-    }//end lectio()
-
-
-    /**
-     * Returns the Sunday year cycle (A,B,C) for the given year
-     *
-     * @param int $year Year
-     *
-     * @return string
-     */
-    public function sundayCycle($year)
-    {
-        $ret = '';
-        $mod = ($year % 3);
-        switch ($mod) {
-        case 0:
-            $ret = 'C';
-            break;
-        case 1:
-            $ret = 'A';
-            break;
-        case 2:
-            $ret = 'B';
-            break;
-        }
-
-        return $ret;
-
-    }//end sundayCycle()
-
-
-    /**
-     * Returns the weekday year cycle (I,II) for the given year
-     *
-     * @param mixed $year Year
-     *
-     * @return string
-     */
-    public function weekdayCycle($year)
-    {
-        if (($year % 2) === 0) {
-            return 'II';
-        }
-
-        return "I";
-
-    }//end weekdayCycle()
+    }//end getReadings()
 
 
     /**
@@ -220,7 +122,11 @@ class MassReadings
      */
     private function calendar($year)
     {
-        $calendar = [];
+        $calFile  = 'assets/json/lectionaries/year'.$year.'.json';
+        $calendar = Helper::loadJson($calFile);
+        if (count($calendar) > 0) {
+            return $calendar;
+        }
 
         // First compute the first Sunday after January 6.
         $dt  = new \DateTime($year.'-01-06');
@@ -356,6 +262,8 @@ class MassReadings
                 $dt2->add($owi);
             }
         }
+
+        file_put_contents(__DIR__.'/../'.$calFile, json_encode($calendar));
 
         return $calendar;
 

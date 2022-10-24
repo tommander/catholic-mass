@@ -17,6 +17,6 @@ define('OOM_BASE', 'orderofmass');
 
 require __DIR__.'/vendor/autoload.php';
 
-//Include MassData class and create an instance
+//Include MassMain class and create an instance
 $mass = new MassMain();
 $mass->run();

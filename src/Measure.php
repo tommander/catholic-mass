@@ -18,11 +18,30 @@ class Measure
 {
 
     /**
+     * Logger
+     *
+     * @var Logger
+     */
+    private $logger;
+
+    /**
      * Result of {@see getrusage()} at the beginning
      *
      * @var array
      */
     private $startTime = [];
+
+
+    /**
+     * Constructor
+     *
+     * @param Logger $logger Logger
+     */
+    public function __construct(Logger $logger)
+    {
+        $this->logger = $logger;
+
+    }//end __construct()
 
 
     /**

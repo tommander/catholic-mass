@@ -18,7 +18,7 @@ if (defined('OOM_BASE') !== true) {
 /**
  * Class for helper function of the Order of Mass app
  */
-class MassHelper
+class Helper
 {
 
 
@@ -109,19 +109,19 @@ class MassHelper
                         $chap = $mat2[2];
                     }
 
-                    $tmp[1] = MassHelper::chapVer(intval($chap), intval($mat2[3]));
+                    $tmp[1] = self::chapVer(intval($chap), intval($mat2[3]));
                     $tmp[2] = $tmp[1];
                 } else if (count($mat2) === 8) {
                     if ($mat2[2] !== '') {
                         $chap = $mat2[2];
                     }
 
-                    $tmp[1] = MassHelper::chapVer(intval($chap), intval($mat2[3]));
+                    $tmp[1] = self::chapVer(intval($chap), intval($mat2[3]));
                     if ($mat2[6] !== '') {
                         $chap = $mat2[6];
                     }
 
-                    $tmp[2] = MassHelper::chapVer(intval($chap), intval($mat2[7]));
+                    $tmp[2] = self::chapVer(intval($chap), intval($mat2[7]));
                 }
 
                 $rng[] = [
@@ -150,13 +150,13 @@ class MassHelper
     public static function parseRefs($refs): array
     {
         if (is_string($refs) === true) {
-            return MassHelper::parseRef($refs);
+            return Helper::parseRef($refs);
         }
 
         if (is_array($refs) === true) {
             $arr = [];
             foreach ($refs as $oneref) {
-                $arr = array_merge($arr, MassHelper::parseRef($oneref));
+                $arr = array_merge($arr, Helper::parseRef($oneref));
             }
 
             return $arr;
@@ -183,6 +183,20 @@ class MassHelper
 
 
     /**
+     * Returns full file path and name
+     *
+     * @param string $fileName Filename (with path relative to root)
+     *
+     * @return string
+     */
+    public static function fullFilename(string $fileName): string
+    {
+        return __DIR__.'/../'.$fileName;
+
+    }//end fullFilename()
+
+
+    /**
      * Loads a JSON lectionary file into an associative array
      *
      * @param string $fileName Path to the file incl. full file name
@@ -192,7 +206,7 @@ class MassHelper
      */
     public static function loadJson(string $fileName, bool $assoc=true)
     {
-        $fileName2 = __DIR__.'/../'.$fileName;
+        $fileName2 = self::fullFilename($fileName);
 
         if (file_exists($fileName2) !== true) {
             return [];
@@ -211,6 +225,111 @@ class MassHelper
         return $a;
 
     }//end loadJson()
+
+
+    /**
+     * Returns the Sunday year cycle (A,B,C) for the given year
+     *
+     * @param int $year Year
+     *
+     * @return string
+     */
+    public static function sundayCycle($year)
+    {
+        $ret = '';
+        $mod = ($year % 3);
+        switch ($mod) {
+        case 0:
+            $ret = 'C';
+            break;
+        case 1:
+            $ret = 'A';
+            break;
+        case 2:
+            $ret = 'B';
+            break;
+        }
+
+        return $ret;
+
+    }//end sundayCycle()
+
+
+    /**
+     * Returns the weekday year cycle (I,II) for the given year
+     *
+     * @param mixed $year Year
+     *
+     * @return string
+     */
+    public static function weekdayCycle($year)
+    {
+        if (($year % 2) === 0) {
+            return 'II';
+        }
+
+        return "I";
+
+    }//end weekdayCycle()
+
+
+    /**
+     * Returns the timestamp of the next Sunday (or today, if it's Sunday)
+     *
+     * @param int $time Unix timestamp
+     *
+     * @return int
+     */
+    public static function nextSunday($time)
+    {
+        while (date('w', $time) !== '0') {
+            $time += 86400;
+        }
+
+        return $time;
+
+    }//end nextSunday()
+
+
+    /**
+     * Returns today's kind of the Holy Rosary mystery
+     *
+     * | Week day | Mystery   |
+     * | -------- | --------- |
+     * | Su       | Glorious  |
+     * | Mo       | Joyful    |
+     * | Tu       | Sorrowful |
+     * | We       | Glorious  |
+     * | Th       | Luminous  |
+     * | Fr       | Sorrowful |
+     * | Sa       | Joyful    |
+     *
+     * @param int $time Unix timestamp
+     *
+     * @return string g/s/j/l
+     */
+    public static function todaysMystery($time)
+    {
+        switch (date('w', $time)) {
+        case 0:
+            return 'g';
+        case 1:
+            return 'j';
+        case 2:
+            return 's';
+        case 3:
+            return 'g';
+        case 4:
+            return 'l';
+        case 5:
+            return 's';
+        case 6:
+            return 'j';
+        }
+
+        return '';
+
+    }//end todaysMystery()
 
 
 }//end class
