@@ -61,6 +61,25 @@ class Helper
 
 
     /**
+     * Hello
+     *
+     * @param string $chr Letter A-Z or a-z
+     *
+     * @return int
+     */
+    private static function letterToInt(string $chr): int
+    {
+        if (strlen($chr) < 1) {
+            return 0;
+        }
+
+        $letter = strtoupper($chr[0]);
+        return (ord($letter) - 64);
+
+    }//end letterToInt()
+
+
+    /**
      * Parse single string reference to elementary parts
      *
      * Return associative array, where key is the original reference (parameter $ref)
@@ -103,26 +122,40 @@ class Helper
         // they all have book and chapter.
         $rng = [];
         foreach ($rngArr as $rngOne) {
-            if (preg_match('/(([0-9]+):)?(\d+)(-)?(([0-9]+):)?(\d+)?/', $rngOne, $mat2) === 1) {
+            if (preg_match('/(([0-9]+):)?([0-9A-z]+)(-)?(([0-9]+):)?([0-9A-z]+)?/', $rngOne, $mat2) === 1) {
                 if (count($mat2) === 4) {
                     if ($mat2[2] !== '') {
                         $chap = $mat2[2];
                     }
 
-                    $tmp[1] = self::chapVer(intval($chap), intval($mat2[3]));
+                    if (preg_match('/(\d+)([A-z]{1})/', $mat2[3], $mat3) === 1) {
+                        $tmp[1] = self::chapVer(intval($chap), intval($mat3[1]), self::letterToInt($mat3[2]));
+                    } else {
+                        $tmp[1] = self::chapVer(intval($chap), intval($mat2[3]));
+                    }
+
                     $tmp[2] = $tmp[1];
                 } else if (count($mat2) === 8) {
                     if ($mat2[2] !== '') {
                         $chap = $mat2[2];
                     }
 
-                    $tmp[1] = self::chapVer(intval($chap), intval($mat2[3]));
+                    if (preg_match('/(\d+)([A-z]{1})/', $mat2[3], $mat4) === 1) {
+                        $tmp[1] = self::chapVer(intval($chap), intval($mat4[1]), self::letterToInt($mat4[2]));
+                    } else {
+                        $tmp[1] = self::chapVer(intval($chap), intval($mat2[3]));
+                    }
+
                     if ($mat2[6] !== '') {
                         $chap = $mat2[6];
                     }
 
-                    $tmp[2] = self::chapVer(intval($chap), intval($mat2[7]));
-                }
+                    if (preg_match('/(\d+)([A-z]{1})/', $mat2[7], $mat5) === 1) {
+                        $tmp[2] = self::chapVer(intval($chap), intval($mat5[1]), self::letterToInt($mat5[2]));
+                    } else {
+                        $tmp[2] = self::chapVer(intval($chap), intval($mat2[7]));
+                    }
+                }//end if
 
                 $rng[] = [
                     $mat[1],
@@ -172,12 +205,13 @@ class Helper
      *
      * @param int $chap Chapter
      * @param int $ver  Verse
+     * @param int $sta  Statement
      *
      * @return int
      */
-    public static function chapVer(int $chap, int $ver): int
+    public static function chapVer(int $chap, int $ver, int $sta=0): int
     {
-        return (int) sprintf('%d%04d', $chap, $ver);
+        return (int) sprintf('%d%04d%02d', $chap, $ver, $sta);
 
     }//end chapVer()
 

@@ -101,6 +101,37 @@ class BibleXML
 
 
     /**
+     * Return Bible XML file type based on the end of its name
+     *
+     * - Unknown = -1
+     * - Zefania = 0
+     * - USFX = 1
+     * - OSIS = 2
+     *
+     * @param string $file Filename (no need for path)
+     *
+     * @return int
+     */
+    private function getFileType(string $file): int
+    {
+        if (preg_match('/zefania.xml$/', $file) === 1) {
+            return 0;
+        }
+
+        if (preg_match('/usfx.xml$/', $file) === 1) {
+            return 1;
+        }
+
+        if (preg_match('/osis.xml$/', $file) === 1) {
+            return 2;
+        }
+
+        return -1;
+
+    }//end getFileType()
+
+
+    /**
      * Hello
      *
      * @param string $file Hello
@@ -109,14 +140,7 @@ class BibleXML
      */
     public function defineFile(string $file)
     {
-        if (preg_match('/zefania.xml$/', $file) === 1) {
-            $this->type = 0;
-        } else if (preg_match('/usfx.xml$/', $file) === 1) {
-            $this->type = 1;
-        } else if (preg_match('/osis.xml$/', $file) === 1) {
-            $this->type = 2;
-        }
-
+        $this->type    = $this->getFileType($file);
         $this->bibFile = 'libs/open-bibles/'.$file;
         $this->isIndex = file_exists(Helper::fullFilename($this->bibFile.'.json'));
 
@@ -317,22 +341,60 @@ class BibleXML
             $stream = fopen($this->bibFile, 'r');
             try {
                 foreach ($this->parsedRef as $ref) {
+                    $refBegin = \substr($ref[1], 0, -2).'00';
+                    $refEnd   = \substr($ref[2], 0, -2).'00';
+
                     if (array_key_exists($ref[0], $indexJson['index']) !== true
-                        || array_key_exists($ref[1], $indexJson['index'][$ref[0]]) !== true
-                        || array_key_exists($ref[2], $indexJson['index'][$ref[0]]) !== true
+                        || array_key_exists($refBegin, $indexJson['index'][$ref[0]]) !== true
+                        || array_key_exists($refEnd, $indexJson['index'][$ref[0]]) !== true
                     ) {
                         continue;
                     }
 
-                    $readBegin = intval($indexJson['index'][$ref[0]][$ref[1]][0]);
-                    $readEnd   = intval($indexJson['index'][$ref[0]][$ref[2]][1]);
-                    if (fseek($stream, ($readBegin + 2)) === 0) {
+                    $readBegin = intval($indexJson['index'][$ref[0]][$refBegin][0]);
+                    $readEnd   = intval($indexJson['index'][$ref[0]][$refEnd][1]);
+
+                    $seekOffset = 2;
+                    if ($this->type === 0) {
+                        $seekOffset = 1;
+                    }
+
+                    if (fseek($stream, ($readBegin + $seekOffset)) === 0) {
                         $data = fread($stream, ($readEnd - $readBegin));
                         if (is_string($data) === true) {
+                            $sta1 = substr($ref[1], -2);
+                            $sta2 = substr($ref[2], -2);
+
+                            if ($sta1 !== '00') {
+                                $sta1int = intval($sta1);
+                                while ($sta1int > 0) {
+                                    $pos = strpos($data, '.');
+                                    if ($pos === false) {
+                                        break;
+                                    }
+
+                                    $data = substr($data, ($pos + 1));
+                                    $sta1int--;
+                                }
+                            }
+
+                            if ($sta2 !== '00') {
+                                $sta2int = intval($sta2);
+                                while ($sta2int > 0) {
+                                    $pos = strpos($data, '.', -1);
+                                    if ($pos === false) {
+                                        break;
+                                    }
+
+                                    $data = substr($data, ($pos + 1));
+                                    $sta2int--;
+                                }
+                            }
+
                             $this->textOut .= $data;
-                        }
-                    }
-                }
+                        }//end if
+                    }//end if
+                }//end foreach
             } finally {
                 fclose($stream);
             }//end try

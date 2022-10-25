@@ -247,6 +247,17 @@ class MassMain
         $lectionary  = $this->container->get(Lectionary::class);
         $this->reads = $lectionary->getReadings(time());
 
+        /*
+            $indexer = $this->container->get(BibleIndexer::class);
+            $logger = $this->container->get(Logger::class);
+            foreach ($this->biblist as $blang => $blist) {
+                foreach ($blist as $bid => $bdata) {
+                    $logger->debug('Indexer "'.$bdata[1].'"');
+                  $indexer->createIndex($bdata[1]);
+               }
+            }
+        */
+
     }//end init()
 
 
@@ -388,6 +399,10 @@ class MassMain
 
         $comboboxL = [];
         foreach ($this->langlist as $code => $info) {
+            if (is_string($info['title']) !== true) {
+                continue;
+            }
+
             $comboboxL[] = [
                 'value' => htmlspecialchars($code),
                 'sel'   => ($code == $this->ll),
@@ -397,6 +412,10 @@ class MassMain
 
         $comboboxT = [];
         foreach ($this->langlist as $code => $info) {
+            if (is_string($info['title']) !== true) {
+                continue;
+            }
+
             $comboboxT[] = [
                 'value' => htmlspecialchars($code),
                 'sel'   => ($code == $this->tl),
@@ -430,6 +449,10 @@ class MassMain
             $grplabel = $this->langlist[$this->ll]['title'];
             $comboboxB[$grplabel] = [];
             foreach ($this->biblist[$this->ll] as $bibleid => $bibledata) {
+                if (isset($bibledata[0]) !== true) {
+                    continue;
+                }
+
                 $comboboxB[$grplabel][] = [
                     'value' => $bibleid,
                     'sel'   => $this->bl == $bibleid,
@@ -442,6 +465,10 @@ class MassMain
             $grplabel = $this->langlist[$this->tl]['title'];
             $comboboxB[$grplabel] = [];
             foreach ($this->biblist[$this->tl] as $bibleid => $bibledata) {
+                if (isset($bibledata[0]) !== true) {
+                    continue;
+                }
+
                 $comboboxB[$grplabel][] = [
                     'value' => $bibleid,
                     'sel'   => $this->bl == $bibleid,
@@ -510,6 +537,11 @@ class MassMain
             $dateR      = '@su{'.$lectionary->sundayLabel(time()).'}';
         }
 
+        // phpcs:disable
+        /**
+         * @psalm-suppress InvalidArgument 
+         */
+        // phpcs:enable
         return [
             '/@@LANG@@/'    => $this->repls('@{html}'),
             '/@@TITLE@@/'   => $this->repls($title),

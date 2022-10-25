@@ -51,7 +51,7 @@ class BibleIndexer
      *
      * @var integer
      */
-    private $currentIndexVers = '';
+    private $currentIndexVers = 0;
 
 
     /**
@@ -236,8 +236,7 @@ class BibleIndexer
             if (array_key_exists('md5', $indexFile) === true
                 && $md5 === $indexFile['md5']
             ) {
-                $this->logger->debug('Hopla');
-                return;
+                return true;
             }
 
             unset($indexFile);
