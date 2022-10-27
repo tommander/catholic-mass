@@ -1,6 +1,6 @@
 <?php
 /**
- * Logger class
+ * Logger unit
  *
  * PHP version 7.4
  *
@@ -20,14 +20,20 @@ if (defined('OOM_BASE') !== true) {
 }
 
 /**
- * Logger class
+ * Very simple logger to a text file.
  */
 class Logger extends AbstractLogger
 {
 
 
     /**
-     * Actual log action
+     * Actual log action, which saves the log item in the file `log.txt` in the root folder.
+     *
+     * The information included is:
+     *
+     * - Date (ISO format)
+     * - Log level
+     * - Log message
      *
      * @param mixed              $level   Log message level (as defined in {@see Psr\Log\Loglevel})
      * @param string|\Stringable $message Log message

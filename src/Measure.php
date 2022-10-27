@@ -1,6 +1,6 @@
 <?php
 /**
- * Performance measurement
+ * Performance measurement unit
  *
  * PHP version 7.4
  *

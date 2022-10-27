@@ -187,11 +187,11 @@ class MassMain
         $containerBuilder->useAnnotations(false);
         $containerBuilder->addDefinitions(
             [
-                Logger::class       => \DI\create(Logger::class)->lazy(),
-                BibleXML::class     => \DI\create(BibleXML::class)->constructor(\DI\get(Logger::class))->lazy(),
-                BibleIndexer::class => \DI\create(BibleIndexer::class)->constructor(\DI\get(Logger::class))->lazy(),
-                Lectionary::class   => \DI\create(Lectionary::class)->constructor(\DI\get(Logger::class))->lazy(),
-                Measure::class      => \DI\create(Measure::class)->constructor(\DI\get(Logger::class))->lazy(),
+                LoggerInterface::class => \DI\create(Logger::class)->lazy(),
+                BibleXML::class        => \DI\create(BibleXML::class)->constructor(\DI\get(LoggerInterface::class))->lazy(),
+                BibleIndexer::class    => \DI\create(BibleIndexer::class)->constructor(\DI\get(LoggerInterface::class))->lazy(),
+                Lectionary::class      => \DI\create(Lectionary::class)->constructor(\DI\get(LoggerInterface::class))->lazy(),
+                Measure::class         => \DI\create(Measure::class)->constructor(\DI\get(LoggerInterface::class))->lazy(),
             ]
         );
         $this->container = $containerBuilder->build();
