@@ -1,6 +1,6 @@
 <?php
 /**
- * Bible XML reader
+ * BibleXML unit
  *
  * PHP version 7.4
  *
@@ -16,62 +16,74 @@ if (defined('OOM_BASE') !== true) {
 }
 
 /**
- * Hello
+ * Reader for [open-bibles](https://github.com/seven1m/open-bibles) XML files.
  */
 class BibleXML
 {
 
     /**
-     * Logger
+     * Logger instance
      *
      * @var Logger
      */
     private $logger;
 
     /**
-     * Path to the Bible XML
+     * Name of the Bible XML file
      *
      * @var string
      */
-    private $bibFile;
+    private $bibFile = '';
 
     /**
      * Parsed verse references
      *
      * @var array
      */
-    private $parsedRef;
+    private $parsedRef = [];
 
     /**
      * Current book and chapter
      *
      * @var array
      */
-    private $current;
+    private $current = [
+        'book' => '',
+        'chap' => '',
+        'vers' => '',
+    ];
 
     /**
-     * Type of XML (Zefania, USFX, OSIS)
+     * The type of current XML file
+     *
+     * Types:
+     * - `-1` = unknown
+     * - `0` = Zefania
+     * - `1` = USFX
+     * - `2` = OSIS
      *
      * @var integer
      */
-    private $type;
+    private $type = -1;
 
     /**
-     * Whether to collect text
+     * Flag that tells the XML parser whether to collect the current text data or not.
+     *
+     * This flag is set by start/end handlers, which check the start of every verse, whether it is one of the verses that is being looked for.
      *
      * @var boolean
      */
-    private $doCollect;
+    private $doCollect = false;
 
     /**
-     * Collected text
+     * Temporary storage of collected text.
      *
      * @var string
      */
-    private $textOut;
+    private $textOut = '';
 
     /**
-     * Is index?
+     * This gives an information whether an index file for the chosen Bible XML exists.
      *
      * @var boolean
      */
@@ -79,23 +91,13 @@ class BibleXML
 
 
     /**
-     * Hello
+     * Saves the instance of Logger
      *
      * @param Logger $logger Logger
      */
     public function __construct(Logger $logger)
     {
-        $this->logger    = $logger;
-        $this->bibFile   = '';
-        $this->parsedRef = [];
-        $this->current   = [
-            'book' => '',
-            'chap' => '',
-            'vers' => '',
-        ];
-        $this->type      = -1;
-        $this->doCollect = false;
-        $this->textOut   = '';
+        $this->logger = $logger;
 
     }//end __construct()
 
@@ -103,14 +105,11 @@ class BibleXML
     /**
      * Return Bible XML file type based on the end of its name
      *
-     * - Unknown = -1
-     * - Zefania = 0
-     * - USFX = 1
-     * - OSIS = 2
-     *
-     * @param string $file Filename (no need for path)
+     * @param string $file File name (no need for path)
      *
      * @return int
+     *
+     * @see BibleXML::$type
      */
     private function getFileType(string $file): int
     {
@@ -132,9 +131,11 @@ class BibleXML
 
 
     /**
-     * Hello
+     * Sets the current XML file.
      *
-     * @param string $file Hello
+     * Automatically the type and index existence is also updated.
+     *
+     * @param string $file File name of the Bible XML.
      *
      * @return void
      */
@@ -148,7 +149,7 @@ class BibleXML
 
 
     /**
-     * Start collecting text
+     * Check the current book/chapter/verse against the elementary verse references and if that verse's text is needed, raise the collection flag.
      *
      * @return void
      */
@@ -169,7 +170,7 @@ class BibleXML
 
 
     /**
-     * Stop collecting text
+     * Hang the collection flag, if it has not been done already.
      *
      * @return void
      */
@@ -186,11 +187,11 @@ class BibleXML
 
 
     /**
-     * Hello
+     * Start tag handler for Zefania XML files.
      *
-     * @param \XMLParser|resource $parser  Hello
-     * @param string              $name    Hello
-     * @param array               $attribs Hello
+     * @param \XMLParser|resource $parser  XML parser object/resource.
+     * @param string              $name    Name of the tag (uppercase).
+     * @param array               $attribs Associative array of the node attributes.
      *
      * @return void
      */
@@ -209,11 +210,11 @@ class BibleXML
 
 
     /**
-     * Hello
+     * Start tag handler for USFX XML files.
      *
-     * @param mixed  $parser  Hello
-     * @param string $name    Hello
-     * @param array  $attribs Hello
+     * @param \XMLParser|resource $parser  XML parser object/resource.
+     * @param string              $name    Name of the tag (uppercase).
+     * @param array               $attribs Associative array of the node attributes.
      *
      * @return void
      */
@@ -234,11 +235,11 @@ class BibleXML
 
 
     /**
-     * Hello
+     * Start tag handler for OSIS XML files.
      *
-     * @param mixed  $parser  Hello
-     * @param string $name    Hello
-     * @param array  $attribs Hello
+     * @param \XMLParser|resource $parser  XML parser object/resource.
+     * @param string              $name    Name of the tag (uppercase).
+     * @param array               $attribs Associative array of the node attributes.
      *
      * @return void
      */
@@ -263,10 +264,10 @@ class BibleXML
 
 
     /**
-     * Hello
+     * End tag handler for Zefania XML files.
      *
-     * @param \XMLParser $parser Hello
-     * @param string     $name   Hello
+     * @param \XMLParser|resource $parser XML parser object/resource.
+     * @param string              $name   Name of the tag (uppercase).
      *
      * @return void
      */
@@ -284,10 +285,12 @@ class BibleXML
 
 
     /**
-     * Hello
+     * End tag handler for USFX/OSIS XML files.
      *
-     * @param mixed  $parser Hello
-     * @param string $name   Hello
+     * It is empty. On purpose. It wants to be that way.
+     *
+     * @param \XMLParser|resource $parser XML parser object/resource.
+     * @param string              $name   Name of the tag (uppercase).
      *
      * @return void
      */
@@ -298,10 +301,10 @@ class BibleXML
 
 
     /**
-     * Hello
+     * Node data handler for the text between start and end tag (except CDATA).
      *
-     * @param \XMLParser $parser Hello
-     * @param string     $data   Hello
+     * @param \XMLParser $parser XML parser object/resource.
+     * @param string     $data   Data between tags.
      *
      * @return void
      */
@@ -315,13 +318,134 @@ class BibleXML
 
 
     /**
-     * Short description
+     * Parse single string reference to elementary parts.
+     *
+     * This is important for the XML parser to be able to follow any possible verse reference.
+     *
+     * It is important to note that the input reference may only contain one book ref.
+     *
+     * Parsing `Ps 1:2-3, 4b-2:4+5` would give this result:
+     *
+     * ```
+     * array(
+     *     ['Ps', 1000200, 1000300],
+     *     ['Ps', 1000202, 2000400],
+     *     ['Ps', 2000500, 2000500]
+     * )
+     * ```
+     *
+     * @param string $ref One reference
+     *
+     * @return array
+     */
+    public function parseRef(string $ref): array
+    {
+        // Check that book reference and the rest of the reference was found.
+        if (preg_match('/^([\p{L}0-9]+)\s+(.*)$/u', $ref, $mat) !== 1 || count($mat) < 3) {
+            return [];
+        }
+
+        // Save basic reference parts for clarity.
+        $chap = 0;
+
+        // Split reference into single verses or verse ranges.
+        $rngArr = [];
+        $rngTok = strtok($mat[2], ',+');
+        while ($rngTok !== false) {
+            $rngArr[] = $rngTok;
+            $rngTok   = strtok(',+');
+        }
+
+        // Unification of all single verse/verse range refs, so that
+        // they all have book and chapter.
+        $rng = [];
+        foreach ($rngArr as $rngOne) {
+            if (preg_match('/(([0-9]+):)?([0-9A-z]+)(-)?(([0-9]+):)?([0-9A-z]+)?/', $rngOne, $mat2) === 1) {
+                $verseLow  = '';
+                $verseHigh = '';
+
+                if (count($mat2) === 4) {
+                    if ($mat2[2] !== '') {
+                        $chap = intval($mat2[2]);
+                    }
+
+                    if (preg_match('/(\d+)([A-z]{1})/', $mat2[3], $mat3) === 1) {
+                        $verseLow = Helper::chapVer($chap, intval($mat3[1]), Helper::letterToInt($mat3[2]));
+                    } else {
+                        $verseLow = Helper::chapVer($chap, intval($mat2[3]));
+                    }
+
+                    $verseHigh = $verseLow;
+                } else if (count($mat2) === 8) {
+                    if ($mat2[2] !== '') {
+                        $chap = intval($mat2[2]);
+                    }
+
+                    if (preg_match('/(\d+)([A-z]{1})/', $mat2[3], $mat4) === 1) {
+                        $verseLow = Helper::chapVer($chap, intval($mat4[1]), Helper::letterToInt($mat4[2]));
+                    } else {
+                        $verseLow = Helper::chapVer($chap, intval($mat2[3]));
+                    }
+
+                    if ($mat2[6] !== '') {
+                        $chap = intval($mat2[6]);
+                    }
+
+                    if (preg_match('/(\d+)([A-z]{1})/', $mat2[7], $mat5) === 1) {
+                        $verseHigh = Helper::chapVer($chap, intval($mat5[1]), Helper::letterToInt($mat5[2]));
+                    } else {
+                        $verseHigh = Helper::chapVer($chap, intval($mat2[7]));
+                    }
+                }//end if
+
+                $rng[] = [
+                    $mat[1],
+                    $verseLow,
+                    $verseHigh,
+                ];
+            }//end if
+        }//end foreach
+
+        return $rng;
+
+    }//end parseRef()
+
+
+    /**
+     * Allows for parsing either a single string reference or an array of string references.
+     *
+     * Basically it is just a <q>gate</q> to {@see BibleXML::parseRef()}.
+     *
+     * @param string|string[] $refs Reference(s)
+     *
+     * @return array
+     */
+    public function parseRefs($refs): array
+    {
+        if (is_string($refs) === true) {
+            return $this->parseRef($refs);
+        }
+
+        if (is_array($refs) === true) {
+            $arr = [];
+            foreach ($refs as $oneref) {
+                $arr = array_merge($arr, $this->parseRef($oneref));
+            }
+
+            return $arr;
+        }
+
+        return [];
+
+    }//end parseRefs()
+
+
+    /**
+     * Given a reference, it returns the text of this reference from the current Bible XML.
      *
      * @param string|string[] $ref Reference
      *
      * @return string Text of the reference
-     *
-     * @access public
      */
     public function getByRef($ref)
     {
@@ -329,7 +453,7 @@ class BibleXML
             return '';
         }
 
-        $this->parsedRef = Helper::parseRefs($ref);
+        $this->parsedRef = $this->parseRefs($ref);
         $this->textOut   = '';
 
         if ($this->isIndex === true) {

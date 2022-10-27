@@ -1,6 +1,6 @@
 <?php
 /**
- * Bible indexer
+ * BibleIndexer unit
  *
  * PHP version 7.4
  *
@@ -16,20 +16,22 @@ if (defined('OOM_BASE') !== true) {
 }
 
 /**
- * Hello
+ * Indexer for [open-bibles](https://github.com/seven1m/open-bibles) XML files.
+ *
+ * BibleIndexer creates a JSON file that stores the beginning and end of every verse; this way it is easier to fetch Bible verses quickly, while also giving some time to the server to breathe.
  */
 class BibleIndexer
 {
 
     /**
-     * Logger
+     * Logger instance
      *
      * @var Logger
      */
     private $logger;
 
     /**
-     * Current book and chapter for indexing
+     * Current book, chapter and verse accessible for all class methods during indexing
      *
      * @var array
      */
@@ -40,22 +42,24 @@ class BibleIndexer
     ];
 
     /**
-     * For indexing purposes
+     * The index of a Bible XML file that is later JSON encoded.
      *
      * @var array
      */
     private $index = [];
 
     /**
-     * Current verse in index
+     * Current verse number
      *
      * @var integer
+     *
+     * @see Helper::chapVer()
      */
     private $currentIndexVers = 0;
 
 
     /**
-     * Hello
+     * Constructor stores the Logger instance.
      *
      * @param Logger $logger Logger
      */
@@ -67,7 +71,7 @@ class BibleIndexer
 
 
     /**
-     * Adds a new item to the index
+     * Stores a start byte number of the current verse.
      *
      * @param int $pos Position in the file
      *
@@ -82,7 +86,7 @@ class BibleIndexer
 
 
     /**
-     * Finishes index item
+     * Stores an end byte number of the current verse.
      *
      * @param int $pos Position in the file
      *
@@ -206,9 +210,9 @@ class BibleIndexer
 
 
     /**
-     * Create Bible file index
+     * Create Bible file index.
      *
-     * @param string $file File
+     * @param string $file File name
      *
      * @return bool
      */

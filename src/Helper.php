@@ -1,6 +1,6 @@
 <?php
 /**
- * Helper functions for the Order of Mass app
+ * Helper unit
  *
  * PHP version 7.4
  *
@@ -16,20 +16,13 @@ if (defined('OOM_BASE') !== true) {
 }
 
 /**
- * Class for helper function of the Order of Mass app
+ * Collection of static helper functions grouped together in the Helper class.
+ *
+ * There is no need to create instances of this class, so it does not need to be in a container, too.
+ * Just make sure it is accessible via autoload.
  */
 class Helper
 {
-
-
-    /**
-     * Do. Not. Call. Me.
-     */
-    public function __construct()
-    {
-        die('Please do not create instances of '.self::class);
-
-    }//end __construct()
 
 
     /**
@@ -42,6 +35,8 @@ class Helper
      * particular deployment site.
      *
      * @return string HTML link ("a" tag) to a particular deployed commit.
+     *
+     * @todo We can actually find the commit number in the .git folder, but the question is - do we have/need .git at the deployment site?
      */
     public static function showCommit()
     {
@@ -61,7 +56,7 @@ class Helper
 
 
     /**
-     * Hello
+     * Convert latin letters a-z to numbers 1-26. Case insensitive.
      *
      * @param string $chr Letter A-Z or a-z
      *
@@ -80,132 +75,15 @@ class Helper
 
 
     /**
-     * Parse single string reference to elementary parts
+     * Creates a chapter-verse-statement number (CVSN).
      *
-     * Return associative array, where key is the original reference (parameter $ref)
-     * and value is an array of elementarized arrays.
+     * `CvvvvSS` - chapter number followed by verse number with exactly four digits (zero-padded) and statement number with exactly two digis (zero-padded)).
      *
-     * Elementarized array has three keys - book (string), chap (string) and ver, which
-     * is either string (single verse) or array (verse range from-to)
-     *
-     * @param string $ref One reference
-     *
-     * @return array
-     *
-     * @todo Need to be able to parse verse statements
-     */
-    public static function parseRef(string $ref): array
-    {
-        // Check that book reference and the rest of the reference was found.
-        if (preg_match('/^([\p{L}0-9]+)\s+(.*)$/u', $ref, $mat) !== 1 || count($mat) < 3) {
-            return [];
-        }
-
-        // Save basic reference parts for clarity.
-        $tmp  = [
-            $mat[1],
-            0,
-            0,
-            '',
-        ];
-        $chap = '';
-
-        // Split reference into single verses or verse ranges.
-        $rngArr = [];
-        $rngTok = strtok($mat[2], ',+');
-        while ($rngTok !== false) {
-            $rngArr[] = $rngTok;
-            $rngTok   = strtok(',+');
-        }
-
-        // Unification of all single verse/verse range refs, so that
-        // they all have book and chapter.
-        $rng = [];
-        foreach ($rngArr as $rngOne) {
-            if (preg_match('/(([0-9]+):)?([0-9A-z]+)(-)?(([0-9]+):)?([0-9A-z]+)?/', $rngOne, $mat2) === 1) {
-                if (count($mat2) === 4) {
-                    if ($mat2[2] !== '') {
-                        $chap = $mat2[2];
-                    }
-
-                    if (preg_match('/(\d+)([A-z]{1})/', $mat2[3], $mat3) === 1) {
-                        $tmp[1] = self::chapVer(intval($chap), intval($mat3[1]), self::letterToInt($mat3[2]));
-                    } else {
-                        $tmp[1] = self::chapVer(intval($chap), intval($mat2[3]));
-                    }
-
-                    $tmp[2] = $tmp[1];
-                } else if (count($mat2) === 8) {
-                    if ($mat2[2] !== '') {
-                        $chap = $mat2[2];
-                    }
-
-                    if (preg_match('/(\d+)([A-z]{1})/', $mat2[3], $mat4) === 1) {
-                        $tmp[1] = self::chapVer(intval($chap), intval($mat4[1]), self::letterToInt($mat4[2]));
-                    } else {
-                        $tmp[1] = self::chapVer(intval($chap), intval($mat2[3]));
-                    }
-
-                    if ($mat2[6] !== '') {
-                        $chap = $mat2[6];
-                    }
-
-                    if (preg_match('/(\d+)([A-z]{1})/', $mat2[7], $mat5) === 1) {
-                        $tmp[2] = self::chapVer(intval($chap), intval($mat5[1]), self::letterToInt($mat5[2]));
-                    } else {
-                        $tmp[2] = self::chapVer(intval($chap), intval($mat2[7]));
-                    }
-                }//end if
-
-                $rng[] = [
-                    $mat[1],
-                    $tmp[1],
-                    $tmp[2],
-                ];
-            }//end if
-        }//end foreach
-
-        return $rng;
-
-    }//end parseRef()
-
-
-    /**
-     * Function that allows for parsing either string reference or array of string
-     * references
-     *
-     * @param mixed $refs Reference(s)
-     *
-     * @return array
-     *
-     * @see parseRef()
-     */
-    public static function parseRefs($refs): array
-    {
-        if (is_string($refs) === true) {
-            return Helper::parseRef($refs);
-        }
-
-        if (is_array($refs) === true) {
-            $arr = [];
-            foreach ($refs as $oneref) {
-                $arr = array_merge($arr, Helper::parseRef($oneref));
-            }
-
-            return $arr;
-        }
-
-        return [];
-
-    }//end parseRefs()
-
-
-    /**
-     * Creates a chapter-verse number (chapter number followed by verse number with exactly four digits (zero-padded))
+     * For Bible, this number can happily fit into a 32-bit signed integer.
      *
      * @param int $chap Chapter
      * @param int $ver  Verse
-     * @param int $sta  Statement
+     * @param int $sta  Statement (none = 0, a = 1, b = 2, ...)
      *
      * @return int
      */
@@ -219,7 +97,9 @@ class Helper
     /**
      * Returns full file path and name
      *
-     * @param string $fileName Filename (with path relative to root)
+     * This function should be used in the PHP files in the src/ folder.
+     *
+     * @param string $fileName File name with path relative to root
      *
      * @return string
      */
@@ -231,10 +111,12 @@ class Helper
 
 
     /**
-     * Loads a JSON lectionary file into an associative array
+     * Loads a JSON file into a PHP-friendly structure
+     *
+     * Basically a tiny little wrapper around {@see json_decode()}.
      *
      * @param string $fileName Path to the file incl. full file name
-     * @param bool   $assoc    JSON objects will be converted to associative arraysinstead of objects (default: `true`)
+     * @param bool   $assoc    JSON objects will be converted to associative arrays instead of objects (default: `true`)
      *
      * @return mixed Content of the file or an empty array
      */
@@ -308,7 +190,7 @@ class Helper
 
 
     /**
-     * Returns the timestamp of the next Sunday (or today, if it's Sunday)
+     * Returns the timestamp of the next Sunday after the given day (or that day, if it's Sunday)
      *
      * @param int $time Unix timestamp
      *
@@ -326,7 +208,9 @@ class Helper
 
 
     /**
-     * Returns today's kind of the Holy Rosary mystery
+     * Returns the Holy Rosary mysteries for the given day.
+     *
+     * This is the version with Luminous mysteries.
      *
      * | Week day | Mystery   |
      * | -------- | --------- |
@@ -341,6 +225,8 @@ class Helper
      * @param int $time Unix timestamp
      *
      * @return string g/s/j/l
+     *
+     * @todo Do we want to be able to also return mysteries pre-luminous way?
      */
     public static function todaysMystery($time)
     {
