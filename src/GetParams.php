@@ -26,6 +26,25 @@ class GetParams
     const PARAM_BIBLE  = 'bl';
     const PARAM_TYPE   = 'sn';
 
+    /**
+     * Hello
+     *
+     * @var LoggerInterface
+     */
+    private $logger;
+
+
+    /**
+     * Saves the instance of Logger
+     *
+     * @param LoggerInterface $logger Logger
+     */
+    public function __construct(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+
+    }//end __construct()
+
 
     /**
      * Hello
@@ -104,7 +123,7 @@ class GetParams
      */
     public function getType(string $default='mass'): string
     {
-        return $this->getParam(self::PARAM_LABELS, $default, ['mass', 'rosary']);
+        return $this->getParam(self::PARAM_TYPE, $default, ['mass', 'rosary']);
 
     }//end getType()
 

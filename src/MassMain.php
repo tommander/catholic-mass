@@ -192,6 +192,8 @@ class MassMain
                 BibleIndexer::class    => \DI\create(BibleIndexer::class)->constructor(\DI\get(LoggerInterface::class))->lazy(),
                 Lectionary::class      => \DI\create(Lectionary::class)->constructor(\DI\get(LoggerInterface::class))->lazy(),
                 Measure::class         => \DI\create(Measure::class)->constructor(\DI\get(LoggerInterface::class))->lazy(),
+                GetParams::class       => \DI\create(GetParams::class)->constructor(\DI\get(LoggerInterface::class))->lazy(),
+                HtmlMaker::class       => \DI\create(HtmlMaker::class)->constructor(\DI\get(LoggerInterface::class))->lazy(),
             ]
         );
         $this->container = $containerBuilder->build();

@@ -24,7 +24,7 @@ class BibleXML
     /**
      * Logger instance
      *
-     * @var Logger
+     * @var LoggerInterface
      */
     private $logger;
 
@@ -93,9 +93,9 @@ class BibleXML
     /**
      * Saves the instance of Logger
      *
-     * @param Logger $logger Logger
+     * @param LoggerInterface $logger Logger
      */
-    public function __construct(Logger $logger)
+    public function __construct(LoggerInterface $logger)
     {
         $this->logger = $logger;
 

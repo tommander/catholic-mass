@@ -26,7 +26,7 @@ class BibleIndexer
     /**
      * Logger instance
      *
-     * @var Logger
+     * @var LoggerInterface
      */
     private $logger;
 
@@ -61,9 +61,9 @@ class BibleIndexer
     /**
      * Constructor stores the Logger instance.
      *
-     * @param Logger $logger Logger
+     * @param LoggerInterface $logger Logger
      */
-    public function __construct(Logger $logger)
+    public function __construct(LoggerInterface $logger)
     {
         $this->logger = $logger;
 
