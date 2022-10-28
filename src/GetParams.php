@@ -20,11 +20,10 @@ if (defined('OOM_BASE') !== true) {
  */
 class GetParams
 {
-
-    const PARAM_LABELS = 'll';
-    const PARAM_TEXTS  = 'tl';
-    const PARAM_BIBLE  = 'bl';
-    const PARAM_TYPE   = 'sn';
+    public const PARAM_LABELS = 'll';
+    public const PARAM_TEXTS  = 'tl';
+    public const PARAM_BIBLE  = 'bl';
+    public const PARAM_TYPE   = 'sn';
 
     /**
      * Hello
@@ -42,7 +41,6 @@ class GetParams
     public function __construct(LoggerInterface $logger)
     {
         $this->logger = $logger;
-
     }//end __construct()
 
 
@@ -68,7 +66,6 @@ class GetParams
         }
 
         return $val;
-
     }//end getParam()
 
 
@@ -82,7 +79,6 @@ class GetParams
     public function getLabelLang(string $default='eng'): string
     {
         return $this->getParam(self::PARAM_LABELS, $default);
-
     }//end getLabelLang()
 
 
@@ -96,7 +92,6 @@ class GetParams
     public function getContentLang(string $default='eng'): string
     {
         return $this->getParam(self::PARAM_TEXTS, $default);
-
     }//end getContentLang()
 
 
@@ -110,7 +105,6 @@ class GetParams
     public function getBible(string $default=''): string
     {
         return $this->getParam(self::PARAM_BIBLE, $default);
-
     }//end getBible()
 
 
@@ -124,8 +118,16 @@ class GetParams
     public function getType(string $default='mass'): string
     {
         return $this->getParam(self::PARAM_TYPE, $default, ['mass', 'rosary']);
-
     }//end getType()
 
 
+    /**
+     * Checks whether rosary was chosen as the content type
+     *
+     * @return bool
+     */
+    public function isRosary()
+    {
+        return ($this->getType() === 'rosary');
+    }//end isRosary()
 }//end class
