@@ -120,18 +120,25 @@ class BibleXML
     public $biblist = [];
 
     /**
-     * Hello
+     * GetParams instance
      *
-     * @var [type]
+     * @var GetParams
      */
     private $getParams;
 
     /**
-     * Hello
+     * Language instance
      *
-     * @var [type]
+     * @var Language
      */
     private $language;
+
+    /**
+     * List of Bible book abbreviations (mapping from the common abbreviations used e.g. in `lectlist.json` to abbreviations specific to the particular XML file that has been loaded).
+     *
+     * @var array
+     */
+    private $biblistabbr = [];
 
 
     /**
@@ -165,9 +172,11 @@ class BibleXML
 
 
     /**
-     * Hello
+     * Returns a list of Bible XML files.
      *
-     * @return [type]
+     * This list is in the form that {@see HtmlMaker::comboBoxContent()} is using to create a `select` node with `optgroup` and `option` nodes inside.
+     *
+     * @return array
      */
     public function getBibleComboList()
     {
@@ -182,6 +191,9 @@ class BibleXML
         ];
         if (array_key_exists($this->getParams->getLabelLang(), $this->biblist) === true) {
             $grplabel = $this->language->getLanguageData($this->getParams->getLabelLang(), 'title');
+            if ($grplabel === null) {
+                $grplabel = '';
+            }
 
             $ret[$grplabel] = [];
             foreach ($this->biblist[$this->getParams->getLabelLang()] as $bibleid => $bibledata) {
@@ -199,6 +211,9 @@ class BibleXML
 
         if (array_key_exists($this->getParams->getContentLang(), $this->biblist) === true && $this->getParams->getLabelLang() !== $this->getParams->getContentLang()) {
             $grplabel = $this->language->getLanguageData($this->getParams->getContentLang(), 'title');
+            if ($grplabel === null) {
+                $grplabel = '';
+            }
 
             $ret[$grplabel] = [];
             foreach ($this->biblist[$this->getParams->getContentLang()] as $bibleid => $bibledata) {
@@ -525,16 +540,12 @@ class BibleXML
             return $this->parseRef($refs);
         }
 
-        if (is_array($refs) === true) {
-            $arr = [];
-            foreach ($refs as $oneref) {
-                $arr = array_merge($arr, $this->parseRef($oneref));
-            }
-
-            return $arr;
+        $arr = [];
+        foreach ($refs as $oneref) {
+            $arr = array_merge($arr, $this->parseRef($oneref));
         }
 
-        return [];
+        return $arr;
 
     }//end parseRefs()
 
@@ -600,7 +611,7 @@ class BibleXML
         $bookTrans = $this->biblistabbr[$book];
         if (is_string($ref) === true) {
             $refTrans = $bookTrans.' '.$ref;
-        } else if (is_array($ref) === true) {
+        } else {
             $refTrans = [];
             foreach ($ref as $oneRef) {
                 $refTrans[] = $bookTrans.' '.$oneRef;

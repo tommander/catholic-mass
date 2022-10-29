@@ -57,7 +57,7 @@ class GetParams
      */
     private function getParam(string $name, string $default, array $values=[], string $regex=''): string
     {
-        if (isset($_GET[$name]) !== true) {
+        if (isset($_GET[$name]) !== true || is_string($_GET[$name]) !== true) {
             return $default;
         }
 

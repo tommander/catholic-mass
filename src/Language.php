@@ -65,23 +65,23 @@ class Language
     private $contentJson = [];
 
     /**
-     * Hello
+     * GetParams instance
      *
-     * @var [type]
+     * @var GetParams
      */
     private $getParams;
 
     /**
-     * Hello
+     * BibleXML instance
      *
-     * @var [type]
+     * @var BibleXML
      */
     private $bibleXML;
 
     /**
-     * Hello
+     * Lectionary instance
      *
-     * @var [type]
+     * @var Lectionary
      */
     private $lectionary;
 
@@ -174,7 +174,7 @@ class Language
      * @param string $lang Hello
      * @param string $data Hello
      *
-     * @return [type]
+     * @return ?array
      */
     public function getLanguageData(string $lang, string $data)
     {
@@ -200,7 +200,7 @@ class Language
      *
      * @param string $type Hello
      *
-     * @return [type]
+     * @return string|array
      */
     public function getContent(string $type)
     {
