@@ -20,10 +20,11 @@ if (defined('OOM_BASE') !== true) {
  */
 class BibleXML
 {
+
     /**
      * Logger instance
      *
-     * @var LoggerInterface
+     * @var Logger
      */
     private $logger;
 
@@ -119,28 +120,103 @@ class BibleXML
     public $biblist = [];
 
     /**
-     * List of Bible book abbreviations as used in the currently loaded Bible
-     * translation (from biblist.json).
+     * Hello
      *
-     * - Array key is the common Bible book abbreviation as used in `biblist.json`
-     * - Array value is the Bible book abbreviation as used in the Bible translation
-     *   XML file
-     *
-     * @var array<string, string>
+     * @var [type]
      */
-    private $biblistabbr = [];
+    private $getParams;
+
+    /**
+     * Hello
+     *
+     * @var [type]
+     */
+    private $language;
 
 
     /**
      * Saves the instance of Logger
      *
-     * @param LoggerInterface $logger Logger
+     * @param Logger    $logger    Logger
+     * @param GetParams $getParams Hello
+     * @param Language  $language  Hello
      */
-    public function __construct(LoggerInterface $logger)
+    public function __construct(Logger $logger, GetParams $getParams, Language $language)
     {
-        $this->logger  = $logger;
-        $this->biblist = Helper::loadJson('assets/json/biblist.json');
+        $this->logger    = $logger;
+        $this->getParams = $getParams;
+        $this->language  = $language;
+        $this->biblist   = Helper::loadJson('assets/json/biblist.json');
+
+        $bible = $this->getParams->getBible();
+        foreach ($this->biblist as $biblang => $biblist) {
+            foreach ($biblist as $bibid => $bibdata) {
+                if ($bibid === $bible) {
+                    $this->biblistabbr = $bibdata[2];
+                    $this->type        = $this->getFileType($bibdata[1]);
+                    $this->bibFile     = 'libs/open-bibles/'.$bibdata[1];
+                    $this->isIndex     = file_exists(Helper::fullFilename($this->bibFile.'.json'));
+                    break;
+                }
+            }
+        }
+
     }//end __construct()
+
+
+    /**
+     * Hello
+     *
+     * @return [type]
+     */
+    public function getBibleComboList()
+    {
+        $ret = [
+            '' => [
+                [
+                    'value' => '',
+                    'sel'   => false,
+                    'text'  => '-',
+                ],
+            ],
+        ];
+        if (array_key_exists($this->getParams->getLabelLang(), $this->biblist) === true) {
+            $grplabel = $this->language->getLanguageData($this->getParams->getLabelLang(), 'title');
+
+            $ret[$grplabel] = [];
+            foreach ($this->biblist[$this->getParams->getLabelLang()] as $bibleid => $bibledata) {
+                if (isset($bibledata[0]) !== true) {
+                    continue;
+                }
+
+                $ret[$grplabel][] = [
+                    'value' => $bibleid,
+                    'sel'   => $this->getParams->getBible() == $bibleid,
+                    'text'  => $bibledata[0],
+                ];
+            }
+        }//end if
+
+        if (array_key_exists($this->getParams->getContentLang(), $this->biblist) === true && $this->getParams->getLabelLang() !== $this->getParams->getContentLang()) {
+            $grplabel = $this->language->getLanguageData($this->getParams->getContentLang(), 'title');
+
+            $ret[$grplabel] = [];
+            foreach ($this->biblist[$this->getParams->getContentLang()] as $bibleid => $bibledata) {
+                if (isset($bibledata[0]) !== true) {
+                    continue;
+                }
+
+                $ret[$grplabel][] = [
+                    'value' => $bibleid,
+                    'sel'   => $this->getParams->getBible() == $bibleid,
+                    'text'  => $bibledata[0],
+                ];
+            }
+        }//end if
+
+        return $ret;
+
+    }//end getBibleComboList()
 
 
     /**
@@ -167,25 +243,8 @@ class BibleXML
         }
 
         return -1;
+
     }//end getFileType()
-
-
-    /**
-     * Sets the current XML file.
-     *
-     * Automatically the type and index existence is also updated.
-     *
-     * @param string $file File name of the Bible XML.
-     *
-     * @return void
-     */
-    public function defineFile(string $file)
-    {
-        $this->type    = $this->getFileType($file);
-        $this->bibFile = 'libs/open-bibles/'.$file;
-        $this->isIndex = file_exists(Helper::fullFilename($this->bibFile.'.json'));
-        //$this->biblistabbr = $this->biblist
-    }//end defineFile()
 
 
     /**
@@ -205,6 +264,7 @@ class BibleXML
                 break;
             }
         }
+
     }//end startCollecting()
 
 
@@ -221,6 +281,7 @@ class BibleXML
 
         $this->textOut  .= ' ';
         $this->doCollect = false;
+
     }//end stopCollecting()
 
 
@@ -237,12 +298,13 @@ class BibleXML
     {
         if ($name === 'BIBLEBOOK' && array_key_exists('BSNAME', $attribs) === true) {
             $this->current['book'] = $attribs['BSNAME'];
-        } elseif ($name === 'CHAPTER' && array_key_exists('CNUMBER', $attribs) === true) {
+        } else if ($name === 'CHAPTER' && array_key_exists('CNUMBER', $attribs) === true) {
             $this->current['chap'] = $attribs['CNUMBER'];
-        } elseif ($name === 'VERS' && array_key_exists('VNUMBER', $attribs) === true) {
+        } else if ($name === 'VERS' && array_key_exists('VNUMBER', $attribs) === true) {
             $this->current['vers'] = $attribs['VNUMBER'];
             $this->startCollecting();
         }
+
     }//end startHdl0()
 
 
@@ -259,14 +321,15 @@ class BibleXML
     {
         if ($name === 'BOOK' && array_key_exists('ID', $attribs) === true) {
             $this->current['book'] = $attribs['ID'];
-        } elseif ($name === 'C' && array_key_exists('ID', $attribs) === true) {
+        } else if ($name === 'C' && array_key_exists('ID', $attribs) === true) {
             $this->current['chap'] = $attribs['ID'];
-        } elseif ($name === 'V' && array_key_exists('ID', $attribs) === true) {
+        } else if ($name === 'V' && array_key_exists('ID', $attribs) === true) {
             $this->current['vers'] = $attribs['ID'];
             $this->startCollecting();
-        } elseif ($name === 'VE') {
+        } else if ($name === 'VE') {
             $this->stopCollecting();
         }//end if
+
     }//end startHdl1()
 
 
@@ -287,14 +350,15 @@ class BibleXML
             && array_key_exists('OSISID', $attribs) === true
         ) {
             $this->current['book'] = $attribs['OSISID'];
-        } elseif ($name === 'CHAPTER' && array_key_exists('N', $attribs) === true) {
+        } else if ($name === 'CHAPTER' && array_key_exists('N', $attribs) === true) {
             $this->current['chap'] = $attribs['N'];
-        } elseif ($name === 'VERSE' && array_key_exists('N', $attribs) === true) {
+        } else if ($name === 'VERSE' && array_key_exists('N', $attribs) === true) {
             $this->current['vers'] = $attribs['N'];
             $this->startCollecting();
-        } elseif ($name === 'VERSE' && array_key_exists('EID', $attribs) === true) {
+        } else if ($name === 'VERSE' && array_key_exists('EID', $attribs) === true) {
             $this->stopCollecting();
         }
+
     }//end startHdl2()
 
 
@@ -310,11 +374,12 @@ class BibleXML
     {
         if ($name === 'BIBLEBOOK') {
             $this->current['book'] = '';
-        } elseif ($name === 'CHAPTER') {
+        } else if ($name === 'CHAPTER') {
             $this->current['chap'] = '';
-        } elseif ($name === 'VERS') {
+        } else if ($name === 'VERS') {
             $this->stopCollecting();
         }
+
     }//end endHdl0()
 
 
@@ -330,6 +395,7 @@ class BibleXML
      */
     private function endHdl12($parser, string $name)
     {
+
     }//end endHdl12()
 
 
@@ -346,6 +412,7 @@ class BibleXML
         if ($this->doCollect === true) {
             $this->textOut .= $data;
         }
+
     }//end midHdl()
 
 
@@ -408,7 +475,7 @@ class BibleXML
                     }
 
                     $verseHigh = $verseLow;
-                } elseif (count($mat2) === 8) {
+                } else if (count($mat2) === 8) {
                     if ($mat2[2] !== '') {
                         $chap = intval($mat2[2]);
                     }
@@ -439,6 +506,7 @@ class BibleXML
         }//end foreach
 
         return $rng;
+
     }//end parseRef()
 
 
@@ -467,13 +535,55 @@ class BibleXML
         }
 
         return [];
+
     }//end parseRefs()
+
+
+    /**
+     * Hello
+     *
+     * @param string $dirtyText Hello
+     *
+     * @return string
+     */
+    private function sanitizeIndexedText(string $dirtyText): string
+    {
+        $remWithContent   = [
+            'title',
+            'f',
+        ];
+        $regexWithContent = sprintf('~<(%s)(?:\s+[^>]*?)?>.*?<\/\1>~s', implode('|', $remWithContent));
+        $regexOnlyTag     = '~<\/?(?:[A-z]+)(?:\s+[^>]*?)?>~';
+        $regexComments    = '~<!--.*?-->~';
+
+        // Clean tags, whose content will also be dropped.
+        $almostCleanText = \preg_replace($regexWithContent, '', $dirtyText);
+        if (is_string($almostCleanText) !== true) {
+            return $dirtyText;
+        }
+
+        // Clean all remaining tags, but keep their content.
+        $closeToCleanText = \preg_replace($regexOnlyTag, '', $almostCleanText);
+        if (is_string($closeToCleanText) !== true) {
+            return $dirtyText;
+        }
+
+        // Clean comments.
+        $cleanText = \preg_replace($regexComments, '', $closeToCleanText);
+        if (is_string($cleanText) !== true) {
+            return $dirtyText;
+        }
+
+        return $cleanText;
+
+    }//end sanitizeIndexedText()
 
 
     /**
      * Given a reference, it returns the text of this reference from the current Bible XML.
      *
-     * @param string|string[] $ref Reference
+     * @param string          $book Hello
+     * @param string|string[] $ref  Reference
      *
      * @return string Text of the reference
      */
@@ -483,13 +593,17 @@ class BibleXML
             return '';
         }
 
+        if (isset($this->biblistabbr[$book]) !== true) {
+            return '';
+        }
+
         $bookTrans = $this->biblistabbr[$book];
-        if (is_string($ref)) {
-            $refTrans = $bookTrans.$ref;
-        } elseif (is_array($ref)) {
+        if (is_string($ref) === true) {
+            $refTrans = $bookTrans.' '.$ref;
+        } else if (is_array($ref) === true) {
             $refTrans = [];
             foreach ($ref as $oneRef) {
-                $refTrans[] = $bookTrans.$oneRef;
+                $refTrans[] = $bookTrans.' '.$oneRef;
             }
         }
 
@@ -529,6 +643,8 @@ class BibleXML
                             $sta1 = substr($parsedOneRef[1], -2);
                             $sta2 = substr($parsedOneRef[2], -2);
 
+                            $data = $this->sanitizeIndexedText($data);
+
                             if ($sta1 !== '00') {
                                 $sta1int = intval($sta1);
                                 while ($sta1int > 0) {
@@ -563,8 +679,6 @@ class BibleXML
                 fclose($stream);
             }//end try
 
-            $this->textOut = preg_replace('~<f caller="\+">.*?<\/f>~si', '', $this->textOut);
-            $this->textOut = strip_tags($this->textOut);
             return $this->textOut;
         }//end if
 
@@ -572,45 +686,44 @@ class BibleXML
         $parser = xml_parser_create();
 
         switch ($this->type) {
-            case 0:
-                xml_set_element_handler(
-                    $parser,
-                    [
-                        $this,
-                        'startHdl0',
-                    ],
-                    [
-                        $this,
-                        'endHdl0',
-                    ]
-                );
-                break;
-            case 1:
-                xml_set_element_handler(
-                    $parser,
-                    [
-                        $this,
-                        'startHdl1',
-                    ],
-                    [
-                        $this,
-                        'endHdl12',
-                    ]
-                );
-                break;
-            case 2:
-                xml_set_element_handler(
-                    $parser,
-                    [
-                        $this,
-                        'startHdl2',
-                    ],
-                    [
-                        $this,
-                        'endHdl12',
-                    ]
-                );
-                break;
+        case 0:
+            xml_set_element_handler(
+                $parser,
+                [
+                    $this,
+                    'startHdl0',
+                ],
+                [
+                    $this,
+                    'endHdl0',
+                ]
+            );
+            break;
+        case 1:
+            xml_set_element_handler(
+                $parser,
+                [
+                    $this,
+                    'startHdl1',
+                ],
+                [
+                    $this,
+                    'endHdl12',
+                ]
+            );
+            break;
+        case 2:
+            xml_set_element_handler(
+                $parser,
+                [
+                    $this,
+                    'startHdl2',
+                ],
+                [
+                    $this,
+                    'endHdl12',
+                ]
+            );
         }//end switch
 
         xml_set_default_handler($parser, [$this, 'midHdl']);
@@ -626,5 +739,8 @@ class BibleXML
         unset($data);
 
         return trim($this->textOut);
+
     }//end getByRef()
+
+
 }//end class

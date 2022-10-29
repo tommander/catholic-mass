@@ -121,7 +121,7 @@
 		{"a": "Amen."},
 		{"": "@icon{sit} @{lsit}"},
 		{"p": "@{announce}"},
-		{"c": "@icon{stand} @{lstand}"},
+		{"": "@icon{stand} @{lstand}"},
 		{"p": "Sumainyo ang Panginoon."},
 		{"a": "At sumainyo rin."},
 		{"p": "Magsiyuko kayo at ipanalangin ang pagpapala ng Diyos."},

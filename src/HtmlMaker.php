@@ -21,6 +21,162 @@ if (defined('OOM_BASE') !== true) {
 class HtmlMaker
 {
 
+    /**
+     * Hello
+     *
+     * @var Logger
+     */
+    private $logger;
+
+    /**
+     * Hello
+     *
+     * @var Language
+     */
+    private $language;
+
+
+    /**
+     * Saves the instance of Logger
+     *
+     * @param Logger   $logger   Logger
+     * @param Language $language Language
+     */
+    public function __construct(Logger $logger, Language $language)
+    {
+        $this->logger   = $logger;
+        $this->language = $language;
+
+    }//end __construct()
+
+
+    /**
+     * Creates a content of `select` HTML tag from an array
+     *
+     * @param array $def    Array defining the content of the combobox
+     * @param bool  $simple Whether `optgroup` tags are being used
+     *
+     * @return string
+     */
+    public function comboBoxContent(array $def, bool $simple): string
+    {
+        $ret = '';
+        if ($simple === true) {
+            foreach ($def as $opt) {
+                $sel = '';
+                if ($opt['sel'] === true) {
+                    $sel = ' selected="selected"';
+                }
+
+                $ret .= sprintf("<option value=\"%s\"%s>%s</option>\r\n", $opt['value'], $sel, $opt['text']);
+            }
+
+            return $ret;
+        }
+
+        foreach ($def as $grp => $lst) {
+            if ($grp !== '') {
+                $ret .= sprintf("<optgroup label=\"%s\">\r\n", $grp);
+            }
+
+            foreach ($lst as $opt) {
+                $sel = '';
+                if ($opt['sel'] === true) {
+                    $sel = ' selected="selected"';
+                }
+
+                $ret .= sprintf("<option value=\"%s\"%s>%s</option>\r\n", $opt['value'], $sel, $opt['text']);
+            }
+
+            if ($grp !== '') {
+                $ret .= "</optgroup>\r\n";
+            }
+        }
+
+        return $ret;
+
+    }//end comboBoxContent()
+
+
+    /**
+     * Creates a list of links for the main page footer
+     *
+     * @param array $def Array of links
+     *
+     * @return string
+     */
+    public function linksContent(array $def): string
+    {
+        $ret = '';
+        foreach ($def as $one) {
+            if ($one === 'space') {
+                $ret .= "<span>&nbsp;</span>\r\n";
+                continue;
+            }
+
+            if (is_array($one) !== true) {
+                continue;
+            }
+
+            if (array_key_exists('licenseurl', $one) === true
+                && array_key_exists('licensetext', $one) === true
+            ) {
+                $ret .= sprintf(
+                    "<span>%s: <a href=\"%s\">%s</a> (<a href=\"%s\">%s</a>)</span>\r\n",
+                    $one['label'],
+                    $one['url'],
+                    $one['text'],
+                    $one['licenseurl'],
+                    $one['licensetext']
+                );
+                continue;
+            }
+
+            if (array_key_exists('list', $one) === true) {
+                foreach ($one['list'] as $key => $data) {
+                    $author = '';
+                    if ($data['author'] !== 'Tommander') {
+                        $author = ' by '.$data['author'];
+                    }
+
+                    $links = '';
+                    $cnt   = 1;
+
+                    foreach ($data['link'] as $lnk) {
+                        if ($cnt > 1) {
+                            $links .= ', ';
+                        }
+
+                        $links .= sprintf(
+                            "<a href=\"%s\">source %d</a>",
+                            $lnk,
+                            $cnt++
+                        );
+                    }
+
+                    $ret .= sprintf(
+                        "<span>%s%s (%s)</span>\r\n",
+                        $data['title'],
+                        $author,
+                        $links
+                    );
+                }//end foreach
+
+                continue;
+            }//end if
+
+            $ret .= sprintf(
+                "<span>%s: <a href=\"%s\">%s</a></span>\r\n",
+                $one['label'],
+                $one['url'],
+                $one['text'],
+            );
+        }//end foreach
+
+        return $ret;
+
+    }//end linksContent()
+
 
     /**
      * Convert original JSON object to an HTML representation
@@ -36,18 +192,18 @@ class HtmlMaker
         $cls  = '';
 
         if (isset($obj->reading) === true) {
-            $what = "<a href=\"".$this->repls('@{dbrlink}')."\">".$this->repls('@icon{booklink} @{dbrtext}')."</a>";
+            $what = "<a href=\"".$this->language->repls('@{dbrlink}')."\">".$this->language->repls('@icon{booklink} @{dbrtext}')."</a>";
         } else if (isset($obj->{""}) === true) {
-            $what = $this->repl($obj->{""});
+            $what = $this->language->repl($obj->{""});
         } else if (isset($obj->{"p"}) === true) {
             $who  = "<span class=\"who\">P:</span>";
-            $what = $this->repl($obj->{"p"});
+            $what = $this->language->repl($obj->{"p"});
         } else if (isset($obj->{"a"}) === true) {
             $who  = "<span class=\"who\">A:</span>";
-            $what = "<strong>".$this->repl($obj->{"a"})."</strong>";
+            $what = "<strong>".$this->language->repl($obj->{"a"})."</strong>";
         } else if (isset($obj->{"r"}) === true) {
             $who  = "<span class=\"who\">R:</span>";
-            $what = $this->repl($obj->{"r"});
+            $what = $this->language->repl($obj->{"r"});
         }
 
         if ($who === '') {
@@ -70,7 +226,7 @@ class HtmlMaker
     public function parseToHtml($row, $deep=true)
     {
         if (is_object($row) === true && isset($row->read) === true) {
-            return $this->parseToHtml($this->replre($row->read));
+            return $this->parseToHtml($this->language->replre($row->read));
         } else if (is_object($row) === true) {
             return $this->objToHtml2($row);
         } else if (is_array($row) === true) {
@@ -106,18 +262,22 @@ class HtmlMaker
     /**
      * Returns complete mass/rosary HTML content
      *
+     * @param array $contentArray Hello
+     *
      * @return string
      */
     public function htmlObj(array $contentArray): string
     {
-/*        $section = 'mass';
-        if ($this->isRosary() === true) {
-            $section = 'rosary';
-        }
+        /*
+            $section = 'mass';
+            if ($this->isRosary() === true) {
+                $section = 'rosary';
+            }
 
-        if (isset($this->contentJson->{$section}) === false || is_array($this->contentJson->{$section}) === false) {
-            return var_export($this->contentJson, true);
-        }*/
+            if (isset($this->contentJson->{$section}) === false || is_array($this->contentJson->{$section}) === false) {
+                return var_export($this->contentJson, true);
+            }
+        */
 
         $ret = '';
         foreach ($contentArray as $row) {
@@ -127,4 +287,6 @@ class HtmlMaker
         return $ret;
 
     }//end htmlObj()
+
+
 }//end class

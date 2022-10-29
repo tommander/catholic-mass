@@ -62,7 +62,7 @@ class Helper
      *
      * @return int
      */
-    private static function letterToInt(string $chr): int
+    public static function letterToInt(string $chr): int
     {
         if (strlen($chr) < 1) {
             return 0;

@@ -20,10 +20,11 @@ if (defined('OOM_BASE') !== true) {
  */
 class Language
 {
+
     /**
      * Logger instance
      *
-     * @var LoggerInterface
+     * @var Logger
      */
     private $logger;
 
@@ -63,22 +64,72 @@ class Language
      */
     private $contentJson = [];
 
+    /**
+     * Hello
+     *
+     * @var [type]
+     */
     private $getParams;
 
+    /**
+     * Hello
+     *
+     * @var [type]
+     */
     private $bibleXML;
 
+    /**
+     * Hello
+     *
+     * @var [type]
+     */
     private $lectionary;
 
+    /**
+     * List of available languages (from data/langlist.json)
+     *
+     * The array looks like this (numbers are explained below):
+     *
+     * ```
+     * [
+     *   '1' => [
+     *     'title' => '2',
+     *     'author' => '3',
+     *     'link' => '4'
+     *   ]
+     * ]
+     * ```
+     *
+     * 1. Language three-letter code
+     * 2. Language name (in that language, i.e. <q>English</q>, <q>Deutsch</q>, ...)
+     * 3. Author of that translation (not the language, obviously)
+     * 4. Either a URL or simple array of URLs (sources of information)
+     *
+     * @var array<string, array<string, string|string[]>>
+     */
+    private $langlist = [];
 
-    public function __construct(LoggerInterface $logger, GetParams $getParams, BibleXML $bibleXML, Lectionary $lectionary)
+
+    /**
+     * Hello
+     *
+     * @param Logger     $logger     Hello
+     * @param GetParams  $getParams  Hello
+     * @param BibleXML   $bibleXML   Hello
+     * @param Lectionary $lectionary Hello
+     */
+    public function __construct(Logger $logger, GetParams $getParams, BibleXML $bibleXML, Lectionary $lectionary)
     {
-        $this->labelsJson  = Helper::loadJson('assets/json/lang/'.$this->ll.'-labels.json');
-        $this->contentJson = Helper::loadJson('assets/json/lang/'.$this->tl.'-content.json', false);
-        $this->logger      = $logger;
-        $this->getParams   = $getParams;
-        $this->bibleXML    = $bibleXML;
-        $this->lectionary  = $lectionary;
-    }
+        $this->logger     = $logger;
+        $this->getParams  = $getParams;
+        $this->bibleXML   = $bibleXML;
+        $this->lectionary = $lectionary;
+
+        $this->langlist    = Helper::loadJson('assets/json/langlist.json');
+        $this->labelsJson  = Helper::loadJson('assets/json/lang/'.$this->getParams->getLabelLang().'-labels.json');
+        $this->contentJson = Helper::loadJson('assets/json/lang/'.$this->getParams->getContentLang().'-content.json', false);
+
+    }//end __construct()
 
 
     /**
@@ -101,13 +152,92 @@ class Language
         }
 
         $addition = $this->bibleXML->getByRef($m[1], $m[2]);
-        /*if (array_key_exists($m[1], $this->biblistabbr) === true) {
-            $biblexml = $this->container->get(BibleXML::class);
-            $addition = ' '.$biblexml->getByRef($this->biblistabbr[$m[1]].' '.$m[2]);
-        }*/
+        if ($addition !== '') {
+            $addition = ' '.$addition;
+        }
+
+        /*
+            If (array_key_exists($m[1], $this->biblistabbr) === true) {
+                $biblexml = $this->container->get(BibleXML::class);
+                $addition = ' '.$biblexml->getByRef($this->biblistabbr[$m[1]].' '.$m[2]);
+            }
+        */
 
         return '@bib['.$this->labelsJson['bible'][$m[1]]['title'].']{'.$this->labelsJson['bible'][$m[1]]['abbr'].' '.$m[2].'}'.$addition;
+
     }//end replbb()
+
+
+    /**
+     * Hello
+     *
+     * @param string $lang Hello
+     * @param string $data Hello
+     *
+     * @return [type]
+     */
+    public function getLanguageData(string $lang, string $data)
+    {
+        if ($lang === '' && $data === '') {
+            return $this->langlist;
+        }
+
+        if (isset($this->langlist[$lang]) !== true) {
+            return null;
+        }
+
+        if (isset($this->langlist[$lang][$data]) !== true) {
+            return null;
+        }
+
+        return $this->langlist[$lang][$data];
+
+    }//end getLanguageData()
+
+
+    /**
+     * Hello
+     *
+     * @param string $type Hello
+     *
+     * @return [type]
+     */
+    public function getContent(string $type)
+    {
+        if ($type !== 'rosary' && $type !== 'mass') {
+            return '';
+        }
+
+        return $this->contentJson->{$type};
+
+    }//end getContent()
+
+
+    /**
+     * Hello
+     *
+     * @param string $selection Hello
+     *
+     * @return array
+     */
+    public function getLanguageComboList(string $selection=''): array
+    {
+        $ret = [];
+        foreach ($this->langlist as $code => $info) {
+            if (is_string($info['title']) !== true) {
+                continue;
+            }
+
+            $ret[] = [
+                'value' => htmlspecialchars($code),
+                'sel'   => ($code == $selection),
+                'text'  => htmlspecialchars($info['title']),
+            ];
+        }
+
+        return $ret;
+
+    }//end getLanguageComboList()
 
 
     /**
@@ -128,6 +258,7 @@ class Language
         }
 
         return $this->labelsJson['labels'][$matches[1]];
+
     }//end replcbs()
 
 
@@ -144,6 +275,7 @@ class Language
     private function replcb(array $matches): string
     {
         return "<span class=\"command\">".$this->replcbs($matches)."</span>";
+
     }//end replcb()
 
 
@@ -164,6 +296,7 @@ class Language
         }
 
         return $this->labelsJson['sundays'][$matches[1]];
+
     }//end replsu()
 
 
@@ -184,6 +317,7 @@ class Language
         }
 
         return $this->labelsJson['mysteries'][$matches[1]];
+
     }//end replmy()
 
 
@@ -202,6 +336,7 @@ class Language
         }
 
         return sprintf("<abbr title=\"%s\">%s</abbr>", $matches[1], $matches[2]);
+
     }//end replbib()
 
 
@@ -221,7 +356,7 @@ class Language
      * @return \stdClass|\stdClass[]|null Text of the reading or "???" if the reading ID is unknown or an empty string in case of an error
      * @see    https://www.php.net/manual/en/function.preg-replace-callback-array
      */
-    private function replre(string $which)
+    public function replre(string $which)
     {
         $reads = $this->lectionary->getReadings(time());
         if (array_key_exists($which, $reads) === false) {
@@ -230,20 +365,20 @@ class Language
 
         $icon = '';
         switch ($which) {
-            case 'r1':
-                $icon = '@{read1} ';
-                break;
-            case 'r2':
-                $icon = '@{read2} ';
-                break;
-            case 'p':
-                $icon = '@{psalm} ';
-                break;
-            case 'a':
-                $icon = '@{alleluia} ';
-                break;
-            case 'g':
-                $icon = '@{readE} ';
+        case 'r1':
+            $icon = '@{read1} ';
+            break;
+        case 'r2':
+            $icon = '@{read2} ';
+            break;
+        case 'p':
+            $icon = '@{psalm} ';
+            break;
+        case 'a':
+            $icon = '@{alleluia} ';
+            break;
+        case 'g':
+            $icon = '@{readE} ';
         }
 
         $ret = $reads[$which];
@@ -251,7 +386,7 @@ class Language
             $obj    = new \stdClass();
             $obj->r = '@icon{bible} '.$icon.' ['.$this->replbb($ret).']';
             return $obj;
-        } elseif (is_array($ret) === true) {
+        } else if (is_array($ret) === true) {
             $rtn = [];
             foreach ($ret as $one) {
                 $obj    = new \stdClass();
@@ -263,6 +398,7 @@ class Language
         }
 
         return null;
+
     }//end replre()
 
 
@@ -283,6 +419,7 @@ class Language
         }
 
         return "<i class=\"".$this->icons[$matches[1]]."\"></i>";
+
     }//end replico()
 
 
@@ -312,6 +449,7 @@ class Language
         }
 
         return '';
+
     }//end repl()
 
 
@@ -340,5 +478,8 @@ class Language
         }
 
         return '';
+
     }//end repls()
+
+
 }//end class
