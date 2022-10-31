@@ -20,6 +20,7 @@
         "phpdoc": "php phpDocumentor.phar",
         "phpdocmd": "php libs-dev/phpdoc-md/bin/phpdocmd .docs/structure.xml ../mass-wiki/phpdoc",
         "phpunit": "phpunit tests",
+        "remdoc": "del /S /Q ..\\mass-wiki\\phpdoc\\*.md",
         "qa": [
             "@phpcs",
             "@phpcbf",
@@ -33,6 +34,7 @@
             "@phpunit"
         ],
         "docs": [
+            "@remdoc",
             "@phpdoc",
             "@phpdocmd"
         ]
