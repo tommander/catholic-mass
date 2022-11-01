@@ -4,6 +4,3 @@
 [submodule "libs/font-awesome"]
 	path = libs/font-awesome
 	url = https://github.com/tommander/Font-Awesome
-[submodule "libs-dev/phpdoc-md"]
-	path = libs-dev/phpdoc-md
-	url = https://github.com/tommander/phpdoc-md.git
