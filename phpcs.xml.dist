@@ -3,6 +3,7 @@
     <description>The coding standard for PHP_CodeSniffer itself.</description>
 
     <file>src</file>
+    <file>libs-dev/phpDocMDX/src</file>
 
     <exclude-pattern>*/libs/*</exclude-pattern>
     <exclude-pattern>*/vendor/*</exclude-pattern>

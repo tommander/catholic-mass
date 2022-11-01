@@ -10,7 +10,8 @@
     },
     "autoload": {
         "psr-4": {
-            "TMD\\OrderOfMass\\": "src/"
+            "TMD\\OrderOfMass\\": "src/",
+            "TMD\\PDMDX\\": "libs-dev/phpDocMDX/src"
         }
     },
     "scripts": {
@@ -18,7 +19,7 @@
         "phpcbf": "phpcbf --standard=phpcs.xml.dist",
         "psalm": "psalm --no-diff",
         "phpdoc": "php phpDocumentor.phar",
-        "phpdocmd": "php libs-dev/phpdoc-md/bin/phpdocmd .docs/structure.xml ../mass-wiki/phpdoc",
+        "phpdocmd": "php libs-dev/phpDocMDX/src/phpDocMDX.php --input=\"../../../.docs/structure.xml\" --output=\"../../../../mass-wiki/phpdoc/\"",
         "phpunit": "phpunit tests",
         "remdoc": "del /S /Q ..\\mass-wiki\\phpdoc\\*.md",
         "qa": [
