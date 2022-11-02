@@ -113,7 +113,7 @@ class PDProject extends PDBasic
             ],
         ];
 
-        file_put_contents($this->dir.'index.md', $this->mdOutWithHeading($data));
+        file_put_contents($this->dir.'phpdoc_index.md', $this->mdOutWithHeading($data));
         return '';
 
     }//end md()

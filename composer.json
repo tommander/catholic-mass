@@ -17,21 +17,21 @@
     "scripts": {
         "phpcs": "phpcs --standard=phpcs.xml.dist",
         "phpcbf": "phpcbf --standard=phpcs.xml.dist",
-        "psalm": "psalm --no-diff",
+        "psalm": "psalm --no-diff --no-cache --no-file-cache --show-info=true",
         "phpdoc": "php phpDocumentor.phar",
         "phpdocmd": "php libs-dev/phpDocMDX/src/phpDocMDX.php --input=\"../../../.docs/structure.xml\" --output=\"../../../../mass-wiki/phpdoc/\"",
         "phpunit": "phpunit tests",
+        "phpcheck1": "for /f %G IN ('dir /b src\\*.php') DO php -l src\\%G",
+        "phpcheck2": "for /f %G IN ('dir /b libs-dev\\phpDocMDX\\src\\*.php') DO php -l libs-dev\\phpDocMDX\\src\\%G",
+        "phpcheck3": "for /f %G IN ('dir /b *.php') DO php -l %G",
         "remdoc": "del /S /Q ..\\mass-wiki\\phpdoc\\*.md",
         "qa": [
-            "@phpcs",
+            "@phpcheck1",
+            "@phpcheck2",
+            "@phpcheck3",
             "@phpcbf",
+            "@phpcs",
             "@psalm",
-            "@phpunit"
-        ],
-        "qa-full": [
-            "@phpcs",
-            "@phpcbf",
-            "@psalm --show-info=true",
             "@phpunit"
         ],
         "docs": [

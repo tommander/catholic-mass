@@ -29,7 +29,7 @@ class PDParser
     /**
      * Load PHPDoc XML output file and parse it into a general multi-level associative array
      *
-     * @return void
+     * @return PDElement
      */
     private function getStructure()
     {

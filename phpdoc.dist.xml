@@ -10,7 +10,6 @@
       <ignore hidden="true" symlinks="true">
         <path>vendor/**/*</path>
         <path>libs/**/*</path>
-        <path>libs-dev/**/*</path>
       </ignore>
     </api>
   </version>

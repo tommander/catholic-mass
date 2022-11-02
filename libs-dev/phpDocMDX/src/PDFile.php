@@ -239,7 +239,7 @@ class PDFile extends PDBasic
             ],
         ];
 
-        $fileName = $this->makeFilename($this->path);
+        $fileName = 'phpdoc_'.$this->makeFilename($this->path);
         file_put_contents($this->dir.$fileName.'.md', $this->mdOutWithHeading($data));
         return sprintf("[%s](%s)", basename($this->path), $fileName);
 
