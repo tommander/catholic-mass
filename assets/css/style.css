@@ -13,7 +13,6 @@ header {
 	display: flex;
 	justify-content: center;
 	height: 128px;
-	background-image: url('../img/church.png');
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: contain;
@@ -117,6 +116,43 @@ h1 {
 .command {
 	font-style: italic;
 	color: #555;
+}
+
+.choiceTabs .option, .choiceTabsLabel {
+	display: inline-block;
+	padding: 0.5em;
+	margin: 0.5em;
+}
+
+.choiceTabs .option {
+	border: 1px solid rgba(0,0,0,0.3);
+	border-radius: 0.5em;
+}
+
+.choiceTabsLabel {
+	margin: 1em 0.25em 1em 1em; 
+	padding: 0;
+}
+
+.choiceTabs .option:hover {
+	background-color: rgba(255,255,255,0.3) !important;
+}
+
+.choiceTabs .option {
+	cursor: pointer;
+}
+
+.choice, .choiceTabs, .choiceContent, .choiceContent > div {
+	padding: 0;
+}
+
+.optionSelected {
+	font-weight:bold;
+	border: 1px solid rgba(0,0,0,0.6) !important;
+}
+
+.choice, .choiceTabs div, .choiceContent, .choiceContent .option {
+	background-color: rgba(255,255,255,0) !important;
 }
 
 /* FOOTER */ 

@@ -6,7 +6,7 @@
  *
  * @package OrderOfMass
  * @author  Tommander <tommander@tommander.cz>
- * @license GPL 3.0 https://www.gnu.org/licenses/gpl-3.0.html
+ * @license MIT license https://opensource.org/licenses/MIT
  * @link    https://github.com/tommander/catholic-mass
  */
 
@@ -16,6 +16,8 @@ define('OOM_BASE', 'orderofmass');
 
 require __DIR__.'/vendor/autoload.php';
 
+$baseurl = 'http://localhost/mass/';
+
 // Include MassMain class and create an instance.
-$mass = new MassMain();
+$mass = new MassMain($baseurl);
 $mass->run();

@@ -8,41 +8,58 @@
     {"p": "Dříve než uslyšíme Boží slovo a budeme slavit eucharistii, litujme svých hříchů."},
     {"": "@icon{kneel} @{silentPrayer}"},
     [
-        {"a": "Vyznávám se všemohoucímu Bohu a vám všem, že často hřeším myšlením, slovy i skutky a nekonám, co mám konat; je to má vina, má veliká vina. Proto prosím Matku Boží, Pannu Marii, všechny anděly a svaté i vás, bratři a sestry, abyste se za mě u Boha přimlouvali."},
-        [
-            {"p": "Smiluj se nad námi, Pane."},
-            {"a": "Hřešili jsme proti tobě."},
-            {"p": "Ukaž nám, Pane, své milosrdenství."},
-            {"a": "A dej nám svou spásu."}
-        ],
-        [
-            {"p": "Byls poslán uzdravovat duše, Pane: Smiluj se nad námi."},
-            {"a": "Pane, smiluj se nad námi."},
-            {"p": "Přišel jsi pozvat hříšníky, Kriste: Smiluj se nad námi."},
-            {"a": "Kriste, smiluj se nad námi."},
-            {"p": "Sedíš po pravici Otcově a zastáváš se nás, Pane: Smiluj se nad námi."},
-            {"a": "Pane, smiluj se nad námi."}
-        ]
+        {
+            "title": "",
+            "content": [
+                {"a": "Vyznávám se všemohoucímu Bohu a vám všem, že často hřeším myšlením, slovy i skutky a nekonám, co mám konat; je to má vina, má veliká vina. Proto prosím Matku Boží, Pannu Marii, všechny anděly a svaté i vás, bratři a sestry, abyste se za mě u Boha přimlouvali."}
+            ]
+        },
+        {
+            "title": "",
+            "content": [
+                {"p": "Smiluj se nad námi, Pane."},
+                {"a": "Hřešili jsme proti tobě."},
+                {"p": "Ukaž nám, Pane, své milosrdenství."},
+                {"a": "A dej nám svou spásu."}
+            ]
+        },
+        {
+            "title": "",
+            "content": [
+                {"p": "Byls poslán uzdravovat duše, Pane: Smiluj se nad námi."},
+                {"a": "Pane, smiluj se nad námi."},
+                {"p": "Přišel jsi pozvat hříšníky, Kriste: Smiluj se nad námi."},
+                {"a": "Kriste, smiluj se nad námi."},
+                {"p": "Sedíš po pravici Otcově a zastáváš se nás, Pane: Smiluj se nad námi."},
+                {"a": "Pane, smiluj se nad námi."}
+            ]
+        }
     ],
     {"p": "Smiluj se nad námi, všemohoucí Bože, odpusť nám hříchy a doveď nás do života věčného."},
     {"a": "Amen."},
     [
-        [
-            {"p": "Pane, smiluj se."},
-            {"a": "Pane, smiluj se."},
-            {"p": "Kriste, smiluj se."},
-            {"a": "Kriste, smiluj se."},
-            {"p": "Pane, smiluj se."},
-            {"a": "Pane, smiluj se."}
-        ],
-        [
-            {"p": "Kyrie, eleison."},
-            {"a": "Kyrie, eleison."},
-            {"p": "Christe, eleison."},
-            {"a": "Christe, eleison."},
-            {"p": "Kyrie, eleison."},
-            {"a": "Kyrie, eleison."}
-        ]
+        {
+            "title": "",
+            "content": [
+                {"p": "Pane, smiluj se."},
+                {"a": "Pane, smiluj se."},
+                {"p": "Kriste, smiluj se."},
+                {"a": "Kriste, smiluj se."},
+                {"p": "Pane, smiluj se."},
+                {"a": "Pane, smiluj se."}
+            ]
+        },
+        {
+            "title": "",
+            "content": [
+                {"p": "Kyrie, eleison."},
+                {"a": "Kyrie, eleison."},
+                {"p": "Christe, eleison."},
+                {"a": "Christe, eleison."},
+                {"p": "Kyrie, eleison."},
+                {"a": "Kyrie, eleison."}
+            ]
+        }
     ],
     {"p": "Sláva na výsostech Bohu..."},
     {"a": "... a na zemi pokoj lidem dobré vůle. Chválíme tě. Velebíme tě. Klaníme se ti. Oslavujeme tě. Vzdáváme ti díky pro tvou velikou slávu. Pane a Bože, nebeský Králi, Bože, Otče všemohoucí. Pane, jednorozený Synu, Ježíši Kriste. Pane a Bože, Beránku Boží, Synu Otce. Ty, který snímáš hříchy světa, smiluj se nad námi; ty, který snímáš hříchy světa, přijmi naše prosby. Ty, který sedíš po pravici Otce, smiluj se nad námi. Neboť ty jediný jsi Svatý, ty jediný jsi Pán, ty jediný jsi Svrchovaný, Ježíši Kriste, se svatým Duchem ve slávě Boha Otce. Amen."},
@@ -71,8 +88,18 @@
     {"p": "@icon{bubble} @{homily}"},
     {"": "@icon{stand} @{lstand}"},
     [
-        {"a": "Věřím v jednoho Boha, Otce všemohoucího, Stvořitele nebe i země, všeho viditelného i neviditelného. Věřím v jednoho Pána Ježíše Krista, jednorozeného Syna Božího, který se zrodil z Otce přede všemi věky: Bůh z Boha, Světlo ze Světla, pravý Bůh z pravého Boha, zrozený, nestvořený, jedné podstaty s Otcem: skrze něho všechno je stvořeno. On pro nás lidi a pro naši spásu sestoupil z nebe. Skrze Ducha svatého přijal tělo z Marie Panny a stal se člověkem. Byl za nás ukřižován, za dnů Poncia Piláta byl umučen a pohřben. Třetího dne vstal z mrtvých podle Písma. Vstoupil do nebe, sedí po pravici Otce. A znovu přijde, ve slávě, soudit živé i mrtvé a jeho království bude bez konce. Věřím v Ducha svatého, Pána a dárce života, který z Otce i Syna vychází, s Otcem i Synem je zároveň uctíván a oslavován a mluvil ústy proroků. Věřím v jednu, svatou, všeobecnou, apoštolskou církev. Vyznávám jeden křest na odpuštění hříchů. Očekávám vzkříšení mrtvých a život budoucího věku. Amen."},
-        {"a": "Věřím v Boha, Otce všemohoucího, Stvořitele nebe i země. I v Ježíše Krista, Syna jeho jediného, Pána našeho, jenž se počal z Ducha svatého, narodil se z Marie Panny, trpěl pod Ponciem Pilátem, ukřižován umřel i pohřben jest; sestoupil do pekel, třetího dne vstal z mrtvých; vstoupil na nebesa, sedí po pravici Boha, Otce všemohoucího; odtud přijde soudit živé i mrtvé. Věřím v Ducha svatého, svatou církev obecnou, společenství svatých, odpuštění hříchů, vzkříšení těla a život věčný."}
+        {
+            "title": "",
+            "content": [
+                {"a": "Věřím v jednoho Boha, Otce všemohoucího, Stvořitele nebe i země, všeho viditelného i neviditelného. Věřím v jednoho Pána Ježíše Krista, jednorozeného Syna Božího, který se zrodil z Otce přede všemi věky: Bůh z Boha, Světlo ze Světla, pravý Bůh z pravého Boha, zrozený, nestvořený, jedné podstaty s Otcem: skrze něho všechno je stvořeno. On pro nás lidi a pro naši spásu sestoupil z nebe. Skrze Ducha svatého přijal tělo z Marie Panny a stal se člověkem. Byl za nás ukřižován, za dnů Poncia Piláta byl umučen a pohřben. Třetího dne vstal z mrtvých podle Písma. Vstoupil do nebe, sedí po pravici Otce. A znovu přijde, ve slávě, soudit živé i mrtvé a jeho království bude bez konce. Věřím v Ducha svatého, Pána a dárce života, který z Otce i Syna vychází, s Otcem i Synem je zároveň uctíván a oslavován a mluvil ústy proroků. Věřím v jednu, svatou, všeobecnou, apoštolskou církev. Vyznávám jeden křest na odpuštění hříchů. Očekávám vzkříšení mrtvých a život budoucího věku. Amen."}
+            ]
+        },
+        {
+            "title": "",
+            "content": [
+                {"a": "Věřím v Boha, Otce všemohoucího, Stvořitele nebe i země. I v Ježíše Krista, Syna jeho jediného, Pána našeho, jenž se počal z Ducha svatého, narodil se z Marie Panny, trpěl pod Ponciem Pilátem, ukřižován umřel i pohřben jest; sestoupil do pekel, třetího dne vstal z mrtvých; vstoupil na nebesa, sedí po pravici Boha, Otce všemohoucího; odtud přijde soudit živé i mrtvé. Věřím v Ducha svatého, svatou církev obecnou, společenství svatých, odpuštění hříchů, vzkříšení těla a život věčný."}
+            ]
+        }
     ],
     {"r": "@{intercess}"},
     {"a": "Prosíme tě, vyslyš nás."},
@@ -95,9 +122,24 @@
     {"p": "@{prayer}"},
     {"p": "Tajemství víry."},
     [
-        {"a": "Tvou smrt zvěstujeme, tvé vzkříšení vyznáváme, na tvůj příchod čekáme, Pane Ježíši Kriste."},
-        {"a": "Kdykoli jíme tento chléb a kdykoli pijeme tento kalich, zvěstujeme tvou smrt a čekáme na tvůj příchod, Pane Ježíši Kriste."},
-        {"a": "Zachraň nás svým křížem, vysvoboď nás svým vzkříšením, Ježíši Kriste, Spasiteli světa."}
+        {
+            "title": "",
+            "content": [
+                {"a": "Tvou smrt zvěstujeme, tvé vzkříšení vyznáváme, na tvůj příchod čekáme, Pane Ježíši Kriste."}
+            ]
+        },
+        {
+            "title": "",
+            "content": [
+                {"a": "Kdykoli jíme tento chléb a kdykoli pijeme tento kalich, zvěstujeme tvou smrt a čekáme na tvůj příchod, Pane Ježíši Kriste."}
+            ]
+        },
+        {
+            "title": "",
+            "content": [
+                {"a": "Zachraň nás svým křížem, vysvoboď nás svým vzkříšením, Ježíši Kriste, Spasiteli světa."}
+            ]
+        }
     ],
     {"p": "@{prayer}... Skrze něho a s ním a v něm je tvoje všechna čest a sláva, Bože Otče všemohoucí, v jednotě Ducha svatého po všechny věky věků."},
     {"a": "Amen."},
@@ -149,102 +191,142 @@
     {"r": "Sláva Otci i Synu i Duchu Svatému, jako byla na počátku, i nyní, i vždycky a na věky věků. Amen."},
     {"r": "Otče náš, jenž jsi na nebesích, posvěť se jméno tvé. Přijď království tvé. Buď vůle tvá jako v nebi, tak i na zemi. Chléb náš vezdejší dej nám dnes. A odpusť nám naše viny, jako i my odpouštíme našim viníkům. A neuveď nás v pokušení, ale zbav nás od zlého. Amen."},
     [
-        [
-            {"": "@my{j}"},
-            {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, kterého jsi z Ducha Svatého počala. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
-        ],
-        [
-            {"": "@my{l}"},
-            {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, který byl pokřtěn v Jordánu. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
-        ],
-        [
-            {"": "@my{s}"},
-            {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, který se pro nás krví potil. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
-        ],
-        [
-            {"": "@my{g}"},
-            {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, který z mrtvých vstal. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
-        ]
+        {
+            "title": "@my{j}",
+            "content": [
+                {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, kterého jsi z Ducha Svatého počala. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
+            ]
+        },
+        {
+            "title": "@my{l}",
+            "content": [
+                {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, který byl pokřtěn v Jordánu. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
+            ]
+        },
+        {
+            "title": "@my{s}",
+            "content": [
+                {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, který se pro nás krví potil. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
+            ]
+        },
+        {
+            "title": "@my{g}",
+            "content": [
+                {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, který z mrtvých vstal. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
+            ]
+        }
     ],
     {"r": "Sláva Otci i Synu i Duchu Svatému, jako byla na počátku, i nyní, i vždycky a na věky věků. Amen."},
     {"r": "Otče náš, jenž jsi na nebesích, posvěť se jméno tvé. Přijď království tvé. Buď vůle tvá jako v nebi, tak i na zemi. Chléb náš vezdejší dej nám dnes. A odpusť nám naše viny, jako i my odpouštíme našim viníkům. A neuveď nás v pokušení, ale zbav nás od zlého. Amen."},
     [
-        [
-            {"": "@my{j}"},
-            {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, s kterým jsi Alžbětu navštívila. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
-        ],
-        [
-            {"": "@my{l}"},
-            {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, který zjevil v Káně svou božskou moc. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
-        ],
-        [
-            {"": "@my{s}"},
-            {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, který byl pro nás bičován. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
-        ],
-        [
-            {"": "@my{g}"},
-            {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, který na nebe vstoupil. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
-        ]
+        {
+            "title": "@my{j}",
+            "content": [
+                {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, s kterým jsi Alžbětu navštívila. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
+            ]
+        },
+        {
+            "title": "@my{l}",
+            "content": [
+                {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, který zjevil v Káně svou božskou moc. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
+            ]
+        },
+        {
+            "title": "@my{s}",
+            "content": [
+                {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, který byl pro nás bičován. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
+            ]
+        },
+        {
+            "title": "@my{g}",
+            "content": [
+                {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, který na nebe vstoupil. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
+            ]
+        }
     ],
     {"r": "Sláva Otci i Synu i Duchu Svatému, jako byla na počátku, i nyní, i vždycky a na věky věků. Amen."},
     {"r": "Otče náš, jenž jsi na nebesích, posvěť se jméno tvé. Přijď království tvé. Buď vůle tvá jako v nebi, tak i na zemi. Chléb náš vezdejší dej nám dnes. A odpusť nám naše viny, jako i my odpouštíme našim viníkům. A neuveď nás v pokušení, ale zbav nás od zlého. Amen."},
     [
-        [
-            {"": "@my{j}"},
-            {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, kterého jsi v Betlémě porodila. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
-        ],
-        [
-            {"": "@my{l}"},
-            {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, který hlásal Boží království a vyzýval k pokání. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
-        ],
-        [
-            {"": "@my{s}"},
-            {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, který byl pro nás trním korunován. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
-        ],
-        [
-            {"": "@my{g}"},
-            {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, který Ducha Svatého seslal. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
-        ]
+        {
+            "title": "@my{j}",
+            "content": [
+                {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, kterého jsi v Betlémě porodila. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
+            ]
+        },
+        {
+            "title": "@my{l}",
+            "content": [
+                {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, který hlásal Boží království a vyzýval k pokání. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
+            ]
+        },
+        {
+            "title": "@my{s}",
+            "content": [
+                {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, který byl pro nás trním korunován. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
+            ]
+        },
+        {
+            "title": "@my{g}",
+            "content": [
+                {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, který Ducha Svatého seslal. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
+            ]
+        }
     ],
     {"r": "Sláva Otci i Synu i Duchu Svatému, jako byla na počátku, i nyní, i vždycky a na věky věků. Amen."},
     {"r": "Otče náš, jenž jsi na nebesích, posvěť se jméno tvé. Přijď království tvé. Buď vůle tvá jako v nebi, tak i na zemi. Chléb náš vezdejší dej nám dnes. A odpusť nám naše viny, jako i my odpouštíme našim viníkům. A neuveď nás v pokušení, ale zbav nás od zlého. Amen."},
     [
-        [
-            {"": "@my{j}"},
-            {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, kterého jsi v chrámě obětovala. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
-        ],
-        [
-            {"": "@my{l}"},
-            {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, který na hoře Proměnění zjevil svou slávu. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
-        ],
-        [
-            {"": "@my{s}"},
-            {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, který pro nás nesl těžký kříž. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
-        ],
-        [
-            {"": "@my{g}"},
-            {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, který tě, Panno, do nebe vzal. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
-        ]
+        {
+            "title": "@my{j}",
+            "content": [
+                {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, kterého jsi v chrámě obětovala. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
+            ]
+        },
+        {
+            "title": "@my{l}",
+            "content": [
+                {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, který na hoře Proměnění zjevil svou slávu. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
+            ]
+        },
+        {
+            "title": "@my{s}",
+            "content": [
+                {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, který pro nás nesl těžký kříž. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
+            ]
+        },
+        {
+            "title": "@my{g}",
+            "content": [
+                {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, který tě, Panno, do nebe vzal. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
+            ]
+        }
     ],
     {"r": "Sláva Otci i Synu i Duchu Svatému, jako byla na počátku, i nyní, i vždycky a na věky věků. Amen."},
     {"r": "Otče náš, jenž jsi na nebesích, posvěť se jméno tvé. Přijď království tvé. Buď vůle tvá jako v nebi, tak i na zemi. Chléb náš vezdejší dej nám dnes. A odpusť nám naše viny, jako i my odpouštíme našim viníkům. A neuveď nás v pokušení, ale zbav nás od zlého. Amen."},
     [
-        [
-            {"": "@my{j}"},
-            {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, kterého jsi v chrámě nalezla. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
-        ],
-        [
-            {"": "@my{l}"},
-            {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, který ustanovil Eucharistii. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
-        ],
-        [
-            {"": "@my{s}"},
-            {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, který byl pro nás ukřižován. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
-        ],
-        [
-            {"": "@my{g}"},
-            {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, který tě v nebi korunoval. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
-        ]
+        {
+            "title": "@my{j}",
+            "content": [
+                {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, kterého jsi v chrámě nalezla. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
+            ]
+        },
+        {
+            "title": "@my{l}",
+            "content": [
+                {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, který ustanovil Eucharistii. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
+            ]
+        },
+        {
+            "title": "@my{s}",
+            "content": [
+                {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, který byl pro nás ukřižován. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
+            ]
+        },
+        {
+            "title": "@my{g}",
+            "content": [
+                {"r": "[10×] Zdrávas, Maria, milosti plná, Pán s Tebou; požehnaná jsi mezi ženami a požehnaný plod života tvého, Ježíš, který tě v nebi korunoval. Svatá Maria, Matko Boží, pros za nás hříšné, nyní i v hodinu smrti naší. Amen."}
+            ]
+        }
     ],
     {"r": "Sláva Otci i Synu i Duchu Svatému, jako byla na počátku, i nyní, i vždycky a na věky věků. Amen."},
     {"r": "Zdrávas Královno, matko milosrdenství, živote, sladkosti a naděje naše, buď zdráva! K tobě voláme, vyhnaní synové Evy, k tobě vzdycháme, lkajíce a plačíce v tomto slzavém údolí. A proto, orodovnice naše, obrať k nám své milosrdné oči a Ježíše, požehnaný plod života svého, nám po tomto putování ukaž, ó milostivá, ó přívětivá, ó přesladká, Panno Maria!"},

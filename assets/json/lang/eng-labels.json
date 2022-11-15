@@ -34,7 +34,8 @@
 		"author": "Author",
 		"license": "License",
 		"source": "Source",
-		"rosary": "Rosary"
+		"rosary": "Rosary",
+		"choose": "Choose"
 	},
 	"mysteries": {
 		"j": "Joyful Mysteries",

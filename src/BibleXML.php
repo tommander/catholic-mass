@@ -6,7 +6,7 @@
  *
  * @package OrderOfMass
  * @author  Tommander <tommander@tommander.cz>
- * @license GPL 3.0 https://www.gnu.org/licenses/gpl-3.0.html
+ * @license MIT license https://opensource.org/licenses/MIT
  */
 
 namespace TMD\OrderOfMass;
@@ -752,6 +752,29 @@ class BibleXML
         return trim($this->textOut);
 
     }//end getByRef()
+
+
+    /**
+     * Short description
+     *
+     * @param BibleIndexer $bibleIndexer BibleIndexer instance
+     *
+     * @return void
+     */
+    public function buildIndices(BibleIndexer $bibleIndexer): string
+    {
+        $ret = sprintf('[%s] Started indexing Bible translations', date('c'));
+        foreach ($this->biblist as $blang => $blist) {
+            foreach ($blist as $bid => $bdata) {
+                $ret = sprintf('[%s] Creating index for "%s"', date('c'), $bdata[1]);
+                $bibleIndexer->createIndex($bdata[1]);
+            }
+        }
+
+        $ret .= sprintf('[%s] Finished indexing Bible translations', date('c'));
+        return $ret;
+
+    }//end buildIndices()
 
 
 }//end class

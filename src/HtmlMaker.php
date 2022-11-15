@@ -6,7 +6,7 @@
  *
  * @package OrderOfMass
  * @author  Tommander <tommander@tommander.cz>
- * @license GPL 3.0 https://www.gnu.org/licenses/gpl-3.0.html
+ * @license MIT license https://opensource.org/licenses/MIT
  */
 
 namespace TMD\OrderOfMass;
@@ -185,7 +185,7 @@ class HtmlMaker
      *
      * @return string
      */
-    public function objToHtml2(object $obj): string
+    public function objToHtml(object $obj): string
     {
         $who  = '';
         $what = '';
@@ -212,7 +212,69 @@ class HtmlMaker
 
         return "<div${cls}>${who}<span class=\"what\">${what}</span></div>\r\n";
 
-    }//end objToHtml2()
+    }//end objToHtml()
+
+
+    /**
+     * Short description
+     *
+     * @param array $arr Array
+     *
+     * @return string
+     */
+    public function arrToHtml(array $arr): string
+    {
+        $ret = "<div class=\"choice\">\r\n";
+
+        $ret .= "  <div class=\"choiceTabs\">\r\n";
+        $ret .= "    <div class=\"choiceTabsLabel\"><span class=\"command\"><i class=\"fa-regular fa-hand-pointer\"></i> ".$this->language->repls('@{choose}').":</span></div>\r\n";
+        $i    = 0;
+        $cont = '';
+        foreach ($arr as $item) {
+            $i++;
+
+            if (is_object($item) !== true) {
+                continue;
+            }
+
+            $addTab  = '';
+            $addCont = ' hidden="hidden"';
+            if ($i === 1) {
+                $addTab  = ' optionSelected';
+                $addCont = '';
+            }
+
+            $ret .= "    <div class=\"option option${i}${addTab}\" onclick=\"tabClick(this)\">";
+            if (isset($item->title) === true && $item->title !== '') {
+                $ret .= $this->language->repls($item->title);
+            } else {
+                $ret .= $i;
+            }
+
+            $ret .= "</div>\r\n";
+
+            $cont .= "    <div class=\"option option${i}\"${addCont}>\r\n";
+            if (isset($item->content) === true && is_array($item->content) === true) {
+                foreach ($item->content as $subitem) {
+                    if (is_object($subitem) === true) {
+                        $cont .= $this->objToHtml($subitem);
+                    }
+                }
+            }
+
+            $cont .= "    </div>\r\n";
+        }//end foreach
+
+        $ret .= "  </div>\r\n";
+
+        $ret .= "  <div class=\"choiceContent\">\r\n";
+        $ret .= $cont;
+        $ret .= "  </div>\r\n";
+        $ret .= "</div>\r\n";
+
+        return $ret;
+
+    }//end arrToHtml()
 
 
     /**
@@ -228,31 +290,10 @@ class HtmlMaker
         if (is_object($row) === true && isset($row->read) === true) {
             return $this->parseToHtml($this->language->replre($row->read));
         } else if (is_object($row) === true) {
-            return $this->objToHtml2($row);
+            return $this->objToHtml($row);
         } else if (is_array($row) === true) {
-            $ret = '';
-            if ($deep === true) {
-                $ret = "<div class=\"options\">\r\n";
-            }
-
-            foreach ($row as $rowrow) {
-                if ($deep === true) {
-                    $ret .= "<div>\r\n";
-                }
-
-                $ret .= $this->parseToHtml($rowrow, false);
-
-                if ($deep === true) {
-                    $ret .= "</div>\r\n";
-                }
-            }
-
-            if ($deep === true) {
-                $ret .= "</div>\r\n";
-            }
-
-            return $ret;
-        }//end if
+            return $this->arrToHtml($row);
+        }
 
         return '';
 
@@ -268,17 +309,6 @@ class HtmlMaker
      */
     public function htmlObj(array $contentArray): string
     {
-        /*
-            $section = 'mass';
-            if ($this->isRosary() === true) {
-                $section = 'rosary';
-            }
-
-            if (isset($this->contentJson->{$section}) === false || is_array($this->contentJson->{$section}) === false) {
-                return var_export($this->contentJson, true);
-            }
-        */
-
         $ret = '';
         foreach ($contentArray as $row) {
             $ret .= $this->parseToHtml($row);

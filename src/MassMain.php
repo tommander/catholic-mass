@@ -6,7 +6,7 @@
  *
  * @package OrderOfMass
  * @author  Tommander <tommander@tommander.cz>
- * @license GPL 3.0 https://www.gnu.org/licenses/gpl-3.0.html
+ * @license MIT license https://opensource.org/licenses/MIT
  */
 
 namespace TMD\OrderOfMass;
@@ -24,12 +24,23 @@ class MassMain
      */
     private $container;
 
+    /**
+     * Base URL of the web
+     *
+     * @var string
+     */
+    private $baseurl;
+
 
     /**
      * Creates a container
+     *
+     * @param string $baseurl Base URL with trailing slash
      */
-    public function __construct()
+    public function __construct(string $baseurl)
     {
+        $this->baseurl = $baseurl;
+
         $containerBuilder = new \DI\ContainerBuilder();
         $containerBuilder->useAutowiring(false);
         $containerBuilder->useAnnotations(false);
@@ -60,18 +71,6 @@ class MassMain
         $this->container = $containerBuilder->build();
 
     }//end __construct()
-
-
-        /*
-            $indexer = $this->container->get(BibleIndexer::class);
-            $logger = $this->container->get(Logger::class);
-            foreach ($this->biblist as $blang => $blist) {
-                foreach ($blist as $bid => $bdata) {
-                    $logger->debug('Indexer "'.$bdata[1].'"');
-                  $indexer->createIndex($bdata[1]);
-               }
-            }
-        */
 
 
     /**
@@ -105,8 +104,8 @@ class MassMain
         $links = [
             [
                 'label' => $language->repls('@{license}'),
-                'text'  => 'GNU GPL v3',
-                'url'   => 'https://www.gnu.org/licenses/gpl-3.0.html',
+                'text'  => 'MIT license',
+                'url'   => 'https://opensource.org/licenses/MIT',
             ],
             [
                 'label' => $language->repls('@{source}'),
@@ -168,6 +167,7 @@ class MassMain
          */
         // phpcs:enable
         return [
+            '/@@BASEURL@@/' => $this->baseurl,
             '/@@LANG@@/'    => $language->repls('@{html}'),
             '/@@TITLE@@/'   => $language->repls($title),
             '/@@IDXL@@/'    => $language->repls('@{idxL}'),
@@ -199,6 +199,14 @@ class MassMain
      */
     public function run()
     {
+        $getParams = $this->container->get(GetParams::class);
+        if ($getParams->isBuilder() === true) {
+            $bibleIndexer = $this->container->get(BibleIndexer::class);
+            $bibleXml     = $this->container->get(BibleXML::class);
+            echo $bibleXml->buildIndices($bibleIndexer);
+            return;
+        }
+
         $meas = $this->container->get(Measure::class);
         $meas->start();
 

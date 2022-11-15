@@ -34,7 +34,8 @@
 		"author": "Autor",
 		"license": "Licence",
 		"source": "Zdroj",
-		"rosary": "Růženec"
+		"rosary": "Růženec",
+		"choose": "Vyberte"
 	},
 	"mysteries": {
 		"j": "Tajemství radostná",

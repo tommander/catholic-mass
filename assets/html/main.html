@@ -5,16 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@@TITLE@@</title>
-    <link rel="stylesheet" href="assets/css/fonts.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="libs/font-awesome/css/all.css">
+    <link rel="stylesheet" href="@@BASEURL@@assets/css/fonts.css">
+    <link rel="stylesheet" href="@@BASEURL@@assets/css/style.css">
+    <link rel="stylesheet" href="@@BASEURL@@libs/font-awesome/css/all.css">
+    <style>
+        header {
+            background-image: url('@@BASEURL@@assets/img/church.png');
+        }
+    </style>
   </head>
   <body>
     <header>
       <h1>@@TITLE@@</h1>
     </header>
     <nav>
-        <form name="langSel" action="index.php" method="get">
+        <form name="langSel" action="@@BASEURL@@index.php" method="get">
             <div id="navSettings">
                 <div>
                 <div><label for="LABELS_SELECTION">@@IDXL@@</label></div>
@@ -60,10 +65,6 @@
             @@LINKS@@
         </div>
     </footer>
-    <script type="text/javascript">
-        function submitForm() {
-            document.forms['langSel'].submit();
-        }
-    </script>
+    <script src="@@BASEURL@@assets/js/functions.js" type="text/javascript"></script>
   </body>
 </html>

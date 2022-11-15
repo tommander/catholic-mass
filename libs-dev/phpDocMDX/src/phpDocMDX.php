@@ -3,7 +3,7 @@
  * XXX
  *
  * @author  Tommander <tommander@tommander.cz>
- * @license GPL 3.0 https://www.gnu.org/licenses/gpl-3.0.html
+ * @license MIT license https://opensource.org/licenses/MIT
  */
 
 namespace TMD\PDMDX;
@@ -26,7 +26,7 @@ if (count($opts) === 0
     echo "PHPDocMDX\r\n";
     echo "A tool to convert PHPDoc XML structure file to Markdown format.\r\n\r\n";
     echo "License:\r\n";
-    echo "  GPLv3\r\n\r\n";
+    echo "  MIT\r\n\r\n";
     echo "Author:\r\n";
     echo "  Tommander <tommander@tommander.cz>\r\n\r\n";
     echo "Usage:\r\n";

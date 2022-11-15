@@ -8,40 +8,64 @@
 		{"p": "Mga kapatid, aminin nating ang ating mga kasalanan upang tayo'y maging marapat sa pagdiriwang ng banal na paghahaing ito."},
 		{"": "@icon{kneel} @{silentPrayer}"},
 		[
-			{"a": "Inaamin ko sa makapangyarihang Diyos at sa inyo, mga kapatid, na lubha akong nagkasala, sa isip, sa salita, sa gawa, at sa aking pagkukulang, kaya isinasamo ko sa mahal na Birheng Maria, sa lahat ng mga anghel at mga banal, at sa inyo, mga kapatid, na ako'y ipanalangin sa Panginoong ating Diyos."},
-			[
-				{"p": "Sinugong Tagapagpagaling sa mga nagsisisi, Panginoon, kaawaan mo kami."},
-				{"a": "Panginoon, kaawaan mo kami."},
-				{"p": "Dumating na Tagapag-anyayang mga makasalana'y magsisi, Kristo, kaawaan mo kami."},
-				{"a": "Kristo, kaawaan mo kami."},
-				{"p": "Nakaluklok ka sa kanan ng Diyos Ama para ipamagitan kami, Panginoon, kaawaan mo kami."},
-				{"a": "Panginoon, kaawaan mo kami."}
-			]
+			{
+				"title": "",
+				"content": [
+					{"a": "Inaamin ko sa makapangyarihang Diyos at sa inyo, mga kapatid, na lubha akong nagkasala, sa isip, sa salita, sa gawa, at sa aking pagkukulang, kaya isinasamo ko sa mahal na Birheng Maria, sa lahat ng mga anghel at mga banal, at sa inyo, mga kapatid, na ako'y ipanalangin sa Panginoong ating Diyos."}
+				]
+			},
+			{
+				"title": "",
+				"content": [
+					{"p": "Sinugong Tagapagpagaling sa mga nagsisisi, Panginoon, kaawaan mo kami."},
+					{"a": "Panginoon, kaawaan mo kami."},
+					{"p": "Dumating na Tagapag-anyayang mga makasalana'y magsisi, Kristo, kaawaan mo kami."},
+					{"a": "Kristo, kaawaan mo kami."},
+					{"p": "Nakaluklok ka sa kanan ng Diyos Ama para ipamagitan kami, Panginoon, kaawaan mo kami."},
+					{"a": "Panginoon, kaawaan mo kami."}
+				]
+			}
 		],
 		{"p": "Kaawaan tayo ng makapangyarihang Diyos, patawarin tayo sa ating mga kasalanan, at patnubayan tayo sa buhay na walang hanggan."},
 		{"a": "Amen."},
 		[
-			[
-				{"p": "Panginoon, maawa ka."},
-				{"a": "Panginoon, maawa ka."},
-				{"p": "Kristo, maawa ka."},
-				{"a": "Kristo, maawa ka."},
-				{"p": "Panginoon, maawa ka."},
-				{"a": "Panginoon, maawa ka."}
-			],
-			[
-				{"p": "Kyrie, eleison."},
-				{"a": "Kyrie, eleison."},
-				{"p": "Christe, eleison."},
-				{"a": "Christe, eleison."},
-				{"p": "Kyrie, eleison."},
-				{"a": "Kyrie, eleison."}
-			]
+			{
+				"title": "",
+				"content": [
+					{"p": "Panginoon, maawa ka."},
+					{"a": "Panginoon, maawa ka."},
+					{"p": "Kristo, maawa ka."},
+					{"a": "Kristo, maawa ka."},
+					{"p": "Panginoon, maawa ka."},
+					{"a": "Panginoon, maawa ka."}
+				]
+			},
+			{
+				"title": "",
+				"content": [
+					{"p": "Kyrie, eleison."},
+					{"a": "Kyrie, eleison."},
+					{"p": "Christe, eleison."},
+					{"a": "Christe, eleison."},
+					{"p": "Kyrie, eleison."},
+					{"a": "Kyrie, eleison."}
+				]
+			}
 		],
 		{"": ""},
 		[
-			{"a": "Papuri sa Diyos sa kaitaasan at sa lupa'y kapayapaan sa mga taong kinalulugdan niya, pinupuri ka namin, dinarangal ka namin, sinasamba ka namin, ipinagbubunyi ka namin dahil sa dakila mong angking kapurihan, panginoong Diyos Hari ng langit, Diyos Amang makapangyarihan sa lahat, panginoong Hesukristo, Bugtong na Anak, Panginoong Diyos, Kordero ng Diyos, Anak ng Ama, Ikaw na nag-aalis ng mga kasalanan ng sanlibutan, maawa ka sa amin. Ikaw na nag-aalis ng mga kasalanan ng sanlibutan, Tanggapin mo ang aming kahilingan, Ikaw na naluluklok sa kanan ng Ama, maawa ka sa amin, Sapagkat Ikaw lamang ang banal, Ikaw lamang ang Panginoon, Ikaw lamang, O Hesukristo, ang Kataas-taasan, Kasama ng Espiritu Santo, Sa kadakilaan ng Diyos Ama. Amen."},
-			{"a": "Luwalhati sa Diyos sa kaitaasan, at sa lupa'y kapayapaan sa mga taong may magandang kalooban. Panginoong Diyos, Haring makalangit, makapangyarihang Diyos at Ama; sinasamba Ka namin, pinasasalamatan Ka namin, pinupuri Ka namin dahil sa Iyong kaluwalhatian. Panginoong Hesu Kristo, bugtong na Anak ng Ama, Panginoong Diyos, Kordero ng Diyos, ikaw na nag-aalis ng kasalanan ng sanlibutan, maawa ka sa amin. Ikaw na naluluklok sa kanan ng Ama, tanggapin Mo ang aming panalanangin. Sapagkat Ikaw lamang ang Banal, Ikaw lamang ang Panginoon, Ikaw lamang ang kataastaasang Hesu Kristo, kasama ang Espiritu Santo, sa kaluwalhatian ng Diyos Ama. Amen."}
+			{
+				"title": "",
+				"content": [
+					{"a": "Papuri sa Diyos sa kaitaasan at sa lupa'y kapayapaan sa mga taong kinalulugdan niya, pinupuri ka namin, dinarangal ka namin, sinasamba ka namin, ipinagbubunyi ka namin dahil sa dakila mong angking kapurihan, panginoong Diyos Hari ng langit, Diyos Amang makapangyarihan sa lahat, panginoong Hesukristo, Bugtong na Anak, Panginoong Diyos, Kordero ng Diyos, Anak ng Ama, Ikaw na nag-aalis ng mga kasalanan ng sanlibutan, maawa ka sa amin. Ikaw na nag-aalis ng mga kasalanan ng sanlibutan, Tanggapin mo ang aming kahilingan, Ikaw na naluluklok sa kanan ng Ama, maawa ka sa amin, Sapagkat Ikaw lamang ang banal, Ikaw lamang ang Panginoon, Ikaw lamang, O Hesukristo, ang Kataas-taasan, Kasama ng Espiritu Santo, Sa kadakilaan ng Diyos Ama. Amen."}
+				]
+			},
+			{
+				"title": "",
+				"content": [
+					{"a": "Luwalhati sa Diyos sa kaitaasan, at sa lupa'y kapayapaan sa mga taong may magandang kalooban. Panginoong Diyos, Haring makalangit, makapangyarihang Diyos at Ama; sinasamba Ka namin, pinasasalamatan Ka namin, pinupuri Ka namin dahil sa Iyong kaluwalhatian. Panginoong Hesu Kristo, bugtong na Anak ng Ama, Panginoong Diyos, Kordero ng Diyos, ikaw na nag-aalis ng kasalanan ng sanlibutan, maawa ka sa amin. Ikaw na naluluklok sa kanan ng Ama, tanggapin Mo ang aming panalanangin. Sapagkat Ikaw lamang ang Banal, Ikaw lamang ang Panginoon, Ikaw lamang ang kataastaasang Hesu Kristo, kasama ang Espiritu Santo, sa kaluwalhatian ng Diyos Ama. Amen."}
+				]
+			}
 		],
 		{"p": "Manalangin tayo."},
 		{"p": "@{prayer}... magpasawalang hanggan."},
@@ -68,8 +92,18 @@
 		{"p": "@icon{bubble} @{homily}"},
 		{"": "@icon{stand} @{lstand}"},
 		[
-			{"a": "Sumasampalataya ako sa isang Diyos, Amang Makapangyarihan sa lahat, na may gawa ng langit at lupa, ng lahat na nakikita at hindi nakikita. Sumasampalataya ako sa iisang Panginoong Hesukristo, bugtong na Anak ng Diyos, sumilang sa Ama bago pa nagkapanahon. Diyos buhat sa Diyos, liwanag buhat sa liwanag, Diyos na totoo buhat sa Diyos na totoo, sumilang at hindi ginawa, kaisa ng Ama sa pagka-Diyos, at sa pamamagitan niya ay ginawa ang lahat. Dahil sa ating pawang mga tao at dahil sa ating kaligtasan, siya ay nanaog mula sa kalangitan. Nagkatawang-tao siya lalang ng Espiritu Santo kay Mariang Birhen at naging tao. Ipinako sa krus dahil sa atin. Nagpakasakit sa hatol ni Poncio Pilato, namatay at inilibing. Muli siyang nabuhay sa ikatlong araw ayon sa banal na Kasulatan, umakyat siya sa kalangitan at lumuklok sa kanan ng Amang Maykapal. Paririto siyang muli na may dakilang kapangyarihan, upang hukuman ang mga buhay at mga patay. Sumasampalataya ako sa Espiritu Santo, Panginoon at nagbibigay-buhay na nanggagaling sa Ama at sa Anak. Sinasamba siya at pinararangalan kaisa ng Ama at ng Anak. Nagsalita siya sa pamamagitan ng mga propeta. Sumasampalataya ako sa iisang banal na Simbahang katolika at apostolika. Gayundin sa isang binyag sa ikapagpapatawad ng mga kasalanan. At hinihintay ko ang muling pagkabuhay ng nangamatay at ang buhay na walang hanggan. Amen."},
-			{"a": "Sumasampalataya ako sa Diyos, Amang makapangyarihan sa lahat, na may gawa ng langit at lupa. Sumasampalataya ako kay Hesukristo, iisang Anak ng Diyos, Panginoon nating lahat. Nagkatawang-tao siya lalang ng Espiritu Santo, ipinanganak ni Santa Mariang Birhen. Pinagpakasakit ni Poncio Pilato, ipinako sa krus, namatay, inilibing. Nanaog sa kinaroroonan ng mga yumao. Nang may ikatlong araw nabuhay na mag-uli. Umakyat sa langit. Naluluklok sa kanan ng Diyos Amang makapangyarihan sa lahat. Doon magmumulang paririto at huhukom sa nangabubuhay at nangamatay na tao. Sumasampalataya naman ako sa Diyos Espiritu Santo, sa banal na Simbahang Katolika, sa kasamahan ng mga banal, sa kapatawaran ng mga kasalanan, sa pagkabuhay na muli ng nangamatay na tao at sa buhay na walang hanggan. Amen."}
+			{
+				"title": "",
+				"content": [
+					{"a": "Sumasampalataya ako sa isang Diyos, Amang Makapangyarihan sa lahat, na may gawa ng langit at lupa, ng lahat na nakikita at hindi nakikita. Sumasampalataya ako sa iisang Panginoong Hesukristo, bugtong na Anak ng Diyos, sumilang sa Ama bago pa nagkapanahon. Diyos buhat sa Diyos, liwanag buhat sa liwanag, Diyos na totoo buhat sa Diyos na totoo, sumilang at hindi ginawa, kaisa ng Ama sa pagka-Diyos, at sa pamamagitan niya ay ginawa ang lahat. Dahil sa ating pawang mga tao at dahil sa ating kaligtasan, siya ay nanaog mula sa kalangitan. Nagkatawang-tao siya lalang ng Espiritu Santo kay Mariang Birhen at naging tao. Ipinako sa krus dahil sa atin. Nagpakasakit sa hatol ni Poncio Pilato, namatay at inilibing. Muli siyang nabuhay sa ikatlong araw ayon sa banal na Kasulatan, umakyat siya sa kalangitan at lumuklok sa kanan ng Amang Maykapal. Paririto siyang muli na may dakilang kapangyarihan, upang hukuman ang mga buhay at mga patay. Sumasampalataya ako sa Espiritu Santo, Panginoon at nagbibigay-buhay na nanggagaling sa Ama at sa Anak. Sinasamba siya at pinararangalan kaisa ng Ama at ng Anak. Nagsalita siya sa pamamagitan ng mga propeta. Sumasampalataya ako sa iisang banal na Simbahang katolika at apostolika. Gayundin sa isang binyag sa ikapagpapatawad ng mga kasalanan. At hinihintay ko ang muling pagkabuhay ng nangamatay at ang buhay na walang hanggan. Amen."}
+				]
+			},
+			{
+				"title": "",
+				"content": [
+					{"a": "Sumasampalataya ako sa Diyos, Amang makapangyarihan sa lahat, na may gawa ng langit at lupa. Sumasampalataya ako kay Hesukristo, iisang Anak ng Diyos, Panginoon nating lahat. Nagkatawang-tao siya lalang ng Espiritu Santo, ipinanganak ni Santa Mariang Birhen. Pinagpakasakit ni Poncio Pilato, ipinako sa krus, namatay, inilibing. Nanaog sa kinaroroonan ng mga yumao. Nang may ikatlong araw nabuhay na mag-uli. Umakyat sa langit. Naluluklok sa kanan ng Diyos Amang makapangyarihan sa lahat. Doon magmumulang paririto at huhukom sa nangabubuhay at nangamatay na tao. Sumasampalataya naman ako sa Diyos Espiritu Santo, sa banal na Simbahang Katolika, sa kasamahan ng mga banal, sa kapatawaran ng mga kasalanan, sa pagkabuhay na muli ng nangamatay na tao at sa buhay na walang hanggan. Amen."}
+				]
+			}
 		],
 		{"r": "@{intercess}"},
 		{"a": "Panginoon, dinggin mo kami."},
@@ -139,110 +173,150 @@
 		{"r": "[3×] Aba Ginoong Maria, napupuno ka ng grasya, Ang Panginoong Diyos ay sumasaiyo. Bukod kang pinagpala sa babaeng lahat At pinagpala naman ang 'yong anak na si Hesus. Santa Maria, Ina ng Diyos Ipanalangin mo kaming makasalanan Ngayon at kung kami'y mamamatay. Amen"},
 		{"r": "Luwalhati sa Ama, at sa Anak, at sa Espiritu Santo. Kapara noong unang-una, ngayon, at magpakailanman, at magpasawalang hanggan. Amen."},
 		[
-			[
-				{"": "@my{j}"},
-				{"r": "Unang Misteryo ng Tuwa: Ang pagbati ng Angel sa Mahal na Birhen."}
-			],
-			[
-				{"": "@my{s}"},
-				{"r": "Unang Misteryo ng Hapis: Ang panalangin ni Hesus sa Halamanan."}
-			],
-			[
-				{"": "@my{g}"},
-				{"r": "Unang Misteryo ng Luwalhati: Ang pagkabuhay muli ni Hesukristo."}
-			],
-			[
-				{"": "@my{l}"},
-				{"r": "Unang Misteryo ng Liwanag: Sa kanyang binyag sa ilog Jordan."}
-			]
+			{
+				"title": "@my{j}",
+				"content": [
+					{"r": "Unang Misteryo ng Tuwa: Ang pagbati ng Angel sa Mahal na Birhen."}
+				]
+			},
+			{
+				"title": "@my{s}",
+				"content": [
+					{"r": "Unang Misteryo ng Hapis: Ang panalangin ni Hesus sa Halamanan."}
+				]
+			},
+			{
+				"title": "@my{g}",
+				"content": [
+					{"r": "Unang Misteryo ng Luwalhati: Ang pagkabuhay muli ni Hesukristo."}
+				]
+			},
+			{
+				"title": "@my{l}",
+				"content": [
+					{"r": "Unang Misteryo ng Liwanag: Sa kanyang binyag sa ilog Jordan."}
+				]
+			}
 		],
 		{"r": "Ama Namin, sumasalangit ka. Sambahin ang ngalan mo. Mapasaamin ang kaharian mo, sundin ang loob mo dito sa lupa para nang sa langit. Bigyan mo kami ngayon ng aming kakanin sa araw-araw, at patawarin mo kami sa aming mga sala, para nang pagpapatawad namin sa nagkakasala sa amin at huwag mo kaming ipahintulot sa tukso, at iadya mo kami sa lahat ng masama. Amen."},
 		{"r": "[10×] Aba Ginoong Maria, napupuno ka ng grasya, Ang Panginoong Diyos ay sumasaiyo. Bukod kang pinagpala sa babaeng lahat At pinagpala naman ang 'yong anak na si Hesus. Santa Maria, Ina ng Diyos Ipanalangin mo kaming makasalanan Ngayon at kung kami'y mamamatay. Amen"},
 		{"r": "Luwalhati sa Ama, at sa Anak, at sa Espiritu Santo. Kapara noong unang-una, ngayon, at magpakailanman, at magpasawalang hanggan. Amen."},
 		{"r": "O Hesus ko, patawarin Mo ang aming mga sala. Iligtas Mo kami sa apoy ng impiyerno. Hanguin Mo ang mga kaluluwa sa purgatoryo. Lalong-lalo na yaong mga walang nakakaalaala."},
 		[
-			[
-				{"": "@my{j}"},
-				{"r": "Ikalawang Misteryo ng Tuwa: Ang Pagdalaw ng Birhen Maria kay Sta. Isabe."}
-			],
-			[
-				{"": "@my{s}"},
-				{"r": "Ikalawang Misteryo ng Hapis: Ang paghampas kay Hesus na nakagapos sa haliging bato."}
-			],
-			[
-				{"": "@my{g}"},
-				{"r": "Ikalawang Misteryo ng Luwalhati: Ang pag-akyat sa langit ni Hesukristo."}
-			],
-			[
-				{"": "@my{l}"},
-				{"r": "Ikalawang Misteryo ng Liwanag: Sa kanyang pagpapahayag ng kanyang sarili sa kasalan sa Cana."}
-			]
+			{
+				"title": "@my{j}",
+				"content": [
+					{"r": "Ikalawang Misteryo ng Tuwa: Ang Pagdalaw ng Birhen Maria kay Sta. Isabe."}
+				]
+			},
+			{
+				"title": "@my{s}",
+				"content": [
+					{"r": "Ikalawang Misteryo ng Hapis: Ang paghampas kay Hesus na nakagapos sa haliging bato."}
+				]
+			},
+			{
+				"title": "@my{g}",
+				"content": [
+					{"r": "Ikalawang Misteryo ng Luwalhati: Ang pag-akyat sa langit ni Hesukristo."}
+				]
+			},
+			{
+				"title": "@my{l}",
+				"content": [
+					{"r": "Ikalawang Misteryo ng Liwanag: Sa kanyang pagpapahayag ng kanyang sarili sa kasalan sa Cana."}
+				]
+			}
 		],
 		{"r": "Ama Namin, sumasalangit ka. Sambahin ang ngalan mo. Mapasaamin ang kaharian mo, sundin ang loob mo dito sa lupa para nang sa langit. Bigyan mo kami ngayon ng aming kakanin sa araw-araw, at patawarin mo kami sa aming mga sala, para nang pagpapatawad namin sa nagkakasala sa amin at huwag mo kaming ipahintulot sa tukso, at iadya mo kami sa lahat ng masama. Amen."},
 		{"r": "[10×] Aba Ginoong Maria, napupuno ka ng grasya, Ang Panginoong Diyos ay sumasaiyo. Bukod kang pinagpala sa babaeng lahat At pinagpala naman ang 'yong anak na si Hesus. Santa Maria, Ina ng Diyos Ipanalangin mo kaming makasalanan Ngayon at kung kami'y mamamatay. Amen"},
 		{"r": "Luwalhati sa Ama, at sa Anak, at sa Espiritu Santo. Kapara noong unang-una, ngayon, at magpakailanman, at magpasawalang hanggan. Amen."},
 		{"r": "O Hesus ko, patawarin Mo ang aming mga sala. Iligtas Mo kami sa apoy ng impiyerno. Hanguin Mo ang mga kaluluwa sa purgatoryo. Lalong-lalo na yaong mga walang nakakaalaala."},
 		[
-			[
-				{"": "@my{j}"},
-				{"r": "Ikatlong Misteryo ng Tuwa: Ang pagsilang sa mundo ng Anak ng Diyos."}
-			],
-			[
-				{"": "@my{s}"},
-				{"r": "Ikatlong Misteryo ng Hapis: Ang pagpuputong ng koronang tinik kay Hesus."}
-			],
-			[
-				{"": "@my{g}"},
-				{"r": "Ikatlong Misteryo ng Luwalhati: Ang pagpanaog ng Diyos Espiritu Santo sa mga Apostoles at sa Mahal na Birhen."}
-			],
-			[
-				{"": "@my{l}"},
-				{"r": "Ikatlong Misteryo ng Liwanag: Sa kanyang pagpapahayag ng Kaharian ng Diyos, sa pagtawag patungo sa pagbabago."}
-			]
+			{
+				"title": "@my{j}",
+				"content": [
+					{"r": "Ikatlong Misteryo ng Tuwa: Ang pagsilang sa mundo ng Anak ng Diyos."}
+				]
+			},
+			{
+				"title": "@my{s}",
+				"content": [
+					{"r": "Ikatlong Misteryo ng Hapis: Ang pagpuputong ng koronang tinik kay Hesus."}
+				]
+			},
+			{
+				"title": "@my{g}",
+				"content": [
+					{"r": "Ikatlong Misteryo ng Luwalhati: Ang pagpanaog ng Diyos Espiritu Santo sa mga Apostoles at sa Mahal na Birhen."}
+				]
+			},
+			{
+				"title": "@my{l}",
+				"content": [
+					{"r": "Ikatlong Misteryo ng Liwanag: Sa kanyang pagpapahayag ng Kaharian ng Diyos, sa pagtawag patungo sa pagbabago."}
+				]
+			}
 		],
 		{"r": "Ama Namin, sumasalangit ka. Sambahin ang ngalan mo. Mapasaamin ang kaharian mo, sundin ang loob mo dito sa lupa para nang sa langit. Bigyan mo kami ngayon ng aming kakanin sa araw-araw, at patawarin mo kami sa aming mga sala, para nang pagpapatawad namin sa nagkakasala sa amin at huwag mo kaming ipahintulot sa tukso, at iadya mo kami sa lahat ng masama. Amen."},
 		{"r": "[10×] Aba Ginoong Maria, napupuno ka ng grasya, Ang Panginoong Diyos ay sumasaiyo. Bukod kang pinagpala sa babaeng lahat At pinagpala naman ang 'yong anak na si Hesus. Santa Maria, Ina ng Diyos Ipanalangin mo kaming makasalanan Ngayon at kung kami'y mamamatay. Amen"},
 		{"r": "Luwalhati sa Ama, at sa Anak, at sa Espiritu Santo. Kapara noong unang-una, ngayon, at magpakailanman, at magpasawalang hanggan. Amen."},
 		{"r": "O Hesus ko, patawarin Mo ang aming mga sala. Iligtas Mo kami sa apoy ng impiyerno. Hanguin Mo ang mga kaluluwa sa purgatoryo. Lalong-lalo na yaong mga walang nakakaalaala."},
 		[
-			[
-				{"": "@my{j}"},
-				{"r": "Ikaapat na Misteryo ng Tuwa: Ang paghahain sa Templo ng Anak ng Diyos."}
-			],
-			[
-				{"": "@my{s}"},
-				{"r": "Ikaapat na Misteryo ng Hapis: Ang pagpapasan ng krus ni Hesus."}
-			],
-			[
-				{"": "@my{g}"},
-				{"r": "Ikaapat na Misteryo ng Luwalhati: Ang pag-akyat sa langit ng Mahal na Birhen."}
-			],
-			[
-				{"": "@my{l}"},
-				{"r": "Ikaapat na Misteryo ng Liwanag: Sa kanyang Pagbabagong-anyo."}
-			]
+			{
+				"title": "@my{j}",
+				"content": [
+					{"r": "Ikaapat na Misteryo ng Tuwa: Ang paghahain sa Templo ng Anak ng Diyos."}
+				]
+			},
+			{
+				"title": "@my{s}",
+				"content": [
+					{"r": "Ikaapat na Misteryo ng Hapis: Ang pagpapasan ng krus ni Hesus."}
+				]
+			},
+			{
+				"title": "@my{g}",
+				"content": [
+					{"r": "Ikaapat na Misteryo ng Luwalhati: Ang pag-akyat sa langit ng Mahal na Birhen."}
+				]
+			},
+			{
+				"title": "@my{l}",
+				"content": [
+					{"r": "Ikaapat na Misteryo ng Liwanag: Sa kanyang Pagbabagong-anyo."}
+				]
+			}
 		],
 		{"r": "Ama Namin, sumasalangit ka. Sambahin ang ngalan mo. Mapasaamin ang kaharian mo, sundin ang loob mo dito sa lupa para nang sa langit. Bigyan mo kami ngayon ng aming kakanin sa araw-araw, at patawarin mo kami sa aming mga sala, para nang pagpapatawad namin sa nagkakasala sa amin at huwag mo kaming ipahintulot sa tukso, at iadya mo kami sa lahat ng masama. Amen."},
 		{"r": "[10×] Aba Ginoong Maria, napupuno ka ng grasya, Ang Panginoong Diyos ay sumasaiyo. Bukod kang pinagpala sa babaeng lahat At pinagpala naman ang 'yong anak na si Hesus. Santa Maria, Ina ng Diyos Ipanalangin mo kaming makasalanan Ngayon at kung kami'y mamamatay. Amen"},
 		{"r": "Luwalhati sa Ama, at sa Anak, at sa Espiritu Santo. Kapara noong unang-una, ngayon, at magpakailanman, at magpasawalang hanggan. Amen."},
 		{"r": "O Hesus ko, patawarin Mo ang aming mga sala. Iligtas Mo kami sa apoy ng impiyerno. Hanguin Mo ang mga kaluluwa sa purgatoryo. Lalong-lalo na yaong mga walang nakakaalaala."},
 		[
-			[
-				{"": "@my{j}"},
-				{"r": "Ikalimang Misteryo ng Tuwa: Ang pagkakakita kay Hesus sa Templo ng Herusalem."}
-			],
-			[
-				{"": "@my{s}"},
-				{"r": "Ikalimang Misteryo ng Hapis: Ang pagkapako at pagkamatay ni Hesus sa krus."}
-			],
-			[
-				{"": "@my{g}"},
-				{"r": "Ikalimang Misteryo ng Luwalhati: Ang pagpuputong ng korona sa Mahal na Birhen."}
-			],
-			[
-				{"": "@my{l}"},
-				{"r": "Ikalimang Misteryo ng Liwanag: Sa kanyang pagtatatag ng Banal na Eukaristiya, bilang pagpapahayag na Sakramental ng Misteryo Paskawal."}
-			]
+			{
+				"title": "@my{j}",
+				"content": [
+					{"r": "Ikalimang Misteryo ng Tuwa: Ang pagkakakita kay Hesus sa Templo ng Herusalem."}
+				]
+			},
+			{
+				"title": "@my{s}",
+				"content": [
+					{"r": "Ikalimang Misteryo ng Hapis: Ang pagkapako at pagkamatay ni Hesus sa krus."}
+				]
+			},
+			{
+				"title": "@my{g}",
+				"content": [
+					{"r": "Ikalimang Misteryo ng Luwalhati: Ang pagpuputong ng korona sa Mahal na Birhen."}
+				]
+			},
+			{
+				"title": "@my{l}",
+				"content": [
+					{"r": "Ikalimang Misteryo ng Liwanag: Sa kanyang pagtatatag ng Banal na Eukaristiya, bilang pagpapahayag na Sakramental ng Misteryo Paskawal."}
+				]
+			}
 		],
 		{"r": "Ama Namin, sumasalangit ka. Sambahin ang ngalan mo. Mapasaamin ang kaharian mo, sundin ang loob mo dito sa lupa para nang sa langit. Bigyan mo kami ngayon ng aming kakanin sa araw-araw, at patawarin mo kami sa aming mga sala, para nang pagpapatawad namin sa nagkakasala sa amin at huwag mo kaming ipahintulot sa tukso, at iadya mo kami sa lahat ng masama. Amen."},
 		{"r": "[10×] Aba Ginoong Maria, napupuno ka ng grasya, Ang Panginoong Diyos ay sumasaiyo. Bukod kang pinagpala sa babaeng lahat At pinagpala naman ang 'yong anak na si Hesus. Santa Maria, Ina ng Diyos Ipanalangin mo kaming makasalanan Ngayon at kung kami'y mamamatay. Amen"},

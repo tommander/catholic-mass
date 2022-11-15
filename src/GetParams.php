@@ -6,7 +6,7 @@
  *
  * @package OrderOfMass
  * @author  Tommander <tommander@tommander.cz>
- * @license GPL 3.0 https://www.gnu.org/licenses/gpl-3.0.html
+ * @license MIT license https://opensource.org/licenses/MIT
  */
 
 namespace TMD\OrderOfMass;
@@ -142,6 +142,18 @@ class GetParams
         return ($this->getType() === 'rosary');
 
     }//end isRosary()
+
+
+    /**
+     * Whether to run indices builder
+     *
+     * @return bool
+     */
+    public function isBuilder(): bool
+    {
+        return (isset($_GET['build']) === true && $_GET['build'] === 'indices');
+
+    }//end isBuilder()
 
 
 }//end class
