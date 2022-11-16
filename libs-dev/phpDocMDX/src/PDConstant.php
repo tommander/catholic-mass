@@ -17,63 +17,63 @@ class PDConstant extends PDBasic
      *
      * @var string
      */
-    public $namespace;
+    public string $namespace;
 
     /**
      * Source file
      *
      * @var string
      */
-    public $sourceFile;
+    public string $sourceFile;
 
     /**
      * Line in the code
      *
      * @var string
      */
-    public $line;
+    public string $line;
 
     /**
      * Constant's visibility
      *
      * @var string
      */
-    public $visibility;
+    public string $visibility;
 
     /**
      * Constant's name
      *
      * @var string
      */
-    public $name = '';
+    public string $name = '';
 
     /**
      * Constant's full name
      *
      * @var string
      */
-    public $fullName = '';
+    public string $fullName = '';
 
     /**
      * Constant's value
      *
      * @var string
      */
-    public $value = '';
+    public string $value = '';
 
     /**
      * Inherited from
      *
      * @var string
      */
-    public $inheritedFrom = '';
+    public string $inheritedFrom = '';
 
     /**
      * Constant's DocBlock
      *
      * @var ?PDDocBlock
      */
-    public $docBlock = null;
+    public ?PDDocBlock $docBlock = null;
 
 
     /**
@@ -89,19 +89,17 @@ class PDConstant extends PDBasic
         $this->line       = $element->getAttr('line', '');
         $this->visibility = $element->getAttr('visibility', '');
 
-        if (is_array($element->children) === true) {
-            foreach ($element->children as $constChild) {
-                if ($constChild->name === 'name') {
-                    $this->name = $constChild->content;
-                } else if ($constChild->name === 'full_name') {
-                    $this->fullName = $constChild->content;
-                } else if ($constChild->name === 'value') {
-                    $this->value = $constChild->content;
-                } else if ($constChild->name === 'inherited_from') {
-                    $this->inheritedFrom = $constChild->content;
-                } else if ($constChild->name === PDDocBlock::ELEM_NAME) {
-                    $this->docBlock = new PDDocBlock($constChild, $this->sourceFile);
-                }
+        foreach ($element->children as $constChild) {
+            if ($constChild->name === 'name') {
+                $this->name = $constChild->content;
+            } else if ($constChild->name === 'full_name') {
+                $this->fullName = $constChild->content;
+            } else if ($constChild->name === 'value') {
+                $this->value = $constChild->content;
+            } else if ($constChild->name === 'inherited_from') {
+                $this->inheritedFrom = $constChild->content;
+            } else if ($constChild->name === PDDocBlock::ELEM_NAME) {
+                $this->docBlock = new PDDocBlock($constChild, $this->sourceFile);
             }
         }
 

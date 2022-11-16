@@ -17,56 +17,56 @@ class PDTrait extends PDBasic
      *
      * @var string
      */
-    public $namespace;
+    public string $namespace;
 
     /**
      * Source file
      *
      * @var string
      */
-    public $sourceFile;
+    public string $sourceFile;
 
     /**
      * Line in code
      *
      * @var string
      */
-    public $line;
+    public string $line;
 
     /**
      * Trait name
      *
      * @var string
      */
-    public $name = '';
+    public string $name = '';
 
     /**
      * Trait full name
      *
      * @var string
      */
-    public $fullName = '';
+    public string $fullName = '';
 
     /**
      * Trait DocBlock
      *
      * @var ?PDDocBlock
      */
-    public $docBlock = null;
+    public ?PDDocBlock $docBlock = null;
 
     /**
      * Trait properties
      *
      * @var PDProperty[]
      */
-    public $properties = [];
+    public array $properties = [];
 
     /**
      * Trait methods
      *
      * @var PDMethod[]
      */
-    public $methods = [];
+    public array $methods = [];
 
 
     /**
@@ -81,19 +81,17 @@ class PDTrait extends PDBasic
         $this->namespace  = $element->getAttr('namespace', '');
         $this->line       = $element->getAttr('line', '');
 
-        if (is_array($element->children) === true) {
-            foreach ($element->children as $traitChild) {
-                if ($traitChild->name === 'name') {
-                    $this->name = $traitChild->content;
-                } else if ($traitChild->name === 'full_name') {
-                    $this->fullName = $traitChild->content;
-                } else if ($traitChild->name === PDDocBlock::ELEM_NAME) {
-                    $this->docBlock = new PDDocBlock($traitChild, $this->sourceFile);
-                } else if ($traitChild->name === PDProperty::ELEM_NAME) {
-                    $this->properties[] = new PDProperty($traitChild, $this->sourceFile);
-                } else if ($traitChild->name === PDMethod::ELEM_NAME) {
-                    $this->properties[] = new PDMethod($traitChild, $this->sourceFile);
-                }
+        foreach ($element->children as $traitChild) {
+            if ($traitChild->name === 'name') {
+                $this->name = $traitChild->content;
+            } else if ($traitChild->name === 'full_name') {
+                $this->fullName = $traitChild->content;
+            } else if ($traitChild->name === PDDocBlock::ELEM_NAME) {
+                $this->docBlock = new PDDocBlock($traitChild, $this->sourceFile);
+            } else if ($traitChild->name === PDProperty::ELEM_NAME) {
+                $this->properties[] = new PDProperty($traitChild, $this->sourceFile);
+            } else if ($traitChild->name === PDMethod::ELEM_NAME) {
+                $this->methods[] = new PDMethod($traitChild, $this->sourceFile);
             }
         }
 

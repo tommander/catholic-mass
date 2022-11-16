@@ -60,19 +60,19 @@ if (isset($opts['o']) === true && isset($opts['output']) === true) {
 $fileIn = '';
 $dirOut = '';
 
-if (isset($opts['i']) === true) {
+if (isset($opts['i']) === true && is_string($opts['i']) === true) {
     $fileIn = $opts['i'];
 }
 
-if (isset($opts['input']) === true) {
+if (isset($opts['input']) === true && is_string($opts['input']) === true) {
     $fileIn = $opts['input'];
 }
 
-if (isset($opts['o']) === true) {
+if (isset($opts['o']) === true && is_string($opts['o']) === true) {
     $dirOut = $opts['o'];
 }
 
-if (isset($opts['output']) === true) {
+if (isset($opts['output']) === true && is_string($opts['output']) === true) {
     $dirOut = $opts['output'];
 }
 

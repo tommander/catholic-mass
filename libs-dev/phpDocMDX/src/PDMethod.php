@@ -17,98 +17,98 @@ class PDMethod extends PDBasic
      *
      * @var string
      */
-    public $final;
+    public string $final;
 
     /**
      * Is method abstract? `true` or `false`
      *
      * @var string
      */
-    public $abstract;
+    public string $abstract;
 
     /**
      * If method static? `true` or `false`
      *
      * @var string
      */
-    public $static;
+    public string $static;
 
     /**
      * Method namespace
      *
      * @var string
      */
-    public $namespace;
+    public string $namespace;
 
     /**
      * Source file
      *
      * @var string
      */
-    public $sourceFile;
+    public string $sourceFile;
 
     /**
      * Line in code
      *
      * @var string
      */
-    public $line;
+    public string $line;
 
     /**
      * Method visibility
      *
      * @var string
      */
-    public $visibility;
+    public string $visibility;
 
     /**
      * Return by reference?
      *
      * @var string
      */
-    public $returnByReference;
+    public string $returnByReference;
 
     /**
      * Method name
      *
      * @var string
      */
-    public $name = '';
+    public string $name = '';
 
     /**
      * Method full name
      *
      * @var string
      */
-    public $fullName = '';
+    public string $fullName = '';
 
     /**
      * Method value
      *
      * @var string
      */
-    public $value = '';
+    public string $value = '';
 
     /**
      * Method inherited from
      *
      * @var string
      */
-    public $inheritedFrom = '';
+    public string $inheritedFrom = '';
 
     /**
      * Method arguments
      *
      * @var PDArgument[]
      */
-    public $arguments = [];
+    public array $arguments = [];
 
     /**
      * Method DocBlock
      *
      * @var ?PDDocBlock
      */
-    public $docBlock = null;
+    public ?PDDocBlock $docBlock = null;
 
 
     /**
@@ -125,23 +125,22 @@ class PDMethod extends PDBasic
         $this->static     = $element->getAttr('static', '');
         $this->namespace  = $element->getAttr('namespace', '');
         $this->line       = $element->getAttr('line', '');
+        $this->visibility = $element->getAttr('visibility', '');
         $this->returnByReference = $element->getAttr('returnByReference', '');
 
-        if (is_array($element->children) === true) {
-            foreach ($element->children as $methodChild) {
-                if ($methodChild->name === 'name') {
-                    $this->name = $methodChild->content;
-                } else if ($methodChild->name === 'full_name') {
-                    $this->fullName = $methodChild->content;
-                } else if ($methodChild->name === 'value') {
-                    $this->value = $methodChild->content;
-                } else if ($methodChild->name === 'inherited_from') {
-                    $this->inheritedFrom = $methodChild->content;
-                } else if ($methodChild->name === PDArgument::ELEM_NAME) {
-                    $this->docBlock = new PDArgument($methodChild, $this->sourceFile);
-                } else if ($methodChild->name === PDDocBlock::ELEM_NAME) {
-                    $this->docBlock = new PDDocBlock($methodChild, $this->sourceFile);
-                }
+        foreach ($element->children as $methodChild) {
+            if ($methodChild->name === 'name') {
+                $this->name = $methodChild->content;
+            } else if ($methodChild->name === 'full_name') {
+                $this->fullName = $methodChild->content;
+            } else if ($methodChild->name === 'value') {
+                $this->value = $methodChild->content;
+            } else if ($methodChild->name === 'inherited_from') {
+                $this->inheritedFrom = $methodChild->content;
+            } else if ($methodChild->name === PDArgument::ELEM_NAME) {
+                $this->arguments[] = new PDArgument($methodChild, $this->sourceFile);
+            } else if ($methodChild->name === PDDocBlock::ELEM_NAME) {
+                $this->docBlock = new PDDocBlock($methodChild, $this->sourceFile);
             }
         }
 

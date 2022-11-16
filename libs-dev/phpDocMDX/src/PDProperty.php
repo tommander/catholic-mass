@@ -17,63 +17,63 @@ class PDProperty extends PDBasic
      *
      * @var string
      */
-    public $namespace;
+    public string $namespace;
 
     /**
      * Source file
      *
      * @var string
      */
-    public $sourceFile;
+    public string $sourceFile;
 
     /**
      * Line in code
      *
      * @var string
      */
-    public $line;
+    public string $line;
 
     /**
      * Property visibility
      *
      * @var string
      */
-    public $visibility;
+    public string $visibility;
 
     /**
      * Property name
      *
      * @var string
      */
-    public $name = '';
+    public string $name = '';
 
     /**
      * Property full name
      *
      * @var string
      */
-    public $fullName = '';
+    public string $fullName = '';
 
     /**
      * Property default value
      *
      * @var string
      */
-    public $default = '';
+    public string $default = '';
 
     /**
      * Property is inherited from
      *
      * @var string
      */
-    public $inheritedFrom = '';
+    public string $inheritedFrom = '';
 
     /**
      * Property DocBlock
      *
      * @var ?PDDocBlock
      */
-    public $docBlock = null;
+    public ?PDDocBlock $docBlock = null;
 
 
     /**
@@ -89,19 +89,17 @@ class PDProperty extends PDBasic
         $this->line       = $element->getAttr('line', '');
         $this->visibility = $element->getAttr('visibility', '');
 
-        if (is_array($element->children) === true) {
-            foreach ($element->children as $propChild) {
-                if ($propChild->name === 'name') {
-                    $this->name = $propChild->content;
-                } else if ($propChild->name === 'full_name') {
-                    $this->fullName = $propChild->content;
-                } else if ($propChild->name === 'default') {
-                    $this->default = $propChild->content;
-                } else if ($propChild->name === 'inherited_from') {
-                    $this->inheritedFrom = $propChild->content;
-                } else if ($propChild->name === PDDocBlock::ELEM_NAME) {
-                    $this->docBlock = new PDDocBlock($propChild, $this->sourceFile);
-                }
+        foreach ($element->children as $propChild) {
+            if ($propChild->name === 'name') {
+                $this->name = $propChild->content;
+            } else if ($propChild->name === 'full_name') {
+                $this->fullName = $propChild->content;
+            } else if ($propChild->name === 'default') {
+                $this->default = $propChild->content;
+            } else if ($propChild->name === 'inherited_from') {
+                $this->inheritedFrom = $propChild->content;
+            } else if ($propChild->name === PDDocBlock::ELEM_NAME) {
+                $this->docBlock = new PDDocBlock($propChild, $this->sourceFile);
             }
         }
 

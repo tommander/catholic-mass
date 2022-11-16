@@ -17,42 +17,42 @@ class PDArgument extends PDBasic
      *
      * @var string
      */
-    public $sourceFile;
+    public string $sourceFile;
 
     /**
      * Line in code
      *
      * @var string
      */
-    public $line;
+    public string $line;
 
     /**
      * By reference?
      *
      * @var string
      */
-    public $byReference;
+    public string $byReference;
 
     /**
      * Argument name
      *
      * @var string
      */
-    public $name = '';
+    public string $name = '';
 
     /**
      * Argument default value
      *
      * @var string
      */
-    public $default = '';
+    public string $default = '';
 
     /**
      * Argument type
      *
      * @var string
      */
-    public $type = '';
+    public string $type = '';
 
 
     /**
@@ -67,15 +67,13 @@ class PDArgument extends PDBasic
         $this->line        = $element->getAttr('line', '');
         $this->byReference = $element->getAttr('by_reference', '');
 
-        if (is_array($element->children) === true) {
-            foreach ($element->children as $funcChild) {
-                if ($funcChild->name === 'name') {
-                    $this->name = $funcChild->content;
-                } else if ($funcChild->name === 'default') {
-                    $this->default = $funcChild->content;
-                } else if ($funcChild->name === 'type') {
-                    $this->type = $funcChild->content;
-                }
+        foreach ($element->children as $funcChild) {
+            if ($funcChild->name === 'name') {
+                $this->name = $funcChild->content;
+            } else if ($funcChild->name === 'default') {
+                $this->default = $funcChild->content;
+            } else if ($funcChild->name === 'type') {
+                $this->type = $funcChild->content;
             }
         }
 

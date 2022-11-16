@@ -16,14 +16,14 @@ class PDParser
      *
      * @var string
      */
-    private $inputFile = '';
+    private string $inputFile = '';
 
     /**
      * Output directory for Markdown files
      *
      * @var string
      */
-    private $outputDir = '';
+    private string $outputDir = '';
 
 
     /**

@@ -107,7 +107,7 @@ class Language
      *
      * @var array<string, array<string, string|string[]>>
      */
-    private $langlist = [];
+    private array $langlist = [];
 
 
     /**
@@ -174,7 +174,7 @@ class Language
      * @param string $lang Hello
      * @param string $data Hello
      *
-     * @return ?array
+     * @return mixed
      */
     public function getLanguageData(string $lang, string $data)
     {

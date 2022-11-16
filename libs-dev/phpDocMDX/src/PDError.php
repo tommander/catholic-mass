@@ -17,21 +17,21 @@ class PDError extends PDBasic
      *
      * @var string
      */
-    public $code;
+    public string $code;
 
     /**
      * Source file
      *
      * @var string
      */
-    public $sourceFile;
+    public string $sourceFile;
 
     /**
      * Line in code
      *
      * @var string
      */
-    public $line;
+    public string $line;
 
 
     /**

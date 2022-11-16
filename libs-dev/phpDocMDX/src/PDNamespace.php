@@ -17,21 +17,21 @@ class PDNamespace extends PDBasic
      *
      * @var string
      */
-    public $name;
+    public string $name;
 
     /**
      * Full namespace name
      *
      * @var string
      */
-    public $fullName;
+    public string $fullName;
 
     /**
      * Parent namespaces
      *
      * @var PDNamespace[]
      */
-    public $parents = [];
+    public array $parents = [];
 
 
     /**
@@ -44,11 +44,9 @@ class PDNamespace extends PDBasic
         $this->name     = $element->getAttr('name', '');
         $this->fullName = $element->getAttr('full_name', '');
 
-        if (is_array($element->children) === true) {
-            foreach ($element->children as $nsParent) {
-                if ($nsParent->name === PDNamespace::ELEM_NAME) {
-                    $this->parents[] = new PDNamespace($nsParent);
-                }
+        foreach ($element->children as $nsParent) {
+            if ($nsParent->name === PDNamespace::ELEM_NAME) {
+                $this->parents[] = new PDNamespace($nsParent);
             }
         }
 

@@ -17,91 +17,91 @@ class PDClass extends PDBasic
      *
      * @var string
      */
-    public $final;
+    public string $final;
 
     /**
      * Class is abstract? `true` or `false`
      *
      * @var string
      */
-    public $abstract;
+    public string $abstract;
 
     /**
      * Class namespace
      *
      * @var string
      */
-    public $namespace;
+    public string $namespace;
 
     /**
      * Source file
      *
      * @var string
      */
-    public $sourceFile;
+    public string $sourceFile;
 
     /**
      * Line in code
      *
      * @var string
      */
-    public $line;
+    public string $line;
 
     /**
      * Class name
      *
      * @var string
      */
-    public $name = '';
+    public string $name = '';
 
     /**
      * Class full name
      *
      * @var string
      */
-    public $fullName = '';
+    public string $fullName = '';
 
     /**
      * Class DocBlock
      *
      * @var ?PDDocBlock
      */
-    public $docBlock = null;
+    public ?PDDocBlock $docBlock = null;
 
     /**
      * Class extends
      *
      * @var string[]
      */
-    public $extends = [];
+    public array $extends = [];
 
     /**
      * Class implements
      *
      * @var string[]
      */
-    public $implements = [];
+    public array $implements = [];
 
     /**
      * Class constants
      *
      * @var PDConstant[]
      */
-    public $constants = [];
+    public array $constants = [];
 
     /**
      * Class properties
      *
      * @var PDProperty[]
      */
-    public $properties = [];
+    public array $properties = [];
 
     /**
      * Class methods
      *
      * @var PDMethod[]
      */
-    public $methods = [];
+    public array $methods = [];
 
 
     /**
@@ -118,27 +118,25 @@ class PDClass extends PDBasic
         $this->namespace  = $element->getAttr('namespace', '');
         $this->line       = $element->getAttr('line', '');
 
-        if (is_array($element->children) === true) {
-            foreach ($element->children as $classChild) {
-                if ($classChild->name === 'name') {
-                    $this->name = $classChild->content;
-                } else if ($classChild->name === 'full_name') {
-                    $this->fullName = $classChild->content;
-                } else if ($classChild->name === PDDocBlock::ELEM_NAME) {
-                    $this->docBlock = new PDDocBlock($classChild, $this->sourceFile);
-                } else if ($classChild->name === 'extends') {
-                    $this->extends[] = $classChild->content;
-                } else if ($classChild->name === 'implements') {
-                    $this->implements[] = $classChild->content;
-                } else if ($classChild->name === PDConstant::ELEM_NAME) {
-                    $this->constants[] = new PDConstant($classChild, $this->sourceFile);
-                } else if ($classChild->name === PDProperty::ELEM_NAME) {
-                    $this->properties[] = new PDProperty($classChild, $this->sourceFile);
-                } else if ($classChild->name === PDMethod::ELEM_NAME) {
-                    $this->methods[] = new PDMethod($classChild, $this->sourceFile);
-                }
+        foreach ($element->children as $classChild) {
+            if ($classChild->name === 'name') {
+                $this->name = $classChild->content;
+            } else if ($classChild->name === 'full_name') {
+                $this->fullName = $classChild->content;
+            } else if ($classChild->name === PDDocBlock::ELEM_NAME) {
+                $this->docBlock = new PDDocBlock($classChild, $this->sourceFile);
+            } else if ($classChild->name === 'extends') {
+                $this->extends[] = $classChild->content;
+            } else if ($classChild->name === 'implements') {
+                $this->implements[] = $classChild->content;
+            } else if ($classChild->name === PDConstant::ELEM_NAME) {
+                $this->constants[] = new PDConstant($classChild, $this->sourceFile);
+            } else if ($classChild->name === PDProperty::ELEM_NAME) {
+                $this->properties[] = new PDProperty($classChild, $this->sourceFile);
+            } else if ($classChild->name === PDMethod::ELEM_NAME) {
+                $this->methods[] = new PDMethod($classChild, $this->sourceFile);
             }
-        }//end if
+        }
 
     }//end __construct()
 

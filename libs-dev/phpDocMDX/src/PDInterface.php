@@ -17,70 +17,70 @@ class PDInterface extends PDBasic
      *
      * @var string
      */
-    public $namespace;
+    public string $namespace;
 
     /**
      * Source file
      *
      * @var string
      */
-    public $sourceFile;
+    public string $sourceFile;
 
     /**
      * Line in code
      *
      * @var string
      */
-    public $line;
+    public string $line;
 
     /**
      * Interface package
      *
      * @var string
      */
-    public $package;
+    public string $package;
 
     /**
      * Interface name
      *
      * @var string
      */
-    public $name = '';
+    public string $name = '';
 
     /**
      * Interface full name
      *
      * @var string
      */
-    public $fullName = '';
+    public string $fullName = '';
 
     /**
      * Interface DocBlock
      *
      * @var ?PDDocBlock
      */
-    public $docBlock = null;
+    public ?PDDocBlock $docBlock = null;
 
     /**
      * Extends interfaces
      *
      * @var string[]
      */
-    public $extends = [];
+    public array $extends = [];
 
     /**
      * Interface constants
      *
      * @var PDConstant[]
      */
-    public $constants = [];
+    public array $constants = [];
 
     /**
      * Interface methods
      *
      * @var PDMethod[]
      */
-    public $methods = [];
+    public array $methods = [];
 
 
     /**
@@ -96,21 +96,19 @@ class PDInterface extends PDBasic
         $this->line       = $element->getAttr('line', '');
         $this->package    = $element->getAttr('package', '');
 
-        if (is_array($element->children) === true) {
-            foreach ($element->children as $funcChild) {
-                if ($funcChild->name === 'name') {
-                    $this->name = $funcChild->content;
-                } else if ($funcChild->name === 'full_name') {
-                    $this->fullName = $funcChild->content;
-                } else if ($funcChild->name === PDDocBlock::ELEM_NAME) {
-                    $this->docBlock = new PDDocBlock($funcChild, $this->sourceFile);
-                } else if ($funcChild->name === 'extends') {
-                    $this->extends[] = $funcChild->content;
-                } else if ($funcChild->name === PDConstant::ELEM_NAME) {
-                    $this->constants[] = new PDConstant($funcChild, $this->sourceFile);
-                } else if ($funcChild->name === PDMethod::ELEM_NAME) {
-                    $this->methods[] = new PDMethod($funcChild, $this->sourceFile);
-                }
+        foreach ($element->children as $funcChild) {
+            if ($funcChild->name === 'name') {
+                $this->name = $funcChild->content;
+            } else if ($funcChild->name === 'full_name') {
+                $this->fullName = $funcChild->content;
+            } else if ($funcChild->name === PDDocBlock::ELEM_NAME) {
+                $this->docBlock = new PDDocBlock($funcChild, $this->sourceFile);
+            } else if ($funcChild->name === 'extends') {
+                $this->extends[] = $funcChild->content;
+            } else if ($funcChild->name === PDConstant::ELEM_NAME) {
+                $this->constants[] = new PDConstant($funcChild, $this->sourceFile);
+            } else if ($funcChild->name === PDMethod::ELEM_NAME) {
+                $this->methods[] = new PDMethod($funcChild, $this->sourceFile);
             }
         }
 

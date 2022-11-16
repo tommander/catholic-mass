@@ -17,49 +17,49 @@ class PDTag extends PDBasic
      *
      * @var string
      */
-    public $name;
+    public string $name;
 
     /**
      * Tag description
      *
      * @var string
      */
-    public $description;
+    public string $description;
 
     /**
      * Tag link
      *
      * @var string
      */
-    public $link;
+    public string $link;
 
     /**
      * Tag version
      *
      * @var string
      */
-    public $version;
+    public string $version;
 
     /**
      * Tag variable
      *
      * @var string
      */
-    public $variable;
+    public string $variable;
 
     /**
      * Tag method
      *
      * @var string
      */
-    public $method;
+    public string $method;
 
     /**
      * Tag type
      *
      * @var string
      */
-    public $type;
+    public string $type;
 
 
     /**

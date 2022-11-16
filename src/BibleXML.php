@@ -178,7 +178,7 @@ class BibleXML
      *
      * @return array
      */
-    public function getBibleComboList()
+    public function getBibleComboList(): array
     {
         $ret = [
             '' => [
@@ -759,13 +759,17 @@ class BibleXML
      *
      * @param BibleIndexer $bibleIndexer BibleIndexer instance
      *
-     * @return void
+     * @return string
      */
     public function buildIndices(BibleIndexer $bibleIndexer): string
     {
         $ret = sprintf('[%s] Started indexing Bible translations', date('c'));
         foreach ($this->biblist as $blang => $blist) {
             foreach ($blist as $bid => $bdata) {
+                if (isset($bdata[1]) !== true) {
+                    continue;
+                }
+
                 $ret = sprintf('[%s] Creating index for "%s"', date('c'), $bdata[1]);
                 $bibleIndexer->createIndex($bdata[1]);
             }

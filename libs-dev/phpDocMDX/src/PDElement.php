@@ -16,28 +16,28 @@ class PDElement
      *
      * @var string
      */
-    public $name = '';
+    public string $name = '';
 
     /**
      * Element attributes
      *
      * @var array
      */
-    public $attributes = [];
+    public array $attributes = [];
 
     /**
      * Element content
      *
      * @var string
      */
-    public $content = '';
+    public string $content = '';
 
     /**
      * Element children
      *
      * @var array
      */
-    public $children = [];
+    public array $children = [];
 
 
     /**

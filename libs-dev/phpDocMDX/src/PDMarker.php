@@ -16,28 +16,28 @@ class PDMarker extends PDBasic
      *
      * @var string
      */
-    public $type;
+    public string $type;
 
     /**
      * Source file
      *
      * @var string
      */
-    public $sourceFile;
+    public string $sourceFile;
 
     /**
      * Line in code
      *
      * @var string
      */
-    public $line;
+    public string $line;
 
     /**
      * Marker message (description)
      *
      * @var string
      */
-    public $message;
+    public string $message;
 
 
     /**

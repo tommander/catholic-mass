@@ -17,35 +17,35 @@ class PDDocBlock extends PDBasic
      *
      * @var string
      */
-    public $sourceFile;
+    public string $sourceFile;
 
     /**
      * Line in the code
      *
      * @var string
      */
-    public $line;
+    public string $line;
 
     /**
      * Short description
      *
      * @var string
      */
-    public $description = '';
+    public string $description = '';
 
     /**
      * Long description
      *
      * @var string
      */
-    public $longDescription = '';
+    public string $longDescription = '';
 
     /**
      * DocBlock tags
      *
      * @var PDTag[]
      */
-    public $tags = [];
+    public array $tags = [];
 
 
     /**
@@ -59,16 +59,14 @@ class PDDocBlock extends PDBasic
         $this->sourceFile = $sourceFile;
         $this->line       = $element->getAttr('line', '');
 
-        if (is_array($element->children) === true) {
-            foreach ($element->children as $constChild) {
-                if ($constChild->name === 'description' && is_string($constChild->content) === true) {
-                    $this->description = $constChild->content;
-                } else if ($constChild->name === 'long-description' && is_string($constChild->content) === true) {
-                    $this->longDescription = $constChild->content;
-                } else if ($constChild->name === 'tags' && is_array($constChild->children) === true) {
-                    foreach ($constChild->children as $tagsChild) {
-                        $this->tags[] = new PDTag($tagsChild);
-                    }
+        foreach ($element->children as $constChild) {
+            if ($constChild->name === 'description' && is_string($constChild->content) === true) {
+                $this->description = $constChild->content;
+            } else if ($constChild->name === 'long-description' && is_string($constChild->content) === true) {
+                $this->longDescription = $constChild->content;
+            } else if ($constChild->name === 'tags' && is_array($constChild->children) === true) {
+                foreach ($constChild->children as $tagsChild) {
+                    $this->tags[] = new PDTag($tagsChild);
                 }
             }
         }
@@ -92,7 +90,7 @@ class PDDocBlock extends PDBasic
             }
 
             foreach ($this->tags as $tag) {
-                $text .= ' '.$this->tag->md();
+                $text .= ' '.$tag->md();
             }
 
             return $text;
@@ -105,7 +103,7 @@ class PDDocBlock extends PDBasic
 
         if (count($this->tags) > 0) {
             foreach ($this->tags as $tag) {
-                $text .= '- '.$this->tag->md()."\r\n";
+                $text .= '- '.$tag->md()."\r\n";
             }
 
             $text .= "\r\n";

@@ -17,91 +17,91 @@ class PDFile extends PDBasic
      *
      * @var string
      */
-    public $path;
+    public string $path;
 
     /**
      * Hash of the file
      *
      * @var string
      */
-    public $hash;
+    public string $hash;
 
     /**
      * File's DocBlock
      *
      * @var ?PDDocBlock
      */
-    public $docBlock = null;
+    public ?PDDocBlock $docBlock = null;
 
     /**
      * Includes
      *
      * @var string[]
      */
-    public $includes = [];
+    public array $includes = [];
 
     /**
      * Namespace aliases
      *
      * @var string[]
      */
-    public $nsaliases = [];
+    public array $nsaliases = [];
 
     /**
      * Constants
      *
      * @var PDConstant[]
      */
-    public $constants = [];
+    public array $constants = [];
 
     /**
      * Functions
      *
      * @var PDFunction[]
      */
-    public $functions = [];
+    public array $functions = [];
 
     /**
      * Interfaces
      *
      * @var PDInterface[]
      */
-    public $interfaces = [];
+    public array $interfaces = [];
 
     /**
      * Classes
      *
      * @var PDClass[]
      */
-    public $classes = [];
+    public array $classes = [];
 
     /**
      * Traits
      *
      * @var PDTrait[]
      */
-    public $traits = [];
+    public array $traits = [];
 
     /**
      * Markers
      *
      * @var PDMarker[]
      */
-    public $markers = [];
+    public array $markers = [];
 
     /**
      * Errors
      *
      * @var PDError[]
      */
-    public $errors = [];
+    public array $errors = [];
 
     /**
      * Output directory
      *
      * @var string
      */
-    private $dir = '';
+    private string $dir = '';
 
 
     /**
@@ -116,40 +116,38 @@ class PDFile extends PDBasic
         $this->path = $element->getAttr('path', '');
         $this->hash = $element->getAttr('hash', '');
 
-        if (is_array($element->children) === true) {
-            foreach ($element->children as $fileChild) {
-                if ($fileChild->name === 'include' && is_array($fileChild->children) === true) {
-                    foreach ($fileChild->children as $includeChild) {
-                        if ($includeChild->name === 'name') {
-                            $this->includes[] = $includeChild->content;
-                            break;
-                        }
+        foreach ($element->children as $fileChild) {
+            if ($fileChild->name === 'include' && is_array($fileChild->children) === true) {
+                foreach ($fileChild->children as $includeChild) {
+                    if ($includeChild->name === 'name') {
+                        $this->includes[] = $includeChild->content;
+                        break;
                     }
-                } else if ($fileChild->name === PDDocBlock::ELEM_NAME) {
-                    $this->docBlock = new PDDocBlock($fileChild, $this->path);
-                } else if ($fileChild->name === 'namespace-alias') {
-                    $this->nsaliases[] = $fileChild->getAttr('name', '');
-                } else if ($fileChild->name === PDConstant::ELEM_NAME) {
-                    $this->constants[] = new PDConstant($fileChild, $this->path);
-                } else if ($fileChild->name === PDFunction::ELEM_NAME) {
-                    $this->functions[] = new PDFunction($fileChild, $this->path);
-                } else if ($fileChild->name === PDInterface::ELEM_NAME) {
-                    $this->interfaces[] = new PDInterface($fileChild, $this->path);
-                } else if ($fileChild->name === PDClass::ELEM_NAME) {
-                    $this->classes[] = new PDClass($fileChild, $this->path);
-                } else if ($fileChild->name === PDTrait::ELEM_NAME) {
-                    $this->traits[] = new PDTrait($fileChild, $this->path);
-                } else if ($fileChild->name === 'parse_markers' && is_array($fileChild->children) === true) {
-                    foreach ($fileChild->children as $parseMarkersChild) {
-                        if ($parseMarkersChild->name === PDError::ELEM_NAME) {
-                            $this->errors[] = new PDError($parseMarkersChild, $this->path);
-                        }
+                }
+            } else if ($fileChild->name === PDDocBlock::ELEM_NAME) {
+                $this->docBlock = new PDDocBlock($fileChild, $this->path);
+            } else if ($fileChild->name === 'namespace-alias') {
+                $this->nsaliases[] = $fileChild->getAttr('name', '');
+            } else if ($fileChild->name === PDConstant::ELEM_NAME) {
+                $this->constants[] = new PDConstant($fileChild, $this->path);
+            } else if ($fileChild->name === PDFunction::ELEM_NAME) {
+                $this->functions[] = new PDFunction($fileChild, $this->path);
+            } else if ($fileChild->name === PDInterface::ELEM_NAME) {
+                $this->interfaces[] = new PDInterface($fileChild, $this->path);
+            } else if ($fileChild->name === PDClass::ELEM_NAME) {
+                $this->classes[] = new PDClass($fileChild, $this->path);
+            } else if ($fileChild->name === PDTrait::ELEM_NAME) {
+                $this->traits[] = new PDTrait($fileChild, $this->path);
+            } else if ($fileChild->name === 'parse_markers' && is_array($fileChild->children) === true) {
+                foreach ($fileChild->children as $parseMarkersChild) {
+                    if ($parseMarkersChild->name === PDError::ELEM_NAME) {
+                        $this->errors[] = new PDError($parseMarkersChild, $this->path);
                     }
-                } else if ($fileChild->name !== 'parse_markers') {
-                    $this->markers[] = new PDMarker($fileChild, $this->path);
-                }//end if
-            }//end foreach
-        }//end if
+                }
+            } else if ($fileChild->name !== 'parse_markers') {
+                $this->markers[] = new PDMarker($fileChild, $this->path);
+            }//end if
+        }//end foreach
 
     }//end __construct()
 

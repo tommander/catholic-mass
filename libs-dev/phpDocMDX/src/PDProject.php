@@ -17,28 +17,28 @@ class PDProject extends PDBasic
      *
      * @var string
      */
-    public $name;
+    public string $name;
 
     /**
      * List of project files
      *
-     * @var string[]
+     * @var PDFile[]
      */
-    public $files = [];
+    public array $files = [];
 
     /**
      * List of project namespaces
      *
      * @var PDNamespace[]
      */
-    public $namespaces = [];
+    public array $namespaces = [];
 
     /**
      * Output directory
      *
      * @var string
      */
-    private $dir = '';
+    private string $dir = '';
 
 
     /**
@@ -52,13 +52,11 @@ class PDProject extends PDBasic
         $this->dir  = $dir;
         $this->name = $element->getAttr('name', '');
 
-        if (is_array($element->children) === true) {
-            foreach ($element->children as $projectChild) {
-                if ($projectChild->name === PDNamespace::ELEM_NAME) {
-                    $this->namespaces[] = new PDNamespace($projectChild);
-                } else if ($projectChild->name === PDFile::ELEM_NAME) {
-                    $this->files[] = new PDFile($projectChild, $dir);
-                }
+        foreach ($element->children as $projectChild) {
+            if ($projectChild->name === PDNamespace::ELEM_NAME) {
+                $this->namespaces[] = new PDNamespace($projectChild);
+            } else if ($projectChild->name === PDFile::ELEM_NAME) {
+                $this->files[] = new PDFile($projectChild, $dir);
             }
         }
 

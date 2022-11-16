@@ -17,63 +17,63 @@ class PDFunction extends PDBasic
      *
      * @var string
      */
-    public $namespace;
+    public string $namespace;
 
     /**
      * Source file
      *
      * @var string
      */
-    public $sourceFile;
+    public string $sourceFile;
 
     /**
      * Line in code
      *
      * @var string
      */
-    public $line;
+    public string $line;
 
     /**
      * Function package
      *
      * @var string
      */
-    public $package;
+    public string $package;
 
     /**
      * Return by reference?
      *
      * @var string
      */
-    public $returnByReference;
+    public string $returnByReference;
 
     /**
      * Function name
      *
      * @var string
      */
-    public $name = '';
+    public string $name = '';
 
     /**
      * Function full name
      *
      * @var string
      */
-    public $fullName = '';
+    public string $fullName = '';
 
     /**
      * Function DocBlock
      *
      * @var ?PDDocBlock
      */
-    public $docBlock = null;
+    public ?PDDocBlock $docBlock = null;
 
     /**
      * Function arguments
      *
      * @var PDArgument[]
      */
-    public $arguments = [];
+    public array $arguments = [];
 
 
     /**
@@ -90,17 +90,15 @@ class PDFunction extends PDBasic
         $this->package    = $element->getAttr('package', '');
         $this->returnByReference = $element->getAttr('returnByReference', '');
 
-        if (is_array($element->children) === true) {
-            foreach ($element->children as $funcChild) {
-                if ($funcChild->name === 'name') {
-                    $this->name = $funcChild->content;
-                } else if ($funcChild->name === 'full_name') {
-                    $this->fullName = $funcChild->content;
-                } else if ($funcChild->name === PDDocBlock::ELEM_NAME) {
-                    $this->docBlock = new PDDocBlock($funcChild, $this->sourceFile);
-                } else if ($funcChild->name === PDArgument::ELEM_NAME) {
-                    $this->arguments[] = new PDArgument($funcChild, $this->sourceFile);
-                }
+        foreach ($element->children as $funcChild) {
+            if ($funcChild->name === 'name') {
+                $this->name = $funcChild->content;
+            } else if ($funcChild->name === 'full_name') {
+                $this->fullName = $funcChild->content;
+            } else if ($funcChild->name === PDDocBlock::ELEM_NAME) {
+                $this->docBlock = new PDDocBlock($funcChild, $this->sourceFile);
+            } else if ($funcChild->name === PDArgument::ELEM_NAME) {
+                $this->arguments[] = new PDArgument($funcChild, $this->sourceFile);
             }
         }
 
