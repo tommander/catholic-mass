@@ -41,8 +41,8 @@ And please do not forget to spread the good news :pray:
 
 ## Help
 
-If you need any help or have a question regarding this project, feel free to contact me via [e-mail](mailto:8601794+tommander@users.noreply.github.com) or via other communication options available here on GitHub (e.g. [Issues](https://github.com/tommander/catholic-mass/issues)). I'll be happy to help you :handshake:
+If you need any help or have a question regarding this project, feel free to contact me via [e-mail](mailto:tommander@tommander.cz) or via other communication options available here on GitHub (e.g. [Issues](https://github.com/tommander/catholic-mass/issues)). I'll be happy to help you :handshake:
 
 ## Maintainers and contributors
 
-- :man_office_worker: @tommander (active maintainer)
+- :man_office_worker: [@tommander](https://github.com/tommander) (active maintainer)
