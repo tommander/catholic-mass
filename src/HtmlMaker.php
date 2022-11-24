@@ -35,17 +35,26 @@ class HtmlMaker
      */
     private $language;
 
+    /**
+     * Hello
+     *
+     * @var Lectionary
+     */
+    private $lectionary;
+
 
     /**
      * Saves the instance of Logger
      *
-     * @param Logger   $logger   Logger
-     * @param Language $language Language
+     * @param Logger     $logger     Logger
+     * @param Language   $language   Language
+     * @param Lectionary $lectionary Lectionary
      */
-    public function __construct(Logger $logger, Language $language)
+    public function __construct(Logger $logger, Language $language, Lectionary $lectionary)
     {
-        $this->logger   = $logger;
-        $this->language = $language;
+        $this->logger     = $logger;
+        $this->language   = $language;
+        $this->lectionary = $lectionary;
 
     }//end __construct()
 
@@ -194,17 +203,50 @@ class HtmlMaker
         if (isset($obj->reading) === true) {
             $what = "<a href=\"".$this->language->repls('@{dbrlink}')."\">".$this->language->repls('@icon{booklink} @{dbrtext}')."</a>";
         } else if (isset($obj->{""}) === true) {
-            $what = $this->language->repl($obj->{""});
+            $what = $this->language->repls($obj->{""}, true);
         } else if (isset($obj->{"p"}) === true) {
             $who  = "<span class=\"who\">P:</span>";
-            $what = $this->language->repl($obj->{"p"});
+            $what = $this->language->repls($obj->{"p"}, true);
         } else if (isset($obj->{"a"}) === true) {
             $who  = "<span class=\"who\">A:</span>";
-            $what = "<strong>".$this->language->repl($obj->{"a"})."</strong>";
+            $what = "<strong>".$this->language->repls($obj->{"a"}, true)."</strong>";
         } else if (isset($obj->{"r"}) === true) {
             $who  = "<span class=\"who\">R:</span>";
-            $what = $this->language->repl($obj->{"r"});
-        }
+            $what = $this->language->repls($obj->{"r"}, true);
+        } else if (isset($obj->{"read"}) === true) {
+            $who   = "<span class=\"who\">R:</span>";
+            $what1 = "@icon{bible}";
+            $what2 = '';
+            switch ($obj->{"read"}) {
+            case 'r1':
+                $what2 = '@{read1} ';
+                break;
+            case 'r2':
+                $what2 = '@{read2} ';
+                break;
+            case 'p':
+                $what2 = '@{psalm} ';
+                break;
+            case 'a':
+                $what2 = '@{alleluia} ';
+                break;
+            case 'g':
+                $what2 = '@{readE} ';
+            }
+
+            $reads    = $this->lectionary->getReadings(time());
+            $what3    = '';
+            $what3raw = $reads[$obj->{"read"}];
+            if (is_string($what3raw) === true) {
+                $what3 = $this->language->replbb($what3raw);
+            } else if (is_array($what3raw) === true) {
+                foreach ($what3raw as $what3one) {
+                    $what3 .= $this->language->replbb($what3one);
+                }
+            }
+
+            $what = $this->language->repls($what1.' '.$what2.' '.$what3, true);
+        }//end if
 
         if ($who === '') {
             $cls = ' class="command"';
@@ -278,29 +320,6 @@ class HtmlMaker
 
 
     /**
-     * Parses one item from JSON content array into HTML
-     *
-     * @param mixed $row  JSON content array item
-     * @param mixed $deep Flag to make sure sublevel arrays do not create unnecessary `div` tags
-     *
-     * @return string
-     */
-    public function parseToHtml($row, $deep=true)
-    {
-        if (is_object($row) === true && isset($row->read) === true) {
-            return $this->parseToHtml($this->language->replre($row->read));
-        } else if (is_object($row) === true) {
-            return $this->objToHtml($row);
-        } else if (is_array($row) === true) {
-            return $this->arrToHtml($row);
-        }
-
-        return '';
-
-    }//end parseToHtml()
-
-
-    /**
      * Returns complete mass/rosary HTML content
      *
      * @param array $contentArray Hello
@@ -311,7 +330,11 @@ class HtmlMaker
     {
         $ret = '';
         foreach ($contentArray as $row) {
-            $ret .= $this->parseToHtml($row);
+            if (is_object($row) === true) {
+                $ret .= $this->objToHtml($row);
+            } else if (is_array($row) === true) {
+                $ret .= $this->arrToHtml($row);
+            }
         }
 
         return $ret;

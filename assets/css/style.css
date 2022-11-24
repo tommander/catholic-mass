@@ -20,6 +20,14 @@ header {
 	border-bottom: 1px solid #765;
 }
 
+header h1 {
+	text-align: center;
+	color: #fff;
+	text-shadow: 0px 0px 10px #000;
+	font-size: 300%
+}
+
+
 /* NAVIGATION */
 
 nav {
@@ -63,7 +71,7 @@ nav a:first-child {
 	padding-left: 0;
 }
 
-/* MAIN */
+/* MAIN (COMMON) */
 
 main {
 	max-width: 1024px;
@@ -75,6 +83,12 @@ main {
 	border-right: 1px solid #765;
 	font-family: 'Source Serif Pro', serif;
 }
+
+main abbr {
+	font-weight: bold;
+}
+
+/* MAIN (MASS, ROSARY) */
 
 main div {
 	padding: 1em;
@@ -98,13 +112,6 @@ div.options {
 div.options > div {
 	margin: 0 !important;
 	padding: 0 !important;
-}
-
-h1 {
-	text-align: center;
-	color: #fff;
-	text-shadow: 0px 0px 10px #000;
-	font-size: 300%
 }
 
 .who {
@@ -155,6 +162,34 @@ h1 {
 	background-color: rgba(255,255,255,0) !important;
 }
 
+/* MAIN (BIBLE) */
+
+main[class=bible] form, main[class=bible] p, main[class=bible] h1, main[class=bible] h2, main[class=bible] h3, main[class=bible] details {
+	margin: 0 1rem;
+}
+
+main[class=bible] form {
+	margin-top: 1rem;
+}
+
+main[class=bible] h1, main[class=bible] h2, main[class=bible] h3, main[class=bible] details {
+	margin-top: 0.5rem;
+}
+
+main[class=bible] p.backtotop {
+	margin-bottom: 0.5rem;
+}
+
+main[class=bible] table {
+	border-collapse: separate;
+	border-spacing: 0.5em 0.25em;
+}
+
+main[class=bible] select {
+	padding: 0.1rem;
+	margin-left: 0.5rem;
+}
+
 /* FOOTER */ 
 
 footer {
@@ -195,4 +230,40 @@ a:hover {
 
 a:active {
 	color: #00c;
+}
+
+/* BUG FEEDBACK */
+
+#FEEDBACK {
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	border: 1px solid rgba(0,0,0,0.3);
+	background-color:rgba(255, 255, 255, 0.1);
+}
+
+#FEEDBACK_TOGGLE {
+	cursor: pointer;
+}
+
+#RAT1 > i.fa-solid, #RAT2 > i.fa-solid, #RAT3 > i.fa-solid, #RAT4 > i.fa-solid, #RAT5 > i.fa-solid {
+	display: none;	
+}
+
+#RAT1:hover > i.fa-regular, #RAT2:hover > i.fa-regular, #RAT3:hover > i.fa-regular, #RAT4:hover > i.fa-regular, #RAT5:hover > i.fa-regular,
+#RAT1[class=starSelect] > i.fa-regular, #RAT2[class=starSelect] > i.fa-regular, #RAT3[class=starSelect] > i.fa-regular, #RAT4[class=starSelect] > i.fa-regular, #RAT5[class=starSelect] > i.fa-regular {	
+	display: none;	
+}
+
+#RAT1:hover > i.fa-solid, #RAT2:hover > i.fa-solid, #RAT3:hover > i.fa-solid, #RAT4:hover > i.fa-solid, #RAT5:hover > i.fa-solid,
+#RAT1[class=starSelect] > i.fa-solid, #RAT2[class=starSelect] > i.fa-solid, #RAT3[class=starSelect] > i.fa-solid, #RAT4[class=starSelect] > i.fa-solid, #RAT5[class=starSelect] > i.fa-solid {
+	display: inline;	
+}
+
+#FEEDBACK_FORM, #FEEDBACK_TOGGLE, #FEEDBACK_THANKS {
+	padding: 0.5rem;
+}
+
+#FEEDBACK_FORM button {
+	padding: 0.1rem 0.25rem;
 }

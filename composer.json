@@ -29,7 +29,6 @@
             "@phpcheck1",
             "@phpcheck2",
             "@phpcheck3",
-            "@phpcbf",
             "@phpcs",
             "@psalm",
             "@phpunit"

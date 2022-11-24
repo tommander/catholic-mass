@@ -35,7 +35,12 @@
 		"license": "Licensya",
 		"source": "Pinanggalingan",
 		"rosary": "Rosaryo",
-		"choose": "Pumili"
+		"choose": "Pumili",
+		"bible": "Bible",
+		"chapter": "Chapter",
+		"selectbook": "Select book",
+		"selectchapter": "Select chapter",
+		"backtotop": "Back to top"
 	},
 	"mysteries": {
 		"j": "Mga Misteryo ng Tuwa",

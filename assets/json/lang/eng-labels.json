@@ -35,7 +35,12 @@
 		"license": "License",
 		"source": "Source",
 		"rosary": "Rosary",
-		"choose": "Choose"
+		"choose": "Choose",
+		"bible": "Bible",
+		"chapter": "Chapter",
+		"selectbook": "Select book",
+		"selectchapter": "Select chapter",
+		"backtotop": "Back to top"
 	},
 	"mysteries": {
 		"j": "Joyful Mysteries",

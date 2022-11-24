@@ -20,10 +20,11 @@ if (defined('OOM_BASE') !== true) {
  */
 class GetParams
 {
-    public const PARAM_LABELS = 'll';
-    public const PARAM_TEXTS  = 'tl';
-    public const PARAM_BIBLE  = 'bl';
-    public const PARAM_TYPE   = 'sn';
+    public const PARAM_LABELS     = 'll';
+    public const PARAM_TEXTS      = 'tl';
+    public const PARAM_BIBLE      = 'bl';
+    public const PARAM_TYPE       = 'sn';
+    public const PARAM_SELECTBOOK = 'book';
 
     /**
      * Hello
@@ -61,7 +62,7 @@ class GetParams
             return $default;
         }
 
-        $val = \htmlspecialchars($_GET[$name]);
+        $val = \urldecode($_GET[$name]);
 
         if ($regex !== '' && \preg_match($regex, $val) !== 1) {
             return $default;
@@ -113,7 +114,7 @@ class GetParams
      */
     public function getBible(string $default=''): string
     {
-        return $this->getParam(self::PARAM_BIBLE, $default, [], '/^[a-z]{2,10}$/');
+        return $this->getParam(self::PARAM_BIBLE, $default);
 
     }//end getBible()
 
@@ -127,9 +128,23 @@ class GetParams
      */
     public function getType(string $default='mass'): string
     {
-        return $this->getParam(self::PARAM_TYPE, $default, ['mass', 'rosary']);
+        return $this->getParam(self::PARAM_TYPE, $default, ['mass', 'rosary', 'bible']);
 
     }//end getType()
+
+
+    /**
+     * Hello
+     *
+     * @param string $default Default
+     *
+     * @return string
+     */
+    public function getSelectBook(string $default=''): string
+    {
+        return $this->getParam(self::PARAM_SELECTBOOK, $default);
+
+    }//end getSelectBook()
 
 
     /**
@@ -145,15 +160,15 @@ class GetParams
 
 
     /**
-     * Whether to run indices builder
+     * Checks whether Bible was chosen as the content type
      *
      * @return bool
      */
-    public function isBuilder(): bool
+    public function isBible()
     {
-        return (isset($_GET['build']) === true && $_GET['build'] === 'indices');
+        return ($this->getType() === 'bible');
 
-    }//end isBuilder()
+    }//end isBible()
 
 
 }//end class

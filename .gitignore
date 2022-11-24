@@ -7,3 +7,5 @@ phpDocumentor.phar
 vendor
 test.php
 log.txt
+feedbacks
+feedback_cert.php

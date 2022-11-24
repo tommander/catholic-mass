@@ -122,6 +122,10 @@ class Helper
      */
     public static function loadJson(string $fileName, bool $assoc=true)
     {
+        if ($fileName === '') {
+            return [];
+        }
+
         $fileName2 = self::fullFilename($fileName);
 
         if (file_exists($fileName2) !== true) {

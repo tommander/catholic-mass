@@ -57,7 +57,7 @@
             <div>@@DATER@@</div>
         </div>
     </nav>
-    <main>
+    <main class="@@MAINTYPE@@">
         @@MAIN@@
     </main>
     <footer>
@@ -65,6 +65,36 @@
             @@LINKS@@
         </div>
     </footer>
+    <div id="FEEDBACK">
+        <div id="FEEDBACK_TOGGLE" onclick="toggleFeedback()">
+            <i class="fa-regular fa-comment"></i> Feedback
+        </div>
+        <form name="feedbackForm" id="FEEDBACK_FORM" hidden="hidden">
+            <label for="FEEDBACK_EMAIL">Your e-mail (<abbr title="Fill in your e-mail address in case you want to receive a response to your feedback.">optional</abbr>):</label><br>
+            <input id="FEEDBACK_EMAIL" type="email" name="email" value=""><br>
+            <label for="FEEDBACK_RATING">Rating (optional):</label><br>
+            <input id="FEEDBACK_RATING" type="hidden" name="rating" value="">
+            <span id="FEEDBACK_RATING_VIS">
+                <span id="RAT1"><i class="fa-regular fa-star"></i><i class="fa-solid fa-star" onclick="markStar(1)"></i>
+                    <span id="RAT2"><i class="fa-regular fa-star"></i><i class="fa-solid fa-star" onclick="markStar(2)"></i>
+                        <span id="RAT3"><i class="fa-regular fa-star"></i><i class="fa-solid fa-star" onclick="markStar(3)"></i>
+                            <span id="RAT4"><i class="fa-regular fa-star"></i><i class="fa-solid fa-star" onclick="markStar(4)"></i>
+                                <span id="RAT5"><i class="fa-regular fa-star"></i><i class="fa-solid fa-star" onclick="markStar(5)"></i></span>
+                            </span>
+                        </span>
+                    </span>
+                </span>
+            </span><br>
+            <label for="FEEDBACK_DESCRIPTION">Description:</label><br>
+            <textarea id="FEEDBACK_DESCRIPTION" name="description"></textarea><br><br>
+            <button type="button" onclick="submitFeedback()">Submit</button><br><br>
+            <a href="feedback.html">Privacy &amp; Rules</a>
+        </form>
+        <div id="FEEDBACK_THANKS" hidden="hidden">
+            <p>Thank you very much for your feedback <i class="fa-regular fa-face-smile"></i></p>
+            <p>Have a wonderful day!</p>
+        </div>
+    </div>
     <script src="@@BASEURL@@assets/js/functions.js" type="text/javascript"></script>
   </body>
 </html>

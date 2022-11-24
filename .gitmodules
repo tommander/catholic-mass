@@ -1,6 +1,6 @@
-[submodule "libs/open-bibles"]
-	path = libs/open-bibles
-	url = https://github.com/tommander/open-bibles.git
 [submodule "libs/font-awesome"]
 	path = libs/font-awesome
 	url = https://github.com/tommander/Font-Awesome
+[submodule "libs/zefania-bibles"]
+	path = libs/zefania-bibles
+	url = https://github.com/tommander/zefania-bibles.git

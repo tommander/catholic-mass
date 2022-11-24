@@ -119,7 +119,14 @@ class Lectionary
             return;
         }
 
-        $sc = Helper::sundayCycle(intval(date('Y', $time)));
+        $yr = intval(date('Y', $time));
+        $mo = intval(date('m', $time));
+        // If it is after the 34th Sunday in Ordinary Time, it's a new year.
+        if (in_array($cid, ['SOA1', 'SOA2', 'SOA3', 'SOA4', 'SAC1', 'SAC2']) === true && $mo >= 11) {
+            $yr++;
+        }
+
+        $sc = Helper::sundayCycle($yr);
         if (array_key_exists($sc, $this->lectionary[$cid]) !== true) {
             return;
         }

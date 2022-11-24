@@ -72,11 +72,11 @@ class Language
     private $getParams;
 
     /**
-     * BibleXML instance
+     * BibleReader instance
      *
-     * @var BibleXML
+     * @var BibleReader
      */
-    private $bibleXML;
+    private $bibleReader;
 
     /**
      * Lectionary instance
@@ -113,17 +113,17 @@ class Language
     /**
      * Hello
      *
-     * @param Logger     $logger     Hello
-     * @param GetParams  $getParams  Hello
-     * @param BibleXML   $bibleXML   Hello
-     * @param Lectionary $lectionary Hello
+     * @param Logger      $logger      Hello
+     * @param GetParams   $getParams   Hello
+     * @param BibleReader $bibleReader Hello
+     * @param Lectionary  $lectionary  Hello
      */
-    public function __construct(Logger $logger, GetParams $getParams, BibleXML $bibleXML, Lectionary $lectionary)
+    public function __construct(Logger $logger, GetParams $getParams, BibleReader $bibleReader, Lectionary $lectionary)
     {
-        $this->logger     = $logger;
-        $this->getParams  = $getParams;
-        $this->bibleXML   = $bibleXML;
-        $this->lectionary = $lectionary;
+        $this->logger      = $logger;
+        $this->getParams   = $getParams;
+        $this->bibleReader = $bibleReader;
+        $this->lectionary  = $lectionary;
 
         $this->langlist    = Helper::loadJson('assets/json/langlist.json');
         $this->labelsJson  = Helper::loadJson('assets/json/lang/'.$this->getParams->getLabelLang().'-labels.json');
@@ -141,29 +141,26 @@ class Language
      *
      * @return string
      */
-    private function replbb($ref)
+    public function replbb($ref)
     {
-        if (preg_match('/^([A-Za-z0-9]+)\s+(.*)$/', $ref, $m) !== 1
-            || count($m) < 3
-            || array_key_exists($m[1], $this->labelsJson['bible']) === false
-            || array_key_exists('abbr', $this->labelsJson['bible'][$m[1]]) === false
-        ) {
-            return $ref;
-        }
-
-        $addition = $this->bibleXML->getByRef($m[1], $m[2]);
+        $addition = $this->bibleReader->getVerse($ref);
         if ($addition !== '') {
             $addition = ' '.$addition;
         }
 
-        /*
-            If (array_key_exists($m[1], $this->biblistabbr) === true) {
-                $biblexml = $this->container->get(BibleXML::class);
-                $addition = ' '.$biblexml->getByRef($this->biblistabbr[$m[1]].' '.$m[2]);
+        $locRef   = $ref;
+        $bookFull = '';
+        if (preg_match('/^(\S+)(.*)$/', $ref, $m) === 1 && isset($m[1]) === true && isset($m[2]) === true) {
+            $book     = $m[1];
+            $bookFull = $this->bibleReader->bookAbbrToFull($book);
+            $locBook  = $this->bibleReader->localizedAbbr($book);
+            if ($locBook !== false) {
+                $locRef   = $locBook['short'].$m[2];
+                $bookFull = $locBook['full'];
             }
-        */
+        }
 
-        return '@bib['.$this->labelsJson['bible'][$m[1]]['title'].']{'.$this->labelsJson['bible'][$m[1]]['abbr'].' '.$m[2].'}'.$addition;
+        return '@bib['.$bookFull.']{'.$locRef.'}'.$addition;
 
     }//end replbb()
 
@@ -202,8 +199,12 @@ class Language
      *
      * @return string|array
      */
-    public function getContent(string $type)
+    public function getContent(string $type): string|array
     {
+        if ($type === 'bible') {
+            return $this->bibleReader->renderBible();
+        }
+
         if ($type !== 'rosary' && $type !== 'mass') {
             return '';
         }
@@ -241,235 +242,67 @@ class Language
 
 
     /**
-     * This function replaces label IDs with respective label texts.
-     *
-     * @param string[] $matches Matches of the regex function. Should contain at least two items (0th as the complete string and 1st as the matched label ID)
-     *
-     * @return string Text of the label or "???" if the label ID is unknown or an empty string in case of an error
-     *
-     * @see https://www.php.net/manual/en/function.preg-replace-callback-array
-     */
-    private function replcbs(array $matches): string
-    {
-        if (count($matches) < 2
-            || array_key_exists($matches[1], $this->labelsJson['labels']) === false
-        ) {
-            return '';
-        }
-
-        return $this->labelsJson['labels'][$matches[1]];
-
-    }//end replcbs()
-
-
-    /**
-     * This function replaces label IDs with respective label texts.
-     *
-     * It is actually the same as {@see MassMain::replcbs()}, but it wraps the returned value in a "span" tag with the class "command".
-     *
-     * @param string[] $matches Matches of the regex function. Should contain at least two items (0th as the complete string and 1st as the matched label ID)
-     *
-     * @return string Text of the label or "???" if the label ID is unknown or an empty string in case of an error, in every case wrapped as noted in the description
-     * @see    https://www.php.net/manual/en/function.preg-replace-callback-array
-     */
-    private function replcb(array $matches): string
-    {
-        return "<span class=\"command\">".$this->replcbs($matches)."</span>";
-
-    }//end replcb()
-
-
-    /**
-     * This function replaces Sunday IDs with respective Sunday texts.
-     *
-     * @param string[] $matches Matches of the regex function. Should contain at least two items (0th as the complete string and 1st as the matched Sunday ID)
-     *
-     * @return string Text of the Sunday or "???" if the Sunday ID is unknown or an empty string in case of an error
-     * @see    https://www.php.net/manual/en/function.preg-replace-callback-array
-     */
-    private function replsu(array $matches): string
-    {
-        if (count($matches) < 2
-            || array_key_exists($matches[1], $this->labelsJson['sundays']) === false
-        ) {
-            return '';
-        }
-
-        return $this->labelsJson['sundays'][$matches[1]];
-
-    }//end replsu()
-
-
-    /**
-     * This function replaces Mystery IDs with respective names of Mysteries of the Rosary.
-     *
-     * @param string[] $matches Matches of the regex function. Should contain at least two items (0th as the complete string and 1st as the matched Mystery ID)
-     *
-     * @return string Name of the Mystery or "???" if the Mystery ID is unknown or an empty string in case of an error
-     * @see    https://www.php.net/manual/en/function.preg-replace-callback-array
-     */
-    private function replmy(array $matches): string
-    {
-        if (count($matches) < 2
-            || array_key_exists($matches[1], $this->labelsJson['mysteries']) === false
-        ) {
-            return '';
-        }
-
-        return $this->labelsJson['mysteries'][$matches[1]];
-
-    }//end replmy()
-
-
-    /**
-     * Replaces bible verse reference placeholders with translated references and book names in the mouse-hover hint.
-     *
-     * @param string[] $matches Matches of the regex function.
-     *
-     * @return string
-     * @see    https://www.php.net/manual/en/function.preg-replace-callback-array
-     */
-    private function replbib(array $matches): string
-    {
-        if (count($matches) < 3) {
-            return '';
-        }
-
-        return sprintf("<abbr title=\"%s\">%s</abbr>", $matches[1], $matches[2]);
-
-    }//end replbib()
-
-
-    /**
-     * This function replaces reading IDs with respective reading texts.
-     *
-     * Reading ID can be:
-     *
-     * - `r1` for first reading;
-     * - `r2` for second reading;
-     * - `p` for responsorial psalm;
-     * - `a` for alleluia;
-     * - `g` for gospel
-     *
-     * @param string $which Reading ID
-     *
-     * @return \stdClass|\stdClass[]|null Text of the reading or "???" if the reading ID is unknown or an empty string in case of an error
-     * @see    https://www.php.net/manual/en/function.preg-replace-callback-array
-     */
-    public function replre(string $which)
-    {
-        $reads = $this->lectionary->getReadings(time());
-        if (array_key_exists($which, $reads) === false) {
-            return null;
-        }
-
-        $icon = '';
-        switch ($which) {
-        case 'r1':
-            $icon = '@{read1} ';
-            break;
-        case 'r2':
-            $icon = '@{read2} ';
-            break;
-        case 'p':
-            $icon = '@{psalm} ';
-            break;
-        case 'a':
-            $icon = '@{alleluia} ';
-            break;
-        case 'g':
-            $icon = '@{readE} ';
-        }
-
-        $ret = $reads[$which];
-        if (is_string($ret) === true) {
-            $obj    = new \stdClass();
-            $obj->r = '@icon{bible} '.$icon.' ['.$this->replbb($ret).']';
-            return $obj;
-        } else if (is_array($ret) === true) {
-            $rtn = [];
-            foreach ($ret as $one) {
-                $obj    = new \stdClass();
-                $obj->r = '@icon{bible} '.$icon.' ['.$this->replbb($one).']';
-                $rtn[]  = $obj;
-            }
-
-            return $rtn;
-        }
-
-        return null;
-
-    }//end replre()
-
-
-    /**
-     * This function replaces icon IDs with respective Font Awesome icons.
-     *
-     * @param string[] $matches Matches of the regex function. Should contain at least two items (0th as the complete string and 1st as the matched icon ID)
-     *
-     * @return string Font Awesome icon in the form of an "i" tag with the respective CSS class or an empty string in case of an error
-     * @see    https://www.php.net/manual/en/function.preg-replace-callback-array
-     */
-    private function replico(array $matches): string
-    {
-        if (count($matches) < 2
-            || array_key_exists($matches[1], $this->icons) === false
-        ) {
-            return '';
-        }
-
-        return "<i class=\"".$this->icons[$matches[1]]."\"></i>";
-
-    }//end replico()
-
-
-    /**
      * Regex replacement of label and icon placeholders in a text.
      *
-     * @param string $text Text that may contain label/icon placeholders
+     * @param string $text        Text that may contain label/icon placeholders
+     * @param bool   $wrapCommand Whether to wrap label placeholders with `span` tag with class `command` (default `false`)
      *
      * @return string Text with replaced label/icon placeholders
-     * @uses   MassMain::replcb()
-     * @uses   MassMain::replico()
+     *
+     * @psalm-suppress MissingClosureParamType
      */
-    public function repl(string $text)
+    public function repls(string $text, bool $wrapCommand=false)
     {
         $ret = preg_replace_callback_array(
             [
-                '/@\{([A-Za-z0-9]+)\}/'          => 'self::replcb',
-                '/@su\{([A-Za-z0-9]+)\}/'        => 'self::replsu',
-                '/@my\{([A-Za-z0-9]+)\}/'        => 'self::replmy',
-                '/@bib\[([^\]]+)\]\{([^\}]+)\}/' => 'self::replbib',
-                '/@icon\{([A-Za-z0-9]+)\}/'      => 'self::replico',
-            ],
-            htmlspecialchars($text)
-        );
-        if (is_string($ret) === true) {
-            return $ret;
-        }
+                '/@\{([A-Za-z0-9]+)\}/'           => function ($matches) use ($wrapCommand) {
+                    if (count($matches) < 2
+                        || array_key_exists($matches[1], $this->labelsJson['labels']) === false
+                    ) {
+                        return '';
+                    }
 
-        return '';
+                    $ret = $this->labelsJson['labels'][$matches[1]];
+                    if ($wrapCommand !== true) {
+                        return $ret;
+                    }
 
-    }//end repl()
+                    return "<span class=\"command\">${ret}</span>";
+                },
+                '/@su\{([A-Za-z0-9]+)\}/'         => function ($matches) {
+                    if (count($matches) < 2
+                        || array_key_exists($matches[1], $this->labelsJson['sundays']) === false
+                    ) {
+                        return '';
+                    }
 
+                    return $this->labelsJson['sundays'][$matches[1]];
+                },
+                '/@my\{([A-Za-z0-9]+)\}/'         => function ($matches) {
+                    if (count($matches) < 2
+                        || array_key_exists($matches[1], $this->labelsJson['mysteries']) === false
+                    ) {
+                        return '';
+                    }
 
-    /**
-     * Regex replacement of label and icon placeholders in a text.
-     *
-     * @param string $text Text that may contain label/icon placeholders
-     *
-     * @return string Text with replaced label/icon placeholders
-     * @uses   MassMain::replcbs()
-     * @uses   MassMain::replico()
-     */
-    public function repls(string $text)
-    {
-        $ret = preg_replace_callback_array(
-            [
-                '/@\{([A-Za-z0-9]+)\}/'     => 'self::replcbs',
-                '/@su\{([A-Za-z0-9]+)\}/'   => 'self::replsu',
-                '/@my\{([A-Za-z0-9]+)\}/'   => 'self::replmy',
-                '/@icon\{([A-Za-z0-9]+)\}/' => 'self::replico',
+                    return $this->labelsJson['mysteries'][$matches[1]];
+                },
+                '/@bib\[([^\]]+)?\]\{([^\}]+)\}/' => function ($matches) {
+                    if (count($matches) < 3) {
+                        return '';
+                    }
+
+                    return sprintf("<br><abbr title=\"%s\">%s</abbr><br>", $matches[1], $matches[2]);
+                },
+                '/@icon\{([A-Za-z0-9]+)\}/'       => function ($matches) {
+                    if (count($matches) < 2
+                        || array_key_exists($matches[1], $this->icons) === false
+                    ) {
+                        return '';
+                    }
+
+                    return "<i class=\"".$this->icons[$matches[1]]."\"></i>";
+                },
             ],
             htmlspecialchars($text)
         );
