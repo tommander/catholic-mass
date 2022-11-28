@@ -8,37 +8,28 @@
 </head>
 <body>
 <h1>Feedback</h1>
-<p>Anyone can optionally send a feedback to the Order of Mass web application.</p>
-<p>This way we can continuously improve the site and quickly be informed of any errors that were not discovered during development and testing phases.</p>
+<p>Thanks to the feedback form we can continuously improve the web application and quickly be informed of any errors that were not discovered during development and testing phases.</p>
 <p>Here you can find more information about the whole process of sending and processing of a feedback, incl. what data is being stored, what are your rights etc.</p>
-<h2>Basic info</h2>
-<p>Here I would like to ask you - please be constructive about the feedback. If you noticed an error, please describe, what have you done on the page before the error appeared, what does the error say, if it happens continuously or it happened only once. If you notice a mistake in the text, please include the translation and on which page (mass, rosary, bible) etc. Simply stating <q>it doesn't work</q>, <q>something happenned</q> or <q>it's ugly</q> is for sure a feedback, but won't help to fix it for you and others.</p>
-<p>Just to make sure:</p>
+<h2>Feedback Data</h2>
+<p>The data you provide is stored in an encrypted form on the same server from which the feedback originated and no third-party service is included in the whole process.</p>
+<p>The feedback data consists of:</p>
 <ul>
-    <li>It is not in any way obligatory that a user sends a feedback</li>
-    <li>Sending a feedback does not unlock any premium functionality or access to the application</li>
-    <li>Sending a feedback does not give a user an enforceable right to receive any kind of prize or payment</li>
+    <li>E-mail address</li>
+    <li>Rating</li>
+    <li>Description</li>
 </ul>
-<h2>Data</h2>
-<p>The data you provide is stored in an encrypted form on the same server from which the feedback originated, i.e. no third-party service is included in the whole process.</p>
-<p>Example of (decrypted) data submitted from a user:</p>
-<pre>
-{
-    "email": "email@address.com",
-    "rating": 1,
-    "description": "It does not work",
-    "metadata": {
-        "ip": "abcdef1234567890",
-        "useragent": "",
-        "timestamp": "",
-    }
-}
-</pre>
-<p>This data is all encrypted, therefore nobody can read it unless they obtain the private key, which is securely stored outside of the web server and is known to and accessible only by the application author (see chapter <a>Contacts</a>).</p>
-<p>The IP address of the user is hashed and therefore cannot be read even by the application author. This is used only for the purpose of stopping from batch feedback submission e.g. by bots. Internet is a wild place.</p>
+<p>As mentioned above, this data is all encrypted, therefore nobody can read it unless they obtain the private key, which is securely stored outside of the web server and is known to and accessible only by the application author (that is the person mentioned in the chapter <a>Contacts</a>).</p>
+<h2>User data</h2>
+<p>Additionally to the data above, we store also so called metadata about the feedback, which consists of:</p>
+<ul>
+    <li>Hashed IP address - this way nobody, even the application's author, can retrieve the original IP address back from the stored value (<a href="https://en.wikipedia.org/wiki/Hash_function">Hash function @Wikipedia</a>)</li>
+    <li>Timestamp of feedback submission</li>
+    <li>Earliest timestamp of next feedback submission</li>
+</ul>
+<p>This metadata is just to prevent from misuse of the feedback form by bots/hackers/&hellip;</p>
 <h2>Privacy</h2>
 <p>The only personally identifiable information being collected is the <em>optional</em> e-mail address, which is used only for an e-mail response to that particular feedback. This e-mail address is not stored anywhere else and is not shared with anyone.</p>
-<p>We strongly recommend not to input your personally identifiable information (name, address, phone, date of birth, social security number, credit card number etc.) in the description, as it is not needed.</p>
+<p>We strongly recommend not to input your personally identifiable information (name, address, phone, date of birth, social security number, credit card number etc.) in the description, as it is not needed anyway. Such feedback may even be deleted by the author to keep your information safe.</p>
 <h2>Rights</h2>
 <p>No matter where you are, you have the right to obtain the data we have collected about you or request permanent deletion of such data.</p>
 <p>Kindly be informed that if you did not provide the e-mail address in your feedback, it might not be possible to identify your data completely.</p>

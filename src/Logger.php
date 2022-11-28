@@ -2,8 +2,6 @@
 /**
  * Logger unit
  *
- * PHP version 7.4
- *
  * @package OrderOfMass
  * @author  Tommander <tommander@tommander.cz>
  * @license MIT license https://opensource.org/licenses/MIT

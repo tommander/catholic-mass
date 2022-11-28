@@ -2,8 +2,6 @@
 /**
  * Main class of the Order of Mass app
  *
- * PHP version 7.4
- *
  * @package OrderOfMass
  * @author  Tommander <tommander@tommander.cz>
  * @license MIT license https://opensource.org/licenses/MIT
@@ -24,29 +22,19 @@ class MassMain
      */
     private $container;
 
-    /**
-     * Base URL of the web
-     *
-     * @var string
-     */
-    private $baseurl;
-
 
     /**
      * Creates a container
-     *
-     * @param string $baseurl Base URL with trailing slash
      */
-    public function __construct(string $baseurl)
+    public function __construct()
     {
-        $this->baseurl = $baseurl;
-
         $containerBuilder = new \DI\ContainerBuilder();
         $containerBuilder->useAutowiring(false);
         $containerBuilder->useAnnotations(false);
         $containerBuilder->addDefinitions(
             [
                 Logger::class      => \DI\create(Logger::class)->lazy(),
+                Config::class      => \DI\create(Config::class)->constructor(\DI\get(Logger::class))->lazy(),
                 GetParams::class   => \DI\create(GetParams::class)->constructor(\DI\get(Logger::class))->lazy(),
                 BibleReader::class => \DI\create(BibleReader::class)->constructor(
                     \DI\get(Logger::class),
@@ -80,6 +68,7 @@ class MassMain
      */
     private function prepareHtmlData()
     {
+        $config    = $this->container->get(Config::class);
         $getParams = $this->container->get(GetParams::class);
         $language  = $this->container->get(Language::class);
         $htmlMaker = $this->container->get(HtmlMaker::class);
@@ -187,33 +176,39 @@ class MassMain
             }
         }
 
+        $csrfToken = CsrfProtection::generateCsrf();
+
+        $baseUrl = $config->readConfig('baseURL');
+        $baseUrl = str_replace("'", '', $baseUrl);
+
         // phpcs:disable
         /**
          * @psalm-suppress InvalidArgument
          */
         // phpcs:enable
         return [
-            '/@@BASEURL@@/'  => $this->baseurl,
-            '/@@LANG@@/'     => $language->repls('@{html}'),
-            '/@@TITLE@@/'    => $language->repls($title),
-            '/@@IDXL@@/'     => $language->repls('@{idxL}'),
-            '/@@IDXY@@/'     => $language->repls('@{idxY}'),
-            '/@@IDXB@@/'     => $language->repls('@{idxB}'),
-            '/@@IDXT@@/'     => $language->repls('@{idxT}'),
-            '/@@CBL@@/'      => $htmlMaker->comboBoxContent($comboboxL, true),
-            '/@@CBY@@/'      => $htmlMaker->comboBoxContent($comboboxY, true),
-            '/@@CBB@@/'      => $htmlMaker->comboBoxContent($comboboxB, false),
-            '/@@CBT@@/'      => $htmlMaker->comboBoxContent($comboboxT, true),
-            '/@@LEGP@@/'     => $language->repls('@{lblP}'),
-            '/@@LEGA@@/'     => $language->repls('@{lblA}'),
-            '/@@LEGR@@/'     => $language->repls('@{lblR}'),
-            '/@@DATEL@@/'    => date('d.m.Y', $dateL),
-            '/@@DATER@@/'    => $language->repls($dateR),
-            '/@@MAIN@@/'     => $htmlContent,
-            '/@@MAINTYPE@@/' => $mainType,
-            '/@@LINKS@@/'    => $htmlMaker->linksContent($links),
-            '/@@MEMPEAK@@/'  => \memory_get_peak_usage(true),
-            '/@@MEMUSE@@/'   => \memory_get_usage(true),
+            '/@@BASEURL@@/'   => $baseUrl,
+            '/@@LANG@@/'      => $language->repls('@{html}'),
+            '/@@TITLE@@/'     => $language->repls($title),
+            '/@@IDXL@@/'      => $language->repls('@{idxL}'),
+            '/@@IDXY@@/'      => $language->repls('@{idxY}'),
+            '/@@IDXB@@/'      => $language->repls('@{idxB}'),
+            '/@@IDXT@@/'      => $language->repls('@{idxT}'),
+            '/@@CBL@@/'       => $htmlMaker->comboBoxContent($comboboxL, true),
+            '/@@CBY@@/'       => $htmlMaker->comboBoxContent($comboboxY, true),
+            '/@@CBB@@/'       => $htmlMaker->comboBoxContent($comboboxB, false),
+            '/@@CBT@@/'       => $htmlMaker->comboBoxContent($comboboxT, true),
+            '/@@LEGP@@/'      => $language->repls('@{lblP}'),
+            '/@@LEGA@@/'      => $language->repls('@{lblA}'),
+            '/@@LEGR@@/'      => $language->repls('@{lblR}'),
+            '/@@DATEL@@/'     => date('d.m.Y', $dateL),
+            '/@@DATER@@/'     => $language->repls($dateR),
+            '/@@MAIN@@/'      => $htmlContent,
+            '/@@MAINTYPE@@/'  => $mainType,
+            '/@@LINKS@@/'     => $htmlMaker->linksContent($links),
+            '/@@MEMPEAK@@/'   => \memory_get_peak_usage(true),
+            '/@@MEMUSE@@/'    => \memory_get_usage(true),
+            '/@@CSRFTOKEN@@/' => $csrfToken,
         ];
 
     }//end prepareHtmlData()
@@ -226,8 +221,13 @@ class MassMain
      */
     public function run()
     {
-        $meas = $this->container->get(Measure::class);
-        $meas->start();
+        $config = $this->container->get(Config::class);
+        $env    = $config->getEnvironment();
+        $meas   = null;
+        if ($env === 'development') {
+            $meas = $this->container->get(Measure::class);
+            $meas->start();
+        }
 
         $template = __DIR__.'/../assets/html/main.html';
         if (file_exists($template) !== true) {
@@ -243,10 +243,11 @@ class MassMain
         );
 
         echo $content;
-        echo "<!-- \r\n";
-        var_export($meas->finish());
-        echo "\r\n -->\r\n";
-        return;
+        if ($env === 'development' && $meas !== null) {
+            echo "<!-- \r\n";
+            var_export($meas->finish());
+            echo "\r\n -->\r\n";
+        }
 
     }//end run()
 

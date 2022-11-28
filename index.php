@@ -2,8 +2,6 @@
 /**
  * Index file for the Order of Mass app
  *
- * PHP version 7.4
- *
  * @package OrderOfMass
  * @author  Tommander <tommander@tommander.cz>
  * @license MIT license https://opensource.org/licenses/MIT
@@ -16,8 +14,6 @@ define('OOM_BASE', 'orderofmass');
 
 require __DIR__.'/vendor/autoload.php';
 
-$baseurl = 'http://localhost/mass/';
-
 // Include MassMain class and create an instance.
-$mass = new MassMain($baseurl);
+$mass = new MassMain();
 $mass->run();

@@ -238,8 +238,8 @@ a:active {
 	position: fixed;
 	bottom: 0;
 	right: 0;
-	border: 1px solid rgba(0,0,0,0.3);
-	background-color:rgba(255, 255, 255, 0.1);
+	border: 1px solid rgba(0,0,0,0.5);
+	background-color: #fff;
 }
 
 #FEEDBACK_TOGGLE {
@@ -260,7 +260,7 @@ a:active {
 	display: inline;	
 }
 
-#FEEDBACK_FORM, #FEEDBACK_TOGGLE, #FEEDBACK_THANKS {
+#FEEDBACK_FORM, #FEEDBACK_TOGGLE, #FEEDBACK_THANKS, #FEEDBACK_ERROR {
 	padding: 0.5rem;
 }
 

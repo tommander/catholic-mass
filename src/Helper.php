@@ -2,8 +2,6 @@
 /**
  * Helper unit
  *
- * PHP version 7.4
- *
  * @package OrderOfMass
  * @author  Tommander <tommander@tommander.cz>
  * @license MIT license https://opensource.org/licenses/MIT
@@ -40,13 +38,13 @@ class Helper
      */
     public static function showCommit()
     {
-        $commitFileName = __DIR__.'/../commit';
+        $commitFileName = __DIR__.'/../.git/refs/heads/main';
         if (file_exists($commitFileName) === false) {
             return '';
         }
 
         $commit = trim(file_get_contents($commitFileName));
-        if (preg_match('/^[a-f0-9]{40}$/', $commit) !== 1) {
+        if (preg_match('/^[a-f0-9]{40}\.$/', $commit) !== 1) {
             return '';
         }
 
@@ -113,7 +111,7 @@ class Helper
     /**
      * Loads a JSON file into a PHP-friendly structure
      *
-     * Basically a tiny little wrapper around {@see json_decode()}.
+     * Basically a tiny little wrapper around {@see \json_decode()}.
      *
      * @param string $fileName Path to the file incl. full file name
      * @param bool   $assoc    JSON objects will be converted to associative arrays instead of objects (default: `true`)
