@@ -3,9 +3,7 @@
     <description>The coding standard for PHP_CodeSniffer itself.</description>
 
     <file>index.php</file>
-    <file>feedback.php</file>
-    <file>feedback_read.php</file>
-    <file>feedback_cert.php</file>
+    <file>config</file>
     <file>src</file>
     <file>libs-dev/phpDocMDX/src</file>
 

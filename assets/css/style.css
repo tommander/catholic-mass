@@ -164,15 +164,15 @@ div.options > div {
 
 /* MAIN (BIBLE) */
 
-main[class=bible] form, main[class=bible] p, main[class=bible] h1, main[class=bible] h2, main[class=bible] h3, main[class=bible] details {
-	margin: 0 1rem;
+main[class=bible] {
+	padding: 1rem 1rem 1rem 1rem;
 }
 
 main[class=bible] form {
 	margin-top: 1rem;
 }
 
-main[class=bible] h1, main[class=bible] h2, main[class=bible] h3, main[class=bible] details {
+main[class=bible] h2, main[class=bible] h3, main[class=bible] details {
 	margin-top: 0.5rem;
 }
 
@@ -242,7 +242,7 @@ a:active {
 	background-color: #fff;
 }
 
-#FEEDBACK_TOGGLE {
+#FEEDBACK_TOGGLE, #RAT1 {
 	cursor: pointer;
 }
 
@@ -266,4 +266,17 @@ a:active {
 
 #FEEDBACK_FORM button {
 	padding: 0.1rem 0.25rem;
+}
+
+#FEEDBACK_RULES {
+	margin-right: 0.2em;
+}
+
+#FEEDBACK_EMAIL, #FEEDBACK_DESCRIPTION, #FEEDBACK_RATING_VIS, .blockLabel {
+	display: block;
+	width: 100%;
+}
+
+#FEEDBACK_EMAIL, #FEEDBACK_DESCRIPTION, #FEEDBACK_RATING_VIS, #FEEDBACK_CONSENT {
+	margin-bottom: 0.5rem;
 }

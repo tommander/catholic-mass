@@ -169,4 +169,28 @@ class GetParams
     }//end isBible()
 
 
+    /**
+     * Feedback write request
+     *
+     * @return bool
+     */
+    public function isFeedbackWrite()
+    {
+        return ($this->getParam('feedback', '') === 'write');
+
+    }//end isFeedbackWrite()
+
+
+    /**
+     * Feedback read request
+     *
+     * @return bool
+     */
+    public function isFeedbackRead()
+    {
+        return ($this->getParam('feedback', '') === 'read');
+
+    }//end isFeedbackRead()
+
+
 }//end class

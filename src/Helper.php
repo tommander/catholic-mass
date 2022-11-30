@@ -38,13 +38,13 @@ class Helper
      */
     public static function showCommit()
     {
-        $commitFileName = __DIR__.'/../.git/refs/heads/main';
+        $commitFileName = self::fullFilename('.git/refs/heads/main');
         if (file_exists($commitFileName) === false) {
             return '';
         }
 
         $commit = trim(file_get_contents($commitFileName));
-        if (preg_match('/^[a-f0-9]{40}\.$/', $commit) !== 1) {
+        if (preg_match('/^[a-f0-9]{40}$/', $commit) !== 1) {
             return '';
         }
 

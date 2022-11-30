@@ -22,31 +22,47 @@
         <form name="langSel" action="@@BASEURL@@index.php" method="get">
             <div id="navSettings">
                 <div>
-                <div><label for="LABELS_SELECTION">@@IDXL@@</label></div>
-                <div><select name="ll" id="LABELS_SELECTION" onchange="submitForm()">
-                @@CBL@@
-                </select></div>
+                    <div>
+                        <label for="LABELS_SELECTION">@@IDXL@@</label>
+                    </div>
+                    <div>
+                        <select name="ll" id="LABELS_SELECTION" onchange="submitForm()">
+                            @@CBL@@
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <label for="TYPE_SELECTION">@@IDXY@@</label>
+                    </div>
+                    <div>
+                        <select name="sn" id="TYPE_SELECTION" onchange="submitForm()">
+                            @@CBY@@
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <label for="BIBLE_SELECTION">@@IDXB@@</label>
+                    </div>
+                    <div>
+                        <select name="bl" id="BIBLE_SELECTION" onchange="submitForm()">
+                            @@CBB@@
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <label for="TEXTS_SELECTION">@@IDXT@@</label>
+                    </div>
+                    <div>
+                        <select name="tl" id="TEXTS_SELECTION" onchange="submitForm()">
+                            @@CBT@@
+                        </select>
+                    </div>
+                </div>
             </div>
-            <div>
-                <div><label for="TYPE_SELECTION">@@IDXY@@</label></div>
-                <div><select name="sn" id="TYPE_SELECTION" onchange="submitForm()">
-                @@CBY@@
-                </select></div>
-            </div>
-            <div>
-                <div><label for="BIBLE_SELECTION">@@IDXB@@</label></div>
-                <div><select name="bl" id="BIBLE_SELECTION" onchange="submitForm()">
-                @@CBB@@
-                </select></div>
-            </div>
-            <div>
-                <div><label for="TEXTS_SELECTION">@@IDXT@@</label></div>
-                <div><select name="tl" id="TEXTS_SELECTION" onchange="submitForm()">
-                @@CBT@@
-                </select></div>
-            </div>
-        </div>
-    </form>
+        </form>
         <div id="navLegend">
             <span>P = @@LEGP@@</span>
             <span>A = @@LEGA@@</span>
@@ -71,26 +87,29 @@
         </div>
         <form name="feedbackForm" id="FEEDBACK_FORM" hidden="hidden">
             <input type="hidden" name="token" value="@@CSRFTOKEN@@">
-            <label for="FEEDBACK_EMAIL">Your e-mail (<abbr title="Fill in your e-mail address in case you want to receive a response to your feedback.">optional</abbr>):</label><br>
-            <input id="FEEDBACK_EMAIL" type="email" name="email" value=""><br>
-            <label for="FEEDBACK_RATING">Rating (optional):</label><br>
+            <label class="blockLabel" for="FEEDBACK_EMAIL">Your e-mail (<abbr title="Fill in your e-mail address in case you want to receive a response to your feedback.">optional</abbr>):</label>
+            <input id="FEEDBACK_EMAIL" type="email" name="email" value="">
+            <label class="blockLabel" for="FEEDBACK_RATING">Rating (optional):</label>
             <input id="FEEDBACK_RATING" type="hidden" name="rating" value="">
-            <span id="FEEDBACK_RATING_VIS">
+            <div id="FEEDBACK_RATING_VIS">
                 <span id="RAT1"><i class="fa-regular fa-star"></i><i class="fa-solid fa-star" onclick="markStar(1)"></i>
                     <span id="RAT2"><i class="fa-regular fa-star"></i><i class="fa-solid fa-star" onclick="markStar(2)"></i>
                         <span id="RAT3"><i class="fa-regular fa-star"></i><i class="fa-solid fa-star" onclick="markStar(3)"></i>
                             <span id="RAT4"><i class="fa-regular fa-star"></i><i class="fa-solid fa-star" onclick="markStar(4)"></i>
-                                <span id="RAT5"><i class="fa-regular fa-star"></i><i class="fa-solid fa-star" onclick="markStar(5)"></i></span>
+                                <span id="RAT5"><i class="fa-regular fa-star"></i><i class="fa-solid fa-star" onclick="markStar(5)"></i>
+                                </span>
                             </span>
                         </span>
                     </span>
                 </span>
-            </span><br>
-            <label for="FEEDBACK_DESCRIPTION">Description:</label><br>
-            <textarea id="FEEDBACK_DESCRIPTION" name="description"></textarea><br><br>
-            <input id="FEEDBACK_RULES" type="checkbox" name="rules" value="ok"><label for="FEEDBACK_RULES">I have read and agree with <a href="feedback.html">Privacy &amp; Rules</a>.</label><br><br>
+            </div>
+            <label class="blockLabel" for="FEEDBACK_DESCRIPTION">Description:</label>
+            <textarea id="FEEDBACK_DESCRIPTION" name="description"></textarea>
+            <div id="FEEDBACK_CONSENT">
+                <input id="FEEDBACK_RULES" type="checkbox" name="rules" value="ok"><label for="FEEDBACK_RULES">I have read and agree with <a href="feedback.html" target="_blank">Privacy &amp; Rules</a>.</label>
+            </div>
             <p id="FEEDBACK_VALIDATION"></p>
-            <button type="button" onclick="submitFeedback()">Submit</button><br><br>
+            <button type="button" onclick="submitFeedback()">Submit</button>
         </form>
         <div id="FEEDBACK_THANKS" hidden="hidden">
             <p>Thank you very much for your feedback <i class="fa-regular fa-face-smile"></i></p>

@@ -3,6 +3,4 @@ phpDocumentor.phar
 vendor
 log.txt
 feedbacks
-feedback_cert.php
-csrf.json
-csrf.lock
+assets/pem

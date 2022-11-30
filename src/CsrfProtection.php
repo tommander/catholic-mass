@@ -19,16 +19,44 @@ if (defined('OOM_BASE') !== true) {
 class CsrfProtection
 {
 
+    /**
+     * Hello
+     *
+     * @var Logger
+     */
+    private $logger;
+
+    /**
+     * Hello
+     *
+     * @var Encryption
+     */
+    private $encryption;
+
+
+    /**
+     * Saves the instance of Logger
+     *
+     * @param Logger     $logger     Logger
+     * @param Encryption $encryption Encryption
+     */
+    public function __construct(Logger $logger, Encryption $encryption)
+    {
+        $this->logger     = $logger;
+        $this->encryption = $encryption;
+
+    }//end __construct()
+
 
     /**
      * Lock file
      *
      * @return resource|null
      */
-    private static function doLock()
+    private function doLock()
     {
         $maxTime    = (time() + 15);
-        $lockFile   = Helper::fullFilename('csrf.json');
+        $lockFile   = Helper::fullFilename('feedbacks/_csrf.json');
         $lockHandle = \fopen($lockFile, 'c+');
         if ($lockHandle === false) {
             return null;
@@ -51,7 +79,7 @@ class CsrfProtection
      *
      * @return bool
      */
-    private static function doUnlock($handle): bool
+    private function doUnlock($handle): bool
     {
         if ($handle === false) {
             return false;
@@ -71,7 +99,7 @@ class CsrfProtection
      *
      * @return array
      */
-    private static function loadCsrfJson($handle): array
+    private function loadCsrfJson($handle): array
     {
         if ($handle === false) {
             return [];
@@ -82,7 +110,27 @@ class CsrfProtection
             $raw .= fread($handle, 8192);
         }
 
-        $json = json_decode($raw, true);
+        if ($raw === '') {
+            return [];
+        }
+
+        $rawJson = json_decode($raw, true);
+        if (is_array($rawJson) !== true) {
+            return [];
+        }
+
+        if (array_key_exists('enc', $rawJson) !== true || array_key_exists('iv', $rawJson) !== true || array_key_exists('tag', $rawJson) !== true) {
+            return [];
+        }
+
+        // phpcs:ignore
+        /** @psalm-suppress UndefinedConstant */
+        $rawDec = $this->encryption->decrypt($rawJson['enc'], CSRF_KEY, $rawJson['iv'], $rawJson['tag']);
+        if ($rawDec === null) {
+            return [];
+        }
+
+        $json = json_decode($rawDec, true);
         if (is_array($json) !== true) {
             return [];
         }
@@ -98,18 +146,36 @@ class CsrfProtection
      * @param mixed $handle File handle
      * @param array $data   Data to save
      *
-     * @return void
+     * @return bool
      */
-    private static function saveCsrfJson($handle, array $data)
+    private function saveCsrfJson($handle, array $data): bool
     {
         if ($handle === false) {
-            return;
+            return false;
+        }
+
+        $dataJson = json_encode($data);
+        if ($dataJson === false) {
+            return false;
+        }
+
+        // phpcs:ignore
+        /** @psalm-suppress UndefinedConstant */
+        $encData = $this->encryption->encrypt($dataJson, CSRF_KEY);
+        if ($encData === null) {
+            return false;
+        }
+
+        $encDataJson = json_encode($encData);
+        if ($encDataJson === false) {
+            return false;
         }
 
         \ftruncate($handle, 0);
         \rewind($handle);
-        \fwrite($handle, json_encode($data));
+        \fwrite($handle, $encDataJson);
         \fflush($handle);
+        return true;
 
     }//end saveCsrfJson()
 
@@ -119,7 +185,7 @@ class CsrfProtection
      *
      * @return string|null
      */
-    private static function generateUserData(): string|null
+    private function generateUserData(): string|null
     {
         if (in_array('tiger192,4', \hash_algos()) !== true) {
             return null;
@@ -144,22 +210,22 @@ class CsrfProtection
      *
      * @return string|null
      */
-    public static function generateCsrf(): string|null
+    public function generateCsrf(): string|null
     {
-        $lockHandle = self::doLock();
+        $lockHandle = $this->doLock();
         if ($lockHandle === null) {
             return null;
         }
 
         try {
-            $csrfData = self::generateUserData();
+            $csrfData = $this->generateUserData();
             if ($csrfData === null) {
                 return null;
             }
 
             $csrfToken = bin2hex(\openssl_random_pseudo_bytes(16));
 
-            $json = self::loadCsrfJson($lockHandle);
+            $json = $this->loadCsrfJson($lockHandle);
             if (array_key_exists('tokens', $json) !== true) {
                 $json['tokens'] = [];
             }
@@ -173,11 +239,11 @@ class CsrfProtection
                 'time' => time(),
             ];
 
-            self::saveCsrfJson($lockHandle, $json);
+            $this->saveCsrfJson($lockHandle, $json);
 
             return $csrfToken;
         } finally {
-            self::doUnlock($lockHandle);
+            $this->doUnlock($lockHandle);
         }//end try
 
     }//end generateCsrf()
@@ -190,15 +256,15 @@ class CsrfProtection
      *
      * @return int 0 on success, positive int on error
      */
-    public static function validateCsrf(string $csrfToken): int
+    public function validateCsrf(string $csrfToken): int
     {
-        $lockHandle = self::doLock();
+        $lockHandle = $this->doLock();
         if ($lockHandle === null) {
             return 4;
         }
 
         try {
-            $json = self::loadCsrfJson($lockHandle);
+            $json = $this->loadCsrfJson($lockHandle);
             if (array_key_exists('tokens', $json) !== true
                 || array_key_exists('users', $json) !== true
                 || array_key_exists($csrfToken, $json['tokens']) !== true
@@ -212,7 +278,7 @@ class CsrfProtection
                 return 6;
             }
 
-            $csrfData = self::generateUserData();
+            $csrfData = $this->generateUserData();
             if ($csrfData === null) {
                 return 2;
             }
@@ -227,11 +293,11 @@ class CsrfProtection
 
             unset($json['tokens'][$csrfToken]);
             $json['users'][$csrfData] = time();
-            self::saveCsrfJson($lockHandle, $json);
+            $this->saveCsrfJson($lockHandle, $json);
 
             return 0;
         } finally {
-            self::doUnlock($lockHandle);
+            $this->doUnlock($lockHandle);
         }//end try
 
     }//end validateCsrf()

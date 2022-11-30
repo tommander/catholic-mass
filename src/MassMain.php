@@ -33,22 +33,32 @@ class MassMain
         $containerBuilder->useAnnotations(false);
         $containerBuilder->addDefinitions(
             [
-                Logger::class      => \DI\create(Logger::class)->lazy(),
-                Config::class      => \DI\create(Config::class)->constructor(\DI\get(Logger::class))->lazy(),
-                GetParams::class   => \DI\create(GetParams::class)->constructor(\DI\get(Logger::class))->lazy(),
-                BibleReader::class => \DI\create(BibleReader::class)->constructor(
+                Logger::class         => \DI\create(Logger::class)->lazy(),
+                Config::class         => \DI\create(Config::class)->constructor(\DI\get(Logger::class))->lazy(),
+                GetParams::class      => \DI\create(GetParams::class)->constructor(\DI\get(Logger::class))->lazy(),
+                CsrfProtection::class => \DI\create(CsrfProtection::class)->constructor(
+                    \DI\get(Logger::class),
+                    \DI\get(Encryption::class),
+                )->lazy(),
+                Encryption::class     => \DI\create(Encryption::class)->constructor(\DI\get(Logger::class))->lazy(),
+                Feedback::class       => \DI\create(Feedback::class)->constructor(
+                    \DI\get(Logger::class),
+                    \DI\get(Encryption::class),
+                    \DI\get(CsrfProtection::class),
+                )->lazy(),
+                BibleReader::class    => \DI\create(BibleReader::class)->constructor(
                     \DI\get(Logger::class),
                     \DI\get(GetParams::class),
                     \DI\get(Language::class),
                 )->lazy(),
-                Lectionary::class  => \DI\create(Lectionary::class)->constructor(\DI\get(Logger::class))->lazy(),
-                Measure::class     => \DI\create(Measure::class)->constructor(\DI\get(Logger::class))->lazy(),
-                HtmlMaker::class   => \DI\create(HtmlMaker::class)->constructor(
+                Lectionary::class     => \DI\create(Lectionary::class)->constructor(\DI\get(Logger::class))->lazy(),
+                Measure::class        => \DI\create(Measure::class)->constructor(\DI\get(Logger::class))->lazy(),
+                HtmlMaker::class      => \DI\create(HtmlMaker::class)->constructor(
                     \DI\get(Logger::class),
                     \DI\get(Language::class),
                     \DI\get(Lectionary::class),
                 )->lazy(),
-                Language::class    => \DI\create(Language::class)->constructor(
+                Language::class       => \DI\create(Language::class)->constructor(
                     \DI\get(Logger::class),
                     \DI\get(GetParams::class),
                     \DI\get(BibleReader::class),
@@ -121,7 +131,7 @@ class MassMain
             ],
             [
                 'label'       => $language->repls('@{icons}'),
-                'text'        => 'Font Awesome Free 5.15.3 by @fontawesome',
+                'text'        => 'Font Awesome Free 6 by @fontawesome',
                 'url'         => 'https://fontawesome.com',
                 'licensetext' => 'Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License',
                 'licenseurl'  => 'https://fontawesome.com/license/free',
@@ -176,18 +186,17 @@ class MassMain
             }
         }
 
-        $csrfToken = CsrfProtection::generateCsrf();
-
-        $baseUrl = $config->readConfig('baseURL');
-        $baseUrl = str_replace("'", '', $baseUrl);
+        $csrfProtection = $this->container->get(CsrfProtection::class);
+        $csrfToken      = $csrfProtection->generateCsrf();
 
         // phpcs:disable
         /**
          * @psalm-suppress InvalidArgument
+         * @psalm-suppress UndefinedConstant
          */
         // phpcs:enable
         return [
-            '/@@BASEURL@@/'   => $baseUrl,
+            '/@@BASEURL@@/'   => BASE_URL,
             '/@@LANG@@/'      => $language->repls('@{html}'),
             '/@@TITLE@@/'     => $language->repls($title),
             '/@@IDXL@@/'      => $language->repls('@{idxL}'),
@@ -227,6 +236,18 @@ class MassMain
         if ($env === 'development') {
             $meas = $this->container->get(Measure::class);
             $meas->start();
+        }
+
+        $getParams = $this->container->get(GetParams::class);
+        $feedback  = $this->container->get(Feedback::class);
+        if ($getParams->isFeedbackWrite() === true) {
+            $feedback->saveFeedback();
+            return;
+        }
+
+        if ($getParams->isFeedbackRead() === true) {
+            $feedback->readFeedback();
+            return;
         }
 
         $template = __DIR__.'/../assets/html/main.html';

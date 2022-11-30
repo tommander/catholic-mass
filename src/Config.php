@@ -51,43 +51,27 @@ class Config
         $this->logger = $logger;
 
         $envFile = '.env';
-        if (file_exists(Helper::fullFilename($envFile)) !== true) {
-            throw new \Exception('File "'.$envFile.'" does not exist.');
-        }
 
         $this->environment = file_get_contents(Helper::fullFilename($envFile));
-        if ($this->environment === false || $this->environment === '') {
-            throw new \Exception('File "'.$envFile.'" does not exist or has an incorrect value.');
+        if ($this->environment === false) {
+            throw new \Exception('File "'.$envFile.'" does not exist or cannot be read.');
         }
 
         $this->environment = \preg_replace('/\W/', '', $this->environment);
+        if ($this->environment === '') {
+            throw new \Exception('File "'.$envFile.'" contains an incorrect environment definition.');
+        }
 
-        $confFile = 'config/'.$this->environment.'.json';
+        $confFile = 'config/'.$this->environment.'.php';
         if (file_exists(Helper::fullFilename($confFile)) !== true) {
             throw new \Exception('Environment configuration "'.$confFile.'" file does not exist.');
         }
 
-        $this->config = Helper::loadJson($confFile);
+        // phpcs:ignore
+        /** @psalm-suppress UnresolvableInclude */
+        include_once $confFile;
 
     }//end __construct()
-
-
-    /**
-     * Reads a config item
-     *
-     * @param string $configKey Key in the associative array
-     *
-     * @return mixed
-     */
-    public function readConfig(string $configKey)
-    {
-        if (array_key_exists($configKey, $this->config) !== true) {
-            return '';
-        }
-
-        return $this->config[$configKey];
-
-    }//end readConfig()
 
 
     /**

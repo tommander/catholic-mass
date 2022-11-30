@@ -1,26 +1,23 @@
 # Order of Mass
 
-God bless you! :pray: *Order of Mass* is a simple web app that shows the full text of either Roman Catholic Order of Mass or Holy Rosary.
+God bless you! :pray: *Order of Mass* is a simple web app that shows the full text of either Roman Catholic Order of Mass or Holy Rosary or lets you read whole Bible translations in different languages.
 
 Main features:
 
  * Separate language choice for web (labels) and mass
- * Switch between Order of Mass and Holy Rosary
+ * Switch between Order of Mass, Holy Rosary and Bible reading
  * Full lectionary (only for Sundays so far)
  * Extract readings from different Bible translations
  * Mobile and desktop friendly design
+ * Secure feedback form
 
 This app is currently deployed on [mass.tommander.cz](https://mass.tommander.cz). If you need some content in your app or website, please fork or download this project's code instead, don't scrape it from that site.
 
 ## Get Started
 
-All necessary information should be available on [Wiki](https://github.com/tommander/catholic-mass/wiki/) (for users, translators and developers).
+All necessary information should be available on [Wiki](https://github.com/tommander/catholic-mass/wiki/) (grouped by users, translators and developers).
 
-TL;DR for a local working copy setup: `git clone`, `composer install`, `composer dump-autoload`, `apache start`.
-
-If the information you need is not there or not easily available, shame on me! :rage3: Please let me know then, I'll fix it. :flushed:
-
-## Contribution / Get Started
+## Contribution
 
 I'd be super thankful for basically any help, because every aspect of this app needs some revision, testing, improvement etc. To name some:
 

@@ -72,7 +72,7 @@ function submitFeedback() {
         method: 'POST',
         body: dataBody
     }
-    fetch(window.baseUrl+'feedback.php', data)
+    fetch(window.baseUrl+'index.php?feedback=write', data)
         .then((response) => response.json())
         .then((response) => {
             theForm.setAttribute('hidden', 'hidden');
