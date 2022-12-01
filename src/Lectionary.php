@@ -36,14 +36,14 @@ class Lectionary
      * 3. Third level's key is the reading type (`r1` for first reading, `r2` for second reading, `p` for responsorial psalm, `a` for alleluia, `g` for gospel)
      * 4. Fourth level can be either a single verse reference or an array of verse references
      *
-     * And below is an example:
+     * And below is an example that shows that for the second sunday in ordinary time, year A, the first reading is either `Ge 1:1` or `Ge 1:2` and the second reading is `Ge 1:3`:
      *
      * ```
      * array(
      *     'SIOT2' => [
      *         'A' => [
      *             'r1' => ['Ge 1:1', 'Ge 1:2'],
-     *             'r2' => 'Ge 1:3
+     *             'r2' => 'Ge 1:3'
      *         ]
      *     ]
      * )

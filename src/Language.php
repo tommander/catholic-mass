@@ -14,20 +14,22 @@ if (defined('OOM_BASE') !== true) {
 }
 
 /**
- * Language class
+ * Language-related functionality
  */
 class Language
 {
 
     /**
-     * Logger instance
+     * Logger service
      *
      * @var Logger
      */
     private $logger;
 
     /**
-     * List of available Font Awesome icons
+     * List of available Font Awesome icons.
+     *
+     * This is just to make it easier to reference icons (you don't have to use the whole FontAwesome reference that goes to the `class` attribute).
      *
      * - Array key is the icon ID as used in the placeholder `@icon{iconID}`
      * - Array value is the CSS class of the `<i>` tag that Font Awesome uses
@@ -164,10 +166,10 @@ class Language
 
 
     /**
-     * Hello
+     * Returns the data from `langlist.json` for one specific language
      *
-     * @param string $lang Hello
-     * @param string $data Hello
+     * @param string $lang Language code
+     * @param string $data Which data in particular (if empty, it will return them all)
      *
      * @return mixed
      */
@@ -191,7 +193,7 @@ class Language
 
 
     /**
-     * Hello
+     * Retrieve the content of mass/rosary (from `xxx_content.json`) or Bible translation via BibleReader service
      *
      * @param string $type Hello
      *
@@ -213,9 +215,9 @@ class Language
 
 
     /**
-     * Hello
+     * Retrieve a list of available languages in an associative array that can be easily converted to `select` tag content
      *
-     * @param string $selection Hello
+     * @param string $selection Which language code should be treated as selected
      *
      * @return array
      */
@@ -241,6 +243,16 @@ class Language
 
     /**
      * Regex replacement of label and icon placeholders in a text.
+     *
+     * Placeholders list:
+     *
+     * - @{text} - the string `text` is treated as a key in the `xxx_labels.json` file, object `labels`
+     * - @su{text} - the string `text` is treated as a key in the `xxx_labels.json` file, object `sundays`
+     * - @my{text} - the string `text` is treated as a key in the `xxx_labels.json` file, object `mysteries`
+     * - @bib{string} - the string `string` is treated as a key in the `xxx_labels.json` file, object `bible`
+     * - @icon{text} - the string `text` is treated as a key in the {@see Language::icons} array
+     *
+     * Please note that `text` consists of latin letters (uppercase or lowercase) and digits. On the other hand, `string` consists of any character except for square brackets.
      *
      * @param string $text        Text that may contain label/icon placeholders
      * @param bool   $wrapCommand Whether to wrap label placeholders with `span` tag with class `command` (default `false`)

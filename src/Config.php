@@ -20,21 +20,14 @@ class Config
 {
 
     /**
-     * Environment name
+     * Environment name (normally either `production` or `development`)
      *
      * @var string
      */
     private $environment = '';
 
     /**
-     * Configuration items
-     *
-     * @var array
-     */
-    private $config = [];
-
-    /**
-     * Logger
+     * Logger service
      *
      * @var Logger
      */
@@ -43,6 +36,8 @@ class Config
 
     /**
      * Constructor
+     *
+     * Saves the service instances and then loads the `.env` file, which should contain the name of the current environment. Based on that, it will load the respective configuration script.
      *
      * @param Logger $logger Logger instance
      */

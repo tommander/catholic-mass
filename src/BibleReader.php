@@ -15,6 +15,10 @@ if (defined('OOM_BASE') !== true) {
 
 /**
  * Reader for Zefania Bible translations.
+ *
+ * This class can get verses based on verse references, translate book numbers to book names and render whole Bible translation.
+ *
+ * It is working with the submodule `zefania-bibles`, where it reads the JSON files generated from original XMLs.
  */
 class BibleReader
 {
@@ -94,21 +98,21 @@ class BibleReader
      *
      * @var GetParams
      */
-    private $svcGetParams;
+    private $getParams;
 
     /**
      * Logger service instance
      *
      * @var Logger
      */
-    private $svcLogger;
+    private $logger;
 
     /**
      * Language service instance
      *
      * @var Language
      */
-    private $svcLanguage;
+    private $language;
 
 
     /**
@@ -162,24 +166,30 @@ class BibleReader
     /**
      * Constructor
      *
+     * Saves service instances and loads Bible translations list
+     *
      * @param Logger    $logger    Logger service instance
      * @param GetParams $getParams GetParams service instance
      * @param Language  $language  Language service instance
      */
     public function __construct(Logger $logger, GetParams $getParams, Language $language)
     {
-        $this->svcLogger          = $logger;
-        $this->svcGetParams       = $getParams;
-        $this->svcLanguage        = $language;
-        $this->currentTranslation = $this->svcGetParams->getBible();
+        // Services.
+        $this->logger    = $logger;
+        $this->getParams = $getParams;
+        $this->language  = $language;
 
+        // Translations list and common list of books.
         $this->indexJson = Helper::loadJson('libs/zefania-bibles/index.min.json', true);
         $this->bookIndex = Helper::loadJson('assets/json/booklist.json', true);
 
+        // Separate book name abbreviations and book full names.
         $this->bookIndexNumAbbr = array_keys($this->bookIndex);
         $this->bookIndexNumFull = array_values($this->bookIndex);
 
-        $currentTranslationData = explode('|', $this->currentTranslation);
+        // If a Bible translation was chosen, load its files.
+        $this->currentTranslation = $this->getParams->getBible();
+        $currentTranslationData   = explode('|', $this->currentTranslation);
         if (count($currentTranslationData) === 2
             && isset($this->indexJson[$currentTranslationData[0]][$currentTranslationData[1]]['file']) === true
         ) {
@@ -194,7 +204,7 @@ class BibleReader
 
 
     /**
-     * Short description
+     * Read the list of Bible translations and formats it so that it can be easily output in the HTML `select` tag.
      *
      * @return array
      */
@@ -210,8 +220,8 @@ class BibleReader
             ],
         ];
 
-        $langLabels  = $this->svcGetParams->getLabelLang();
-        $langContent = $this->svcGetParams->getContentLang();
+        $langLabels  = $this->getParams->getLabelLang();
+        $langContent = $this->getParams->getContentLang();
 
         foreach ($this->indexJson as $lang => $langCont) {
             if (is_string($lang) !== true) {
@@ -534,7 +544,7 @@ class BibleReader
         $toc        = [];
         $verses     = '';
         $tocChaps   = [];
-        $selectBook = $this->svcGetParams->getSelectBook();
+        $selectBook = $this->getParams->getSelectBook();
 
         foreach ($this->jsonFile as $verseID => $verseText) {
             $verseData = self::decodeRefVer($verseID);
@@ -565,14 +575,14 @@ class BibleReader
             }
 
             if (intval($verseData['vers']) === 1) {
-                $verses .= "<h3 id=\"chap${chapNum}\">".$this->svcLanguage->repls('@{chapter}')." ".$chapNum."</h3><p class=\"backtotop\"><a onclick=\"scrollToTop()\">".$this->svcLanguage->repls('@{backtotop}')."</a></p>\r\n";
+                $verses .= "<h3 id=\"chap${chapNum}\">".$this->language->repls('@{chapter}')." ".$chapNum."</h3><p class=\"backtotop\"><a onclick=\"scrollToTop()\">".$this->language->repls('@{backtotop}')."</a></p>\r\n";
                 $tocChaps["chap${chapNum}"] = $chapNum;
             }
 
             $verses .= "<p><strong>".$versNum."</strong> ".$verseText."</p>";
         }//end foreach
 
-        $tocText = '<form name="selectabook" action="index.php" method="GET"><label for="SELECT_BOOK">'.$this->svcLanguage->repls('@{selectbook}').':</label>';
+        $tocText = '<form name="selectabook" action="index.php" method="GET"><label for="SELECT_BOOK">'.$this->language->repls('@{selectbook}').':</label>';
         foreach ($_GET as $getKey => $getValue) {
             if ($getKey === 'book') {
                 continue;
@@ -599,7 +609,7 @@ class BibleReader
         $tocText .= '</select></form>';
 
         if (count($tocChaps) > 0) {
-            $tocText .= "<form><label for=\"SELECT_CHAPTER\">".$this->svcLanguage->repls('@{selectchapter}').":</label><select id=\"SELECT_CHAPTER\" onchange=\"scrollToElement(this.value)\">";
+            $tocText .= "<form><label for=\"SELECT_CHAPTER\">".$this->language->repls('@{selectchapter}').":</label><select id=\"SELECT_CHAPTER\" onchange=\"scrollToElement(this.value)\">";
             foreach ($tocChaps as $tocLink => $tocName) {
                 $tocText .= "<option value=\"${tocLink}\">${tocName}</option>";
             }

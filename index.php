@@ -10,6 +10,7 @@
 
 namespace TMD\OrderOfMass;
 
+// Without this the source files won't be loaded.
 define('OOM_BASE', 'orderofmass');
 
 require __DIR__.'/vendor/autoload.php';

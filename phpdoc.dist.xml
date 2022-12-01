@@ -8,6 +8,7 @@
     <folder>latest</folder>
     <api format="php">
       <ignore hidden="true" symlinks="true">
+        <path>config/**/*</path>
         <path>vendor/**/*</path>
         <path>libs/**/*</path>
       </ignore>

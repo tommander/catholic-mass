@@ -14,20 +14,20 @@ if (defined('OOM_BASE') !== true) {
 }
 
 /**
- * Static functions to generate/validate CSRF token
+ * CSRF form protection functionality
  */
 class CsrfProtection
 {
 
     /**
-     * Hello
+     * Logger service
      *
      * @var Logger
      */
     private $logger;
 
     /**
-     * Hello
+     * Encryption service
      *
      * @var Encryption
      */
@@ -35,7 +35,7 @@ class CsrfProtection
 
 
     /**
-     * Saves the instance of Logger
+     * Saves the service instances
      *
      * @param Logger     $logger     Logger
      * @param Encryption $encryption Encryption
@@ -49,7 +49,7 @@ class CsrfProtection
 
 
     /**
-     * Lock file
+     * Lock `_csrf.json` file and return its handle on success
      *
      * @return resource|null
      */
@@ -73,7 +73,7 @@ class CsrfProtection
 
 
     /**
-     * Unlock file
+     * Unlock the file `_csrf.json` and close its handle
      *
      * @param mixed $handle File handle
      *
@@ -93,7 +93,7 @@ class CsrfProtection
 
 
     /**
-     * Load json
+     * Load the previously locked JSON and return it as an associative array
      *
      * @param mixed $handle File handle
      *
@@ -141,7 +141,7 @@ class CsrfProtection
 
 
     /**
-     * Save json
+     * Save the new content of the JSON
      *
      * @param mixed $handle File handle
      * @param array $data   Data to save
@@ -181,7 +181,7 @@ class CsrfProtection
 
 
     /**
-     * Generate user data
+     * Generate user data (hashed version of IP address)
      *
      * @return string|null
      */
@@ -206,7 +206,7 @@ class CsrfProtection
 
 
     /**
-     * Generates a CSRF token
+     * Generates a CSRF token and saves the information to CSRF JSON
      *
      * @return string|null
      */
@@ -250,7 +250,7 @@ class CsrfProtection
 
 
     /**
-     * Validate CSRF token
+     * Validate CSRF token against the information in the CSRF JSON
      *
      * @param string $csrfToken CSRF token
      *

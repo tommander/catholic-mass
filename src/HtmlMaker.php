@@ -20,21 +20,21 @@ class HtmlMaker
 {
 
     /**
-     * Hello
+     * Logger service
      *
      * @var Logger
      */
     private $logger;
 
     /**
-     * Hello
+     * Language service
      *
      * @var Language
      */
     private $language;
 
     /**
-     * Hello
+     * Lectionary service
      *
      * @var Lectionary
      */
@@ -42,7 +42,7 @@ class HtmlMaker
 
 
     /**
-     * Saves the instance of Logger
+     * Saves service instances
      *
      * @param Logger     $logger     Logger
      * @param Language   $language   Language
@@ -256,9 +256,9 @@ class HtmlMaker
 
 
     /**
-     * Short description
+     * Converts a JSON array to HTML (the result is a row of tabs each with their content)
      *
-     * @param array $arr Array
+     * @param array $arr JSON array
      *
      * @return string
      */

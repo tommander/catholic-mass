@@ -14,14 +14,14 @@ if (defined('OOM_BASE') !== true) {
 }
 
 /**
- * Static functions to encrypt/decrypt text
+ * Symmetric encryption/decryption functionality
  */
 class Encryption
 {
 
 
     /**
-     * Encrypts a text with the delivered public key and return the encrypted message base64 encoded
+     * Encrypts a text with the delivered public key and return the encrypted message base64 encoded along with IV and tag (both converted to hexadecimal value)
      *
      * @param string $plainText Text to encrypt
      * @param string $key       Raw encryption key
@@ -52,7 +52,7 @@ class Encryption
 
 
     /**
-     * Decrypt a base64 encoded message using the delivered private key
+     * Decrypt a base64 encoded message with previously generated IV and tag and using the delivered decryption key
      *
      * @param string $base64text Encrypted base64 encoded text
      * @param string $key        Raw decryption key

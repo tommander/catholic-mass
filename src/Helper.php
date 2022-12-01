@@ -73,26 +73,6 @@ class Helper
 
 
     /**
-     * Creates a chapter-verse-statement number (CVSN).
-     *
-     * `CvvvvSS` - chapter number followed by verse number with exactly four digits (zero-padded) and statement number with exactly two digis (zero-padded)).
-     *
-     * For Bible, this number can happily fit into a 32-bit signed integer.
-     *
-     * @param int $chap Chapter
-     * @param int $ver  Verse
-     * @param int $sta  Statement (none = 0, a = 1, b = 2, ...)
-     *
-     * @return int
-     */
-    public static function chapVer(int $chap, int $ver, int $sta=0): int
-    {
-        return (int) sprintf('%d%04d%02d', $chap, $ver, $sta);
-
-    }//end chapVer()
-
-
-    /**
      * Returns full file path and name
      *
      * This function should be used in the PHP files in the src/ folder.
@@ -148,6 +128,8 @@ class Helper
     /**
      * Returns the Sunday year cycle (A,B,C) for the given year
      *
+     * Beware that the liturgical year starts with the first Sunday of Advent, so you have to increase the year number in case you are already in the first week of the liturgical year
+     *
      * @param int $year Year
      *
      * @return string
@@ -175,6 +157,8 @@ class Helper
 
     /**
      * Returns the weekday year cycle (I,II) for the given year
+     *
+     * Beware that the liturgical year starts with the first Sunday of Advent, so you have to increase the year number in case you are already in the first week of the liturgical year
      *
      * @param mixed $year Year
      *

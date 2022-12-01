@@ -45,12 +45,14 @@ class GetParams
 
 
     /**
-     * Hello
+     * Universal function to retrieve a GET param
      *
-     * @param string $name    Hello
-     * @param string $default Hello
-     * @param array  $values  Hello
-     * @param string $regex   Hello
+     * If both array of values (`$values`) and regex (`$regex`) is handed over, the regex has priority
+     *
+     * @param string $name    Parameter name
+     * @param string $default Parameter default value (if it cannot be read or has an incorrect value)
+     * @param array  $values  Allowed values of the parameter (if its value is not in this array, the default value is returned)
+     * @param string $regex   Regex for checking correct parameter value (if its value does not match the regex, the default value is returned)
      *
      * @return string
      */
@@ -76,9 +78,9 @@ class GetParams
 
 
     /**
-     * Hello
+     * Retrieve labels language parameter (all texts outside of the text of the mass/rosary)
      *
-     * @param string $default Default
+     * @param string $default Default value
      *
      * @return string
      */
@@ -90,9 +92,9 @@ class GetParams
 
 
     /**
-     * Hello
+     * Retrieve text language parameter (text of the mass/rosary)
      *
-     * @param string $default Default
+     * @param string $default Default value
      *
      * @return string
      */
@@ -104,9 +106,9 @@ class GetParams
 
 
     /**
-     * Hello
+     * Retrieve chosen Bible translation abbreviation
      *
-     * @param string $default Default
+     * @param string $default Default value
      *
      * @return string
      */
@@ -118,9 +120,9 @@ class GetParams
 
 
     /**
-     * Hello
+     * Retrieve page type (mass/rosary/Bible)
      *
-     * @param string $default Default
+     * @param string $default Default value
      *
      * @return string
      */
@@ -132,9 +134,9 @@ class GetParams
 
 
     /**
-     * Hello
+     * Retrieve the book within Bible, that the user currently wants to read
      *
-     * @param string $default Default
+     * @param string $default Default value
      *
      * @return string
      */
@@ -170,7 +172,7 @@ class GetParams
 
 
     /**
-     * Feedback write request
+     * Feedback write request (this means the JS script sent an asynchronous request to store the feedback data)
      *
      * @return bool
      */
@@ -182,7 +184,7 @@ class GetParams
 
 
     /**
-     * Feedback read request
+     * Feedback read request (this is when we want to show decrypted feedback data)
      *
      * @return bool
      */

@@ -1,6 +1,6 @@
 <?php
 /**
- * Feedback form listener
+ * Feedback unit
  *
  * @package OrderOfMass
  * @author  Tommander <tommander@tommander.cz>
@@ -14,27 +14,27 @@ if (defined('OOM_BASE') !== true) {
 }
 
 /**
- * Static functions to encrypt/decrypt text
+ * Feedback form storage functionality
  */
 class Feedback
 {
 
     /**
-     * Hello
+     * Logger service
      *
      * @var Logger
      */
     private $logger;
 
     /**
-     * Hello
+     * Encryption service
      *
      * @var Encryption
      */
     private $encryption;
 
     /**
-     * Hello
+     * CsrfProtection service
      *
      * @var CsrfProtection
      */
@@ -42,7 +42,7 @@ class Feedback
 
 
     /**
-     * Saves the instance of Logger
+     * Saves service instances
      *
      * @param Logger         $logger         Logger
      * @param Encryption     $encryption     Encryption
@@ -59,6 +59,8 @@ class Feedback
 
     /**
      * Prints out a JSON encoded status message
+     *
+     * This is mainly meant for the JS script that can later parse this message and show some additional message to the user
      *
      * @param bool   $success Success flag
      * @param int    $code    Status code
@@ -122,6 +124,8 @@ class Feedback
 
     /**
      * Listener to feedback store request
+     *
+     * Output of this function is a HTTP status header and a JSON encoded message in the body
      *
      * @return void
      */
@@ -235,7 +239,9 @@ class Feedback
 
 
     /**
-     * Output feedback files in decrypted form
+     * List all feedback JSON files in the `feedbacks` directory, decrypt them and show them on the page
+     *
+     * The function will first ask for the decryption key
      *
      * @return void
      */
