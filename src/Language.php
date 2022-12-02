@@ -111,12 +111,12 @@ class Language
 
 
     /**
-     * Hello
+     * Save service instances
      *
-     * @param Logger      $logger      Hello
-     * @param GetParams   $getParams   Hello
-     * @param BibleReader $bibleReader Hello
-     * @param Lectionary  $lectionary  Hello
+     * @param Logger      $logger      Logger service
+     * @param GetParams   $getParams   GetParams service
+     * @param BibleReader $bibleReader BibleReader service
+     * @param Lectionary  $lectionary  Lectionary service
      */
     public function __construct(Logger $logger, GetParams $getParams, BibleReader $bibleReader, Lectionary $lectionary)
     {

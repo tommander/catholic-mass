@@ -33,9 +33,12 @@ class MassMain
         $containerBuilder->useAnnotations(false);
         $containerBuilder->addDefinitions(
             [
-                Logger::class         => \DI\create(Logger::class)->lazy(),
+                BibleReader::class    => \DI\create(BibleReader::class)->constructor(
+                    \DI\get(Logger::class),
+                    \DI\get(GetParams::class),
+                    \DI\get(Language::class),
+                )->lazy(),
                 Config::class         => \DI\create(Config::class)->constructor(\DI\get(Logger::class))->lazy(),
-                GetParams::class      => \DI\create(GetParams::class)->constructor(\DI\get(Logger::class))->lazy(),
                 CsrfProtection::class => \DI\create(CsrfProtection::class)->constructor(
                     \DI\get(Logger::class),
                     \DI\get(Encryption::class),
@@ -46,13 +49,7 @@ class MassMain
                     \DI\get(Encryption::class),
                     \DI\get(CsrfProtection::class),
                 )->lazy(),
-                BibleReader::class    => \DI\create(BibleReader::class)->constructor(
-                    \DI\get(Logger::class),
-                    \DI\get(GetParams::class),
-                    \DI\get(Language::class),
-                )->lazy(),
-                Lectionary::class     => \DI\create(Lectionary::class)->constructor(\DI\get(Logger::class))->lazy(),
-                Measure::class        => \DI\create(Measure::class)->constructor(\DI\get(Logger::class))->lazy(),
+                GetParams::class      => \DI\create(GetParams::class)->constructor(\DI\get(Logger::class))->lazy(),
                 HtmlMaker::class      => \DI\create(HtmlMaker::class)->constructor(
                     \DI\get(Logger::class),
                     \DI\get(Language::class),
@@ -64,6 +61,9 @@ class MassMain
                     \DI\get(BibleReader::class),
                     \DI\get(Lectionary::class)
                 )->lazy(),
+                Lectionary::class     => \DI\create(Lectionary::class)->constructor(\DI\get(Logger::class))->lazy(),
+                Logger::class         => \DI\create(Logger::class)->lazy(),
+                Measure::class        => \DI\create(Measure::class)->constructor(\DI\get(Logger::class))->lazy(),
             ]
         );
         $this->container = $containerBuilder->build();

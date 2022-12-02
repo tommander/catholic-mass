@@ -19,6 +19,25 @@ if (defined('OOM_BASE') !== true) {
 class Encryption
 {
 
+    /**
+     * Logger service
+     *
+     * @var Logger
+     */
+    private $logger;
+
+
+    /**
+     * Save service instances
+     *
+     * @param Logger $logger Logger service
+     */
+    public function __construct(Logger $logger)
+    {
+        $this->logger = $logger;
+
+    }//end __construct()
+
 
     /**
      * Encrypts a text with the delivered public key and return the encrypted message base64 encoded along with IV and tag (both converted to hexadecimal value)
