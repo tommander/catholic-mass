@@ -55,7 +55,7 @@ If you don't know, the community leaders have the responsibility to act accordin
 
 ## Reporting and point of contact
 
-If you notice a violation of this Code of Conduct or if you feel it is necessary to change or adjust this Code, please send an e-mail to [tommander@tommander.cz](mailto:tommander@tommander.cz) or contact (tommander@GitHub)[https://github.com/tommander]. We will stay in touch to let you know, what exactly is being done regarding the violation you reported.
+If you notice a violation of this Code of Conduct or if you feel it is necessary to change or adjust this Code, please send an e-mail to [tommander@tommander.cz](mailto:tommander@tommander.cz) or contact [tommander@GitHub](https://github.com/tommander). We will stay in touch to let you know, what exactly is being done regarding the violation you reported.
 
 Also, at any time, feel free to discuss if you feel that there was no violation, that there is a reason why it must have been done etc.
 

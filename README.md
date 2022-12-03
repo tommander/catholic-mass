@@ -15,31 +15,30 @@ This app is currently deployed on [mass.tommander.cz](https://mass.tommander.cz)
 
 ## Get Started
 
-All necessary information should be available on [Wiki](https://github.com/tommander/catholic-mass/wiki/) (grouped by users, translators and developers).
+All necessary information should be available on [Wiki](https://github.com/tommander/catholic-mass/wiki/).
 
-## Contribution
+If you are looking for a guide to make a local working copy, check [Install](https://github.com/tommander/catholic-mass/wiki/Install).
 
-I'd be super thankful for basically any help, because every aspect of this app needs some revision, testing, improvement etc. To name some:
+Please make sure to check the [Code of Conduct](https://github.com/tommander/catholic-mass/blob/main/.github/CODE_OF_CONDUCT.md) as well :handshake:
 
- * Testing - reporting of errors, finding UX/UI/accessibility issues etc.
- * Translations - correction of existing ones, new translations
- * Correction and auditing of lectionary, Bible verse reference parsing
- * Code checking and security audit
+## Security issues
 
-Feel free to use PRs, issue tracking or reach out to me directly.
+For reporting security violations please check the [Security](https://github.com/tommander/catholic-mass/blob/main/.github/SECURITY.md).
 
-To get familiar with what this mess of a repo is about, the [Wiki](https://github.com/tommander/catholic-mass/wiki) should be a good starting point.
+## Contributing
+
+Happy to hear you are considering contributing to this project! Please check [Contributing](https://github.com/tommander/catholic-mass/blob/main/.github/CONTRIBUTING.md) and don't hesitate to get in touch with maintainers and contributors in case of questions! :slightly_smiling_face:
 
 ## Donation
 
-No need to donate to me. There is a lot of people, who need help (not only financial). I'd be more than grateful if you help those who need it the most.
+There is a lot of people, who need help (not only financial). We'd be more than grateful if you help those who need it the most.
 
 And please do not forget to spread the good news :pray:
 
 ## Help
 
-If you need any help or have a question regarding this project, feel free to contact me via [e-mail](mailto:tommander@tommander.cz) or via other communication options available here on GitHub (e.g. [Issues](https://github.com/tommander/catholic-mass/issues)). I'll be happy to help you :handshake:
+[Support](https://github.com/tommander/catholic-mass/blob/main/.github/SUPPORT.md) will help you to get support anytime :muscle:
 
 ## Maintainers and contributors
 
-- :man_office_worker: [@tommander](https://github.com/tommander) (active maintainer)
+- :man_office_worker: [@tommander](https://github.com/tommander) (author, active maintainer)
