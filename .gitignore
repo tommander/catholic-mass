@@ -1,5 +1,7 @@
 phpDocumentor.phar
-.*
+.docs
+.phpdoc
+.vscode
 vendor
 log.txt
-feedbacks
+feedbacks/*.json
