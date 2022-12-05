@@ -18,18 +18,29 @@ if (defined('OOM_BASE') !== true) {
  */
 class GetParams
 {
-    public const PARAM_LABELS     = 'll';
-    public const PARAM_TEXTS      = 'tl';
-    public const PARAM_BIBLE      = 'bl';
-    public const PARAM_TYPE       = 'sn';
-    public const PARAM_SELECTBOOK = 'book';
+    public const PARAM_LABELS = 'labels';
+    public const PARAM_TEXTS  = 'content';
+    public const PARAM_BIBLE  = 'bible';
+    public const PARAM_TYPE   = 'type';
+    public const PARAM_BOOK   = 'book';
+
+    public const TYPE_MASS   = 'mass';
+    public const TYPE_ROSARY = 'rosary';
+    public const TYPE_BIBLE  = 'bible';
 
     /**
-     * Hello
+     * Logger instance
      *
      * @var Logger
      */
     private $logger;
+
+    /**
+     * Sanitized GET params
+     *
+     * @var array
+     */
+    private $params = [];
 
 
     /**
@@ -40,14 +51,23 @@ class GetParams
     public function __construct(Logger $logger)
     {
         $this->logger = $logger;
+        $this->params = [
+            self::PARAM_LABELS => $this->readParam(self::PARAM_LABELS, 'eng', [], '/^[a-z]{3}$/'),
+            self::PARAM_TEXTS  => $this->readParam(self::PARAM_TEXTS, 'eng', [], '/^[a-z]{3}$/'),
+            self::PARAM_BIBLE  => $this->readParam(self::PARAM_BIBLE, ''),
+            self::PARAM_TYPE   => $this->readParam(self::PARAM_TYPE, self::TYPE_MASS, [self::TYPE_MASS, self::TYPE_ROSARY, self::TYPE_BIBLE]),
+            self::PARAM_BOOK   => $this->readParam(self::PARAM_BOOK, ''),
+        ];
 
     }//end __construct()
 
 
     /**
-     * Universal function to retrieve a GET param
+     * Universal function to read a GET param
      *
      * If both array of values (`$values`) and regex (`$regex`) is handed over, the regex has priority
+     *
+     * Note that the value of the param must be a string and that it is first `urldecoded` before other checks are performed (if any)
      *
      * @param string $name    Parameter name
      * @param string $default Parameter default value (if it cannot be read or has an incorrect value)
@@ -56,7 +76,7 @@ class GetParams
      *
      * @return string
      */
-    private function getParam(string $name, string $default, array $values=[], string $regex=''): string
+    private function readParam(string $name, string $default, array $values=[], string $regex=''): string
     {
         if (isset($_GET[$name]) !== true || is_string($_GET[$name]) !== true) {
             return $default;
@@ -74,125 +94,25 @@ class GetParams
 
         return $val;
 
+    }//end readParam()
+
+
+    /**
+     * Gets the sanitized value of a GET param
+     *
+     * @param string $paramName One of the `PARAM_` public constants
+     *
+     * @return string
+     */
+    public function getParam(string $paramName): string
+    {
+        if (array_key_exists($paramName, $this->params) !== true) {
+            return '';
+        }
+
+        return $this->params[$paramName];
+
     }//end getParam()
-
-
-    /**
-     * Retrieve labels language parameter (all texts outside of the text of the mass/rosary)
-     *
-     * @param string $default Default value
-     *
-     * @return string
-     */
-    public function getLabelLang(string $default='eng'): string
-    {
-        return $this->getParam(self::PARAM_LABELS, $default, [], '/^[a-z]{3}$/');
-
-    }//end getLabelLang()
-
-
-    /**
-     * Retrieve text language parameter (text of the mass/rosary)
-     *
-     * @param string $default Default value
-     *
-     * @return string
-     */
-    public function getContentLang(string $default='eng'): string
-    {
-        return $this->getParam(self::PARAM_TEXTS, $default, [], '/^[a-z]{3}$/');
-
-    }//end getContentLang()
-
-
-    /**
-     * Retrieve chosen Bible translation abbreviation
-     *
-     * @param string $default Default value
-     *
-     * @return string
-     */
-    public function getBible(string $default=''): string
-    {
-        return $this->getParam(self::PARAM_BIBLE, $default);
-
-    }//end getBible()
-
-
-    /**
-     * Retrieve page type (mass/rosary/Bible)
-     *
-     * @param string $default Default value
-     *
-     * @return string
-     */
-    public function getType(string $default='mass'): string
-    {
-        return $this->getParam(self::PARAM_TYPE, $default, ['mass', 'rosary', 'bible']);
-
-    }//end getType()
-
-
-    /**
-     * Retrieve the book within Bible, that the user currently wants to read
-     *
-     * @param string $default Default value
-     *
-     * @return string
-     */
-    public function getSelectBook(string $default=''): string
-    {
-        return $this->getParam(self::PARAM_SELECTBOOK, $default);
-
-    }//end getSelectBook()
-
-
-    /**
-     * Checks whether rosary was chosen as the content type
-     *
-     * @return bool
-     */
-    public function isRosary()
-    {
-        return ($this->getType() === 'rosary');
-
-    }//end isRosary()
-
-
-    /**
-     * Checks whether Bible was chosen as the content type
-     *
-     * @return bool
-     */
-    public function isBible()
-    {
-        return ($this->getType() === 'bible');
-
-    }//end isBible()
-
-
-    /**
-     * Feedback write request (this means the JS script sent an asynchronous request to store the feedback data)
-     *
-     * @return bool
-     */
-    public function isFeedbackWrite()
-    {
-        return ($this->getParam('feedback', '') === 'write');
-
-    }//end isFeedbackWrite()
-
-
-    /**
-     * Feedback read request (this is when we want to show decrypted feedback data)
-     *
-     * @return bool
-     */
-    public function isFeedbackRead()
-    {
-        return ($this->getParam('feedback', '') === 'read');
-
-    }//end isFeedbackRead()
 
 
 }//end class

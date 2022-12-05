@@ -9,6 +9,8 @@
 
 namespace TMD\OrderOfMass;
 
+use TMD\OrderOfMass\Models\{BiblemapModel,BooklistModel,LangcontentModel,LanglabelsModel,LanglistModel};
+
 if (defined('OOM_BASE') !== true) {
     die('This file cannot be viewed independently.');
 }
@@ -51,20 +53,6 @@ class Language
     ];
 
     /**
-     * Content of `assets/json/lang/lng-labels.json`, where `lng` is a three-code letter of a language stored in {@see MassMain::$ll}
-     *
-     * @var array
-     */
-    private $labelsJson = [];
-
-    /**
-     * Content of `assets/json/lang/lng-content.json`, where `lng` is a three-code letter of a language stored in {@see MassMain::$tl}
-     *
-     * @var array
-     */
-    private $contentJson = [];
-
-    /**
      * GetParams instance
      *
      * @var GetParams
@@ -86,48 +74,65 @@ class Language
     private $lectionary;
 
     /**
-     * List of available languages (from data/langlist.json)
+     * Hello
      *
-     * The array looks like this (numbers are explained below):
-     *
-     * ```
-     * [
-     *   '1' => [
-     *     'title' => '2',
-     *     'author' => '3',
-     *     'link' => '4'
-     *   ]
-     * ]
-     * ```
-     *
-     * 1. Language three-letter code
-     * 2. Language name (in that language, i.e. <q>English</q>, <q>Deutsch</q>, ...)
-     * 3. Author of that translation (not the language, obviously)
-     * 4. Either a URL or simple array of URLs (sources of information)
-     *
-     * @var array<string, array<string, string|string[]>>
+     * @var BooklistModel
      */
-    private array $langlist = [];
+    private $bookListModel;
+
+    /**
+     * Hello
+     *
+     * @var LanglistModel
+     */
+    private $langListModel;
+
+    /**
+     * Hello
+     *
+     * @var LangcontentModel
+     */
+    private $langContentModel;
+
+    /**
+     * Hello
+     *
+     * @var LanglabelsModel
+     */
+    private $langLabelsModel;
+
+    /**
+     * Hello
+     *
+     * @var BiblemapModel
+     */
+    private $bibleMapModel;
 
 
     /**
      * Save service instances
      *
-     * @param Logger      $logger      Logger service
-     * @param GetParams   $getParams   GetParams service
-     * @param BibleReader $bibleReader BibleReader service
-     * @param Lectionary  $lectionary  Lectionary service
+     * @param Logger           $logger           Logger service
+     * @param GetParams        $getParams        GetParams service
+     * @param BibleReader      $bibleReader      BibleReader service
+     * @param Lectionary       $lectionary       Lectionary service
+     * @param BooklistModel    $bookListModel    Booklist model
+     * @param LanglistModel    $langListModel    Langlist model
+     * @param LangcontentModel $langContentModel Langcontent model
+     * @param LanglabelsModel  $langLabelsModel  Langlabels model
+     * @param BiblemapModel    $bibleMapModel    Biblemap model
      */
-    public function __construct(Logger $logger, GetParams $getParams, BibleReader $bibleReader, Lectionary $lectionary)
+    public function __construct(Logger $logger, GetParams $getParams, BibleReader $bibleReader, Lectionary $lectionary, BooklistModel $bookListModel, LanglistModel $langListModel, LangcontentModel $langContentModel, LanglabelsModel $langLabelsModel, BiblemapModel $bibleMapModel)
     {
-        $this->logger      = $logger;
-        $this->getParams   = $getParams;
-        $this->bibleReader = $bibleReader;
-        $this->lectionary  = $lectionary;
-
-        $this->langlist    = Helper::loadJson('assets/json/langlist.json');
-        $this->labelsJson  = Helper::loadJson('assets/json/lang/'.$this->getParams->getLabelLang().'-labels.json');
-        $this->contentJson = Helper::loadJson('assets/json/lang/'.$this->getParams->getContentLang().'-content.json', false);
+        $this->logger           = $logger;
+        $this->getParams        = $getParams;
+        $this->bibleReader      = $bibleReader;
+        $this->lectionary       = $lectionary;
+        $this->bookListModel    = $bookListModel;
+        $this->langListModel    = $langListModel;
+        $this->langContentModel = $langContentModel;
+        $this->langLabelsModel  = $langLabelsModel;
+        $this->bibleMapModel    = $bibleMapModel;
 
     }//end __construct()
 
@@ -148,97 +153,29 @@ class Language
             $addition = ' '.$addition;
         }
 
-        $locRef   = $ref;
-        $bookFull = '';
+        $bookShort = $ref;
+        $bookFull  = '';
+
         if (preg_match('/^(\S+)(.*)$/', $ref, $m) === 1 && isset($m[1]) === true && isset($m[2]) === true) {
-            $book     = $m[1];
-            $bookFull = $this->bibleReader->bookAbbrToFull($book);
-            $locBook  = $this->bibleReader->localizedAbbr($book);
-            if ($locBook !== false) {
-                $locRef   = $locBook['short'].$m[2];
-                $bookFull = $locBook['full'];
+            $bookNum = $this->bookListModel->abbreviationToNumber($m[1]);
+            if ($bookNum === null) {
+                $bookNum = 0;
+            }
+
+            $tmpBookShort = $this->bibleMapModel->numberToAbbreviation($bookNum);
+            if ($tmpBookShort !== null) {
+                $bookShort = $tmpBookShort.$m[2];
+            }
+
+            $tmpBookFull = $this->bibleMapModel->numberToName($bookNum);
+            if ($tmpBookFull !== null) {
+                $bookFull = $tmpBookFull;
             }
         }
 
-        return '@bib['.$bookFull.']{'.$locRef.'}'.$addition;
+        return '@bib['.$bookFull.']{'.$bookShort.'}'.$addition;
 
     }//end replbb()
-
-
-    /**
-     * Returns the data from `langlist.json` for one specific language
-     *
-     * @param string $lang Language code
-     * @param string $data Which data in particular (if empty, it will return them all)
-     *
-     * @return mixed
-     */
-    public function getLanguageData(string $lang, string $data)
-    {
-        if ($lang === '' && $data === '') {
-            return $this->langlist;
-        }
-
-        if (isset($this->langlist[$lang]) !== true) {
-            return null;
-        }
-
-        if (isset($this->langlist[$lang][$data]) !== true) {
-            return null;
-        }
-
-        return $this->langlist[$lang][$data];
-
-    }//end getLanguageData()
-
-
-    /**
-     * Retrieve the content of mass/rosary (from `xxx_content.json`) or Bible translation via BibleReader service
-     *
-     * @param string $type Hello
-     *
-     * @return string|array
-     */
-    public function getContent(string $type): string|array
-    {
-        if ($type === 'bible') {
-            return $this->bibleReader->renderBible();
-        }
-
-        if ($type !== 'rosary' && $type !== 'mass') {
-            return '';
-        }
-
-        return $this->contentJson->{$type};
-
-    }//end getContent()
-
-
-    /**
-     * Retrieve a list of available languages in an associative array that can be easily converted to `select` tag content
-     *
-     * @param string $selection Which language code should be treated as selected
-     *
-     * @return array
-     */
-    public function getLanguageComboList(string $selection=''): array
-    {
-        $ret = [];
-        foreach ($this->langlist as $code => $info) {
-            if (is_string($info['title']) !== true) {
-                continue;
-            }
-
-            $ret[] = [
-                'value' => htmlspecialchars($code),
-                'sel'   => ($code == $selection),
-                'text'  => htmlspecialchars($info['title']),
-            ];
-        }
-
-        return $ret;
-
-    }//end getLanguageComboList()
 
 
     /**
@@ -266,36 +203,35 @@ class Language
         $ret = preg_replace_callback_array(
             [
                 '/@\{([A-Za-z0-9]+)\}/'           => function ($matches) use ($wrapCommand) {
-                    if (count($matches) < 2
-                        || array_key_exists($matches[1], $this->labelsJson['labels']) === false
-                    ) {
+                    if (count($matches) < 2) {
                         return '';
                     }
 
-                    $ret = $this->labelsJson['labels'][$matches[1]];
+                    $label = $this->langLabelsModel->getLabel($matches[1]);
+
                     if ($wrapCommand !== true) {
-                        return $ret;
+                        return $label;
                     }
 
-                    return "<span class=\"command\">${ret}</span>";
+                    return "<span class=\"command\">$label</span>";
                 },
                 '/@su\{([A-Za-z0-9]+)\}/'         => function ($matches) {
-                    if (count($matches) < 2
-                        || array_key_exists($matches[1], $this->labelsJson['sundays']) === false
-                    ) {
+                    if (count($matches) < 2) {
                         return '';
                     }
 
-                    return $this->labelsJson['sundays'][$matches[1]];
+                    $sunday = $this->langLabelsModel->getSunday($matches[1]);
+
+                    return $sunday;
                 },
                 '/@my\{([A-Za-z0-9]+)\}/'         => function ($matches) {
-                    if (count($matches) < 2
-                        || array_key_exists($matches[1], $this->labelsJson['mysteries']) === false
-                    ) {
+                    if (count($matches) < 2) {
                         return '';
                     }
 
-                    return $this->labelsJson['mysteries'][$matches[1]];
+                    $mystery = $this->langLabelsModel->getMystery($matches[1]);
+
+                    return $mystery;
                 },
                 '/@bib\[([^\]]+)?\]\{([^\}]+)\}/' => function ($matches) {
                     if (count($matches) < 3) {

@@ -16,6 +16,7 @@
     "autoload": {
         "psr-4": {
             "TMD\\OrderOfMass\\": "src/",
+            "TMD\\OrderOfMass\\Models\\": "src/Models/",
             "TMD\\PDMDX\\": "libs-dev/phpDocMDX/src"
         }
     },

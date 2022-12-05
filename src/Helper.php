@@ -89,43 +89,6 @@ class Helper
 
 
     /**
-     * Loads a JSON file into a PHP-friendly structure
-     *
-     * Basically a tiny little wrapper around {@see \json_decode()}.
-     *
-     * @param string $fileName Path to the file incl. full file name
-     * @param bool   $assoc    JSON objects will be converted to associative arrays instead of objects (default: `true`)
-     *
-     * @return mixed Content of the file or an empty array
-     */
-    public static function loadJson(string $fileName, bool $assoc=true)
-    {
-        if ($fileName === '') {
-            return [];
-        }
-
-        $fileName2 = self::fullFilename($fileName);
-
-        if (file_exists($fileName2) !== true) {
-            return [];
-        }
-
-        $aFileCont = file_get_contents($fileName2);
-        if ($aFileCont === false) {
-            return [];
-        }
-
-        $a = json_decode($aFileCont, $assoc);
-        if ($a === null) {
-            return [];
-        }
-
-        return $a;
-
-    }//end loadJson()
-
-
-    /**
      * Returns the Sunday year cycle (A,B,C) for the given year
      *
      * Beware that the liturgical year starts with the first Sunday of Advent, so you have to increase the year number in case you are already in the first week of the liturgical year

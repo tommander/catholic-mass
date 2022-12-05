@@ -7,7 +7,11 @@
  * @license MIT license https://opensource.org/licenses/MIT
  */
 
+declare(strict_types=1);
+
 namespace TMD\OrderOfMass;
+
+use TMD\OrderOfMass\Models\{BibleindexModel,BiblejsonModel,BiblemapModel,BooklistModel,LanglabelsModel};
 
 if (defined('OOM_BASE') !== true) {
     die('This file cannot be viewed independently.');
@@ -24,74 +28,18 @@ class BibleReader
 {
 
     /**
-     * JSON index file of the Bible translation.
+     * Whether to take verse parts into account.
      *
-     * This file contains a single object with one property per verse (each property's key is a unique verse reference number).
+     * This is an EXPERIMENTAL functionality and doesn't always work correctly, that is why this constant is `false` by default.
      *
-     * @var array
+     * This is how the constant works e.g. for reference "Ps 9:10a":
+     *
+     * - Constant is `false`: verse reference will process this as "Ps 9:10"
+     * - Constant is `true`: only first part of the 10th verse will be returned
+     *
+     * @var boolean
      */
-    private $jsonFile = [];
-
-    /**
-     * Map file of the Bible translation.
-     *
-     * This file contains mapping of unique book numbers to their abbreviations specific for that translation.
-     *
-     * If the translation does not contain any abbreviations, this file might also just be an empty JSON array.
-     *
-     * @var array<string, array>
-     */
-    private $mapFile = [];
-
-    /**
-     * Meta file of the Bible translation.
-     *
-     * This file contains all information included in the original translation.
-     *
-     * @var array
-     */
-    private $metaFile = [];
-
-    /**
-     * Index of available Bible translations
-     *
-     * @var array
-     */
-    private $indexJson = [];
-
-    /**
-     * Current translation per GET parameter
-     *
-     * @var string
-     */
-    private $currentTranslation = '';
-
-    /**
-     * Index of book translations
-     *
-     * Key is abbreviation, value is full English name
-     *
-     * @var array
-     */
-    private $bookIndex = [];
-
-    /**
-     * Index of book translations
-     *
-     * Simple array of abbreviations to get using integer key
-     *
-     * @var array
-     */
-    private $bookIndexNumAbbr = [];
-
-    /**
-     * Index of book translations
-     *
-     * Simple array of full names to get  using integer key
-     *
-     * @var array
-     */
-    private $bookIndexNumFull = [];
+    private $allowSubref = false;
 
     /**
      * GetParams service instance
@@ -113,6 +61,41 @@ class BibleReader
      * @var Language
      */
     private $language;
+
+    /**
+     * Hello
+     *
+     * @var BibleindexModel
+     */
+    private $bibleIndexModel;
+
+    /**
+     * Hello
+     *
+     * @var BiblejsonModel
+     */
+    private $bibleJsonModel;
+
+    /**
+     * Hello
+     *
+     * @var BiblemapModel
+     */
+    private $bibleMapModel;
+
+    /**
+     * Hello
+     *
+     * @var BooklistModel
+     */
+    private $bookListModel;
+
+    /**
+     * Hello
+     *
+     * @var LanglabelsModel
+     */
+    private $langLabelsModel;
 
 
     /**
@@ -168,226 +151,32 @@ class BibleReader
      *
      * Saves service instances and loads Bible translations list
      *
-     * @param Logger    $logger    Logger service instance
-     * @param GetParams $getParams GetParams service instance
-     * @param Language  $language  Language service instance
+     * @param Logger          $logger          Logger service
+     * @param GetParams       $getParams       GetParams service
+     * @param Language        $language        Language service
+     * @param BibleindexModel $bibleIndexModel Bibleindex model
+     * @param BiblejsonModel  $bibleJsonModel  Biblejson model
+     * @param BiblemapModel   $bibleMapModel   Biblemap model
+     * @param BooklistModel   $bookListModel   Booklist model
+     * @param LanglabelsModel $langLabelsModel Langlabels model
      */
-    public function __construct(Logger $logger, GetParams $getParams, Language $language)
+    public function __construct(Logger $logger, GetParams $getParams, Language $language, BibleindexModel $bibleIndexModel, BiblejsonModel $bibleJsonModel, BiblemapModel $bibleMapModel, BooklistModel $bookListModel, LanglabelsModel $langLabelsModel)
     {
         // Services.
-        $this->logger    = $logger;
-        $this->getParams = $getParams;
-        $this->language  = $language;
-
-        // Translations list and common list of books.
-        $this->indexJson = Helper::loadJson('libs/zefania-bibles/index.min.json', true);
-        $this->bookIndex = Helper::loadJson('assets/json/booklist.json', true);
-
-        // Separate book name abbreviations and book full names.
-        $this->bookIndexNumAbbr = array_keys($this->bookIndex);
-        $this->bookIndexNumFull = array_values($this->bookIndex);
-
-        // If a Bible translation was chosen, load its files.
-        $this->currentTranslation = $this->getParams->getBible();
-        $currentTranslationData   = explode('|', $this->currentTranslation);
-        if (count($currentTranslationData) === 2
-            && isset($this->indexJson[$currentTranslationData[0]][$currentTranslationData[1]]['file']) === true
-        ) {
-            $fileName = $this->indexJson[$currentTranslationData[0]][$currentTranslationData[1]]['file'];
-
-            $this->jsonFile = Helper::loadJson('libs/zefania-bibles/json/'.$fileName);
-            $this->mapFile  = Helper::loadJson('libs/zefania-bibles/map/'.$fileName);
-            $this->metaFile = Helper::loadJson('libs/zefania-bibles/meta/'.$fileName);
-        }
+        $this->logger          = $logger;
+        $this->getParams       = $getParams;
+        $this->language        = $language;
+        $this->bibleIndexModel = $bibleIndexModel;
+        $this->bibleJsonModel  = $bibleJsonModel;
+        $this->bibleMapModel   = $bibleMapModel;
+        $this->bookListModel   = $bookListModel;
+        $this->langLabelsModel = $langLabelsModel;
 
     }//end __construct()
 
 
     /**
-     * Read the list of Bible translations and formats it so that it can be easily output in the HTML `select` tag.
-     *
-     * @return array
-     */
-    public function getBibleList(): array
-    {
-        $ret = [
-            '' => [
-                [
-                    'value' => '',
-                    'sel'   => false,
-                    'text'  => '-',
-                ],
-            ],
-        ];
-
-        $langLabels  = $this->getParams->getLabelLang();
-        $langContent = $this->getParams->getContentLang();
-
-        foreach ($this->indexJson as $lang => $langCont) {
-            if (is_string($lang) !== true) {
-                continue;
-            }
-
-            if ($lang !== $langLabels && $lang !== $langContent) {
-                continue;
-            }
-
-            foreach ($langCont as $bibleId => $bibleData) {
-                $val  = $lang.'|'.$bibleId;
-                $sel  = ($this->currentTranslation === $val);
-                $text = 'NO TITLE';
-                if (isset($bibleData['meta']['TITLE']) === true) {
-                    $text = $bibleData['meta']['TITLE'];
-                }
-
-                if (isset($ret[$lang]) !== true) {
-                    $ret[$lang] = [];
-                }
-
-                $ret[$lang][] = [
-                    'value' => urlencode($val),
-                    'sel'   => $sel,
-                    'text'  => $text,
-                ];
-            }
-        }//end foreach
-
-        return $ret;
-
-    }//end getBibleList()
-
-
-    /**
-     * Returns the Bible book abbreviation as used in the currently loaded translation.
-     *
-     * If no such abbreviation is defined in the translation, a common abbreviation is returned.
-     *
-     * @param string $commonAbbr Either a common Bible book abbreviation or a unique Bible book number.
-     *
-     * @return array|false
-     *
-     * @todo Rename or separate abbr and full to make it clear
-     */
-    public function localizedAbbr(string $commonAbbr): array|false
-    {
-        $bookNum = $this->bookAbbrToNum($commonAbbr);
-        if ($bookNum === false) {
-            return false;
-        }
-
-        if (array_key_exists(strval($bookNum), $this->mapFile) !== true) {
-            return false;
-        }
-
-        return $this->mapFile[strval($bookNum)];
-
-    }//end localizedAbbr()
-
-
-    /**
-     * Translate a common book abbreviation to full English name
-     *
-     * @param string $commonAbbr Common Bible book abbrevation
-     *
-     * @return string|false
-     */
-    public function bookAbbrToFull(string $commonAbbr): string|false
-    {
-        if (isset($this->bookIndex[$commonAbbr]) !== true) {
-            return false;
-        }
-
-        return $this->bookIndex[$commonAbbr];
-
-    }//end bookAbbrToFull()
-
-
-    /**
-     * Translate book number to common book abbreviation
-     *
-     * @param int $bookNum Book number (1..99)
-     *
-     * @return string|false
-     */
-    public function bookNumToAbbr(int $bookNum): string|false
-    {
-        if (array_key_exists(($bookNum - 1), $this->bookIndexNumAbbr) !== true) {
-            return false;
-        }
-
-        return $this->bookIndexNumAbbr[($bookNum - 1)];
-
-    }//end bookNumToAbbr()
-
-
-    /**
-     * Translate book number to full English book name
-     *
-     * @param int $bookNum Book number (1..99)
-     *
-     * @return string|false
-     */
-    public function bookNumToFull(int $bookNum): string|false
-    {
-        if (array_key_exists(($bookNum - 1), $this->bookIndexNumFull) !== true) {
-            return false;
-        }
-
-        return $this->bookIndexNumFull[($bookNum - 1)];
-
-    }//end bookNumToFull()
-
-
-    /**
-     * Translate common book abbreviation to book number
-     *
-     * @param string $bookAbbr Common Bible book abbreviation
-     *
-     * @return int|false
-     */
-    public function bookAbbrToNum(string $bookAbbr): int|false
-    {
-        $ret = array_search($bookAbbr, $this->bookIndexNumAbbr);
-        if ($ret === false || is_int($ret) !== true) {
-            return false;
-        }
-
-        return ($ret + 1);
-
-    }//end bookAbbrToNum()
-
-
-    /**
-     * Returns the verses beginning with `$refVerStart` and ending with `$refVerEnd`.
-     *
-     * @param int $refVerStart First verse (unique verse reference number)
-     * @param int $refVerEnd   Last verse (unique verse reference number)
-     *
-     * @return string
-     */
-    public function readVerse(int $refVerStart, int $refVerEnd): string
-    {
-        $ret = '';
-        foreach ($this->jsonFile as $verseRef => $verseText) {
-            $verseRefNum = intval($verseRef);
-            if ($verseRefNum < $refVerStart || $verseRefNum > $refVerEnd) {
-                continue;
-            }
-
-            if ($ret !== '') {
-                $ret .= ' ';
-            }
-
-            $ret .= $verseText;
-        }
-
-        return $ret;
-
-    }//end readVerse()
-
-
-    /**
-     * Sort of "pre-function" for {@see BibleReader::readVerse()} which parses the given verse reference and book abbreviation.
+     * Sort of "pre-function" for {@see BiblejsonModel::getVerseRange()} which parses the given verse reference and book abbreviation.
      *
      * @param string $ref Verse reference
      *
@@ -403,7 +192,7 @@ class BibleReader
                 $ret .= ' ';
             }
 
-            $ret .= $this->readVerse($oneRef[0], $oneRef[1]);
+            $ret .= $this->bibleJsonModel->getVerseRange($oneRef[0], $oneRef[1]);
         }
 
         return $ret;
@@ -442,8 +231,8 @@ class BibleReader
         // Save basic reference parts for clarity.
         $book    = $mat[1];
         $chap    = 0;
-        $bookNum = $this->bookAbbrToNum($book);
-        if ($bookNum === false) {
+        $bookNum = $this->bookListModel->abbreviationToNumber($book);
+        if ($bookNum === null) {
             return [];
         }
 
@@ -469,7 +258,11 @@ class BibleReader
                     }
 
                     if (preg_match('/(\d+)([A-z]{1})/', $mat2[3], $mat3) === 1) {
-                        $verseLow = self::refVer($bookNum, $chap, intval($mat3[1]), Helper::letterToInt($mat3[2]));
+                        if ($this->allowSubref === true) {
+                            $verseLow = self::refVer($bookNum, $chap, intval($mat3[1]), Helper::letterToInt($mat3[2]));
+                        } else {
+                            $verseLow = self::refVer($bookNum, $chap, intval($mat3[1]));
+                        }
                     } else {
                         $verseLow = self::refVer($bookNum, $chap, intval($mat2[3]));
                     }
@@ -481,7 +274,11 @@ class BibleReader
                     }
 
                     if (preg_match('/(\d+)([A-z]{1})/', $mat2[3], $mat4) === 1) {
-                        $verseLow = self::refVer($bookNum, $chap, intval($mat4[1]), Helper::letterToInt($mat4[2]));
+                        if ($this->allowSubref === true) {
+                            $verseLow = self::refVer($bookNum, $chap, intval($mat4[1]), Helper::letterToInt($mat4[2]));
+                        } else {
+                            $verseLow = self::refVer($bookNum, $chap, intval($mat4[1]));
+                        }
                     } else {
                         $verseLow = self::refVer($bookNum, $chap, intval($mat2[3]));
                     }
@@ -491,7 +288,11 @@ class BibleReader
                     }
 
                     if (preg_match('/(\d+)([A-z]{1})/', $mat2[7], $mat5) === 1) {
-                        $verseHigh = self::refVer($bookNum, $chap, intval($mat5[1]), Helper::letterToInt($mat5[2]));
+                        if ($this->allowSubref === true) {
+                            $verseHigh = self::refVer($bookNum, $chap, intval($mat5[1]), Helper::letterToInt($mat5[2]));
+                        } else {
+                            $verseHigh = self::refVer($bookNum, $chap, intval($mat5[1]));
+                        }
                     } else {
                         $verseHigh = self::refVer($bookNum, $chap, intval($mat2[7]));
                     }
@@ -542,22 +343,30 @@ class BibleReader
     public function renderBible(): string
     {
         $toc        = [];
-        $verses     = '';
+        $text       = '';
         $tocChaps   = [];
-        $selectBook = $this->getParams->getSelectBook();
+        $selectBook = $this->getParams->getParam(GetParams::PARAM_BOOK);
 
-        foreach ($this->jsonFile as $verseID => $verseText) {
+        $verses = $this->bibleJsonModel->listVerses();
+        if ($verses === null) {
+            return '';
+        }
+
+        foreach ($verses as $verseID) {
             $verseData = self::decodeRefVer($verseID);
             $bookNum   = intval($verseData['book']);
 
             if (array_key_exists(strval($bookNum), $toc) !== true) {
                 $bookName = '';
-                if (array_key_exists($bookNum, $this->mapFile) === true) {
-                    $bookName = $this->mapFile[$bookNum]['full'];
-                }
 
-                if ($bookName === '') {
-                    $bookName = $this->bookNumToFull($bookNum);
+                $bookNameTmp = $this->bibleMapModel->numberToName($bookNum);
+                if ($bookNameTmp !== null) {
+                    $bookName = $bookNameTmp;
+                } else {
+                    $bookNameTmp = $this->bookListModel->numberToName($bookNum);
+                    if ($bookNameTmp !== null) {
+                        $bookName = $bookNameTmp;
+                    }
                 }
 
                 $toc[strval($bookNum)] = $bookName;
@@ -571,18 +380,18 @@ class BibleReader
             $versNum = intval($verseData['vers']);
 
             if (intval($verseData['chap']) === 1 && intval($verseData['vers']) === 1) {
-                $verses .= "<h2>".$toc[strval($bookNum)]."</h2>\r\n";
+                $text .= "<h2>".$toc[strval($bookNum)]."</h2>\r\n";
             }
 
             if (intval($verseData['vers']) === 1) {
-                $verses .= "<h3 id=\"chap${chapNum}\">".$this->language->repls('@{chapter}')." ".$chapNum."</h3><p class=\"backtotop\"><a onclick=\"scrollToTop()\">".$this->language->repls('@{backtotop}')."</a></p>\r\n";
+                $text .= "<h3 id=\"chap${chapNum}\">".$this->langLabelsModel->getLabel('chapter')." ".$chapNum."</h3><p class=\"backtotop\"><a onclick=\"scrollToTop()\">".$this->langLabelsModel->getLabel('backtotop')."</a></p>\r\n";
                 $tocChaps["chap${chapNum}"] = $chapNum;
             }
 
-            $verses .= "<p><strong>".$versNum."</strong> ".$verseText."</p>";
+            $text .= "<p><strong>".$versNum."</strong> ".$this->bibleJsonModel->getVerse(intval($verseID))."</p>";
         }//end foreach
 
-        $tocText = '<form name="selectabook" action="index.php" method="GET"><label for="SELECT_BOOK">'.$this->language->repls('@{selectbook}').':</label>';
+        $tocText = '<form name="selectabook" action="index.php" method="GET"><label for="SELECT_BOOK">'.$this->langLabelsModel->getLabel('selectbook').':</label>';
         foreach ($_GET as $getKey => $getValue) {
             if ($getKey === 'book') {
                 continue;
@@ -609,7 +418,7 @@ class BibleReader
         $tocText .= '</select></form>';
 
         if (count($tocChaps) > 0) {
-            $tocText .= "<form><label for=\"SELECT_CHAPTER\">".$this->language->repls('@{selectchapter}').":</label><select id=\"SELECT_CHAPTER\" onchange=\"scrollToElement(this.value)\">";
+            $tocText .= "<form><label for=\"SELECT_CHAPTER\">".$this->langLabelsModel->getLabel('selectchapter').":</label><select id=\"SELECT_CHAPTER\" onchange=\"scrollToElement(this.value)\">";
             foreach ($tocChaps as $tocLink => $tocName) {
                 $tocText .= "<option value=\"${tocLink}\">${tocName}</option>";
             }
@@ -617,25 +426,31 @@ class BibleReader
             $tocText .= "</select></form>";
         }
 
-        $meta = '';
-        if (isset($this->metaFile['meta']) === true
-            && is_array($this->metaFile['meta']) === true
-            && isset($this->metaFile['meta']['TITLE']) === true
-        ) {
-            $meta = "<h1>".$this->metaFile['meta']['TITLE']."</h1><details><summary>Details</summary><table>";
-            foreach ($this->metaFile['meta'] as $metaKey => $metaValue) {
-                $metaValueTrimmed = trim($metaValue);
-                if ($metaKey === 'TITLE' || $metaValueTrimmed === '') {
-                    continue;
+        $meta      = '';
+        $bibleData = explode('|', $this->getParams->getParam(GetParams::PARAM_BIBLE));
+        if (count($bibleData) === 2) {
+            $metaData = $this->bibleIndexModel->getBibleMeta($bibleData[0], $bibleData[1]);
+            if ($metaData !== null) {
+                $title = '';
+                if (array_key_exists('TITLE', $metaData) === true) {
+                    $title = $metaData['TITLE'];
                 }
 
-                $meta .= '<tr><th>'.strtolower($metaKey).'</th><td>'.htmlspecialchars($metaValueTrimmed).'</td></tr>';
+                $meta = "<h1>${title}</h1><details><summary>".$this->langLabelsModel->getLabel('details')."</summary><table>";
+                foreach ($metaData as $metaKey => $metaValue) {
+                    $metaValueTrimmed = trim($metaValue);
+                    if ($metaKey === 'TITLE' || $metaValueTrimmed === '') {
+                        continue;
+                    }
+
+                    $meta .= '<tr><th>'.$this->langLabelsModel->getLabel("meta${metaKey}").'</th><td>'.htmlspecialchars($metaValueTrimmed).'</td></tr>';
+                }
+
+                $meta .= '</table></details>';
             }
+        }//end if
 
-            $meta .= '</table></details>';
-        }
-
-        return "$meta\r\n${tocText}\r\n${verses}";
+        return "$meta\r\n${tocText}\r\n${text}";
 
     }//end renderBible()
 

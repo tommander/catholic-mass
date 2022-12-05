@@ -26,7 +26,7 @@
                         <label for="LABELS_SELECTION">@@IDXL@@</label>
                     </div>
                     <div>
-                        <select name="ll" id="LABELS_SELECTION" onchange="submitForm()">
+                        <select name="@@FLDL@@" id="LABELS_SELECTION" onchange="submitForm()">
                             @@CBL@@
                         </select>
                     </div>
@@ -36,7 +36,7 @@
                         <label for="TYPE_SELECTION">@@IDXY@@</label>
                     </div>
                     <div>
-                        <select name="sn" id="TYPE_SELECTION" onchange="submitForm()">
+                        <select name="@@FLDY@@" id="TYPE_SELECTION" onchange="submitForm()">
                             @@CBY@@
                         </select>
                     </div>
@@ -46,7 +46,7 @@
                         <label for="BIBLE_SELECTION">@@IDXB@@</label>
                     </div>
                     <div>
-                        <select name="bl" id="BIBLE_SELECTION" onchange="submitForm()">
+                        <select name="@@FLDB@@" id="BIBLE_SELECTION" onchange="submitForm()">
                             @@CBB@@
                         </select>
                     </div>
@@ -56,7 +56,7 @@
                         <label for="TEXTS_SELECTION">@@IDXT@@</label>
                     </div>
                     <div>
-                        <select name="tl" id="TEXTS_SELECTION" onchange="submitForm()">
+                        <select name="@@FLDT@@" id="TEXTS_SELECTION" onchange="submitForm()">
                             @@CBT@@
                         </select>
                     </div>
@@ -81,46 +81,6 @@
             @@LINKS@@
         </div>
     </footer>
-    <div id="FEEDBACK">
-        <div id="FEEDBACK_TOGGLE" onclick="toggleFeedback()">
-            <i class="fa-regular fa-comment"></i> Feedback
-        </div>
-        <form name="feedbackForm" id="FEEDBACK_FORM" hidden="hidden">
-            <input type="hidden" name="token" value="@@CSRFTOKEN@@">
-            <label class="blockLabel" for="FEEDBACK_EMAIL">Your e-mail (<abbr title="Fill in your e-mail address in case you want to receive a response to your feedback.">optional</abbr>):</label>
-            <input id="FEEDBACK_EMAIL" type="email" name="email" value="">
-            <label class="blockLabel" for="FEEDBACK_RATING">Rating (optional):</label>
-            <input id="FEEDBACK_RATING" type="hidden" name="rating" value="">
-            <div id="FEEDBACK_RATING_VIS">
-                <span id="RAT1"><i class="fa-regular fa-star"></i><i class="fa-solid fa-star" onclick="markStar(1)"></i>
-                    <span id="RAT2"><i class="fa-regular fa-star"></i><i class="fa-solid fa-star" onclick="markStar(2)"></i>
-                        <span id="RAT3"><i class="fa-regular fa-star"></i><i class="fa-solid fa-star" onclick="markStar(3)"></i>
-                            <span id="RAT4"><i class="fa-regular fa-star"></i><i class="fa-solid fa-star" onclick="markStar(4)"></i>
-                                <span id="RAT5"><i class="fa-regular fa-star"></i><i class="fa-solid fa-star" onclick="markStar(5)"></i>
-                                </span>
-                            </span>
-                        </span>
-                    </span>
-                </span>
-            </div>
-            <label class="blockLabel" for="FEEDBACK_DESCRIPTION">Description:</label>
-            <textarea id="FEEDBACK_DESCRIPTION" name="description"></textarea>
-            <div id="FEEDBACK_CONSENT">
-                <input id="FEEDBACK_RULES" type="checkbox" name="rules" value="ok"><label for="FEEDBACK_RULES">I have read and agree with <a href="feedback.html" target="_blank">Privacy &amp; Rules</a>.</label>
-            </div>
-            <p id="FEEDBACK_VALIDATION"></p>
-            <button type="button" onclick="submitFeedback()">Submit</button>
-        </form>
-        <div id="FEEDBACK_THANKS" hidden="hidden">
-            <p>Thank you very much for your feedback <i class="fa-regular fa-face-smile"></i></p>
-            <p>Have a wonderful day!</p>
-        </div>
-        <div id="FEEDBACK_ERROR" hidden="hidden">
-            <p>Your feedback was not saved <i class="fa-regular fa-face-sad-tear"></i></p>
-            <p id="FEEDBACK_ERROR_DETAIL"></p>
-            <p>Please try again in a moment or<br>send an e-mail to <a href="mailto:tommander@tommander.cz">tommander@tommander.cz</a>.</p>
-        </div>
-    </div>
     <script type="text/javascript">window.baseUrl = '@@BASEURL@@';</script>
     <script src="@@BASEURL@@assets/js/functions.js" type="text/javascript"></script>
   </body>

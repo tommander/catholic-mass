@@ -9,6 +9,8 @@
 
 namespace TMD\OrderOfMass;
 
+use TMD\OrderOfMass\Models\{LanglistModel,LanglabelsModel};
+
 if (defined('OOM_BASE') !== true) {
     die('This file cannot be viewed independently.');
 }
@@ -40,19 +42,37 @@ class HtmlMaker
      */
     private $lectionary;
 
+    /**
+     * Hello
+     *
+     * @var LanglistModel
+     */
+    private $langListModel;
+
+    /**
+     * Hello
+     *
+     * @var LanglabelsModel
+     */
+    private $langLabelsModel;
+
 
     /**
      * Saves service instances
      *
-     * @param Logger     $logger     Logger
-     * @param Language   $language   Language
-     * @param Lectionary $lectionary Lectionary
+     * @param Logger          $logger          Logger
+     * @param Language        $language        Language
+     * @param Lectionary      $lectionary      Lectionary
+     * @param LanglistModel   $langListModel   Langlist model
+     * @param LanglabelsModel $langLabelsModel Langlabels model
      */
-    public function __construct(Logger $logger, Language $language, Lectionary $lectionary)
+    public function __construct(Logger $logger, Language $language, Lectionary $lectionary, LanglistModel $langListModel, LanglabelsModel $langLabelsModel)
     {
-        $this->logger     = $logger;
-        $this->language   = $language;
-        $this->lectionary = $lectionary;
+        $this->logger          = $logger;
+        $this->language        = $language;
+        $this->lectionary      = $lectionary;
+        $this->langListModel   = $langListModel;
+        $this->langLabelsModel = $langLabelsModel;
 
     }//end __construct()
 
@@ -139,44 +159,55 @@ class HtmlMaker
                 continue;
             }
 
-            if (array_key_exists('list', $one) === true) {
-                foreach ($one['list'] as $key => $data) {
-                    $author = '';
-                    if ($data['author'] !== 'Tommander') {
-                        $author = ' by '.$data['author'];
-                    }
-
-                    $links = '';
-                    $cnt   = 1;
-
-                    foreach ($data['link'] as $lnk) {
-                        if ($cnt > 1) {
-                            $links .= ', ';
-                        }
-
-                        $links .= sprintf(
-                            "<a href=\"%s\">source %d</a>",
-                            $lnk,
-                            $cnt++
-                        );
-                    }
-
-                    $ret .= sprintf(
-                        "<span>%s%s (%s)</span>\r\n",
-                        $data['title'],
-                        $author,
-                        $links
-                    );
-                }//end foreach
-
-                continue;
-            }//end if
-
             $ret .= sprintf(
                 "<span>%s: <a href=\"%s\">%s</a></span>\r\n",
                 $one['label'],
                 $one['url'],
                 $one['text'],
+            );
+        }//end foreach
+
+        $langList = $this->langListModel->listLanguages();
+        foreach ($langList as $langCode) {
+            $langTitle  = $this->langListModel->getLanguageName($langCode);
+            $langAuthor = $this->langListModel->getLanguageAuthor($langCode);
+            $langLinks  = $this->langListModel->getLanguageLinks($langCode);
+
+            $title = '';
+            if ($langTitle !== null) {
+                $title = $langTitle;
+            }
+
+            $author = '';
+            if ($langAuthor !== null && $langAuthor !== 'Tommander') {
+                $author = ' by '.$langAuthor;
+            }
+
+            $links = '';
+            $cnt   = 1;
+            if ($langLinks !== null) {
+                foreach ($langLinks as $lnk) {
+                    if ($cnt > 1) {
+                        $links .= ', ';
+                    }
+
+                    $links .= sprintf(
+                        "<a href=\"%s\">source %d</a>",
+                        $lnk,
+                        $cnt++
+                    );
+                }
+            }
+
+            if ($links !== '') {
+                $links = " (${links})";
+            }
+
+            $ret .= sprintf(
+                "<span>%s%s%s</span>\r\n",
+                $title,
+                $author,
+                $links
             );
         }//end foreach
 
@@ -199,7 +230,7 @@ class HtmlMaker
         $cls  = '';
 
         if (isset($obj->reading) === true) {
-            $what = "<a href=\"".$this->language->repls('@{dbrlink}')."\">".$this->language->repls('@icon{booklink} @{dbrtext}')."</a>";
+            $what = "<a href=\"".$this->langLabelsModel->getLabel('dbrlink')."\">".$this->language->repls('@icon{booklink} @{dbrtext}')."</a>";
         } else if (isset($obj->{""}) === true) {
             $what = $this->language->repls($obj->{""}, true);
         } else if (isset($obj->{"p"}) === true) {
@@ -232,14 +263,20 @@ class HtmlMaker
                 $what2 = '@{readE} ';
             }
 
-            $reads    = $this->lectionary->getReadings(time());
-            $what3    = '';
-            $what3raw = $reads[$obj->{"read"}];
-            if (is_string($what3raw) === true) {
-                $what3 = $this->language->replbb($what3raw);
-            } else if (is_array($what3raw) === true) {
-                foreach ($what3raw as $what3one) {
-                    $what3 .= $this->language->replbb($what3one);
+            $what3 = '';
+            $reads = $this->lectionary->getReadings(time());
+            if ($reads !== null) {
+                $what3raw = '';
+                if (array_key_exists($obj->{"read"}, $reads) === true) {
+                    $what3raw = $reads[$obj->{"read"}];
+                }
+
+                if (is_string($what3raw) === true) {
+                    $what3 = $this->language->replbb($what3raw);
+                } else if (is_array($what3raw) === true) {
+                    foreach ($what3raw as $what3one) {
+                        $what3 .= $this->language->replbb($what3one);
+                    }
                 }
             }
 
@@ -267,7 +304,7 @@ class HtmlMaker
         $ret = "<div class=\"choice\">\r\n";
 
         $ret .= "  <div class=\"choiceTabs\">\r\n";
-        $ret .= "    <div class=\"choiceTabsLabel\"><span class=\"command\"><i class=\"fa-regular fa-hand-pointer\"></i> ".$this->language->repls('@{choose}').":</span></div>\r\n";
+        $ret .= "    <div class=\"choiceTabsLabel\"><span class=\"command\"><i class=\"fa-regular fa-hand-pointer\"></i> ".$this->langLabelsModel->getLabel('choose').":</span></div>\r\n";
         $i    = 0;
         $cont = '';
         foreach ($arr as $item) {

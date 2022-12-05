@@ -9,7 +9,6 @@ Main features:
  * Full lectionary (only for Sundays so far)
  * Extract readings from different Bible translations
  * Mobile and desktop friendly design
- * Secure feedback form
 
 This app is currently deployed on [mass.tommander.cz](https://mass.tommander.cz). If you need some content in your app or website, please fork or download this project's code instead, don't scrape it from that site.
 

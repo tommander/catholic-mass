@@ -4,4 +4,3 @@ phpDocumentor.phar
 .vscode
 vendor
 log.txt
-feedbacks/*.json

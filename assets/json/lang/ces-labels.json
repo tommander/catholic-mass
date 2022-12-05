@@ -40,7 +40,22 @@
 		"chapter": "Kapitola",
 		"selectbook": "Vyberte knihu",
 		"selectchapter": "Vyberte kapitolu",
-		"backtotop": "Zpět nahoru"
+		"backtotop": "Zpět nahoru",
+		"details": "Detaily",
+		"metaTITLE": "Název",
+		"metaCREATOR": "Autor",
+		"metaSUBJECT": "Předmět",
+		"metaTYPE": "Typ",
+		"metaPUBLISHER": "Vydavatel",
+		"metaIDENTIFIER": "Identifikátor",
+		"metaSOURCE": "Zdroj",
+		"metaFORMAT": "Formát",
+		"metaDATE": "Datum",
+		"metaLANGUAGE": "Jazyk",
+		"metaDESCRIPTION": "Popis",
+		"metaCONTRIBUTORS": "Přispěvatelé",
+		"metaCOVERAGE": "Pokrytí",
+		"metaRIGHTS": "Práva"
 	},
 	"mysteries": {
 		"j": "Tajemství radostná",

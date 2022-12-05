@@ -40,7 +40,22 @@
 		"chapter": "Chapter",
 		"selectbook": "Select book",
 		"selectchapter": "Select chapter",
-		"backtotop": "Back to top"
+		"backtotop": "Back to top",
+		"details": "Details",
+		"metaTITLE": "Title",
+		"metaCREATOR": "Creator",
+		"metaSUBJECT": "Subject",
+		"metaTYPE": "Type",
+		"metaPUBLISHER": "Publisher",
+		"metaIDENTIFIER": "Identifier",
+		"metaSOURCE": "Source",
+		"metaFORMAT": "Format",
+		"metaDATE": "Date",
+		"metaLANGUAGE": "Language",
+		"metaDESCRIPTION": "Description",
+		"metaCONTRIBUTORS": "Contributors",
+		"metaCOVERAGE": "Coverage",
+		"metaRIGHTS": "Rights"
 	},
 	"mysteries": {
 		"j": "Joyful Mysteries",
