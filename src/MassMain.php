@@ -9,7 +9,8 @@
 
 namespace TMD\OrderOfMass;
 
-use TMD\OrderOfMass\Models\{BibleindexModel,BiblejsonModel,BiblemapModel,BooklistModel,Iso6393listModel,LangcontentModel,LanglabelsModel,LanglistModel,LectionaryModel,LectlistModel};
+use TMD\OrderOfMass\Models\{BibleindexModel,BiblejsonModel,BiblemapModel,BooklistModel,Iso6393listModel,LangcontentModel,LanglabelsModel,LanglistModel,CalendarModel,LectlistModel};
+use TMD\OrderOfMass\Exceptions\{OomException, ModelException};
 
 /**
  * Main class of the Order of Mass app
@@ -30,6 +31,8 @@ class MassMain
      */
     public function __construct()
     {
+        set_exception_handler(ExceptionHandler::class.'::handleException');
+
         $containerBuilder = new \DI\ContainerBuilder();
         $containerBuilder->useAutowiring(false);
         $containerBuilder->useAnnotations(false);
@@ -43,7 +46,7 @@ class MassMain
                 LangcontentModel::class => \DI\create(LangcontentModel::class)->constructor(\DI\get(Logger::class))->lazy(),
                 LanglabelsModel::class  => \DI\create(LanglabelsModel::class)->constructor(\DI\get(Logger::class))->lazy(),
                 LanglistModel::class    => \DI\create(LanglistModel::class)->constructor(\DI\get(Logger::class))->lazy(),
-                LectionaryModel::class  => \DI\create(LectionaryModel::class)->constructor(\DI\get(Logger::class))->lazy(),
+                CalendarModel::class    => \DI\create(CalendarModel::class)->constructor(\DI\get(Logger::class))->lazy(),
                 LectlistModel::class    => \DI\create(LectlistModel::class)->constructor(\DI\get(Logger::class))->lazy(),
 
                 BibleReader::class      => \DI\create(BibleReader::class)->constructor(
@@ -57,13 +60,17 @@ class MassMain
                     \DI\get(LanglabelsModel::class),
                 )->lazy(),
                 Config::class           => \DI\create(Config::class)->constructor(\DI\get(Logger::class))->lazy(),
-                GetParams::class        => \DI\create(GetParams::class)->constructor(\DI\get(Logger::class))->lazy(),
+                GetParams::class        => \DI\create(GetParams::class)->constructor(
+                    \DI\get(Logger::class),
+                    \DI\get(LanglistModel::class),
+                )->lazy(),
                 HtmlMaker::class        => \DI\create(HtmlMaker::class)->constructor(
                     \DI\get(Logger::class),
                     \DI\get(Language::class),
                     \DI\get(Lectionary::class),
                     \DI\get(LanglistModel::class),
                     \DI\get(LanglabelsModel::class),
+                    \DI\get(GetParams::class),
                 )->lazy(),
                 Language::class         => \DI\create(Language::class)->constructor(
                     \DI\get(Logger::class),
@@ -71,14 +78,12 @@ class MassMain
                     \DI\get(BibleReader::class),
                     \DI\get(Lectionary::class),
                     \DI\get(BooklistModel::class),
-                    \DI\get(LanglistModel::class),
-                    \DI\get(LangcontentModel::class),
                     \DI\get(LanglabelsModel::class),
                     \DI\get(BiblemapModel::class),
                 )->lazy(),
                 Lectionary::class       => \DI\create(Lectionary::class)->constructor(
                     \DI\get(Logger::class),
-                    \DI\get(LectionaryModel::class),
+                    \DI\get(CalendarModel::class),
                     \DI\get(LectlistModel::class),
                 )->lazy(),
                 Logger::class           => \DI\create(Logger::class)->lazy(),
@@ -95,9 +100,17 @@ class MassMain
         if ($bibleParam !== '') {
             $params = explode('|', $bibleParam);
             if (count($params) === 2) {
-                $file = $bibleIndexModel->getBibleFile($params[0], $params[1]);
-                if ($file !== null) {
-                    $bibleFile = $file;
+                try {
+                    $bibleFile = $bibleIndexModel->getBibleFile($params[0], $params[1]);
+                } catch (ModelException $exc) {
+                    // ModelException with code_parameter is a non-existent language and/or Bible
+                    // translation, in that case just keep the bibleFile empty, otherwise rethrow
+                    // the exception.
+                    if ($exc->getCode() === ModelException::CODE_PARAMETER) {
+                        $bibleFile = '';
+                    } else {
+                        throw $exc;
+                    }
                 }
             }
         }
@@ -109,17 +122,13 @@ class MassMain
         $bibleMapModel->load($bibleFile);
 
         $langContentModel = $this->container->get(LangcontentModel::class);
-        if ($langContentModel->load($getParams->getParam(GetParams::PARAM_TEXTS)) !== true) {
-            throw new \Exception('Langcontent load failed');
-        }
+        $langContentModel->load($getParams->getParam(GetParams::PARAM_TEXTS));
 
         $langLabelsModel = $this->container->get(LanglabelsModel::class);
-        if ($langLabelsModel->load($getParams->getParam(GetParams::PARAM_LABELS)) !== true) {
-            throw new \Exception('Langlabels load failed');
-        }
+        $langLabelsModel->load($getParams->getParam(GetParams::PARAM_LABELS));
 
-        $lectionaryModel = $this->container->get(LectionaryModel::class);
-        $lectionaryModel->load(intval(date('Y')));
+        $calendarModel = $this->container->get(CalendarModel::class);
+        $calendarModel->load(Helper::getLiturgicalYear($getParams->getTimestamp()));
 
     }//end __construct()
 
@@ -129,7 +138,7 @@ class MassMain
      *
      * @return array<string, mixed> Key is a replacement placeholder, value is the content to replace with
      */
-    private function prepareHtmlData()
+    private function prepareHtmlData(): array
     {
         $config     = $this->container->get(Config::class);
         $getParams  = $this->container->get(GetParams::class);
@@ -193,6 +202,13 @@ class MassMain
                 'licenseurl'  => 'https://creativecommons.org/licenses/by-sa/4.0',
             ],
             [
+                'label'       => $langLabelsModel->getLabel('bibles'),
+                'text'        => 'Zefania XML Bible Markup Language ',
+                'url'         => 'https://sourceforge.net/projects/zefania-sharp/',
+                'licensetext' => 'GNU GPL',
+                'licenseurl'  => 'https://www.gnu.org/licenses/licenses.html',
+            ],
+            [
                 'label'       => $langLabelsModel->getLabel('icons'),
                 'text'        => 'Font Awesome Free 6 by @fontawesome',
                 'url'         => 'https://fontawesome.com',
@@ -215,38 +231,17 @@ class MassMain
             $title = 'bible';
         }
 
-        $dateL = time();
-        if ($getParams->getParam(GetParams::PARAM_TYPE) === GetParams::TYPE_MASS) {
-            $dateL = Helper::nextSunday(time());
-        }
-
-        $dateR = '';
-        if ($getParams->getParam(GetParams::PARAM_TYPE) === GetParams::TYPE_ROSARY) {
-            $dateR = $langLabelsModel->getMystery(Helper::todaysMystery(time()));
-        } else if ($getParams->getParam(GetParams::PARAM_TYPE) === GetParams::TYPE_MASS) {
-            $sundayLabel = $lectionary->sundayLabel(time());
-            if ($sundayLabel !== null) {
-                $dateR = $langLabelsModel->getSunday($sundayLabel);
-            }
-        }
-
         $htmlContent = '';
         if ($getParams->getParam(GetParams::PARAM_TYPE) === GetParams::TYPE_BIBLE) {
             $htmlContent = $bibleRead->renderBible();
         } else {
             $tempCont = [];
             if ($getParams->getParam(GetParams::PARAM_TYPE) === GetParams::TYPE_ROSARY) {
-                $tempTempCont = $langContentModel->getRosary();
-                if ($tempTempCont !== null) {
-                    $tempCont = $tempTempCont;
-                }
+                $tempCont = $langContentModel->getRosary();
             }
 
             if ($getParams->getParam(GetParams::PARAM_TYPE) === GetParams::TYPE_MASS) {
-                $tempTempCont = $langContentModel->getMass();
-                if ($tempTempCont !== null) {
-                    $tempCont = $tempTempCont;
-                }
+                $tempCont = $langContentModel->getMass();
             }
 
             if (is_array($tempCont) === true) {
@@ -261,31 +256,32 @@ class MassMain
          */
         // phpcs:enable
         return [
-            '/@@BASEURL@@/'  => BASE_URL,
-            '/@@LANG@@/'     => $langLabelsModel->getLabel('html'),
-            '/@@TITLE@@/'    => $langLabelsModel->getLabel($title),
-            '/@@IDXL@@/'     => $langLabelsModel->getLabel('idxL'),
-            '/@@IDXY@@/'     => $langLabelsModel->getLabel('idxY'),
-            '/@@IDXB@@/'     => $langLabelsModel->getLabel('idxB'),
-            '/@@IDXT@@/'     => $langLabelsModel->getLabel('idxT'),
-            '/@@FLDL@@/'     => GetParams::PARAM_LABELS,
-            '/@@FLDY@@/'     => GetParams::PARAM_TYPE,
-            '/@@FLDB@@/'     => GetParams::PARAM_BIBLE,
-            '/@@FLDT@@/'     => GetParams::PARAM_TEXTS,
-            '/@@CBL@@/'      => $htmlMaker->comboBoxContent($comboboxL, true),
-            '/@@CBY@@/'      => $htmlMaker->comboBoxContent($comboboxY, true),
-            '/@@CBB@@/'      => $htmlMaker->comboBoxContent($comboboxB, false),
-            '/@@CBT@@/'      => $htmlMaker->comboBoxContent($comboboxT, true),
-            '/@@LEGP@@/'     => $langLabelsModel->getLabel('lblP'),
-            '/@@LEGA@@/'     => $langLabelsModel->getLabel('lblA'),
-            '/@@LEGR@@/'     => $langLabelsModel->getLabel('lblR'),
-            '/@@DATEL@@/'    => date('d.m.Y', $dateL),
-            '/@@DATER@@/'    => $dateR,
-            '/@@MAIN@@/'     => $htmlContent,
-            '/@@MAINTYPE@@/' => $getParams->getParam(GetParams::PARAM_TYPE),
-            '/@@LINKS@@/'    => $htmlMaker->linksContent($links),
-            '/@@MEMPEAK@@/'  => \memory_get_peak_usage(true),
-            '/@@MEMUSE@@/'   => \memory_get_usage(true),
+            '/@@BASEURL@@/'   => BASE_URL,
+            '/@@LANG@@/'      => $langLabelsModel->getLabel('html'),
+            '/@@TITLE@@/'     => $langLabelsModel->getLabel($title),
+            '/@@IDXL@@/'      => $langLabelsModel->getLabel('idxL'),
+            '/@@IDXY@@/'      => $langLabelsModel->getLabel('idxY'),
+            '/@@IDXB@@/'      => $langLabelsModel->getLabel('idxB'),
+            '/@@IDXT@@/'      => $langLabelsModel->getLabel('idxT'),
+            '/@@IDXD@@/'      => $langLabelsModel->getLabel('idxD'),
+            '/@@FLDL@@/'      => GetParams::PARAM_LABELS,
+            '/@@FLDY@@/'      => GetParams::PARAM_TYPE,
+            '/@@FLDB@@/'      => GetParams::PARAM_BIBLE,
+            '/@@FLDT@@/'      => GetParams::PARAM_TEXTS,
+            '/@@FLDD@@/'      => GetParams::PARAM_DATE,
+            '/@@DATE@@/'      => $getParams->getParam(GetParams::PARAM_DATE),
+            '/@@CBL@@/'       => $htmlMaker->comboBoxContent($comboboxL, true),
+            '/@@CBY@@/'       => $htmlMaker->comboBoxContent($comboboxY, true),
+            '/@@CBB@@/'       => $htmlMaker->comboBoxContent($comboboxB, false),
+            '/@@CBT@@/'       => $htmlMaker->comboBoxContent($comboboxT, true),
+            '/@@LEGP@@/'      => $langLabelsModel->getLabel('lblP'),
+            '/@@LEGA@@/'      => $langLabelsModel->getLabel('lblA'),
+            '/@@LEGR@@/'      => $langLabelsModel->getLabel('lblR'),
+            '/@@MYSTERY@@/'   => $langLabelsModel->getMystery(Helper::todaysMystery($getParams->getTimestamp())),
+            '/@@DATELABEL@@/' => $langLabelsModel->getSunday($lectionary->sundayLabel($getParams->getTimestamp())),
+            '/@@MAIN@@/'      => $htmlContent,
+            '/@@MAINTYPE@@/'  => $getParams->getParam(GetParams::PARAM_TYPE),
+            '/@@LINKS@@/'     => $htmlMaker->linksContent($links),
         ];
 
     }//end prepareHtmlData()
@@ -308,7 +304,7 @@ class MassMain
 
         $template = __DIR__.'/../assets/html/main.html';
         if (file_exists($template) !== true) {
-            return;
+            throw new OomException('HTML template file "'.$template.'" does not exist');
         }
 
         $htmldata = $this->prepareHtmlData();

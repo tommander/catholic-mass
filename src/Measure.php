@@ -9,6 +9,8 @@
 
 namespace TMD\OrderOfMass;
 
+use TMD\OrderOfMass\Exceptions\{OomException,ModelException};
+
 /**
  * Performance measurement class
  */

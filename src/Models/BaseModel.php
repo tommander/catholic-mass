@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace TMD\OrderOfMass\Models;
 
+use TMD\OrderOfMass\Exceptions\ModelException;
 use TMD\OrderOfMass\Helper;
 use TMD\OrderOfMass\Logger;
 
@@ -79,29 +80,28 @@ abstract class BaseModel
      * @param string $fileName Path to the JSON file relative to the root of the workspace
      * @param bool   $assoc    JSON objects will be converted to associative arrays instead of objects (default: `true`)
      *
-     * @return bool
+     * @return void
      */
-    protected function loadJson(string $fileName, bool $assoc=true): bool
+    protected function loadJson(string $fileName, bool $assoc=true): void
     {
         $this->jsonContent  = null;
         $this->jsonFilename = '';
         if ($fileName === '') {
-            return false;
+            throw new ModelException('Empty filename', ModelException::CODE_FILENAME);
         }
 
         $this->jsonFilename = Helper::fullFilename($fileName);
 
         if (file_exists($this->jsonFilename) !== true) {
-            return false;
+            throw new ModelException('File "'.$this->jsonFilename.'" does not exist', ModelException::CODE_FILENAME);
         }
 
         $tmpContent = file_get_contents($this->jsonFilename);
         if ($tmpContent === false) {
-            return false;
+            throw new ModelException('Cannot load file content', ModelException::CODE_FILECONTENT);
         }
 
         $this->jsonContent = json_decode($tmpContent, $assoc);
-        return true;
 
     }//end loadJson()
 
@@ -111,9 +111,9 @@ abstract class BaseModel
      *
      * @param bool $prettyPrint Whether to `pretty_print` the resulting JSON (default: `false`)
      *
-     * @return bool
+     * @return void
      */
-    protected function saveJson(bool $prettyPrint=false): bool
+    protected function saveJson(bool $prettyPrint=false): void
     {
         $options = 0;
         if ($prettyPrint === true) {
@@ -122,11 +122,13 @@ abstract class BaseModel
 
         $tmpContent = json_encode($this->jsonContent, $options);
         if ($tmpContent === false) {
-            return false;
+            throw new ModelException('Cannot encode file content', ModelException::CODE_FILECONTENT);
         }
 
         $res = file_put_contents($this->jsonFilename, $tmpContent);
-        return ($res !== false);
+        if ($res === false) {
+            throw new ModelException('Cannot save file', ModelException::CODE_FILECONTENT);
+        }
 
     }//end saveJson()
 

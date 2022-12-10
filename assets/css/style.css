@@ -9,7 +9,7 @@ body {
 /* HEADER */
 
 header {
-	background-color: #987;
+	background-color: #765;
 	display: flex;
 	justify-content: center;
 	height: 128px;
@@ -17,7 +17,7 @@ header {
 	background-repeat: no-repeat;
 	background-size: contain;
 	align-items: flex-end;
-	border-bottom: 1px solid #765;
+	border-bottom: 1px solid #432;
 }
 
 header h1 {
@@ -35,36 +35,41 @@ nav {
 	margin: 0 auto;
 	display: flex;
 	flex-direction: column;
-	border-bottom: 1px solid #765;
-	border-left: 1px solid #765;
-	border-right: 1px solid #765;
+	border-bottom: 1px solid #432;
+	border-left: 1px solid #432;
+	border-right: 1px solid #432;
 	font-family: 'Source Sans Pro', sans-serif;
 }
 i {
-	padding: 0 0.2em;
+	padding: 0 0.2rem;
 }
 #navSettings, #navLegend, #navDate {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 0.5em 1em;
+	padding: 0.5rem 1rem;
+	flex-wrap: wrap;
 }
 
-#navSettings > div {
+#navSettings > div, #navDate > div {
 	display: flex;
 	flex-direction: column;
 }
 
+#navSettings label, #navDate label, .navLegendShort {
+	font-weight: bold;
+}
+
 #navLegend {
-	border-top: 1px solid #765;
+	border-top: 1px solid #432;
 }
 
 #navDate {
-	border-top: 1px solid #765;
+	border-top: 1px solid #432;
 }
 
 nav a {
-	padding-left: 0.5em;
+	padding-left: 0.5rem;
 }
 
 nav a:first-child {
@@ -79,8 +84,8 @@ main {
 	display: flex;
 	flex-flow: column;
 	justify-content: flex-start;
-	border-left: 1px solid #765;
-	border-right: 1px solid #765;
+	border-left: 1px solid #432;
+	border-right: 1px solid #432;
 	font-family: 'Source Serif Pro', serif;
 }
 
@@ -91,7 +96,7 @@ main abbr {
 /* MAIN (MASS, ROSARY) */
 
 main div {
-	padding: 1em;
+	padding: 1rem;
 }
 main div:nth-child(even) {
 	background-color: rgba(255, 255, 255, 0.2);
@@ -105,7 +110,7 @@ div.options {
 	display: grid;
 	grid-auto-flow: column;
 	grid-auto-columns: 1fr;
-	column-gap: 0.5em;
+	column-gap: 0.5rem;
 	padding: 0 !important;
 }
 
@@ -117,49 +122,39 @@ div.options > div {
 .who {
 	font-weight: bold;
 	text-transform: capitalize;
-	margin-right: 0.5em;
+	margin-right: 0.5rem;
 }
 
 .command {
 	font-style: italic;
-	color: #555;
+	color: #444;
 }
 
-.choiceTabs .option, .choiceTabsLabel {
-	display: inline-block;
-	padding: 0.5em;
-	margin: 0.5em;
-}
-
-.choiceTabs .option {
-	border: 1px solid rgba(0,0,0,0.3);
-	border-radius: 0.5em;
+.choice, div[role=tablist], div[role=tabpanel] {
+	margin: 0;
+	padding: 0;
+	background-color: rgba(255,255,255,0) !important;
 }
 
 .choiceTabsLabel {
-	margin: 1em 0.25em 1em 1em; 
-	padding: 0;
-}
-
-.choiceTabs .option:hover {
-	background-color: rgba(255,255,255,0.3) !important;
-}
-
-.choiceTabs .option {
-	cursor: pointer;
-}
-
-.choice, .choiceTabs, .choiceContent, .choiceContent > div {
-	padding: 0;
-}
-
-.optionSelected {
-	font-weight:bold;
-	border: 1px solid rgba(0,0,0,0.6) !important;
-}
-
-.choice, .choiceTabs div, .choiceContent, .choiceContent .option {
+	display: inline-block;
 	background-color: rgba(255,255,255,0) !important;
+}
+
+.choice button {
+	padding: 0.25rem 0.75rem;
+}
+
+.heading1 {
+	font-size: 140%;
+	font-weight: bold;
+	text-align: center;
+}
+
+.heading2 {
+	font-size: 110%;
+	font-weight: bold;
+	text-align: center;
 }
 
 /* MAIN (BIBLE) */
@@ -182,7 +177,7 @@ main[class=bible] p.backtotop {
 
 main[class=bible] table {
 	border-collapse: separate;
-	border-spacing: 0.5em 0.25em;
+	border-spacing: 0.5rem 0.25rem;
 }
 
 main[class=bible] select {
@@ -193,20 +188,20 @@ main[class=bible] select {
 /* FOOTER */ 
 
 footer {
-	background-color: #987;
+	background-color: #765;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-flow: column;
-	padding: 1em 0;
-	color: #edc;
-	border-top: 1px solid #765;
+	padding: 1rem 0;
+	color: #fed;
+	border-top: 1px solid #432;
 }
 footer > div {
 	max-width: 1024px;
 	display: flex;
 	flex-flow: column;
-	margin: 0 1em;
+	margin: 0 1rem;
 }
 footer a, footer a:link, footer a:visited {
 	color: #fed;

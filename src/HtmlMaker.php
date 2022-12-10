@@ -10,6 +10,7 @@
 namespace TMD\OrderOfMass;
 
 use TMD\OrderOfMass\Models\{LanglistModel,LanglabelsModel};
+use TMD\OrderOfMass\Exceptions\{OomException,ModelException};
 
 if (defined('OOM_BASE') !== true) {
     die('This file cannot be viewed independently.');
@@ -56,23 +57,32 @@ class HtmlMaker
      */
     private $langLabelsModel;
 
+    /**
+     * Hello
+     *
+     * @var GetParams
+     */
+    private $getParams;
+
 
     /**
      * Saves service instances
      *
-     * @param Logger          $logger          Logger
-     * @param Language        $language        Language
-     * @param Lectionary      $lectionary      Lectionary
+     * @param Logger          $logger          Logger service
+     * @param Language        $language        Language service
+     * @param Lectionary      $lectionary      Lectionary service
      * @param LanglistModel   $langListModel   Langlist model
      * @param LanglabelsModel $langLabelsModel Langlabels model
+     * @param GetParams       $getParams       GetParams service
      */
-    public function __construct(Logger $logger, Language $language, Lectionary $lectionary, LanglistModel $langListModel, LanglabelsModel $langLabelsModel)
+    public function __construct(Logger $logger, Language $language, Lectionary $lectionary, LanglistModel $langListModel, LanglabelsModel $langLabelsModel, GetParams $getParams)
     {
         $this->logger          = $logger;
         $this->language        = $language;
         $this->lectionary      = $lectionary;
         $this->langListModel   = $langListModel;
         $this->langLabelsModel = $langLabelsModel;
+        $this->getParams       = $getParams;
 
     }//end __construct()
 
@@ -90,35 +100,61 @@ class HtmlMaker
         $ret = '';
         if ($simple === true) {
             foreach ($def as $opt) {
+                if (is_array($opt) !== true) {
+                    throw new OomException('Incorrect array structure (item is not array)');
+                }
+
+                if (array_key_exists('value', $opt) !== true
+                    || array_key_exists('sel', $opt) !== true
+                    || array_key_exists('text', $opt) !== true
+                ) {
+                    throw new OomException('Incorrect array structure (array does not contain necessary keys)');
+                }
+
                 $sel = '';
                 if ($opt['sel'] === true) {
                     $sel = ' selected="selected"';
                 }
 
-                $ret .= sprintf("<option value=\"%s\"%s>%s</option>\r\n", $opt['value'], $sel, $opt['text']);
+                $ret .= sprintf("<option value=\"%s\"%s>%s</option>", $opt['value'], $sel, $opt['text']);
             }
 
             return $ret;
-        }
+        }//end if
 
         foreach ($def as $grp => $lst) {
+            if (is_array($lst) !== true) {
+                throw new OomException('Incorrect array structure (group list is not array)');
+            }
+
             if ($grp !== '') {
-                $ret .= sprintf("<optgroup label=\"%s\">\r\n", $grp);
+                $ret .= sprintf("<optgroup label=\"%s\">", $grp);
             }
 
             foreach ($lst as $opt) {
+                if (is_array($opt) !== true) {
+                    throw new OomException('Incorrect array structure (group list item is not array)');
+                }
+
+                if (array_key_exists('value', $opt) !== true
+                    || array_key_exists('sel', $opt) !== true
+                    || array_key_exists('text', $opt) !== true
+                ) {
+                    throw new OomException('Incorrect array structure (group list array does not contain necessary keys)');
+                }
+
                 $sel = '';
                 if ($opt['sel'] === true) {
                     $sel = ' selected="selected"';
                 }
 
-                $ret .= sprintf("<option value=\"%s\"%s>%s</option>\r\n", $opt['value'], $sel, $opt['text']);
+                $ret .= sprintf("<option value=\"%s\"%s>%s</option>", $opt['value'], $sel, $opt['text']);
             }
 
             if ($grp !== '') {
-                $ret .= "</optgroup>\r\n";
+                $ret .= "</optgroup>";
             }
-        }
+        }//end foreach
 
         return $ret;
 
@@ -142,7 +178,7 @@ class HtmlMaker
             }
 
             if (is_array($one) !== true) {
-                continue;
+                throw new OomException('Unexpected array structure');
             }
 
             if (array_key_exists('licenseurl', $one) === true
@@ -169,34 +205,27 @@ class HtmlMaker
 
         $langList = $this->langListModel->listLanguages();
         foreach ($langList as $langCode) {
-            $langTitle  = $this->langListModel->getLanguageName($langCode);
+            $title      = $this->langListModel->getLanguageName($langCode);
             $langAuthor = $this->langListModel->getLanguageAuthor($langCode);
             $langLinks  = $this->langListModel->getLanguageLinks($langCode);
 
-            $title = '';
-            if ($langTitle !== null) {
-                $title = $langTitle;
-            }
-
             $author = '';
-            if ($langAuthor !== null && $langAuthor !== 'Tommander') {
+            if ($langAuthor !== 'Tommander') {
                 $author = ' by '.$langAuthor;
             }
 
             $links = '';
             $cnt   = 1;
-            if ($langLinks !== null) {
-                foreach ($langLinks as $lnk) {
-                    if ($cnt > 1) {
-                        $links .= ', ';
-                    }
-
-                    $links .= sprintf(
-                        "<a href=\"%s\">source %d</a>",
-                        $lnk,
-                        $cnt++
-                    );
+            foreach ($langLinks as $lnk) {
+                if ($cnt > 1) {
+                    $links .= ', ';
                 }
+
+                $links .= sprintf(
+                    "<a href=\"%s\">source %d</a>",
+                    $lnk,
+                    $cnt++
+                );
             }
 
             if ($links !== '') {
@@ -229,20 +258,28 @@ class HtmlMaker
         $what = '';
         $cls  = '';
 
-        if (isset($obj->reading) === true) {
-            $what = "<a href=\"".$this->langLabelsModel->getLabel('dbrlink')."\">".$this->language->repls('@icon{booklink} @{dbrtext}')."</a>";
+        if (isset($obj->h1) === true) {
+            $cls  = ' class="heading1"';
+            $what = $this->language->repls($obj->h1);
+        } else if (isset($obj->h2) === true) {
+            $cls  = ' class="heading2"';
+            $what = $this->language->repls($obj->h2);
+        } else if (isset($obj->reading) === true) {
+            $cls  = ' class="command"';
+            $what = "<span class=\"what\"><a href=\"".$this->langLabelsModel->getLabel('dbrlink')."\">".$this->language->repls('@icon{booklink}')." ".$this->langLabelsModel->getLabel('dbrtext')."</a></span>";
         } else if (isset($obj->{""}) === true) {
-            $what = $this->language->repls($obj->{""}, true);
+            $cls  = ' class="command"';
+            $what = "<span class=\"what\">".$this->language->repls($obj->{""}, true)."</span>";
         } else if (isset($obj->{"p"}) === true) {
             $who  = "<span class=\"who\">P:</span>";
-            $what = $this->language->repls($obj->{"p"}, true);
+            $what = "<span class=\"what\">".$this->language->repls($obj->{"p"}, true)."</span>";
         } else if (isset($obj->{"a"}) === true) {
             $who  = "<span class=\"who\">A:</span>";
-            $what = "<strong>".$this->language->repls($obj->{"a"}, true)."</strong>";
+            $what = "<span class=\"what\"><strong>".$this->language->repls($obj->{"a"}, true)."</strong></span>";
         } else if (isset($obj->{"r"}) === true) {
             $who  = "<span class=\"who\">R:</span>";
-            $what = $this->language->repls($obj->{"r"}, true);
-        } else if (isset($obj->{"read"}) === true) {
+            $what = "<span class=\"what\">".$this->language->repls($obj->{"r"}, true)."</span>";
+        } else if (\property_exists($obj, 'read') === true) {
             $who   = "<span class=\"who\">R:</span>";
             $what1 = "@icon{bible}";
             $what2 = '';
@@ -261,33 +298,34 @@ class HtmlMaker
                 break;
             case 'g':
                 $what2 = '@{readE} ';
+                break;
+            default:
+                throw new OomException('Unknown reading code "'.$obj->{"read"}.'"');
             }
 
             $what3 = '';
-            $reads = $this->lectionary->getReadings(time());
+            $reads = $this->lectionary->getReadings($this->getParams->getTimestamp());
             if ($reads !== null) {
                 $what3raw = '';
                 if (array_key_exists($obj->{"read"}, $reads) === true) {
                     $what3raw = $reads[$obj->{"read"}];
                 }
 
-                if (is_string($what3raw) === true) {
+                if (is_string($what3raw) === true && $what3raw !== '') {
                     $what3 = $this->language->replbb($what3raw);
                 } else if (is_array($what3raw) === true) {
                     foreach ($what3raw as $what3one) {
-                        $what3 .= $this->language->replbb($what3one);
+                        if ($what3one !== '') {
+                            $what3 .= $this->language->replbb($what3one);
+                        }
                     }
                 }
             }
 
-            $what = $this->language->repls($what1.' '.$what2.' '.$what3, true);
+            $what = "<span class=\"what\">".$this->language->repls($what1.' '.$what2.' '.$what3, true)."</span>";
         }//end if
 
-        if ($who === '') {
-            $cls = ' class="command"';
-        }
-
-        return "<div${cls}>${who}<span class=\"what\">${what}</span></div>\r\n";
+        return "<div${cls}>${who}${what}</div>";
 
     }//end objToHtml()
 
@@ -301,53 +339,56 @@ class HtmlMaker
      */
     public function arrToHtml(array $arr): string
     {
-        $ret = "<div class=\"choice\">\r\n";
+        $tabIDprefix = 'L'.Helper::hash(var_export($arr, true)).\bin2hex(\openssl_random_pseudo_bytes(2));
 
-        $ret .= "  <div class=\"choiceTabs\">\r\n";
-        $ret .= "    <div class=\"choiceTabsLabel\"><span class=\"command\"><i class=\"fa-regular fa-hand-pointer\"></i> ".$this->langLabelsModel->getLabel('choose').":</span></div>\r\n";
-        $i    = 0;
-        $cont = '';
+        // $ret  = "<div class=\"choice\"><div role=\"tablist\" aria-label=\"\" class=\"choiceTabs\">";
+        $label = "<div class=\"choiceTabsLabel\"><span class=\"command\"><i class=\"fa-regular fa-hand-pointer\"></i> ".$this->langLabelsModel->getLabel('choose').":</span></div>";
+        $ret   = "<div class=\"choice\"><div id=\"${tabIDprefix}-LIST\" role=\"tablist\" aria-label=\"\">$label";
+        $i     = 0;
+        $cont  = '';
+
         foreach ($arr as $item) {
             $i++;
 
             if (is_object($item) !== true) {
-                continue;
+                throw new OomException('Array item is not an object');
             }
 
-            $addTab  = '';
+            if (property_exists($item, 'content') !== true) {
+                throw new OomException('Item object does not have "content"');
+            }
+
+            if (is_array($item->content) !== true) {
+                throw new OomException('Item object content is not an array');
+            }
+
+            $addTab  = 'false';
             $addCont = ' hidden="hidden"';
+            $tabIdx  = '-1';
+            $tabID   = $tabIDprefix.$i.'-TAB';
+            $panelID = $tabIDprefix.$i.'-PANEL';
             if ($i === 1) {
-                $addTab  = ' optionSelected';
+                $addTab  = 'true';
                 $addCont = '';
+                $tabIdx  = '0';
             }
 
-            $ret .= "    <div class=\"option option${i}${addTab}\" onclick=\"tabClick(this)\">";
+            $ret .= "<button role=\"tab\" aria-selected=\"${addTab}\" aria-controls=\"${panelID}\" id=\"${tabID}\" tabindex=\"${tabIdx}\">";
             if (isset($item->title) === true && $item->title !== '') {
                 $ret .= $this->language->repls($item->title);
             } else {
                 $ret .= $i;
             }
 
-            $ret .= "</div>\r\n";
+            $ret .= "</button>";
 
-            $cont .= "    <div class=\"option option${i}\"${addCont}>\r\n";
-            if (isset($item->content) === true && is_array($item->content) === true) {
-                foreach ($item->content as $subitem) {
-                    if (is_object($subitem) === true) {
-                        $cont .= $this->objToHtml($subitem);
-                    }
-                }
-            }
-
-            $cont .= "    </div>\r\n";
+            $cont .= "<div role=\"tabpanel\" id=\"${panelID}\"${addCont} aria-labelledby=\"${tabID}\" tabIndex=\"-1\">";
+            $cont .= $this->htmlObj($item->content);
+            $cont .= "</div>";
         }//end foreach
 
-        $ret .= "  </div>\r\n";
-
-        $ret .= "  <div class=\"choiceContent\">\r\n";
-        $ret .= $cont;
-        $ret .= "  </div>\r\n";
-        $ret .= "</div>\r\n";
+        // $ret .= "</div><div class=\"choiceContent\">$cont</div></div>";
+        $ret .= "$cont</div></div>";
 
         return $ret;
 
@@ -369,6 +410,8 @@ class HtmlMaker
                 $ret .= $this->objToHtml($row);
             } else if (is_array($row) === true) {
                 $ret .= $this->arrToHtml($row);
+            } else {
+                throw new OomException('Content item is not array or object');
             }
         }
 

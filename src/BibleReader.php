@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace TMD\OrderOfMass;
 
 use TMD\OrderOfMass\Models\{BibleindexModel,BiblejsonModel,BiblemapModel,BooklistModel,LanglabelsModel};
+use TMD\OrderOfMass\Exceptions\{OomException,ModelException};
 
 if (defined('OOM_BASE') !== true) {
     die('This file cannot be viewed independently.');
@@ -135,10 +136,10 @@ class BibleReader
 
         $strRefVer = strval($refVer);
         if (preg_match('/^(\d+)(\d{3})(\d{3})(\d{1})$/', $strRefVer, $mat) === 1) {
-            $ret['book'] = $mat[1];
-            $ret['chap'] = $mat[2];
-            $ret['vers'] = $mat[3];
-            $ret['part'] = $mat[4];
+            $ret['book'] = intval($mat[1]);
+            $ret['chap'] = intval($mat[2]);
+            $ret['vers'] = intval($mat[3]);
+            $ret['part'] = intval($mat[4]);
         }
 
         return $ret;
@@ -188,6 +189,10 @@ class BibleReader
         $parsedRef = $this->parseRef($ref);
 
         foreach ($parsedRef as $oneRef) {
+            if (is_array($oneRef) !== true || count($oneRef) !== 2) {
+                throw new OomException('Unexpected parsed verse reference structure.');
+            }
+
             if ($ret !== '') {
                 $ret .= ' ';
             }
@@ -225,16 +230,13 @@ class BibleReader
     {
         // Check that book reference and the rest of the reference was found.
         if (preg_match('/^([\p{L}0-9]+)\s+(.*)$/u', $ref, $mat) !== 1 || count($mat) < 3) {
-            return [];
+            throw new OomException('Unparsable verse reference "'.$ref.'"');
         }
 
         // Save basic reference parts for clarity.
         $book    = $mat[1];
         $chap    = 0;
         $bookNum = $this->bookListModel->abbreviationToNumber($book);
-        if ($bookNum === null) {
-            return [];
-        }
 
         // Split reference into single verses or verse ranges.
         $rngArr = [];
@@ -248,61 +250,65 @@ class BibleReader
         // they all have book and chapter.
         $rng = [];
         foreach ($rngArr as $rngOne) {
-            if (preg_match('/(([0-9]+):)?([0-9A-z]+)(-)?(([0-9]+):)?([0-9A-z]+)?/', $rngOne, $mat2) === 1) {
-                $verseLow  = '';
-                $verseHigh = '';
+            if (preg_match('/(([0-9]+):)?([0-9A-z]+)(-)?(([0-9]+):)?([0-9A-z]+)?/', $rngOne, $mat2) !== 1) {
+                throw new OomException('Unparsable verse reference "'.$rngOne.'"');
+            }
 
-                if (count($mat2) === 4) {
-                    if ($mat2[2] !== '') {
-                        $chap = intval($mat2[2]);
-                    }
+            $verseLow  = '';
+            $verseHigh = '';
 
-                    if (preg_match('/(\d+)([A-z]{1})/', $mat2[3], $mat3) === 1) {
-                        if ($this->allowSubref === true) {
-                            $verseLow = self::refVer($bookNum, $chap, intval($mat3[1]), Helper::letterToInt($mat3[2]));
-                        } else {
-                            $verseLow = self::refVer($bookNum, $chap, intval($mat3[1]));
-                        }
+            if (count($mat2) === 4) {
+                if ($mat2[2] !== '') {
+                    $chap = intval($mat2[2]);
+                }
+
+                if (preg_match('/(\d+)([A-z]{1})/', $mat2[3], $mat3) === 1) {
+                    if ($this->allowSubref === true) {
+                        $verseLow = self::refVer($bookNum, $chap, intval($mat3[1]), Helper::letterToInt($mat3[2]));
                     } else {
-                        $verseLow = self::refVer($bookNum, $chap, intval($mat2[3]));
+                        $verseLow = self::refVer($bookNum, $chap, intval($mat3[1]));
                     }
+                } else {
+                    $verseLow = self::refVer($bookNum, $chap, intval($mat2[3]));
+                }
 
-                    $verseHigh = $verseLow;
-                } else if (count($mat2) === 8) {
-                    if ($mat2[2] !== '') {
-                        $chap = intval($mat2[2]);
-                    }
+                $verseHigh = $verseLow;
+            } else if (count($mat2) === 8) {
+                if ($mat2[2] !== '') {
+                    $chap = intval($mat2[2]);
+                }
 
-                    if (preg_match('/(\d+)([A-z]{1})/', $mat2[3], $mat4) === 1) {
-                        if ($this->allowSubref === true) {
-                            $verseLow = self::refVer($bookNum, $chap, intval($mat4[1]), Helper::letterToInt($mat4[2]));
-                        } else {
-                            $verseLow = self::refVer($bookNum, $chap, intval($mat4[1]));
-                        }
+                if (preg_match('/(\d+)([A-z]{1})/', $mat2[3], $mat4) === 1) {
+                    if ($this->allowSubref === true) {
+                        $verseLow = self::refVer($bookNum, $chap, intval($mat4[1]), Helper::letterToInt($mat4[2]));
                     } else {
-                        $verseLow = self::refVer($bookNum, $chap, intval($mat2[3]));
+                        $verseLow = self::refVer($bookNum, $chap, intval($mat4[1]));
                     }
+                } else {
+                    $verseLow = self::refVer($bookNum, $chap, intval($mat2[3]));
+                }
 
-                    if ($mat2[6] !== '') {
-                        $chap = intval($mat2[6]);
-                    }
+                if ($mat2[6] !== '') {
+                    $chap = intval($mat2[6]);
+                }
 
-                    if (preg_match('/(\d+)([A-z]{1})/', $mat2[7], $mat5) === 1) {
-                        if ($this->allowSubref === true) {
-                            $verseHigh = self::refVer($bookNum, $chap, intval($mat5[1]), Helper::letterToInt($mat5[2]));
-                        } else {
-                            $verseHigh = self::refVer($bookNum, $chap, intval($mat5[1]));
-                        }
+                if (preg_match('/(\d+)([A-z]{1})/', $mat2[7], $mat5) === 1) {
+                    if ($this->allowSubref === true) {
+                        $verseHigh = self::refVer($bookNum, $chap, intval($mat5[1]), Helper::letterToInt($mat5[2]));
                     } else {
-                        $verseHigh = self::refVer($bookNum, $chap, intval($mat2[7]));
+                        $verseHigh = self::refVer($bookNum, $chap, intval($mat5[1]));
                     }
-                }//end if
-
-                $rng[] = [
-                    $verseLow,
-                    $verseHigh,
-                ];
+                } else {
+                    $verseHigh = self::refVer($bookNum, $chap, intval($mat2[7]));
+                }
+            } else {
+                throw new OomException('Strange verse reference "'.$rngOne.'"');
             }//end if
+
+            $rng[] = [
+                $verseLow,
+                $verseHigh,
+            ];
         }//end foreach
 
         return $rng;
@@ -319,7 +325,7 @@ class BibleReader
      *
      * @return array
      */
-    public function parseRefs($refs): array
+    public function parseRefs(string|array $refs): array
     {
         if (is_string($refs) === true) {
             return $this->parseRef($refs);
@@ -342,115 +348,137 @@ class BibleReader
      */
     public function renderBible(): string
     {
-        $toc        = [];
-        $text       = '';
-        $tocChaps   = [];
-        $selectBook = $this->getParams->getParam(GetParams::PARAM_BOOK);
+        // List of books ['bookNumber' => 'bookName'].
+        $toc = [];
 
+        // Rendered book text (all chapters and verses).
+        $text = '';
+
+        // List of chapters in currently selected book ['chap<number>' => '<number>].
+        $tocChaps = [];
+
+        // Number of the currently selected book.
+        $selectBook = intval($this->getParams->getParam(GetParams::PARAM_BOOK));
+
+        // Create list of books in currently selected Bible.
+        // If a book is selected, render its chapters and verses.
         $verses = $this->bibleJsonModel->listVerses();
-        if ($verses === null) {
-            return '';
-        }
-
         foreach ($verses as $verseID) {
-            $verseData = self::decodeRefVer($verseID);
-            $bookNum   = intval($verseData['book']);
-
-            if (array_key_exists(strval($bookNum), $toc) !== true) {
-                $bookName = '';
-
-                $bookNameTmp = $this->bibleMapModel->numberToName($bookNum);
-                if ($bookNameTmp !== null) {
-                    $bookName = $bookNameTmp;
-                } else {
-                    $bookNameTmp = $this->bookListModel->numberToName($bookNum);
-                    if ($bookNameTmp !== null) {
-                        $bookName = $bookNameTmp;
-                    }
-                }
-
-                $toc[strval($bookNum)] = $bookName;
+            if (is_int($verseID) !== true) {
+                throw new OomException('Verse ID is not integer');
             }
 
+            // Explode verse reference.
+            $verseData  = self::decodeRefVer($verseID);
+            $bookNumStr = strval($verseData['book']);
+
+            // Add book to ToC if it is not there yet.
+            if (array_key_exists($bookNumStr, $toc) !== true) {
+                $bookName = '';
+
+                // Try to load the localized book name, if not, we use the common English name.
+                $bookNameTmp = $this->bibleMapModel->numberToName($verseData['book']);
+                if ($bookNameTmp !== '') {
+                    $bookName = $bookNameTmp;
+                } else {
+                    $bookName = $this->bookListModel->numberToName($verseData['book']);
+                }
+
+                $toc[$verseData['book']] = $bookName;
+            }
+
+            // If the current verse's book is not equal to the selected book, skip.
             if ($selectBook !== $verseData['book']) {
                 continue;
             }
 
-            $chapNum = intval($verseData['chap']);
-            $versNum = intval($verseData['vers']);
-
-            if (intval($verseData['chap']) === 1 && intval($verseData['vers']) === 1) {
-                $text .= "<h2>".$toc[strval($bookNum)]."</h2>\r\n";
+            // Add book heading if we are at the first chapter and first verse.
+            if ($verseData['chap'] === 1 && $verseData['vers'] === 1) {
+                $text .= "<h2>".$toc[$bookNumStr]."</h2>\r\n";
             }
 
-            if (intval($verseData['vers']) === 1) {
-                $text .= "<h3 id=\"chap${chapNum}\">".$this->langLabelsModel->getLabel('chapter')." ".$chapNum."</h3><p class=\"backtotop\"><a onclick=\"scrollToTop()\">".$this->langLabelsModel->getLabel('backtotop')."</a></p>\r\n";
-                $tocChaps["chap${chapNum}"] = $chapNum;
+            // Add chapter heading if we are at the first verse.
+            if ($verseData['vers'] === 1) {
+                $text .= "<h3 id=\"chap".$verseData['chap']."\">".$this->langLabelsModel->getLabel('chapter')." ".$verseData['chap']."</h3><p class=\"backtotop\"><a onclick=\"scrollToTop()\">".$this->langLabelsModel->getLabel('backtotop')."</a></p>\r\n";
+                $tocChaps['chap'.$verseData['chap']] = $verseData['chap'];
             }
 
-            $text .= "<p><strong>".$versNum."</strong> ".$this->bibleJsonModel->getVerse(intval($verseID))."</p>";
+            // Add verse to the resulting HTML.
+            $text .= "<p><strong>".$verseData['vers']."</strong> ".$this->bibleJsonModel->getVerse($verseID)."</p>";
         }//end foreach
 
+        // Prepare the form for selecting a book.
+        // First, include all other existing GET parameters.
         $tocText = '<form name="selectabook" action="index.php" method="GET"><label for="SELECT_BOOK">'.$this->langLabelsModel->getLabel('selectbook').':</label>';
         foreach ($_GET as $getKey => $getValue) {
-            if ($getKey === 'book') {
+            if ($getKey === GetParams::PARAM_BOOK) {
                 continue;
+            }
+
+            if (is_string($getKey) !== true) {
+                throw new OomException('GET parameter key "'.var_export($getKey, true).'" is not string');
+            }
+
+            if ($this->getParams->isKnownParam($getKey) !== true) {
+                throw new OomException('Unknown GET parameter "'.$getKey.'" with value: "'.var_export($getValue, true).'"');
             }
 
             if (is_string($getValue) !== true) {
-                continue;
+                throw new OomException('GET parameter "'.$getKey.'" is not a string: "'.var_export($getValue, true).'"');
             }
 
             $tocText .= '<input type="hidden" name="'.$getKey.'" value="'.$getValue.'">';
         }
 
-        $tocText .= '<select id="SELECT_BOOK" name="book" onchange="document.forms[\'selectabook\'].submit();"><option value="">-</option>';
+        // Render the combobox for selecting a book.
+        $tocText .= '<select id="SELECT_BOOK" name="'.GetParams::PARAM_BOOK.'" onchange="document.forms[\'selectabook\'].submit();"><option value="">-</option>';
         foreach ($toc as $bookID => $bookData) {
             $tocBookName = $bookData;
             $addition    = '';
-            if ($selectBook === strval($bookID)) {
+            if ($selectBook === $bookID) {
                 $addition = ' selected="selected"';
             }
 
             $tocText .= '<option value="'.$bookID.'"'.$addition.'>'.$tocBookName.'</option>';
         }
 
+        // End of form for selecting a book.
         $tocText .= '</select></form>';
 
+        // Prepare the form for jumping to a chapter (not a real form, just JS scrolling to a particular heading).
         if (count($tocChaps) > 0) {
             $tocText .= "<form><label for=\"SELECT_CHAPTER\">".$this->langLabelsModel->getLabel('selectchapter').":</label><select id=\"SELECT_CHAPTER\" onchange=\"scrollToElement(this.value)\">";
             foreach ($tocChaps as $tocLink => $tocName) {
-                $tocText .= "<option value=\"${tocLink}\">${tocName}</option>";
+                $tocText .= "<option value=\"${tocLink}\">".$tocName."</option>";
             }
 
             $tocText .= "</select></form>";
         }
 
+        // Include Bible translation heading and its metadata.
         $meta      = '';
         $bibleData = explode('|', $this->getParams->getParam(GetParams::PARAM_BIBLE));
         if (count($bibleData) === 2) {
             $metaData = $this->bibleIndexModel->getBibleMeta($bibleData[0], $bibleData[1]);
-            if ($metaData !== null) {
-                $title = '';
-                if (array_key_exists('TITLE', $metaData) === true) {
-                    $title = $metaData['TITLE'];
-                }
-
-                $meta = "<h1>${title}</h1><details><summary>".$this->langLabelsModel->getLabel('details')."</summary><table>";
-                foreach ($metaData as $metaKey => $metaValue) {
-                    $metaValueTrimmed = trim($metaValue);
-                    if ($metaKey === 'TITLE' || $metaValueTrimmed === '') {
-                        continue;
-                    }
-
-                    $meta .= '<tr><th>'.$this->langLabelsModel->getLabel("meta${metaKey}").'</th><td>'.htmlspecialchars($metaValueTrimmed).'</td></tr>';
-                }
-
-                $meta .= '</table></details>';
+            $title    = '';
+            if (array_key_exists('TITLE', $metaData) === true) {
+                $title = $metaData['TITLE'];
             }
+
+            $meta = "<h1>${title}</h1><details><summary>".$this->langLabelsModel->getLabel('details')."</summary><table>";
+            foreach ($metaData as $metaKey => $metaValue) {
+                $metaValueTrimmed = trim($metaValue);
+                if ($metaKey === 'TITLE' || $metaValueTrimmed === '') {
+                    continue;
+                }
+
+                $meta .= '<tr><th>'.$this->langLabelsModel->getLabel("meta${metaKey}").'</th><td>'.$metaValueTrimmed.'</td></tr>';
+            }
+
+            $meta .= '</table></details>';
         }//end if
 
-        return "$meta\r\n${tocText}\r\n${text}";
+        return "${meta}\r\n${tocText}\r\n${text}";
 
     }//end renderBible()
 

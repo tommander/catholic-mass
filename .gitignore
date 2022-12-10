@@ -4,3 +4,4 @@ phpDocumentor.phar
 .vscode
 vendor
 log.txt
+errors/error*

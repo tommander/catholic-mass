@@ -11,6 +11,8 @@ declare(strict_types=1);
 
 namespace TMD\OrderOfMass\Models;
 
+use TMD\OrderOfMass\Exceptions\ModelException;
+
 if (defined('OOM_BASE') !== true) {
     die('This file cannot be viewed independently.');
 }
@@ -30,8 +32,67 @@ class LanglistModel extends BaseModel
     protected function initModel()
     {
         $this->loadJson('assets/json/langlist.json');
+        $this->checkAndSanitize();
 
     }//end initModel()
+
+
+    /**
+     * Check JSON structure and sanitize its content.
+     *
+     * 1. Check the decoded JSON structure and allow only known elements
+     * 2. Sanitize all values (strings, array keys/values, object properties/values)
+     *
+     * @return void
+     */
+    private function checkAndSanitize(): void
+    {
+        if (is_array($this->jsonContent) !== true) {
+            $this->logger->warning('No content');
+            return;
+        }
+
+        $copy = $this->jsonContent;
+        $this->jsonContent = [];
+
+        foreach ($copy as $code => $data) {
+            if (is_string($code) !== true || is_array($data) !== true) {
+                $this->logger->warning('Incorrect code/data');
+                continue;
+            }
+
+            $codeClean = preg_replace('[^a-z]', '', $code);
+            if ($codeClean === '') {
+                $this->logger->warning('Language code empty after cleaning');
+                continue;
+            }
+
+            $this->jsonContent[$codeClean] = [];
+            foreach ($data as $key => $value) {
+                if ($key === 'title' && is_string($value) === true) {
+                    $this->jsonContent[$codeClean]['title'] = htmlspecialchars($value);
+                    continue;
+                }
+
+                if ($key === 'author' && is_string($value) === true) {
+                    $this->jsonContent[$codeClean]['author'] = htmlspecialchars($value);
+                    continue;
+                }
+
+                if ($key === 'link' && is_array($value) === true) {
+                    $this->jsonContent[$codeClean]['link'] = [];
+                    foreach ($value as $link) {
+                        $this->jsonContent[$codeClean]['link'][] = htmlspecialchars($link);
+                    }
+
+                    continue;
+                }
+
+                $this->logger->warning('Unknown language data key/value');
+            }//end foreach
+        }//end foreach
+
+    }//end checkAndSanitize()
 
 
     /**
@@ -42,7 +103,7 @@ class LanglistModel extends BaseModel
     public function listLanguages(): array
     {
         if (is_array($this->jsonContent) !== true) {
-            return [];
+            throw new ModelException('JSON content not array', ModelException::CODE_STRUCTURE);
         }
 
         return array_keys($this->jsonContent);
@@ -59,15 +120,14 @@ class LanglistModel extends BaseModel
      */
     public function listLanguagesForSelect(string $selected=''): array
     {
-        $ret = [];
-
         if (is_array($this->jsonContent) !== true) {
-            return $ret;
+            throw new ModelException('JSON content not array', ModelException::CODE_STRUCTURE);
         }
 
+        $ret = [];
         foreach ($this->jsonContent as $langKey => $langData) {
             if (is_array($langData) !== true) {
-                continue;
+                throw new ModelException('Language data for "'.$langKey.'" is not array', ModelException::CODE_STRUCTURE);
             }
 
             $title = '';
@@ -92,16 +152,16 @@ class LanglistModel extends BaseModel
      *
      * @param string $language Language code
      *
-     * @return ?array
+     * @return array
      */
-    public function getLanguageData(string $language): ?array
+    public function getLanguageData(string $language): array
     {
         if (is_array($this->jsonContent) !== true) {
-            return null;
+            throw new ModelException('JSON content not array', ModelException::CODE_STRUCTURE);
         }
 
         if (array_key_exists($language, $this->jsonContent) !== true) {
-            return null;
+            throw new ModelException('Language "'.$language.'" not found', ModelException::CODE_PARAMETER);
         }
 
         return $this->jsonContent[$language];
@@ -114,17 +174,13 @@ class LanglistModel extends BaseModel
      *
      * @param string $language Language code
      *
-     * @return ?string
+     * @return string
      */
-    public function getLanguageName(string $language): ?string
+    public function getLanguageName(string $language): string
     {
         $data = $this->getLanguageData($language);
-        if ($data === null) {
-            return null;
-        }
-
         if (array_key_exists('title', $data) !== true) {
-            return null;
+            throw new ModelException('Language data for "'.$language.'" does not contain "title"', ModelException::CODE_STRUCTURE);
         }
 
         return $data['title'];
@@ -137,17 +193,13 @@ class LanglistModel extends BaseModel
      *
      * @param string $language Language code
      *
-     * @return ?string
+     * @return string
      */
-    public function getLanguageAuthor(string $language): ?string
+    public function getLanguageAuthor(string $language): string
     {
         $data = $this->getLanguageData($language);
-        if ($data === null) {
-            return null;
-        }
-
         if (array_key_exists('author', $data) !== true) {
-            return null;
+            throw new ModelException('Language data for "'.$language.'" does not contain "author"', ModelException::CODE_STRUCTURE);
         }
 
         return $data['author'];
@@ -160,17 +212,13 @@ class LanglistModel extends BaseModel
      *
      * @param string $language Language code
      *
-     * @return ?array
+     * @return array
      */
-    public function getLanguageLinks(string $language): ?array
+    public function getLanguageLinks(string $language): array
     {
         $data = $this->getLanguageData($language);
-        if ($data === null) {
-            return null;
-        }
-
         if (array_key_exists('link', $data) !== true) {
-            return null;
+            throw new ModelException('Language data for "'.$language.'" does not contain "link"', ModelException::CODE_STRUCTURE);
         }
 
         return $data['link'];

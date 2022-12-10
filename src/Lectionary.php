@@ -9,7 +9,8 @@
 
 namespace TMD\OrderOfMass;
 
-use TMD\OrderOfMass\Models\{LectionaryModel,LectlistModel};
+use TMD\OrderOfMass\Models\{CalendarModel,LectlistModel};
+use TMD\OrderOfMass\Exceptions\{OomException,ModelException};
 
 if (defined('OOM_BASE') !== true) {
     die('This file cannot be viewed independently.');
@@ -31,9 +32,9 @@ class Lectionary
     /**
      * Lectionary model
      *
-     * @var LectionaryModel
+     * @var CalendarModel
      */
-    private $lectionaryModel;
+    private $calendarModel;
 
     /**
      * Lectlist model
@@ -46,15 +47,15 @@ class Lectionary
     /**
      * Store Logger instance and load lectionary JSON.
      *
-     * @param Logger          $logger          Logger
-     * @param LectionaryModel $lectionaryModel Lectionary model
-     * @param LectlistModel   $lectListModel   Lectlist model
+     * @param Logger        $logger        Logger
+     * @param CalendarModel $calendarModel Calendar model
+     * @param LectlistModel $lectListModel Lectlist model
      */
-    public function __construct(Logger $logger, LectionaryModel $lectionaryModel, LectlistModel $lectListModel)
+    public function __construct(Logger $logger, CalendarModel $calendarModel, LectlistModel $lectListModel)
     {
-        $this->logger          = $logger;
-        $this->lectionaryModel = $lectionaryModel;
-        $this->lectListModel   = $lectListModel;
+        $this->logger        = $logger;
+        $this->calendarModel = $calendarModel;
+        $this->lectListModel = $lectListModel;
 
     }//end __construct()
 
@@ -66,16 +67,16 @@ class Lectionary
      *
      * @param int $time Unix timestamp
      *
-     * @return ?string
+     * @return string
      */
-    public function sundayLabel(int $time): ?string
+    public function sundayLabel(int $time): string
     {
         $timeTmp = $time;
         while (date('w', $timeTmp) !== '0') {
             $timeTmp += 86400;
         }
 
-        return $this->lectionaryModel->dateToSunday($timeTmp);
+        return $this->calendarModel->dateToSunday($timeTmp);
 
     }//end sundayLabel()
 
@@ -90,13 +91,9 @@ class Lectionary
     public function getReadings($time): ?array
     {
         $cid = $this->sundayLabel($time);
-        if ($cid === null) {
-            return null;
-        }
-
-        $yr = intval(date('Y', $time));
-        $mo = intval(date('m', $time));
-        // If it is after the 34th Sunday in Ordinary Time, it's a new year.
+        $yr  = intval(date('Y', $time));
+        $mo  = intval(date('m', $time));
+        // If it is after the 34th Sunday in Ordinary Time, it's a new year (liturgical).
         if (in_array($cid, ['SOA1', 'SOA2', 'SOA3', 'SOA4', 'SAC1', 'SAC2']) === true && $mo >= 11) {
             $yr++;
         }

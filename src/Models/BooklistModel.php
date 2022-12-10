@@ -11,6 +11,8 @@ declare(strict_types=1);
 
 namespace TMD\OrderOfMass\Models;
 
+use TMD\OrderOfMass\Exceptions\ModelException;
+
 if (defined('OOM_BASE') !== true) {
     die('This file cannot be viewed independently.');
 }
@@ -30,8 +32,45 @@ class BooklistModel extends BaseModel
     protected function initModel()
     {
         $this->loadJson('assets/json/booklist.json');
+        $this->checkAndSanitize();
 
     }//end initModel()
+
+
+    /**
+     * Check JSON structure and sanitize its content.
+     *
+     * 1. Check the decoded JSON structure and allow only known elements
+     * 2. Sanitize all values (strings, array keys/values, object properties/values)
+     *
+     * @return void
+     */
+    private function checkAndSanitize(): void
+    {
+        if (is_array($this->jsonContent) !== true) {
+            $this->logger->warning('No content');
+            return;
+        }
+
+        $copy = $this->jsonContent;
+        $this->jsonContent = [];
+
+        foreach ($copy as $abbr => $name) {
+            if (is_string($abbr) !== true || is_string($name) !== true) {
+                $this->logger->warning('Abbr/name incorrect');
+                continue;
+            }
+
+            $abbrClean = preg_replace('/[^A-z0-9]/', '', $abbr);
+            if ($abbrClean === '') {
+                $this->logger->warning('BookNum empty after cleaning');
+                continue;
+            }
+
+            $this->jsonContent[$abbrClean] = preg_replace('/[^A-z #0-9()]/', '', $name);
+        }
+
+    }//end checkAndSanitize()
 
 
     /**
@@ -42,7 +81,7 @@ class BooklistModel extends BaseModel
     public function listAbbreviations(): array
     {
         if (is_array($this->jsonContent) !== true) {
-            return [];
+            throw new ModelException('JSON content not array', ModelException::CODE_STRUCTURE);
         }
 
         return array_keys($this->jsonContent);
@@ -58,7 +97,7 @@ class BooklistModel extends BaseModel
     public function listNames(): array
     {
         if (is_array($this->jsonContent) !== true) {
-            return [];
+            throw new ModelException('JSON content not array', ModelException::CODE_STRUCTURE);
         }
 
         return array_values($this->jsonContent);
@@ -71,19 +110,19 @@ class BooklistModel extends BaseModel
      *
      * @param int $bookNum Book number
      *
-     * @return ?string
+     * @return string
      */
-    public function numberToAbbreviation(int $bookNum): ?string
+    public function numberToAbbreviation(int $bookNum): string
     {
         if ($bookNum <= 0) {
-            return null;
+            throw new ModelException('Book number "'.$bookNum.'" has to be greater than zero', ModelException::CODE_PARAMETER);
         }
 
         $bookIndex = ($bookNum - 1);
 
         $abbreviations = $this->listAbbreviations();
         if ($bookIndex >= count($abbreviations)) {
-            return null;
+            throw new ModelException('Book number "'.$bookNum.'" is greater than the number of common books "'.count($abbreviations).'"', ModelException::CODE_PARAMETER);
         }
 
         return $abbreviations[$bookIndex];
@@ -96,15 +135,15 @@ class BooklistModel extends BaseModel
      *
      * @param string $abbreviation Book abbreviation
      *
-     * @return ?int
+     * @return int
      */
-    public function abbreviationToNumber(string $abbreviation): ?int
+    public function abbreviationToNumber(string $abbreviation): int
     {
         $abbreviations = $this->listAbbreviations();
 
         $res = array_search($abbreviation, $abbreviations);
         if ($res === false || is_int($res) !== true) {
-            return null;
+            throw new ModelException('Book abbreviation "'.$abbreviation.'" is unknown', ModelException::CODE_PARAMETER);
         }
 
         return ($res + 1);
@@ -117,16 +156,16 @@ class BooklistModel extends BaseModel
      *
      * @param string $abbreviation Book abbreviation
      *
-     * @return ?string
+     * @return string
      */
-    public function abbreviationToName(string $abbreviation): ?string
+    public function abbreviationToName(string $abbreviation): string
     {
         if (is_array($this->jsonContent) !== true) {
-            return null;
+            throw new ModelException('JSON content not array', ModelException::CODE_STRUCTURE);
         }
 
         if (array_key_exists($abbreviation, $this->jsonContent) !== true) {
-            return null;
+            throw new ModelException('Book abbreviation "'.$abbreviation.'" not found', ModelException::CODE_PARAMETER);
         }
 
         return $this->jsonContent[$abbreviation];
@@ -139,17 +178,17 @@ class BooklistModel extends BaseModel
      *
      * @param string $name Book name
      *
-     * @return ?string
+     * @return string
      */
-    public function nameToAbbreviation(string $name): ?string
+    public function nameToAbbreviation(string $name): string
     {
         if (is_array($this->jsonContent) !== true) {
-            return null;
+            throw new ModelException('JSON content not array', ModelException::CODE_STRUCTURE);
         }
 
         $res = array_search($name, $this->jsonContent);
         if ($res === false) {
-            return null;
+            throw new ModelException('Book name "'.$name.'" not found', ModelException::CODE_PARAMETER);
         }
 
         return $res;
@@ -162,16 +201,11 @@ class BooklistModel extends BaseModel
      *
      * @param int $num Book number
      *
-     * @return ?string
+     * @return string
      */
-    public function numberToName(int $num): ?string
+    public function numberToName(int $num): string
     {
-        $abbreviation = $this->numberToAbbreviation($num);
-        if ($abbreviation === null) {
-            return null;
-        }
-
-        return $this->abbreviationToName($abbreviation);
+        return $this->abbreviationToName($this->numberToAbbreviation($num));
 
     }//end numberToName()
 
@@ -181,16 +215,11 @@ class BooklistModel extends BaseModel
      *
      * @param string $name Book name
      *
-     * @return ?int
+     * @return int
      */
-    public function nameToNumber(string $name): ?int
+    public function nameToNumber(string $name): int
     {
-        $abbreviation = $this->nameToAbbreviation($name);
-        if ($abbreviation === null) {
-            return null;
-        }
-
-        return $this->abbreviationToNumber($abbreviation);
+        return $this->abbreviationToNumber($this->nameToAbbreviation($name));
 
     }//end nameToNumber()
 

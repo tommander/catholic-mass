@@ -17,6 +17,7 @@
         "psr-4": {
             "TMD\\OrderOfMass\\": "src/",
             "TMD\\OrderOfMass\\Models\\": "src/Models/",
+            "TMD\\OrderOfMass\\Exceptions\\": "src/Exceptions/",
             "TMD\\PDMDX\\": "libs-dev/phpDocMDX/src"
         }
     },

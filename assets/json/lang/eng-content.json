@@ -1,17 +1,48 @@
 {
 	"mass": [
+		{"h1": "@{headIntroRites}"},
+		{"h2": "@{headEntrance}"},
 		{"": "@icon{stand} @{lstand}"},
+		{"h2": "@{headLiturgyGreet}"},
 		{"p": "In the name of @icon{cross} the Father, and of the Son, and of the Holy Spirit."},
 		{"a": "Amen."},
 		{"p": "The grace of our Lord Jesus Christ, and the love of God, and the communion of the Holy Spirit be with you all."},
 		{"a": "And with your spirit."},
+		{"h2": "@{headPenitentAct}"},
 		{"p": "Brothers and sisters, let us acknowledge our sins, and so prepare ourselves to celebrate the sacred mysteries."},
 		{"": "@icon{kneel} @{silentPrayer}"},
 		[
 			{
 				"title": "",
 				"content": [
-					{"a": "I confess to almighty God and to you, my brothers and sisters, that I have greatly sinned, in my thoughts and in my words, in what I have done and in what I have failed to do, through my fault, through my fault, through my most grievous fault. Therefore I ask blessed Mary ever-Virgin, all the Angels and Saints, and you, my brothers and sisters, to pray for me to the Lord our God."}
+					{"a": "I confess to almighty God and to you, my brothers and sisters, that I have greatly sinned, in my thoughts and in my words, in what I have done and in what I have failed to do, through my fault, through my fault, through my most grievous fault. Therefore I ask blessed Mary ever-Virgin, all the Angels and Saints, and you, my brothers and sisters, to pray for me to the Lord our God."},
+					{"p": "May almighty God have mercy on us, forgive us our sins, and bring us to everlasting life."},
+					{"a": "Amen."},
+					{"h2": "@{headKyrie}"},
+					[
+						{
+							"title": "",
+							"content": [
+								{"p": "Lord, have mercy."},
+								{"a": "Lord, have mercy."},
+								{"p": "Christ, have mercy."},
+								{"a": "Christ, have mercy."},
+								{"p": "Lord, have mercy."},
+								{"a": "Lord, have mercy."}
+							]
+						},
+						{
+							"title": "",
+							"content": [
+								{"p": "Kyrie, eleison."},
+								{"a": "Kyrie, eleison."},
+								{"p": "Christe, eleison."},
+								{"a": "Christe, eleison."},
+								{"p": "Kyrie, eleison."},
+								{"a": "Kyrie, eleison."}
+							]
+						}
+					]
 				]
 			},
 			{
@@ -20,7 +51,34 @@
 					{"p": "Have mercy on us, O Lord."},
 					{"a": "For we have sinned against you."},
 					{"p": "Show us, O Lord, your mercy."},
-					{"a": "And grant us your salvation."}
+					{"a": "And grant us your salvation."},
+					{"p": "May almighty God have mercy on us, forgive us our sins, and bring us to everlasting life."},
+					{"a": "Amen."},
+					{"h2": "@{headKyrie}"},
+					[
+						{
+							"title": "",
+							"content": [
+								{"p": "Lord, have mercy."},
+								{"a": "Lord, have mercy."},
+								{"p": "Christ, have mercy."},
+								{"a": "Christ, have mercy."},
+								{"p": "Lord, have mercy."},
+								{"a": "Lord, have mercy."}
+							]
+						},
+						{
+							"title": "",
+							"content": [
+								{"p": "Kyrie, eleison."},
+								{"a": "Kyrie, eleison."},
+								{"p": "Christe, eleison."},
+								{"a": "Christe, eleison."},
+								{"p": "Kyrie, eleison."},
+								{"a": "Kyrie, eleison."}
+							]
+						}
+					]
 				]
 			},
 			{
@@ -31,61 +89,47 @@
 					{"p": "You came to call sinners: Christ, have mercy."},
 					{"a": "Christ, have mercy."},
 					{"p": "You are seated at the right hand of the Father to intercede for us: Lord, have mercy."},
-					{"a": "Lord, have mercy."}
-				]
-			}
-		],
-		{"p": "May almighty God have mercy on us, forgive us our sins, and bring us to everlasting life."},
-		{"a": "Amen."},
-		[
-			{
-				"title": "",
-				"content": [
-					{"p": "Lord, have mercy."},
 					{"a": "Lord, have mercy."},
-					{"p": "Christ, have mercy."},
-					{"a": "Christ, have mercy."},
-					{"p": "Lord, have mercy."},
-					{"a": "Lord, have mercy."}
-				]
-			},
-			{
-				"title": "",
-				"content": [
-					{"p": "Kyrie, eleison."},
-					{"a": "Kyrie, eleison."},
-					{"p": "Christe, eleison."},
-					{"a": "Christe, eleison."},
-					{"p": "Kyrie, eleison."},
-					{"a": "Kyrie, eleison."}
+					{"p": "May almighty God have mercy on us, forgive us our sins, and bring us to everlasting life."},
+					{"a": "Amen."}
 				]
 			}
 		],
-		{"p": "Glory to God in the highest..."},
+		{"h2": "@{headGloria}"},
+        {"p": "Glory to God in the highest..."},
 		{"a": "... and on earth peace to people of good will. We praise you, we bless you, we adore you, we glorify you, we give you thanks for your great glory, Lord God, heavenly King, O God, almighty Father. Lord Jesus Christ, Only Begotten Son, Lord God, Lamb of God, Son of the Father, you take away the sins of the world, have mercy on us; you take away the sins of the world, receive our prayer; you are seated at the right hand of the Father, have mercy on us. For you alone are the Holy One, you alone are the Lord, you alone are the Most High, Jesus Christ, with the Holy Spirit, in the glory of God the Father. Amen."},
+		{"h2": "@{headCollect}"},
 		{"p": "Let us pray."},
 		{"p": "@{prayer}... forever and ever."},
 		{"a": "Amen."},
+		{"h1": "@{headLiturgyWord}"},
 		{"": "@icon{sit} @{lsit}"},
 		{"reading": ""},
+		{"h2": "@{headFirstRead}"},
 		{"read": "r1"},
-		{"r": "The word of the Lord."},
+		{"r": "The Word of the Lord."},
 		{"a": "Thanks be to God."},
+		{"h2": "@{headResponsePsalm}"},
 		{"read": "p"},
+		{"h2": "@{headSecondRead}"},
 		{"read": "r2"},
-		{"r": "The word of the Lord."},
+		{"r": "The Word of the Lord."},
 		{"a": "Thanks be to God."},
+		{"h2": "@{headAlleluia}"},
 		{"": "@icon{stand} @{lstand}"},
 		{"read": "a"},
+		{"h2": "@{headGospel}"},
 		{"p": "The Lord be with you."},
 		{"a": "And with your spirit."},
 		{"p": "A reading from the holy Gospel according to Matthew / Mark / Luke / John"},
 		{"a": "@icon{cross} Glory to you, O Lord."},
 		{"read": "g"},
-		{"p": "The word of the Lord."},
+		{"p": "The Gospel of the Lord."},
 		{"a": "Praise to you, Lord Jesus Christ."},
+		{"h2": "@{headHomily}"},
 		{"": "@icon{sit} @{lsit}"},
 		{"p": "@icon{bubble} @{homily}"},
+		{"h2": "@{headCreed}"},
 		{"": "@icon{stand} @{lstand}"},
 		[
 			{
@@ -101,15 +145,20 @@
 				]
 			}
 		],
+		{"h2": "@{headPrayerFaithful}"},
 		{"r": "@{intercess}"},
 		{"a": "Lord, hear our prayer."},
+		{"h1": "@{headLiturgyEucharist}"},
+		{"h2": "@{headGiftPrep}"},
 		{"": "@icon{sit} @{lsit}"},
 		{"r": "@{offertory}"},
 		{"": "@icon{stand} @{lstand}"},
 		{"p": "Pray, brothers and sisters, that my sacrifice and yours may be acceptable to God, the almighty Father."},
 		{"a": "May the Lord accept the sacrifice at your hands for the praise and glory of his name, for our good and the good of all his holy Church."},
+		{"h2": "@{headPrayerOffer}"},
 		{"p": "@{prayer}"},
 		{"a": "Amen."},
+		{"h2": "@{headPrayerEucharist}"},
 		{"p": "The Lord be with you."},
 		{"a": "And with your spirit."},
 		{"p": "Lift up your hearts."},
@@ -144,20 +193,25 @@
 		{"p": "@{prayer}"},
 		{"p": "Through him, and with him, and in him, O God, almighty Father, in the unity of the Holy Spirit, all glory and honour is yours, for ever and ever."},
 		{"a": "Amen."},
+		{"h1": "@{headRiteCommunion}"},
+		{"h2": "@{headPrayerLord}"},
 		{"": "@icon{stand} @{lstand}"},
 		{"p": "At the Saviour's command and formed by divine teaching, we dare to say:"},
 		{"a": "Our Father, who art in heaven, hallowed be thy name; thy kingdom come, thy will be done on earth as it is in heaven. Give us this day our daily bread, and forgive us our trespasses, as we forgive those who trespass against us; and lead us not into temptation, but deliver us from evil."},
 		{"p": "Deliver us, Lord, we pray, from every evil, graciously grant peace in our days,  that, by the help of your mercy, we may be always free from sin  and safe from all distress, as we await the blessed hope and the coming of our Saviour, Jesus Christ."},
 		{"a": "For the kingdom, the power and the glory are yours now and for ever."},
+		{"h2": "@{headSignPeace}"},
 		{"p": "Lord Jesus Christ, who said to your Apostles: Peace I leave you, my peace I give you; look not on our sins, but on the faith of your Church, and graciously grant her peace and unity in accordance with your will. Who live and reign for ever and ever."},
 		{"a": "Amen."},
 		{"p": "The peace of the Lord be with you always."},
 		{"a": "And with your spirit."},
 		{"p": "Let us offer each other the sign of peace."},
 		{"a": "@icon{peace} Peace be with you."},
+		{"h2": "@{headBreadFract}"},
 		{"": "@icon{kneel} @{lkneel}"},
 		{"p": "@{breakhost}"},
 		{"a": "Lamb of God, you take away the sins of the world, have mercy on us. Lamb of God, you take away the sins of the world, have mercy on us. Lamb of God, you take away the sins of the world, grant us peace."},
+		{"h2": "@{headCommunion}"},
 		{"p": "Behold the Lamb of God, behold him who takes away the sins of the world. Blessed are those called to the supper of the Lamb."},
 		{"a": "Lord, I am not worthy that you should enter under my roof, but only say the word and my soul shall be healed."},
 		{"": "@icon{bread} @{holycomm}"},
@@ -166,11 +220,15 @@
 		{"": "@icon{wine} @{holycomm}"},
 		{"p": "The Blood of Christ."},
 		{"a": "Amen."},
+		{"h2": "@{headPrayerAfterComm}"},
 		{"": "@icon{stand} @{lstand}"},
 		{"p": "@{prayer}"},
 		{"a": "Amen."},
+		{"h1": "@{headRiteConclude}"},
+		{"h2": "@{headAnnouncements}"},
 		{"": "@icon{sit} @{lsit}"},
 		{"p": "@{announce}"},
+		{"h2": "@{headFinalBlessing}"},
 		{"": "@icon{stand} @{lstand}"},
 		{"p": "The Lord be with you."},
 		{"a": "And with your spirit."},
@@ -179,6 +237,7 @@
 		{"a": "Amen."},
 		{"p": "May almighty God bless you, @icon{cross} the Father, and the Son, and the Holy Spirit."},
 		{"a": "Amen."},
+		{"h2": "@{headDismissal}"},
 		{"p": "@icon{walk} Go and announce the Gospel of the Lord."},
 		{"a": "Thanks be to God."}
 	],

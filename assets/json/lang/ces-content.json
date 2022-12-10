@@ -1,17 +1,48 @@
 {
 "mass": [
+	{"h1": "@{headIntroRites}"},
+    {"h2": "@{headEntrance}"},
     {"": "@icon{stand} @{lstand}"},
+	{"h2": "@{headLiturgyGreet}"},
     {"p": "Ve jménu @icon{cross} Otce i Syna i Ducha svatého."},
     {"a": "Amen."},
     {"p": "Milost našeho Pána Ježíše Krista, láska Boží a společenství svatého Ducha ať je s vámi se všemi."},
     {"a": "I s tebou."},
+	{"h2": "@{headPenitentAct}"},
     {"p": "Dříve než uslyšíme Boží slovo a budeme slavit eucharistii, litujme svých hříchů."},
     {"": "@icon{kneel} @{silentPrayer}"},
     [
         {
             "title": "",
             "content": [
-                {"a": "Vyznávám se všemohoucímu Bohu a vám všem, že často hřeším myšlením, slovy i skutky a nekonám, co mám konat; je to má vina, má veliká vina. Proto prosím Matku Boží, Pannu Marii, všechny anděly a svaté i vás, bratři a sestry, abyste se za mě u Boha přimlouvali."}
+                {"a": "Vyznávám se všemohoucímu Bohu a vám všem, že často hřeším myšlením, slovy i skutky a nekonám, co mám konat; je to má vina, má veliká vina. Proto prosím Matku Boží, Pannu Marii, všechny anděly a svaté i vás, bratři a sestry, abyste se za mě u Boha přimlouvali."},
+                {"p": "Smiluj se nad námi, všemohoucí Bože, odpusť nám hříchy a doveď nás do života věčného."},
+                {"a": "Amen."},
+				{"h2": "@{headKyrie}"},
+                [
+                    {
+                        "title": "",
+                        "content": [
+                            {"p": "Pane, smiluj se."},
+                            {"a": "Pane, smiluj se."},
+                            {"p": "Kriste, smiluj se."},
+                            {"a": "Kriste, smiluj se."},
+                            {"p": "Pane, smiluj se."},
+                            {"a": "Pane, smiluj se."}
+                        ]
+                    },
+                    {
+                        "title": "",
+                        "content": [
+                            {"p": "Kyrie, eleison."},
+                            {"a": "Kyrie, eleison."},
+                            {"p": "Christe, eleison."},
+                            {"a": "Christe, eleison."},
+                            {"p": "Kyrie, eleison."},
+                            {"a": "Kyrie, eleison."}
+                        ]
+                    }
+                ]
             ]
         },
         {
@@ -20,7 +51,34 @@
                 {"p": "Smiluj se nad námi, Pane."},
                 {"a": "Hřešili jsme proti tobě."},
                 {"p": "Ukaž nám, Pane, své milosrdenství."},
-                {"a": "A dej nám svou spásu."}
+                {"a": "A dej nám svou spásu."},
+                {"p": "Smiluj se nad námi, všemohoucí Bože, odpusť nám hříchy a doveď nás do života věčného."},
+                {"a": "Amen."},
+				{"h2": "@{headKyrie}"},
+                [
+                    {
+                        "title": "",
+                        "content": [
+                            {"p": "Pane, smiluj se."},
+                            {"a": "Pane, smiluj se."},
+                            {"p": "Kriste, smiluj se."},
+                            {"a": "Kriste, smiluj se."},
+                            {"p": "Pane, smiluj se."},
+                            {"a": "Pane, smiluj se."}
+                        ]
+                    },
+                    {
+                        "title": "",
+                        "content": [
+                            {"p": "Kyrie, eleison."},
+                            {"a": "Kyrie, eleison."},
+                            {"p": "Christe, eleison."},
+                            {"a": "Christe, eleison."},
+                            {"p": "Kyrie, eleison."},
+                            {"a": "Kyrie, eleison."}
+                        ]
+                    }
+                ]
             ]
         },
         {
@@ -35,48 +93,30 @@
             ]
         }
     ],
-    {"p": "Smiluj se nad námi, všemohoucí Bože, odpusť nám hříchy a doveď nás do života věčného."},
-    {"a": "Amen."},
-    [
-        {
-            "title": "",
-            "content": [
-                {"p": "Pane, smiluj se."},
-                {"a": "Pane, smiluj se."},
-                {"p": "Kriste, smiluj se."},
-                {"a": "Kriste, smiluj se."},
-                {"p": "Pane, smiluj se."},
-                {"a": "Pane, smiluj se."}
-            ]
-        },
-        {
-            "title": "",
-            "content": [
-                {"p": "Kyrie, eleison."},
-                {"a": "Kyrie, eleison."},
-                {"p": "Christe, eleison."},
-                {"a": "Christe, eleison."},
-                {"p": "Kyrie, eleison."},
-                {"a": "Kyrie, eleison."}
-            ]
-        }
-    ],
+	{"h2": "@{headGloria}"},
     {"p": "Sláva na výsostech Bohu..."},
     {"a": "... a na zemi pokoj lidem dobré vůle. Chválíme tě. Velebíme tě. Klaníme se ti. Oslavujeme tě. Vzdáváme ti díky pro tvou velikou slávu. Pane a Bože, nebeský Králi, Bože, Otče všemohoucí. Pane, jednorozený Synu, Ježíši Kriste. Pane a Bože, Beránku Boží, Synu Otce. Ty, který snímáš hříchy světa, smiluj se nad námi; ty, který snímáš hříchy světa, přijmi naše prosby. Ty, který sedíš po pravici Otce, smiluj se nad námi. Neboť ty jediný jsi Svatý, ty jediný jsi Pán, ty jediný jsi Svrchovaný, Ježíši Kriste, se svatým Duchem ve slávě Boha Otce. Amen."},
+	{"h2": "@{headCollect}"},
     {"p": "Modleme se."},
     {"p": "@{prayer}... po všechny věky věků."},
     {"a": "Amen."},
+	{"h1": "@{headLiturgyWord}"},
     {"": "@icon{sit} @{lsit}"},
     {"reading": ""},
+	{"h2": "@{headFirstRead}"},
     {"read": "r1"},
     {"r": "Slyšeli jsme slovo Boží."},
     {"a": "Bohu díky."},
+	{"h2": "@{headResponsePsalm}"},
     {"read": "p"},
+	{"h2": "@{headSecondRead}"},
     {"read": "r2"},
     {"r": "Slyšeli jsme slovo Boží."},
     {"a": "Bohu díky."},
+	{"h2": "@{headAlleluia}"},
     {"": "@icon{stand} @{lstand}"},
     {"read": "a"},
+	{"h2": "@{headGospel}"},
     {"p": "Pán s vámi."},
     {"a": "I s tebou."},
     {"p": "Slova svatého evangelia podle Matouše / Marka / Lukáše / Jana"},
@@ -84,8 +124,10 @@
     {"read": "g"},
     {"p": "Slyšeli jsme slovo Boží."},
     {"a": "Chvála tobě, Kriste."},
+	{"h2": "@{headHomily}"},
     {"": "@icon{sit} @{lsit}"},
     {"p": "@icon{bubble} @{homily}"},
+	{"h2": "@{headCreed}"},
     {"": "@icon{stand} @{lstand}"},
     [
         {
@@ -101,15 +143,20 @@
             ]
         }
     ],
+	{"h2": "@{headPrayerFaithful}"},
     {"r": "@{intercess}"},
     {"a": "Prosíme tě, vyslyš nás."},
+    {"h1": "@{headLiturgyEucharist}"},
+	{"h2": "@{headGiftPrep}"},
     {"": "@icon{sit} @{lsit}"},
     {"r": "@{offertory}"},
     {"": "@icon{stand} @{lstand}"},
     {"p": "Modleme se, aby Bůh přijal oběť své církve."},
     {"a": "Ať ji přijme ke své slávě a k spáse světa."},
+	{"h2": "@{headPrayerOffer}"},
     {"p": "@{prayer}"},
     {"a": "Amen."},
+	{"h2": "@{headPrayerEucharist}"},
     {"p": "Pán s vámi."},
     {"a": "I s tebou."},
     {"p": "Vzhůru srdce."},
@@ -143,20 +190,25 @@
     ],
     {"p": "@{prayer}... Skrze něho a s ním a v něm je tvoje všechna čest a sláva, Bože Otče všemohoucí, v jednotě Ducha svatého po všechny věky věků."},
     {"a": "Amen."},
+	{"h1": "@{headRiteCommunion}"},
+	{"h2": "@{headPrayerLord}"},
     {"": "@icon{stand} @{lstand}"},
     {"p": "Podle Spasitelova příkazu a podle jeho božského učení odvažujeme se modlit:"},
     {"a": "Otče náš, jenž jsi na nebesích, posvěť se jméno tvé. Přijď království tvé. Buď vůle tvá jako v nebi, tak i na zemi. Chléb náš vezdejší dej nám dnes. A odpusť nám naše viny, jako i my odpouštíme našim viníkům. A neuveď nás v pokušení, ale zbav nás od zlého."},
     {"p": "Vysvoboď nás ode všeho zlého, Bože, a dej našim dnům svůj mír. Smiluj se nad námi a pomoz nám: Ať se nikdy nedostaneme do područí hříchu, ať žijeme v bezpečí před každým zmatkem a s nadějí očekáváme požehnaný příchod našeho Spasitele Ježíše Krista."},
     {"a": "Neboť tvé je království i moc i sláva navěky."},
+	{"h2": "@{headSignPeace}"},
     {"p": "Pane Ježíši Kriste, tys řekl svým apoštolům: Odkazuji vám pokoj, svůj pokoj vám dávám. Nehleď tedy na naše hříchy, ale na víru své církve, a podle své vůle ji naplňuj pokojem a veď k jednotě. Sepne ruce. Neboť ty žiješ a kraluješ na věky věků."},
     {"a": "Amen."},
     {"p": "Pokoj Páně ať zůstává vždycky s vámi."},
     {"a": "I s tebou."},
     {"p": "Pozdravte se navzájem pozdravením pokoje."},
     {"a": "@icon{peace} Pokoj s tebou."},
+	{"h2": "@{headBreadFract}"},
     {"": "@icon{kneel} @{lkneel}"},
     {"p": "@{breakhost}"},
     {"a": "Beránku Boží, který snímáš hříchy světa, smiluj se nad námi. Beránku Boží, který snímáš hříchy světa, smiluj se nad námi. Beránku Boží, který snímáš hříchy světa, daruj nám pokoj."},
+	{"h2": "@{headCommunion}"},
     {"p": "Hle, Beránek Boží, ten, který na sebe vzal hříchy světa. Blahoslavení, kdo jsou pozváni k večeři Beránkově."},
     {"a": "Pane, nezasloužím si, abys ke mně přišel, ale řekni jen slovo, a má duše bude uzdravena."},
     {"": "@icon{bread} @{holycomm}"},
@@ -165,11 +217,15 @@
     {"": "@icon{wine} @{holycomm}"},
     {"p": "Krev Kristova."},
     {"a": "Amen."},
+	{"h2": "@{headPrayerAfterComm}"},
     {"": "@icon{stand} @{lstand}"},
     {"p": "@{prayer}"},
     {"a": "Amen."},
+	{"h1": "@{headRiteConclude}"},
+	{"h2": "@{headAnnouncements}"},
     {"": "@icon{sit} @{lsit}"},
     {"p": "@{announce}"},
+	{"h2": "@{headFinalBlessing}"},
     {"": "@icon{stand} @{lstand}"},
     {"p": "Pán s vámi."},
     {"a": "I s tebou."},
@@ -178,6 +234,7 @@
     {"a": "Amen."},
     {"p": "Požehnej vás všemohoucí Bůh, @icon{cross} Otec i Syn i Duch svatý."},
     {"a": "Amen."},
+	{"h2": "@{headDismissal}"},
     {"p": "@icon{walk} Jděte ve jménu Páně."},
     {"a": "Bohu díky."}
 ],

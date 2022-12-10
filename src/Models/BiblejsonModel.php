@@ -11,6 +11,8 @@ declare(strict_types=1);
 
 namespace TMD\OrderOfMass\Models;
 
+use TMD\OrderOfMass\Exceptions\ModelException;
+
 if (defined('OOM_BASE') !== true) {
     die('This file cannot be viewed independently.');
 }
@@ -38,28 +40,64 @@ class BiblejsonModel extends BaseModel
      *
      * @param string $file Bible file
      *
-     * @return bool
+     * @return void
      */
-    public function load(string $file): bool
+    public function load(string $file): void
     {
+        // We let this function end quietly in case of empty filename. This covers
+        // the case that PARAM_BIBLE is empty or has an unknown value, which is e.g.
+        // when a user visits the website for the first time.
         if ($file === '') {
-            return false;
+            return;
         }
 
-        return $this->loadJson(sprintf('libs/zefania-bibles/json/%s', $file));
+        $this->loadJson(sprintf('libs/zefania-bibles/json/%s', $file));
+        $this->checkAndSanitize();
 
     }//end load()
 
 
     /**
-     * Hello
+     * This function is just checking whether the JSON is loaded as an array.
      *
-     * @return ?array
+     * We cannot do any sanitizing here, because it takes a long long time, so
+     * it's better to do it before echoing the content.
+     *
+     * So we just check the structure of the JSON and remove what does not belong
+     * there.
+     *
+     * @return void
      */
-    public function listVerses(): ?array
+    private function checkAndSanitize(): void
     {
         if (is_array($this->jsonContent) !== true) {
-            return null;
+            $this->logger->warning('No content');
+            return;
+        }
+
+        $unset = [];
+        foreach ($this->jsonContent as $verse => $text) {
+            if (is_int($verse) !== true || is_string($text) !== true) {
+                $unset[] = $verse;
+            }
+        }
+
+        foreach ($unset as $unsetKey) {
+            unset($this->jsonContent[$unsetKey]);
+        }
+
+    }//end checkAndSanitize()
+
+
+    /**
+     * Hello
+     *
+     * @return array
+     */
+    public function listVerses(): array
+    {
+        if (is_array($this->jsonContent) !== true) {
+            return [];
         }
 
         return array_keys($this->jsonContent);

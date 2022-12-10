@@ -9,7 +9,8 @@
 
 namespace TMD\OrderOfMass;
 
-use TMD\OrderOfMass\Models\{BiblemapModel,BooklistModel,LangcontentModel,LanglabelsModel,LanglistModel};
+use TMD\OrderOfMass\Models\{BiblemapModel,BooklistModel,LanglabelsModel};
+use TMD\OrderOfMass\Exceptions\{OomException,ModelException};
 
 if (defined('OOM_BASE') !== true) {
     die('This file cannot be viewed independently.');
@@ -50,6 +51,7 @@ class Language
         'booklink' => 'fas fa-book-reader',
         'bread'    => 'fas fa-cookie-bite',
         'wine'     => 'fas fa-wine-glass-alt',
+        'heading'  => 'fas fa-folder-tree',
     ];
 
     /**
@@ -83,20 +85,6 @@ class Language
     /**
      * Hello
      *
-     * @var LanglistModel
-     */
-    private $langListModel;
-
-    /**
-     * Hello
-     *
-     * @var LangcontentModel
-     */
-    private $langContentModel;
-
-    /**
-     * Hello
-     *
      * @var LanglabelsModel
      */
     private $langLabelsModel;
@@ -112,27 +100,23 @@ class Language
     /**
      * Save service instances
      *
-     * @param Logger           $logger           Logger service
-     * @param GetParams        $getParams        GetParams service
-     * @param BibleReader      $bibleReader      BibleReader service
-     * @param Lectionary       $lectionary       Lectionary service
-     * @param BooklistModel    $bookListModel    Booklist model
-     * @param LanglistModel    $langListModel    Langlist model
-     * @param LangcontentModel $langContentModel Langcontent model
-     * @param LanglabelsModel  $langLabelsModel  Langlabels model
-     * @param BiblemapModel    $bibleMapModel    Biblemap model
+     * @param Logger          $logger          Logger service
+     * @param GetParams       $getParams       GetParams service
+     * @param BibleReader     $bibleReader     BibleReader service
+     * @param Lectionary      $lectionary      Lectionary service
+     * @param BooklistModel   $bookListModel   Booklist model
+     * @param LanglabelsModel $langLabelsModel Langlabels model
+     * @param BiblemapModel   $bibleMapModel   Biblemap model
      */
-    public function __construct(Logger $logger, GetParams $getParams, BibleReader $bibleReader, Lectionary $lectionary, BooklistModel $bookListModel, LanglistModel $langListModel, LangcontentModel $langContentModel, LanglabelsModel $langLabelsModel, BiblemapModel $bibleMapModel)
+    public function __construct(Logger $logger, GetParams $getParams, BibleReader $bibleReader, Lectionary $lectionary, BooklistModel $bookListModel, LanglabelsModel $langLabelsModel, BiblemapModel $bibleMapModel)
     {
-        $this->logger           = $logger;
-        $this->getParams        = $getParams;
-        $this->bibleReader      = $bibleReader;
-        $this->lectionary       = $lectionary;
-        $this->bookListModel    = $bookListModel;
-        $this->langListModel    = $langListModel;
-        $this->langContentModel = $langContentModel;
-        $this->langLabelsModel  = $langLabelsModel;
-        $this->bibleMapModel    = $bibleMapModel;
+        $this->logger          = $logger;
+        $this->getParams       = $getParams;
+        $this->bibleReader     = $bibleReader;
+        $this->lectionary      = $lectionary;
+        $this->bookListModel   = $bookListModel;
+        $this->langLabelsModel = $langLabelsModel;
+        $this->bibleMapModel   = $bibleMapModel;
 
     }//end __construct()
 
@@ -154,23 +138,22 @@ class Language
         }
 
         $bookShort = $ref;
-        $bookFull  = '';
 
-        if (preg_match('/^(\S+)(.*)$/', $ref, $m) === 1 && isset($m[1]) === true && isset($m[2]) === true) {
-            $bookNum = $this->bookListModel->abbreviationToNumber($m[1]);
-            if ($bookNum === null) {
-                $bookNum = 0;
-            }
+        if (preg_match('/^(\S+)(.*)$/', $ref, $m) !== 1 || count($m) !== 3) {
+            throw new OomException('Verse reference is incorrect: "'.$ref.'"');
+        }
 
-            $tmpBookShort = $this->bibleMapModel->numberToAbbreviation($bookNum);
-            if ($tmpBookShort !== null) {
-                $bookShort = $tmpBookShort.$m[2];
-            }
+        $bookNum  = $this->bookListModel->abbreviationToNumber($m[1]);
+        $bookFull = $this->bookListModel->numberToName($bookNum);
 
-            $tmpBookFull = $this->bibleMapModel->numberToName($bookNum);
-            if ($tmpBookFull !== null) {
-                $bookFull = $tmpBookFull;
-            }
+        $bookShortTmp = $this->bibleMapModel->numberToAbbreviation($bookNum);
+        if ($bookShortTmp !== '') {
+            $bookShort = $bookShortTmp.$m[2];
+        }
+
+        $bookFullTmp = $this->bibleMapModel->numberToName($bookNum);
+        if ($bookFullTmp !== '') {
+            $bookFull = $bookFullTmp;
         }
 
         return '@bib['.$bookFull.']{'.$bookShort.'}'.$addition;
@@ -204,7 +187,7 @@ class Language
             [
                 '/@\{([A-Za-z0-9]+)\}/'           => function ($matches) use ($wrapCommand) {
                     if (count($matches) < 2) {
-                        return '';
+                        throw new OomException('Incorrect label placeholder');
                     }
 
                     $label = $this->langLabelsModel->getLabel($matches[1]);
@@ -217,7 +200,7 @@ class Language
                 },
                 '/@su\{([A-Za-z0-9]+)\}/'         => function ($matches) {
                     if (count($matches) < 2) {
-                        return '';
+                        throw new OomException('Incorrect sunday placeholder');
                     }
 
                     $sunday = $this->langLabelsModel->getSunday($matches[1]);
@@ -226,7 +209,7 @@ class Language
                 },
                 '/@my\{([A-Za-z0-9]+)\}/'         => function ($matches) {
                     if (count($matches) < 2) {
-                        return '';
+                        throw new OomException('Incorrect mystery placeholder');
                     }
 
                     $mystery = $this->langLabelsModel->getMystery($matches[1]);
@@ -235,7 +218,7 @@ class Language
                 },
                 '/@bib\[([^\]]+)?\]\{([^\}]+)\}/' => function ($matches) {
                     if (count($matches) < 3) {
-                        return '';
+                        throw new OomException('Incorrect verse reference placeholder');
                     }
 
                     return sprintf("<br><abbr title=\"%s\">%s</abbr><br>", $matches[1], $matches[2]);
@@ -244,19 +227,20 @@ class Language
                     if (count($matches) < 2
                         || array_key_exists($matches[1], $this->icons) === false
                     ) {
-                        return '';
+                        throw new OomException('Incorrect icon placeholder');
                     }
 
                     return "<i class=\"".$this->icons[$matches[1]]."\"></i>";
                 },
             ],
-            htmlspecialchars($text)
+            $text
         );
-        if (is_string($ret) === true) {
-            return $ret;
+
+        if (is_string($ret) !== true) {
+            throw new OomException('Return value for placeholder replacement is not string: "'.var_export($ret, true).'"');
         }
 
-        return '';
+        return $ret;
 
     }//end repls()
 

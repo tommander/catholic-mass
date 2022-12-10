@@ -9,6 +9,8 @@
 
 namespace TMD\OrderOfMass;
 
+use TMD\OrderOfMass\Exceptions\{OomException,ModelException};
+
 if (defined('OOM_BASE') !== true) {
     die('This file cannot be viewed independently.');
 }
@@ -49,17 +51,17 @@ class Config
 
         $this->environment = file_get_contents(Helper::fullFilename($envFile));
         if ($this->environment === false) {
-            throw new \Exception('File "'.$envFile.'" does not exist or cannot be read.');
+            throw new OomException('File "'.$envFile.'" does not exist or cannot be read.');
         }
 
         $this->environment = \preg_replace('/\W/', '', $this->environment);
         if ($this->environment === '') {
-            throw new \Exception('File "'.$envFile.'" contains an incorrect environment definition.');
+            throw new OomException('File "'.$envFile.'" contains an incorrect environment definition.');
         }
 
         $confFile = 'config/'.$this->environment.'.php';
         if (file_exists(Helper::fullFilename($confFile)) !== true) {
-            throw new \Exception('Environment configuration "'.$confFile.'" file does not exist.');
+            throw new OomException('Environment configuration "'.$confFile.'" file does not exist.');
         }
 
         // phpcs:ignore

@@ -9,6 +9,8 @@
 
 namespace TMD\OrderOfMass;
 
+use TMD\OrderOfMass\Exceptions\{OomException,ModelException};
+
 if (defined('OOM_BASE') !== true) {
     die('This file cannot be viewed independently.');
 }
@@ -21,6 +23,24 @@ if (defined('OOM_BASE') !== true) {
  */
 class Helper
 {
+
+
+    /**
+     * Hash with `ripemd160`
+     *
+     * @param string $input Input text to hash
+     *
+     * @return string
+     */
+    public static function hash(string $input): string
+    {
+        if (in_array('adler32', \hash_algos()) !== true) {
+            return '';
+        }
+
+        return hash('adler32', $input);
+
+    }//end hash()
 
 
     /**
@@ -154,6 +174,35 @@ class Helper
         return $time;
 
     }//end nextSunday()
+
+
+    /**
+     * Retrieve liturgical year
+     *
+     * For days prior to 1st Sunday of Advent, it returns the calendar year.
+     * For 1st Sunday of Advent and later, it returns the next calendar year.
+     *
+     * @param int $time Timestamp
+     *
+     * @return int
+     */
+    public static function getLiturgicalYear(int $time): int
+    {
+        $date = new \DateTime('@'.$time);
+        $year = intval($date->format('Y'));
+        $odi  = new \DateInterval('P1D');
+        $fas  = new \DateTime($year.'-11-27');
+        while ($fas->format('w') !== '0') {
+            $fas->add($odi);
+        }
+
+        if ($fas->diff($date)->format('%R') === '+') {
+            return ($year + 1);
+        }
+
+        return $year;
+
+    }//end getLiturgicalYear()
 
 
     /**
