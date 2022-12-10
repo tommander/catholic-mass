@@ -73,6 +73,8 @@ class LangcontentModel extends BaseModel
             foreach ($copy->mass as $row) {
                 if (is_object($row) === true
                     && ((property_exists($row, '') === true && is_string($row->{''}) === true)
+                    || (property_exists($row, 'h1') === true && is_string($row->h1) === true)
+                    || (property_exists($row, 'h2') === true && is_string($row->h2) === true)
                     || (property_exists($row, 'p') === true && is_string($row->p) === true)
                     || (property_exists($row, 'a') === true && is_string($row->a) === true)
                     || (property_exists($row, 'r') === true && is_string($row->r) === true)
@@ -106,6 +108,8 @@ class LangcontentModel extends BaseModel
             foreach ($copy->rosary as $row) {
                 if (is_object($row) === true
                     && ((property_exists($row, '') === true && is_string($row->{''}) === true)
+                    || (property_exists($row, 'h1') === true && is_string($row->h1) === true)
+                    || (property_exists($row, 'h2') === true && is_string($row->h2) === true)
                     || (property_exists($row, 'p') === true && is_string($row->p) === true)
                     || (property_exists($row, 'a') === true && is_string($row->a) === true)
                     || (property_exists($row, 'r') === true && is_string($row->r) === true)

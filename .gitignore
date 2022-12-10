@@ -5,3 +5,5 @@ phpDocumentor.phar
 vendor
 log.txt
 errors/error*
+.env
+config/*.php
