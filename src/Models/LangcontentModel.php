@@ -125,7 +125,7 @@ class LangcontentModel extends BaseModel
                             && property_exists($rowItem, 'content') === true
                             && is_array($rowItem->content) === true
                         ) {
-                            $arr[] = $row;
+                            $arr[] = $rowItem;
                         }
                     }
 
