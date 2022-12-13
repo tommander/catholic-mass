@@ -104,7 +104,9 @@ class CalendarModel extends BaseModel
      * Luckily, it is necessary to build calendar only once for each year, because it is stored afterwards and every successive
      * call reads the calendar, which was already built before.
      *
-     * @param int $liturgicalYear Liturgical year (calendar year until the day before 1st Sunday of Advent, calendar year+1 afterwards)
+     * @param int  $liturgicalYear       Liturgical year (calendar year until the day before 1st Sunday of Advent, calendar year+1 afterwards)
+     * @param bool $traditionalEpiphany  Whether the Epiphany of the Lord is strictly on Jan 6 (true) or on the 1st Sunday after New Year's Day (false)
+     * @param bool $traditionalAscension Whether the Ascension of the Lord is strictly on 40th day of Easter (true) or on the 7th Sunday of Easter (false)
      *
      * @return void
      *
@@ -112,39 +114,68 @@ class CalendarModel extends BaseModel
      * @see https://www.omnicalculator.com/everyday-life/moon-phase
      * @see https://catholic-resources.org/Lectionary/
      */
-    private function buildJson(int $liturgicalYear): void
+    private function buildJson(int $liturgicalYear, bool $traditionalEpiphany=true, bool $traditionalAscension=false): void
     {
         $this->jsonContent = [];
 
         $odi = new \DateInterval('P1D');
-        $owi = new \DateInterval('P1W');
 
+        $shortDays = [
+            '0' => 'Su',
+            '1' => 'Mo',
+            '2' => 'Tu',
+            '3' => 'We',
+            '4' => 'Th',
+            '5' => 'Fr',
+            '6' => 'Sa',
+        ];
+
+        // phpcs:disable Squiz.Arrays.ArrayDeclaration.SingleLineNotAllowed
+        $daysUntilBaptism = [
+            '27' => [
+                true  => ['SuoA1', 'MooA1', 'TuoA1', 'WeoA1', 'ThoA1', 'FroA1', 'SaoA1', 'SuoA2', 'MooA2', 'TuoA2', 'WeoA2', 'ThoA2', 'FroA2', 'SaoA2', 'SuoA3', 'MooA3', 'TuoA3', 'WeoA3', 'ThoA3', 'FroA3', 'Dec17', 'SuoA4', 'Dec19', 'Dec20', 'Dec21', 'Dec22', 'Dec23', 'Dec24', 'Christmas', 'Dec26', 'Dec27', 'Dec28', 'Dec29', 'FotHF', 'Dec31', 'BVMMoG', 'Jan2', 'Jan3', 'Jan4', 'Jan5', 'EotL', 'Jan7', 'BotL'],
+                false => ['SuoA1', 'MooA1', 'TuoA1', 'WeoA1', 'ThoA1', 'FroA1', 'SaoA1', 'SuoA2', 'MooA2', 'TuoA2', 'WeoA2', 'ThoA2', 'FroA2', 'SaoA2', 'SuoA3', 'MooA3', 'TuoA3', 'WeoA3', 'ThoA3', 'FroA3', 'Dec17', 'SuoA4', 'Dec19', 'Dec20', 'Dec21', 'Dec22', 'Dec23', 'Dec24', 'Christmas', 'Dec26', 'Dec27', 'Dec28', 'Dec29', 'FotHF', 'Dec31', 'BVMMoG', 'Jan2', 'Jan3', 'Jan4', 'Jan5', 'Jan6', 'Jan7', 'EoTL', 'BotL'],
+            ],
+            '28' => [
+                true  => ['SuoA1', 'MooA1', 'TuoA1', 'WeoA1', 'ThoA1', 'FroA1', 'SaoA1', 'SuoA2', 'MooA2', 'TuoA2', 'WeoA2', 'ThoA2', 'FroA2', 'SaoA2', 'SuoA3', 'MooA3', 'TuoA3', 'WeoA3', 'ThoA3', 'Dec17', 'Dec18', 'SuoA4', 'Dec20', 'Dec21', 'Dec22', 'Dec23', 'Dec24', 'Christmas', 'FotHF', 'Dec27', 'Dec28', 'Dec29', 'Dec30', 'Dec31', 'BVMMoG', 'SuaC2', 'Jan3', 'Jan4', 'Jan5', 'EotL', 'Jan7', 'Jan8', 'BotL'],
+                false => ['SuoA1', 'MooA1', 'TuoA1', 'WeoA1', 'ThoA1', 'FroA1', 'SaoA1', 'SuoA2', 'MooA2', 'TuoA2', 'WeoA2', 'ThoA2', 'FroA2', 'SaoA2', 'SuoA3', 'MooA3', 'TuoA3', 'WeoA3', 'ThoA3', 'Dec17', 'Dec18', 'SuoA4', 'Dec20', 'Dec21', 'Dec22', 'Dec23', 'Dec24', 'Christmas', 'FotHF', 'Dec27', 'Dec28', 'Dec29', 'Dec30', 'Dec31', 'BVMMoG', 'EotL', 'Jan3', 'Jan4', 'Jan5', 'Jan6', 'Jan7', 'Jan8', 'BotL'],
+            ],
+            '29' => [
+                true  => ['SuoA1', 'MooA1', 'TuoA1', 'WeoA1', 'ThoA1', 'FroA1', 'SaoA1', 'SuoA2', 'MooA2', 'TuoA2', 'WeoA2', 'ThoA2', 'FroA2', 'SaoA2', 'SuoA3', 'MooA3', 'TuoA3', 'WeoA3', 'Dec17', 'Dec18', 'Dec19', 'SuoA4', 'Dec21', 'Dec22', 'Dec23', 'Dec24', 'Christmas', 'Dec26', 'FotHF', 'Dec28', 'Dec29', 'Dec30', 'Dec31', 'BVMMoG', 'Jan2', 'SuaC2', 'Jan4', 'Jan5', 'EotL', 'Jan7', 'Jan8', 'Jan9', 'BotL'],
+                false => ['SuoA1', 'MooA1', 'TuoA1', 'WeoA1', 'ThoA1', 'FroA1', 'SaoA1', 'SuoA2', 'MooA2', 'TuoA2', 'WeoA2', 'ThoA2', 'FroA2', 'SaoA2', 'SuoA3', 'MooA3', 'TuoA3', 'WeoA3', 'Dec17', 'Dec18', 'Dec19', 'SuoA4', 'Dec21', 'Dec22', 'Dec23', 'Dec24', 'Christmas', 'Dec26', 'FotHF', 'Dec28', 'Dec29', 'Dec30', 'Dec31', 'BVMMoG', 'Jan2', 'EotL', 'Jan4', 'Jan5', 'Jan6', 'Jan7', 'Jan8', 'Jan9', 'BotL'],
+            ],
+            '30' => [
+                true  => ['SuoA1', 'MooA1', 'TuoA1', 'WeoA1', 'ThoA1', 'FroA1', 'SaoA1', 'SuoA2', 'MooA2', 'TuoA2', 'WeoA2', 'ThoA2', 'FroA2', 'SaoA2', 'SuoA3', 'MooA3', 'TuoA3', 'Dec17', 'Dec18', 'Dec19', 'Dec20', 'SuoA4', 'Dec22', 'Dec23', 'Dec24', 'Christmas', 'Dec26', 'Dec27', 'FotHF', 'Dec29', 'Dec30', 'Dec31', 'BVMMoG', 'Jan2', 'Jan3', 'SuaC2', 'Jan5', 'EotL', 'Jan7', 'Jan8', 'Jan9', 'Jan10', 'BotL'],
+                false => ['SuoA1', 'MooA1', 'TuoA1', 'WeoA1', 'ThoA1', 'FroA1', 'SaoA1', 'SuoA2', 'MooA2', 'TuoA2', 'WeoA2', 'ThoA2', 'FroA2', 'SaoA2', 'SuoA3', 'MooA3', 'TuoA3', 'Dec17', 'Dec18', 'Dec19', 'Dec20', 'SuoA4', 'Dec22', 'Dec23', 'Dec24', 'Christmas', 'Dec26', 'Dec27', 'FotHF', 'Dec29', 'Dec30', 'Dec31', 'BVMMoG', 'Jan2', 'Jan3', 'EotL', 'Jan5', 'Jan6', 'Jan7', 'Jan8', 'Jan9', 'Jan10', 'BotL'],
+            ],
+            '01' => [
+                true  => ['SuoA1', 'MooA1', 'TuoA1', 'WeoA1', 'ThoA1', 'FroA1', 'SaoA1', 'SuoA2', 'MooA2', 'TuoA2', 'WeoA2', 'ThoA2', 'FroA2', 'SaoA2', 'SuoA3', 'MooA3', 'Dec17', 'Dec18', 'Dec19', 'Dec20', 'Dec21', 'SuoA4', 'Dec23', 'Dec24', 'Christmas', 'Dec26', 'Dec27', 'Dec28', 'FotHF', 'Dec30', 'Dec31', 'BVMMoG', 'Jan2', 'Jan3', 'Jan4', 'SuaC2', 'EotL', 'Jan7', 'Jan8', 'Jan9', 'Jan10', 'Jan11', 'BotL'],
+                false => ['SuoA1', 'MooA1', 'TuoA1', 'WeoA1', 'ThoA1', 'FroA1', 'SaoA1', 'SuoA2', 'MooA2', 'TuoA2', 'WeoA2', 'ThoA2', 'FroA2', 'SaoA2', 'SuoA3', 'MooA3', 'Dec17', 'Dec18', 'Dec19', 'Dec20', 'Dec21', 'SuoA4', 'Dec23', 'Dec24', 'Christmas', 'Dec26', 'Dec27', 'Dec28', 'FotHF', 'Dec30', 'Dec31', 'BVMMoG', 'Jan2', 'Jan3', 'Jan4', 'EotL', 'Jan6', 'Jan7', 'Jan8', 'Jan9', 'Jan10', 'Jan11', 'BotL'],
+            ],
+            '02' => [
+                true  => ['SuoA1', 'MooA1', 'TuoA1', 'WeoA1', 'ThoA1', 'FroA1', 'SaoA1', 'SuoA2', 'MooA2', 'TuoA2', 'WeoA2', 'ThoA2', 'FroA2', 'SaoA2', 'SuoA3', 'Dec17', 'Dec18', 'Dec19', 'Dec20', 'Dec21', 'Dec22', 'SuoA4', 'Dec24', 'Christmas', 'Dec26', 'Dec27', 'Dec28', 'Dec29', 'FotHF', 'Dec31', 'BVMMoG', 'Jan2', 'Jan3', 'Jan4', 'Jan5', 'EotL', 'Jan7', 'Jan8', 'Jan9', 'Jan10', 'Jan11', 'Jan12', 'BotL'],
+                false => ['SuoA1', 'MooA1', 'TuoA1', 'WeoA1', 'ThoA1', 'FroA1', 'SaoA1', 'SuoA2', 'MooA2', 'TuoA2', 'WeoA2', 'ThoA2', 'FroA2', 'SaoA2', 'SuoA3', 'Dec17', 'Dec18', 'Dec19', 'Dec20', 'Dec21', 'Dec22', 'SuoA4', 'Dec24', 'Christmas', 'Dec26', 'Dec27', 'Dec28', 'Dec29', 'FotHF', 'Dec31', 'BVMMoG', 'Jan2', 'Jan3', 'Jan4', 'Jan5', 'EotL', 'Jan7', 'Jan8', 'Jan9', 'Jan10', 'Jan11', 'Jan12', 'BotL'],
+            ],
+            '03' => [
+                true  => ['SuoA1', 'MooA1', 'TuoA1', 'WeoA1', 'ThoA1', 'FroA1', 'SaoA1', 'SuoA2', 'MooA2', 'TuoA2', 'WeoA2', 'ThoA2', 'FroA2', 'SaoA2', 'SuoA3', 'Dec18', 'Dec19', 'Dec20', 'Dec21', 'Dec22', 'Dec23', 'Dec24', 'Christmas', 'Dec26', 'Dec27', 'Dec28', 'Dec29', 'Dec30', 'FotHF', 'BVMMoG', 'Jan2', 'Jan3', 'Jan4', 'Jan5', 'EotL', 'BotL'],
+                false => ['SuoA1', 'MooA1', 'TuoA1', 'WeoA1', 'ThoA1', 'FroA1', 'SaoA1', 'SuoA2', 'MooA2', 'TuoA2', 'WeoA2', 'ThoA2', 'FroA2', 'SaoA2', 'SuoA3', 'Dec18', 'Dec19', 'Dec20', 'Dec21', 'Dec22', 'Dec23', 'Dec24', 'Christmas', 'Dec26', 'Dec27', 'Dec28', 'Dec29', 'Dec30', 'FotHF', 'BVMMoG', 'Jan2', 'Jan3', 'Jan4', 'Jan5', 'Jan6', 'EotL', 'BotL'],
+            ],
+        ];
+
+        // phpcs:enable
+
+        // First we find the Sunday within 27-11 to 03-12, that is
+        // the First Sunday of Advent, i.e. beginning of the
+        // liturgical year.
         $start = new \DateTime(($liturgicalYear - 1).'-11-27');
         while (intval($start->format('w')) !== 0) {
             $start->add($odi);
         }
 
-        $this->jsonContent[$start->format('d.m.Y')] = 'SOA1';
-        $start->add($owi);
-        $this->jsonContent[$start->format('d.m.Y')] = 'SOA2';
-        $start->add($owi);
-        $this->jsonContent[$start->format('d.m.Y')] = 'SOA3';
-        $start->add($owi);
-        $this->jsonContent[$start->format('d.m.Y')] = 'SOA4';
-        $start->add($owi);
-        if (intval($start->format('d')) === 25) {
-            $this->jsonContent[$start->format('d.m.Y')] = 'SAC1B';
-        } else {
-            $this->jsonContent[$start->format('d.m.Y')] = 'SAC1';
-        }
-
-        $start->add($owi);
-        if (intval($start->format('m')) === 1 && intval($start->format('d')) > 6) {
-            $this->jsonContent[$start->format('d.m.Y')] = 'FOTBOTL';
-        } else {
-            $this->jsonContent[$start->format('d.m.Y')] = 'SAC2';
-            $start->add($owi);
-            $this->jsonContent[$start->format('d.m.Y')] = 'FOTBOTL';
+        // Now we add the days until the Baptism of the Lord.
+        foreach ($daysUntilBaptism[$start->format('d')][$traditionalEpiphany] as $dayAbbr) {
+            $this->jsonContent[$start->format('d.m.Y')] = $dayAbbr;
+            $start->add($odi);
         }
 
         // Now we need to know the date of Ash Wednesday.
@@ -180,15 +211,29 @@ class CalendarModel extends BaseModel
 
         $ash->sub(new \DateInterval("P46D"));
         // Subtract 46 days (that is Ash Wednesday).
-        $sund = 2;
-
-        $start->add($owi);
+        $weekInOT = 1;
 
         // Add Ordinary Time Sundays until before Ash Wednesday.
         while ($start->diff($ash)->format('%R') === '+') {
-            $this->jsonContent[$start->format('d.m.Y')] = "SIOT${sund}";
-            $start->add($owi);
-            $sund++;
+            if ($start->format('w') === '0') {
+                $weekInOT++;
+            }
+
+            $this->jsonContent[$start->format('d.m.Y')] = $shortDays[$start->format('w')]."iOT${weekInOT}";
+            $start->add($odi);
+        }
+
+        // phpcs:disable Squiz.Arrays.ArrayDeclaration.SingleLineNotAllowed
+        $daysUntilPentecost = [
+            true  => ['WeAsh', 'ThaAW', 'FraAW', 'SaaAW', 'SuoL1', 'MooL1', 'TuoL1', 'WeoL1', 'ThoL1', 'FroL1', 'SaoL1', 'SuoL2', 'MooL2', 'TuoL2', 'WeoL2', 'ThoL2', 'FroL2', 'SaoL2', 'SuoL3', 'MooL3', 'TuoL3', 'WeoL3', 'ThoL3', 'FroL3', 'SaoL3', 'SuoL4', 'MooL4', 'TuoL4', 'WeoL4', 'ThoL4', 'FroL4', 'SaoL4', 'SuoL5', 'MooL5', 'TuoL5', 'WeoL5', 'ThoL5', 'FroL5', 'SaoL5', 'SuPalm', 'MooHW', 'TuoHW', 'WeoHW', 'ThHoly', 'FrGood', 'SaHoly', 'SuEaster', 'MooE1', 'TuoE1', 'WeoE1', 'ThoE1', 'FroE1', 'SaoE1', 'SuoE2', 'MooE2', 'TuoE2', 'WeoE2', 'ThoE2', 'FroE2', 'SaoE2', 'SuoE3', 'MooE3', 'TuoE3', 'WeoE3', 'ThoE3', 'FroE3', 'SaoE3', 'SuoE4', 'MooE4', 'TuoE4', 'WeoE4', 'ThoE4', 'FroE4', 'SaoE4', 'SuoE5', 'MooE5', 'TuoE5', 'WeoE5', 'ThoE5', 'FroE5', 'SaoE5', 'SuoE6', 'MooE6', 'TuoE6', 'WeoE6', 'AotL', 'FroE6', 'SaoE6', 'SuoE7', 'MooE7', 'TuoE7', 'WeoE7', 'ThoE7', 'FroE7', 'SaoE7', 'Pentecost'],
+            false => ['WeAsh', 'ThaAW', 'FraAW', 'SaaAW', 'SuoL1', 'MooL1', 'TuoL1', 'WeoL1', 'ThoL1', 'FroL1', 'SaoL1', 'SuoL2', 'MooL2', 'TuoL2', 'WeoL2', 'ThoL2', 'FroL2', 'SaoL2', 'SuoL3', 'MooL3', 'TuoL3', 'WeoL3', 'ThoL3', 'FroL3', 'SaoL3', 'SuoL4', 'MooL4', 'TuoL4', 'WeoL4', 'ThoL4', 'FroL4', 'SaoL4', 'SuoL5', 'MooL5', 'TuoL5', 'WeoL5', 'ThoL5', 'FroL5', 'SaoL5', 'SuPalm', 'MooHW', 'TuoHW', 'WeoHW', 'ThHoly', 'FrGood', 'SaHoly', 'SuEaster', 'MooE1', 'TuoE1', 'WeoE1', 'ThoE1', 'FroE1', 'SaoE1', 'SuoE2', 'MooE2', 'TuoE2', 'WeoE2', 'ThoE2', 'FroE2', 'SaoE2', 'SuoE3', 'MooE3', 'TuoE3', 'WeoE3', 'ThoE3', 'FroE3', 'SaoE3', 'SuoE4', 'MooE4', 'TuoE4', 'WeoE4', 'ThoE4', 'FroE4', 'SaoE4', 'SuoE5', 'MooE5', 'TuoE5', 'WeoE5', 'ThoE5', 'FroE5', 'SaoE5', 'SuoE6', 'MooE6', 'TuoE6', 'WeoE6', 'ThoE6', 'FroE6', 'SaoE6', 'AotL', 'MooE7', 'TuoE7', 'WeoE7', 'ThoE7', 'FroE7', 'SaoE7', 'Pentecost'],
+        ];
+        // phpcs:enable
+
+        // Now we add the days until the Pentecost Sunday.
+        foreach ($daysUntilPentecost[$traditionalAscension] as $dayAbbr) {
+            $this->jsonContent[$start->format('d.m.Y')] = $dayAbbr;
+            $start->add($odi);
         }
 
         // Now we need to know the beginning of Advent.
@@ -197,52 +242,25 @@ class CalendarModel extends BaseModel
             $ce->add($odi);
         }
 
+        // Go to the last day of our liturgical year and reset Week in Ordinary Time to 35.
+        // The current day is Saturday and our loop decreases WiOT by 1 every Saturday,
+        // so we will be starting with 34th week.
         $ce->sub($odi);
+        $weekInOT = 35;
 
-        // To skip or not to skip? We need to finish with 34th Sunday in O.T.
-        $dt3   = clone $start;
-        $sund3 = $sund;
-        for ($i = 1; $i <= 13; $i++) {
-            $dt3->add($owi);
-        }
-
-        while ($dt3->diff($ce)->format('%R') === '+') {
-            $dt3->add($owi);
-            $sund3++;
-        }
-
-        if ($sund3 < 35) {
-            $sund++;
-        }
-
-        // Add 5 Lenten Sundays.
-        for ($i = 1; $i <= 5; $i++) {
-            $this->jsonContent[$start->format('d.m.Y')] = "SOL${i}";
-            $start->add($owi);
-        }
-
-        // Add Palm Sunday.
-        $this->jsonContent[$start->format('d.m.Y')] = "PaS";
-        $start->add($owi);
-
-        // Add Easter Sunday.
-        $this->jsonContent[$start->format('d.m.Y')] = "ES";
-        $start->add($owi);
-
-        // Add 6 Sundays until before Pentecost Sunday.
-        for ($i = 2; $i <= 7; $i++) {
-            $this->jsonContent[$start->format('d.m.Y')] = "SOE${i}";
-            $start->add($owi);
-        }
-
-        // Fill Sundays until before Advent.
+        $daysTmp = [];
+        // Now we go back in time.
         while ($start->diff($ce)->format('%R') === '+') {
-            $this->jsonContent[$start->format('d.m.Y')] = "SIOT${sund}";
-            $start->add($owi);
-            $sund++;
+            if ($ce->format('w') === '6') {
+                $weekInOT--;
+            }
+
+            $daysTmp[$ce->format('d.m.Y')] = $shortDays[$ce->format('w')].'iOT'.$weekInOT;
+            $ce->sub($odi);
         }
 
-        $this->saveJson();
+        $this->jsonContent = \array_merge($this->jsonContent, \array_reverse($daysTmp, true));
+        $this->saveJson(true);
 
     }//end buildJson()
 

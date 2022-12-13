@@ -246,6 +246,74 @@ class HtmlMaker
 
 
     /**
+     * This is a small helper function for {@see HtmlMaker::objectAllowed()} that takes the `allowed` or `forbid`
+     * property of a JSON object and returns true, if the given date is found in the rules
+     *
+     * @param object $objectLimits Forbid/Allow property of the JSON object
+     * @param int    $time         Timestamp
+     *
+     * @return bool
+     */
+    private function objectLimitHit(object $objectLimits, int $time): bool
+    {
+        if (property_exists($objectLimits, 'weekday') === true && is_array($objectLimits->weekday) === true && in_array(date('D', $time), $objectLimits->weekday) === true) {
+            return true;
+        }
+
+        if (property_exists($objectLimits, 'day') === true && is_array($objectLimits->day) === true && in_array($this->lectionary->sundayLabel($time), $objectLimits->day) === true) {
+            return true;
+        }
+
+        return false;
+
+    }//end objectLimitHit()
+
+
+    /**
+     * This function is used to check a JSON object. If it contains properties `allow` or `forbid`, it means
+     * the object can be displayed only under certain circumstances.
+     *
+     * @param object $obj  Object to check
+     * @param int    $time Timestamp
+     *
+     * @return bool
+     */
+    private function objectAllowed(object $obj, int $time): bool
+    {
+        // No limitations => allowed.
+        if (property_exists($obj, 'allow') !== true && property_exists($obj, 'forbid') !== true) {
+            return true;
+        }
+
+        $this->logger->debug("Object is limited.\r\n".var_export($obj, true));
+
+        // Forbid and allow.
+        if (property_exists($obj, 'allow') === true && property_exists($obj, 'forbid') === true) {
+            $ret = ($this->objectLimitHit($obj->forbid, $time) === false && $this->objectLimitHit($obj->allow, $time) === true);
+            $this->logger->debug('AllowForbid hit: '.var_export($ret, true));
+            return $ret;
+        }
+
+        // Forbid only.
+        if (property_exists($obj, 'forbid') === true) {
+            $ret = ($this->objectLimitHit($obj->forbid, $time) === false);
+            $this->logger->debug('Forbid hit: '.var_export($ret, true));
+            return $ret;
+        }
+
+        // Allow only.
+        if (property_exists($obj, 'allow') === true) {
+            $ret = ($this->objectLimitHit($obj->allow, $time) === true);
+            $this->logger->debug('Allow hit: '.var_export($ret, true));
+            return $ret;
+        }
+
+        throw new OomException('Program flow should never have gotten here.');
+
+    }//end objectAllowed()
+
+
+    /**
      * Convert original JSON object to an HTML representation
      *
      * @param object $obj JSON object
@@ -257,6 +325,10 @@ class HtmlMaker
         $who  = '';
         $what = '';
         $cls  = '';
+
+        if ($this->objectAllowed($obj, $this->getParams->getTimestamp()) !== true) {
+            return '';
+        }
 
         if (isset($obj->h1) === true) {
             $cls  = ' class="heading1"';
@@ -360,6 +432,10 @@ class HtmlMaker
 
             if (is_array($item->content) !== true) {
                 throw new OomException('Item object content is not an array');
+            }
+
+            if ($this->objectAllowed($item, $this->getParams->getTimestamp()) !== true) {
+                return '';
             }
 
             $addTab  = 'false';
