@@ -255,7 +255,14 @@ class CalendarModel extends BaseModel
                 $weekInOT--;
             }
 
-            $daysTmp[$ce->format('d.m.Y')] = $shortDays[$ce->format('w')].'iOT'.$weekInOT;
+            if ($start->diff($ce)->format('%a') === '6') {
+                $daysTmp[$ce->format('d.m.Y')] = 'SotMHT';
+            } else if ($start->diff($ce)->format('%a') === '13') {
+                $daysTmp[$ce->format('d.m.Y')] = 'SotMHBaBoC';
+            } else {
+                $daysTmp[$ce->format('d.m.Y')] = $shortDays[$ce->format('w')].'iOT'.$weekInOT;
+            }
+
             $ce->sub($odi);
         }
 

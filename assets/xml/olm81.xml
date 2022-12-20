@@ -1,0 +1,3427 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lectionary>
+    <info>
+        <name>Ordo lectionum Missae, editio typica altera</name>
+        <ref>OLM81</ref>
+        <author>Libreria editrice Vaticana</author>
+        <year>1981</year>
+        <source>https://archive.org/details/OLM1981</source>
+    </info>
+    <index>
+        <item id="1" ref="SuoA1" syear="A" wyear="*">
+            <r1>Is 2:1-5</r1>
+            <p>
+                <rd>Ps 121:1-2,4-5,6-7,8-9</rd>
+                <re>Ps 121:1</re>
+            </p>
+            <r2>Rom 13:11-14a</r2>
+            <a>Ps 84:8</a>
+            <e>Mt 24:37-44</e>
+        </item>
+        <item id="2" ref="SuoA1" syear="B" wyear="*">
+            <r1>Is 63:16b-17,19b, 64:2b-7</r1>
+            <p>
+                <rd>Ps 79:2ac+3b,15-16,18-19</rd>
+                <re>Ps 79:4</re>
+            </p>
+            <r2>1 Cor 1:3-9</r2>
+            <a>Ps 84:8</a>
+            <e>Mc 13:33-37</e>
+        </item>
+        <item id="3" ref="SuoA1" syear="C" wyear="*">
+            <r1>Ier 33:14-16</r1>
+            <p>
+                <rd>Ps 24:4bc-5ab,8-9,10+14</rd>
+                <re>Ps 24:1b</re>
+            </p>
+            <r2>1 Th 3:12-4:2</r2>
+            <a>Ps 84:8</a>
+            <e>Lc 21:25-28,34-36</e>
+        </item>
+        <item id="4" ref="SuoA2" syear="A" wyear="*">
+            <r1>Is 11:1-10</r1>
+            <p>
+                <rd>Ps 71:2,7-8,12-13,17</rd>
+                <re>Ps 71:7</re>
+            </p>
+            <r2>Rom 15:4-9</r2>
+            <a>Lc 3:4,6</a>
+            <e>Mt 3:1-12</e>
+        </item>
+        <item id="5" ref="SuoA2" syear="B" wyear="*">
+            <r1>Is 40:1-5,9-11</r1>
+            <p>
+                <rd>Ps 84:9ab-10,11-12,13-14</rd>
+                <re>Ps 84:8</re>
+            </p>
+            <r2>2 Petr 3:8-14</r2>
+            <a>Lc 3:4,6</a>
+            <e>Mc 1:1-8</e>
+        </item>
+        <item id="6" ref="SuoA2" syear="C" wyear="*">
+            <r1>Bar 5:1-9</r1>
+            <p>
+                <rd>Ps 125:1-2ab,2cd-3,4-5,6</rd>
+                <re>Ps 125:3</re>
+            </p>
+            <r2>Phil 1:4-6,8-11</r2>
+            <a>Lc 3:4,6</a>
+            <e>Lc 3:1-6</e>
+        </item>
+        <item id="7" ref="SuoA3" syear="A" wyear="*">
+            <r1>Is 35:1-6a,10</r1>
+            <p>
+                <rd>Ps 145:7,8-9a,9bc-10</rd>
+                <re>Is 35:4</re>
+            </p>
+            <r2>Iac 5:7-10</r2>
+            <a>Is 61:1</a>
+            <e>Mt 11:2-11</e>
+        </item>
+        <item id="8" ref="SuoA3" syear="B" wyear="*">
+            <r1>Is 61:1-2a,10-11</r1>
+            <p>
+                <rd>Lc 1:46-48,49-50,53-54</rd>
+                <re>Is 61:10b</re>
+            </p>
+            <r2>1 Th 5:16-24</r2>
+            <a>Is 61:1</a>
+            <e>Io 1:6-8,19-28</e>
+        </item>
+        <item id="9" ref="SuoA3" syear="C" wyear="*">
+            <r1>Soph 3:14-18a</r1>
+            <p>
+                <rd>Is 12:2-3,4bcd,5-6</rd>
+                <re>Is 12:6</re>
+            </p>
+            <r2>Phil 4:4-7</r2>
+            <a>Is 61:1</a>
+            <e>Lc 3:10-18</e>
+        </item>
+        <item id="10" ref="SuoA4" syear="A" wyear="*">
+            <r1>Is 7:10-14</r1>
+            <p>
+                <rd>Ps 23:1-2,3-4ab,5-6</rd>
+                <re>Ps 23:7c+10b</re>
+            </p>
+            <r2>Rom 1:1-7</r2>
+            <a>Mt 1:23</a>
+            <e>Mt 1:18-24</e>
+        </item>
+        <item id="11" ref="SuoA4" syear="B" wyear="*">
+            <r1>2 Sam 7:1-5,8b-12,14a,16</r1>
+            <p>
+                <rd>Ps 88:2-3,4-5,27+29</rd>
+                <re>Ps 88:2a</re>
+            </p>
+            <r2>Rom 16:25-27</r2>
+            <a>Lc 1:38</a>
+            <e>Lc 1:26-38</e>
+        </item>
+        <item id="12" ref="SuoA4" syear="C" wyear="*">
+            <r1>Mich 5:1-4a</r1>
+            <p>
+                <rd>Ps 79:2ac+3b,15-16,18-19</rd>
+                <re>Ps 79:4</re>
+            </p>
+            <r2>Hebr 10:5-10</r2>
+            <a>Lc 1:38</a>
+            <e>Lc 1:39-45</e>
+        </item>
+        <item id="13" ref="Christmas" syear="*" wyear="*" spc="Vigilia">
+            <r1>Is 62:1-5</r1>
+            <p>
+                <rd>Ps 88:4-5,16-17,27+29</rd>
+                <re>Ps 88:2a</re>
+            </p>
+            <r2>Act 13:16-17,22-25</r2>
+            <a>#Crastina die delebitur iniquitas terrae: et regnabit super nos Salvator mundi.</a>
+            <e>Mt 1:1-25</e>
+            <e>Mt 1:18-25</e>
+        </item>
+        <item id="14" ref="Christmas" syear="*" wyear="*" spc="Nocte">
+            <r1>Is 9:1-6</r1>
+            <p>
+                <rd>Ps 95:1-2a,2b-3,11-12,13</rd>
+                <re>Lc 2:11</re>
+            </p>
+            <r2>Tit 2:11-14</r2>
+            <a>Lc 2:10-11</a>
+            <e>Lc 2:1-14</e>
+        </item>
+        <item id="15" ref="Christmas" syear="*" wyear="*" spc="Aurora">
+            <r1>Is 62:11-12</r1>
+            <p>
+                <rd>Ps 96:1+6,11-12</rd>
+                <re>#Lux fulgebit hodie super nos: quia natus est nobis Dominus.</re>
+            </p>
+            <r2>Tit 3:4-7</r2>
+            <a>Lc 2:14</a>
+            <e>Lc 2:15-20</e>
+        </item>
+        <item id="16" ref="Christmas" syear="*" wyear="*" spc="Die">
+            <r1>Is 52:7-10</r1>
+            <p>
+                <rd>Ps 97:1,2-3ab,3cd-4,5-6</rd>
+                <re>Ps 97:3c</re>
+            </p>
+            <r2>Hebr 1:1-6</r2>
+            <a>#Dies sanctificatus illuxit nobis: venite, gentes, et adorate Dominum: quia hodie descendit lux magna super terram.</a>
+            <e>Io 1:1-18</e>
+            <e>Io 1:1-5,9-14</e>
+        </item>
+        <item id="17" ref="FotHF" syear="A" wyear="*">
+            <r1>Sir 3:3-7,14-17a</r1>
+            <r1>Sir 3:2-6,12-14</r1>
+            <p>
+                <rd>Ps 127:1-2,3,4-5</rd>
+                <re>Ps 127:1</re>
+            </p>
+            <r2>Col 3:12-21</r2>
+            <a>Col 3:15a,16a</a>
+            <e>Mt 2:13-15,19-23</e>
+        </item>
+        <item id="17" ref="FotHF" syear="B" wyear="*">
+            <r1>Gen 15:1-6,21:1-3</r1>
+            <r1>Sir 3:3-7,14-17a</r1>
+            <r1>Sir 3:2-6,12-14</r1>
+            <p>
+                <rd>Ps 104:1b-2,3-4,5-6,8-9</rd>
+                <re>Ps 104:7a,8a</re>
+            </p>
+            <p>
+                <rd>Ps 127:1-2,3,4-5</rd>
+                <re>Ps 127:1</re>
+            </p>
+            <r2>Hebr 11:8,11-12,17-19</r2>
+            <r2>Col 3:12-21</r2>
+            <a>Hebr 1:1-2</a>
+            <a>Col 3:15a,16a</a>
+            <e>Lc 2:22-40</e>
+            <e>Lc 2:22,39-40</e>
+        </item>
+        <item id="17" ref="FotHF" syear="C" wyear="*">
+            <r1>1 Sam 1:20-22,24-28</r1>
+            <r1>Sir 3:3-7,14-17a</r1>
+            <r1>Sir 3:2-6,12-14</r1>
+            <p>
+                <rd>Ps 83:2-3,5-6,9-10</rd>
+                <re>Ps 83:5a</re>
+            </p>
+            <p>
+                <rd>Ps 127:1-2,3,4-5</rd>
+                <re>Ps 127:1</re>
+            </p>
+            <r2>1 Io 3:1-2,21-24</r2>
+            <r2>Col 3:12-21</r2>
+            <a>Act 16:14b</a>
+            <a>Col 3:15a,16a</a>
+            <e>Lc 2:41-52</e>
+        </item>                        
+        <item id="18" ref="BVMMoG" syear="*" wyear="*">
+            <r1>Num 6:22-27</r1>
+            <p>
+                <rd>Ps 66:2-3,5,6+8</rd>
+                <re>Ps 66:2a</re>
+            </p>
+            <r2>Gal 4:4-7</r2>
+            <a>Hebr 1:1-2</a>
+            <e>Lc 2:16-21</e>
+        </item>
+        <item id="19" ref="SuaC2" syear="*" wyear="*">
+            <r1>Sir 24:1-4,12-16</r1>
+            <r1>Sir 24:1-2,8-12</r1>
+            <p>
+                <rd>Ps 147:12-13,14-15,19-20</rd>
+                <re>Io 1:14</re>
+            </p>
+            <r2>Eph 1:3-6,15-18</r2>
+            <a>1 Tim 3:16</a>
+            <e>Io 1:1-18</e>
+            <e>Io 1:1-5,9-14</e>
+        </item>
+        <item id="20" ref="EotL" syear="*" wyear="*">
+            <r1>Is 60:1-6</r1>
+            <p>
+                <rd>Ps 71:2,7-8,10-11,12-13</rd>
+                <re>Ps 71:11</re>
+            </p>
+            <r2>Eph 3:2-3a,5-6</r2>
+            <a>Mt 2:2</a>
+            <e>Mt 2:1-12</e>
+        </item>
+        <item id="21" ref="BotL" syear="A" wyear="*">
+            <r1>Is 42:1-4,6-7</r1>
+            <p>
+                <rd>Ps 28:1a+2,3ac-4,3b+9b-10</rd>
+                <re>Ps 28:11b</re>
+            </p>
+            <r2>Act 10:34-38</r2>
+            <a>Mc 9:6</a>
+            <e>Mt 3:13-17</e>
+        </item>
+        <item id="21" ref="BotL" syear="B" wyear="*">
+            <r1>Is 55:1-11</r1>
+            <r1>Is 42:1-4,6-7</r1>
+            <p>
+                <rd>Is 12:2-3,4bcd,5-6</rd>
+                <re>Is 12:3</re>
+            </p>
+            <p>
+                <rd>Ps 28:1a+2,3ac-4,3b+9b-10</rd>
+                <re>Ps 28:11b</re>
+            </p>
+            <r2>1 Io 5:1-9</r2>
+            <r2>Act 10:34-38</r2>
+            <a>Io 1:29</a>
+            <a>Mc 9:6</a>
+            <e>Mc 1:7-11</e>
+        </item>
+        <item id="21" ref="BotL" syear="C" wyear="*">
+            <r1>Is 40:1-5,9-11</r1>
+            <r1>Is 42:1-4,6-7</r1>
+            <p>
+                <rd>Ps 103:1b-2,3-4,24-25,27-28,29-30</rd>
+                <re>Ps 103:1</re>
+            </p>
+            <p>
+                <rd>Ps 28:1a+2,3ac-4,3b+9b-10</rd>
+                <re>Ps 28:11b</re>
+            </p>
+            <r2>Tit 2:11-4,3:4-7</r2>
+            <r2>Act 10:34-38</r2>
+            <a>Lc 3:16</a>
+            <a>Mc 9:6</a>
+            <e>Lc 3:15-16,21-22</e>
+        </item>
+        <item id="22" ref="SuoL1" syear="A" wyear="*">
+            <r1>Gen 2:7-9,3:1-7</r1>
+            <p>
+                <rd>Ps 50:3-4,5-6a,12-13,14+17</rd>
+                <re>Ps 50:3a</re>
+            </p>
+            <r2>Rom 5:12-19</r2>
+            <r2>Rom 5:12,17-19</r2>
+            <a>Mt 4:4b</a>
+            <e>Mt 4:1-11</e>
+        </item>
+        <item id="23" ref="SuoL1" syear="B" wyear="*">
+            <r1>Gen 9:8-15</r1>
+            <p>
+                <rd>Ps 24:4bc-5ab,6-7bc,8-9</rd>
+                <re>Ps 24:10</re>
+            </p>
+            <r2>1 Petr 3:18-22</r2>
+            <a>Mt 4:4b</a>
+            <e>Mc 1:12-15</e>
+        </item>
+        <item id="24" ref="SuoL1" syear="C" wyear="*">
+            <r1>Deut 26:4-10</r1>
+            <p>
+                <rd>Ps 90:1-2,10-11,12-13,14-15</rd>
+                <re>Ps 90:15b</re>
+            </p>
+            <r2>Rom 10:8-13</r2>
+            <a>Mt 4:4b</a>
+            <e>Lc 4:1-13</e>
+        </item>
+        <item id="25" ref="SuoL2" syear="A" wyear="*">
+            <r1>Gen 12:1-4a</r1>
+            <p>
+                <rd>Ps 32:4-5,18-19,20+22</rd>
+                <re>Ps 32:22</re>
+            </p>
+            <r2>2 Tim 1:8b-10</r2>
+            <a>#In splendenti nube, paterna vox audita est: Hic est Filius meus dilectus; ipsum audite.</a>
+            <e>Mt 17:1-9</e>
+        </item>
+        <item id="26" ref="SuoL2" syear="B" wyear="*">
+            <r1>Gen 22:1-2,9a,10-13,15-18</r1>
+            <p>
+                <rd>Ps 115:10+15,16-17,18-19</rd>
+                <re>Ps 114:9</re>
+            </p>
+            <r2>Rom 8:31b-34</r2>
+            <a>#In splendenti nube, paterna vox audita est: Hic est Filius meus dilectus; ipsum audite.</a>
+            <e>Mc 9:2-10</e>
+        </item>
+        <item id="27" ref="SuoL2" syear="C" wyear="*">
+            <r1>Gen 15:5-12,17-18</r1>
+            <p>
+                <rd>Ps 26:1,7-8,9abc,13-14</rd>
+                <re>Ps 26:1a</re>
+            </p>
+            <r2>Phil 3:17-4:1</r2>
+            <r2>Phil 3:20-4:1</r2>
+            <a>#In splendenti nube, paterna vox audita est: Hic est Filius meus dilectus; ipsum audite.</a>
+            <e>Lc 9:28b-36</e>
+        </item>
+        <item id="28" ref="SuoL3" syear="A" wyear="*">
+            <r1>Ex 17:3-7</r1>
+            <p>
+                <rd>Ps 94:1-2,6-7,8-9</rd>
+                <re>Ps 94:8</re>
+            </p>
+            <r2>Rom 5:1-2,5-8</r2>
+            <a>Io 4:42,15</a>
+            <e>Io 4:5-42</e>
+            <e>Io 4:5-15,19b-26,39a,40-42</e>
+        </item>
+        <item id="29" ref="SuoL3" syear="B" wyear="*">
+            <r1>Ex 20:1-17</r1>
+            <r1>Ex 20:1-3,7-8,12-17</r1>
+            <p>
+                <rd>Ps 18:8,9,10,11</rd>
+                <re>Io 6:68c</re>
+            </p>
+            <r2>1 Cor 1:22-25</r2>
+            <a>Io 3:16</a>
+            <e>Io 2:13-25</e>
+        </item>
+        <item id="30" ref="SuoL3" syear="C" wyear="*">
+            <r1>Ex 3:1-8a,13-15</r1>
+            <p>
+                <rd>Ps 102:1-2,3-4,6-7,8+11</rd>
+                <re>Ps 102:8a</re>
+            </p>
+            <r2>1 Cor 10:1-6,10-12</r2>
+            <a>Mt 4:17</a>
+            <e>Lc 13:1-9</e>
+        </item>
+        <item id="31" ref="SuoL4" syear="A" wyear="*">
+            <r1>1 Sam 16:1b,6-7,10-13a</r1>
+            <p>
+                <rd>Ps 22:1-3a,3b-4,5,6</rd>
+                <re>Ps 22:1</re>
+            </p>
+            <r2>Eph 5:8-14</r2>
+            <a>Io 8:12</a>
+            <e>Io 9:1-41</e>
+            <e>Io 9:1,6-9,13-17,34-38</e>
+        </item>
+        <item id="32" ref="SuoL4" syear="B" wyear="*">
+            <r1>2 Chr 36:14-16,19-23</r1>
+            <p>
+                <rd>Ps 136:1-2,3,4-5,6</rd>
+                <re>Ps 136:6a</re>
+            </p>
+            <r2>Eph 2:4-10</r2>
+            <a>Io 3:16</a>
+            <e>Io 3:14-21</e>
+        </item>
+        <item id="33" ref="SuoL4" syear="C" wyear="*">
+            <r1>Ios 5:9a,10-12</r1>
+            <p>
+                <rd>Ps 33:2-3,4-5,6-7</rd>
+                <re>Ps 33:9a</re>
+            </p>
+            <r2>2 Cor 5:17-21</r2>
+            <a>Lc 15:18</a>
+            <e>Lc 15:1-3,11-32</e>
+        </item>
+        <item id="34" ref="SuoL5" syear="A" wyear="*">
+            <r1>Ez 37:12-14</r1>
+            <p>
+                <rd>Ps 129:1-2,3-4ab,4c-6,7-8</rd>
+                <re>Ps 129:7</re>
+            </p>
+            <r2>Rom 8:8-11</r2>
+            <a>Io 11:25a,26</a>
+            <e>Io 11:1-45</e>
+            <e>Io 11:3-7,17,20-27,33b-45</e>
+        </item>
+        <item id="35" ref="SuoL5" syear="B" wyear="*">
+            <r1>Ier 31:31-34</r1>
+            <p>
+                <rd>Ps 50:3-4,12-13,14-15</rd>
+                <re>Ps 50:12a</re>
+            </p>
+            <r2>Hebr 5:7-9</r2>
+            <a>Io 12:26</a>
+            <e>Io 12:20-33</e>
+        </item>
+        <item id="36" ref="SuoL5" syear="C" wyear="*">
+            <r1>Is 43:16-21</r1>
+            <p>
+                <rd>Ps 125:1-2ab,2cd-3,4-5,6</rd>
+                <re>Ps 125:3</re>
+            </p>
+            <r2>Phil 3:8-14</r2>
+            <a>Ioel 2:12-13</a>
+            <e>Io 8:1-11</e>
+        </item>
+        <item id="37" ref="SuPalm" syear="A" wyear="*" spec="Ad processionem palmarum">
+            <e>Mt 21:1-11</e>
+        </item>
+        <item id="37" ref="SuPalm" syear="B" wyear="*" spec="Ad processionem palmarum">
+            <e>Mc 11:1-10</e>
+        </item>
+        <item id="37" ref="SuPalm" syear="C" wyear="*" spec="Ad processionem palmarum">
+            <e>Lc 19:28-40</e>
+        </item>
+        <item id="38" ref="SuPalm" syear="A" wyear="*" spec="Ad Missam">
+            <r1>Is 50:4-7</r1>
+            <p>
+                <rd>Ps 21:8-9,17-18a,19-20,23-24</rd>
+                <re>Ps 21:2a</re>
+            </p>
+            <r2>Phil 2:6-11</r2>
+            <a>Phil 2:8-9</a>
+            <e>Mt 26:14-27:66</e>
+            <e>Mt 27:11-54</e>
+        </item>
+        <item id="38" ref="SuPalm" syear="B" wyear="*" spec="Ad Missam">
+            <r1>Is 50:4-7</r1>
+            <p>
+                <rd>Ps 21:8-9,17-18a,19-20,23-24</rd>
+                <re>Ps 21:2a</re>
+            </p>
+            <r2>Phil 2:6-11</r2>
+            <a>Phil 2:8-9</a>
+            <e>Mc 14:1-15:47</e>
+            <e>Mt 15:1-39</e>
+        </item>
+        <item id="38" ref="SuPalm" syear="C" wyear="*" spec="Ad Missam">
+            <r1>Is 50:4-7</r1>
+            <p>
+                <rd>Ps 21:8-9,17-18a,19-20,23-24</rd>
+                <re>Ps 21:2a</re>
+            </p>
+            <r2>Phil 2:6-11</r2>
+            <a>Phil 2:8-9</a>
+            <e>Lc 22:14-23:56</e>
+            <e>Lc 23:1-49</e>
+        </item>
+        <item id="39" ref="ThHoly" syear="*" wyear="*">
+            <r1>Ex 12:1-8,11:14</r1>
+            <p>
+                <rd>Ps 115:12-13,15-16bc,17-18</rd>
+                <re>1 Cor 10:16</re>
+            </p>
+            <r2>1 Cor 11:23-26</r2>
+            <a>Io 13:34</a>
+            <e>Io 13:1-15</e>
+        </item>
+        <item id="40" ref="FrGood" syear="*" wyear="*">
+            <r1>Is 52:13-53:12</r1>
+            <p>
+                <rd>Ps 30:2+6,12-13,15-16,17+25</rd>
+                <re>Lc 23:46</re>
+            </p>
+            <r2>Hebr 4:14-16,5:7-9</r2>
+            <a>Phil 2:8-9</a>
+            <e>Io 18:1-19:42</e>
+        </item>
+        <item id="41" ref="SuEaster" syear="A" wyear="*" spec="Ad Vigiliam paschalem in Nocte Sancta">
+            <r1>Gen 1:1-2:2</r1>
+            <r1>Gen 1:1,26-31a</r1>
+            <p>
+                <rd>Ps 103:1-2a,5-6,10+12,13-14,24+35c</rd>
+                <re>Ps 103:30</re>
+            </p>
+            <r2>Gen 22:1-18</r2>
+            <r2>Gen 22:1-2,9a,10-13,15-18</r2>
+            <p>
+                <rd>Ps 15:5+8,9-10,11</rd>
+                <re>Ps 15:1</re>
+            </p>
+            <r3>Ex 14:15-15:1</r3>
+            <p>
+                <rd>Ex 15:1-2,3-4,5-6,17-18</rd>
+                <re>Ex 15:1a</re>
+            </p>
+            <r4>Is 54:5-14</r4>
+            <p>
+                <rd>Ps 29:2+4,5-6,11+12a+13b</rd>
+                <re>Ps 29:2a</re>
+            </p>
+            <r5>Is 55:1-11</r5>
+            <p>
+                <rd>Is 12:2-3,4bcd,5-6</rd>
+                <re>Is 12:3</re>
+            </p>
+            <r6>Bar 3:9-15,32-4:4</r6>
+            <p>
+                <rd>Ps 18:8,9,10,11</rd>
+                <re>Io 6:68c</re>
+            </p>
+            <r7>Ez 36:16-17a,18-28</r7>
+            <p>
+                <rd>Ps 41:3,5bcd,42:3,4</rd>
+                <re>Ps 41:2</re>
+            </p>
+            <ep>Rom 6:3-11</ep>
+            <p>
+                <rd>Ps 117:1-2,16ab-17,22-23</rd>
+                <re>#Alleluia. Alleluia. Alleluia.</re>
+            </p>
+            <e>Mt 28:1-10</e>
+        </item>
+        <item id="41" ref="SuEaster" syear="B" wyear="*" spec="Ad Vigiliam paschalem in Nocte Sancta">
+            <r1>Gen 1:1-2:2</r1>
+            <r1>Gen 1:1,26-31a</r1>
+            <p>
+                <rd>Ps 103:1-2a,5-6,10+12,13-14,24+35c</rd>
+                <re>Ps 103:30</re>
+            </p>
+            <r2>Gen 22:1-18</r2>
+            <r2>Gen 22:1-2,9a,10-13,15-18</r2>
+            <p>
+                <rd>Ps 15:5+8,9-10,11</rd>
+                <re>Ps 15:1</re>
+            </p>
+            <r3>Ex 14:15-15:1</r3>
+            <p>
+                <rd>Ex 15:1-2,3-4,5-6,17-18</rd>
+                <re>Ex 15:1a</re>
+            </p>
+            <r4>Is 54:5-14</r4>
+            <p>
+                <rd>Ps 29:2+4,5-6,11+12a+13b</rd>
+                <re>Ps 29:2a</re>
+            </p>
+            <r5>Is 55:1-11</r5>
+            <p>
+                <rd>Is 12:2-3,4bcd,5-6</rd>
+                <re>Is 12:3</re>
+            </p>
+            <r6>Bar 3:9-15,32-4:4</r6>
+            <p>
+                <rd>Ps 18:8,9,10,11</rd>
+                <re>Io 6:68c</re>
+            </p>
+            <r7>Ez 36:16-17a,18-28</r7>
+            <p>
+                <rd>Ps 41:3,5bcd,42:3,4</rd>
+                <re>Ps 41:2</re>
+            </p>
+            <ep>Rom 6:3-11</ep>
+            <p>
+                <rd>Ps 117:1-2,16ab-17,22-23</rd>
+                <re>#Alleluia. Alleluia. Alleluia.</re>
+            </p>
+            <e>Mc 16:1-7</e>
+        </item>
+        <item id="41" ref="SuEaster" syear="C" wyear="*" spec="Ad Vigiliam paschalem in Nocte Sancta">
+            <r1>Gen 1:1-2:2</r1>
+            <r1>Gen 1:1,26-31a</r1>
+            <p>
+                <rd>Ps 103:1-2a,5-6,10+12,13-14,24+35c</rd>
+                <re>Ps 103:30</re>
+            </p>
+            <r2>Gen 22:1-18</r2>
+            <r2>Gen 22:1-2,9a,10-13,15-18</r2>
+            <p>
+                <rd>Ps 15:5+8,9-10,11</rd>
+                <re>Ps 15:1</re>
+            </p>
+            <r3>Ex 14:15-15:1</r3>
+            <p>
+                <rd>Ex 15:1-2,3-4,5-6,17-18</rd>
+                <re>Ex 15:1a</re>
+            </p>
+            <r4>Is 54:5-14</r4>
+            <p>
+                <rd>Ps 29:2+4,5-6,11+12a+13b</rd>
+                <re>Ps 29:2a</re>
+            </p>
+            <r5>Is 55:1-11</r5>
+            <p>
+                <rd>Is 12:2-3,4bcd,5-6</rd>
+                <re>Is 12:3</re>
+            </p>
+            <r6>Bar 3:9-15,32-4:4</r6>
+            <p>
+                <rd>Ps 18:8,9,10,11</rd>
+                <re>Io 6:68c</re>
+            </p>
+            <r7>Ez 36:16-17a,18-28</r7>
+            <p>
+                <rd>Ps 41:3,5bcd,42:3,4</rd>
+                <re>Ps 41:2</re>
+            </p>
+            <ep>Rom 6:3-11</ep>
+            <p>
+                <rd>Ps 117:1-2,16ab-17,22-23</rd>
+                <re>#Alleluia. Alleluia. Alleluia.</re>
+            </p>
+            <e>Lc 24:1-12</e>
+        </item>
+        <item id="42" ref="SuEaster" syear="*" wyear="*" spec="Ad Missam in die Paschae">
+            <r1>Act 10:34a,37-43</r1>
+            <p>
+                <rd>Ps 117:1-2,16ab-17,22-23</rd>
+                <re>Ps 117:24</re>
+            </p>
+            <r2>Col 3:1-4</r2>
+            <r2>1 Cor 5:6b-8</r2>
+            <a>1 Cor 5:7b-8a</a>
+            <!-- Here can be also evangelium from #41 -->
+            <e>Io 20:1-9</e>
+            <e>Lc 24:13-35</e>
+        </item>
+        <item id="43" ref="SuoE2" syear="A" wyear="*">
+            <r1>Act 2:42-47</r1>
+            <p>
+                <rd>Ps 117:2-4,13-15,22-24</rd>
+                <re>Ps 117:1</re>
+            </p>
+            <r2>1 Petr 1:3-9</r2>
+            <a>Io 20:29</a>
+            <e>Io 20:19-31</e>
+        </item>
+        <item id="44" ref="SuoE2" syear="B" wyear="*">
+            <r1>Act 4:32-35</r1>
+            <p>
+                <rd>Ps 117:2-4,16ab-18,22-24</rd>
+                <re>Ps 117:1</re>
+            </p>
+            <r2>1 Io 5:1-6</r2>
+            <a>Io 20:29</a>
+            <e>Io 20:19-31</e>
+        </item>
+        <item id="45" ref="SuoE2" syear="C" wyear="*">
+            <r1>Act 5:12-16</r1>
+            <p>
+                <rd>Ps 117:2-4,22-24,25-27a</rd>
+                <re>Ps 117:1</re>
+            </p>
+            <r2>Ap 1:9-11a,12-13,17-19</r2>
+            <a>Io 20:29</a>
+            <e>Io 20:19-31</e>
+        </item>
+        <item id="46" ref="SuoE3" syear="A" wyear="*">
+            <r1>Act 2:14,22-33</r1>
+            <p>
+                <rd>Ps 15:1-2a+5,7-8,9-10,11</rd>
+                <re>Ps 15:11a</re>
+            </p>
+            <r2>1 Petr 1:17-21</r2>
+            <a>Lc 24:32</a>
+            <e>Lc 24:13-35</e>
+        </item>
+        <item id="47" ref="SuoE3" syear="B" wyear="*">
+            <r1>Act 3:13-15,17-19</r1>
+            <p>
+                <rd>Ps 4:2,4,7,9</rd>
+                <re>Ps 4:7a</re>
+            </p>
+            <r2>1 Io 2:1-5a</r2>
+            <a>Lc 24:32</a>
+            <e>Lc 24:35-48</e>
+        </item>
+        <item id="48" ref="SuoE3" syear="C" wyear="*">
+            <r1>Act 5:27b-32,40b-41</r1>
+            <p>
+                <rd>Ps 29:2+4,5+6,11+12a+13b</rd>
+                <re>Ps 29:2a</re>
+            </p>
+            <r2>Ap 5:11-14</r2>
+            <a>#Surrexit Christus, qui creavit omnia et misertus est humano generi.</a>
+            <e>Io 21:1-19</e>
+            <e>Io 21:1-14</e>
+        </item>
+        <item id="49" ref="SuoE4" syear="A" wyear="*">
+            <r1>Act 2:14a,36-41</r1>
+            <p>
+                <rd>Ps 22:1-3a,3b-4,5,6</rd>
+                <re>Ps 22:1</re>
+            </p>
+            <r2>1 Petr 2:20b-25</r2>
+            <a>Io 10:14</a>
+            <e>Io 10:1-10</e>
+        </item>
+        <item id="50" ref="SuoE4" syear="B" wyear="*">
+            <r1>Act 4:8-12</r1>
+            <p>
+                <rd>Ps 117:1+8-9,21-23,26+28cd+29</rd>
+                <re>Ps 117:22</re>
+            </p>
+            <r2>1 Io 3:1-2</r2>
+            <a>Io 10:14</a>
+            <e>Io 10:11-18</e>
+        </item>
+        <item id="51" ref="SuoE4" syear="C" wyear="*">
+            <r1>Act 13:14,43-52</r1>
+            <p>
+                <rd>Ps 99:2,3,5</rd>
+                <re>Ps 99:3c</re>
+            </p>
+            <r2>Ap 7:9,14b-17</r2>
+            <a>Io 10:14</a>
+            <e>Io 10:27-30</e>
+        </item>
+        <item id="52" ref="SuoE5" syear="A" wyear="*">
+            <r1>Act 6:1-7</r1>
+            <p>
+                <rd>Ps 32:1-2,4-5,18-19</rd>
+                <re>Ps 32:22</re>
+            </p>
+            <r2>1 Petr 2:4-9</r2>
+            <a>Io 14:6</a>
+            <e>Io 14:1-12</e>
+        </item>
+        <item id="53" ref="SuoE5" syear="B" wyear="*">
+            <r1>Act 9:26-31</r1>
+            <p>
+                <rd>Ps 21:26b-27,28+30,31-32</rd>
+                <re>Ps 21:26a</re>
+            </p>
+            <r2>1 Io 3:18-24</r2>
+            <a>Io 15:4a,5b</a>
+            <e>Io 15:1-8</e>
+        </item>
+        <item id="54" ref="SuoE5" syear="C" wyear="*">
+            <r1>Act 14:21b-27</r1>
+            <p>
+                <rd>Ps 144:8-9,10-11,12-13ab</rd>
+                <re>Ps 144:1</re>
+            </p>
+            <r2>Ap 21:1-5a</r2>
+            <a>Io 13:34</a>
+            <e>Io 13:31-33a,34-35</e>
+        </item>
+        <item id="55" ref="SuoE6" syear="A" wyear="*">
+            <r1>Act 8:5-8,14-17</r1>
+            <p>
+                <rd>Ps 65:1-3a,4-5,6-7a,16+20</rd>
+                <re>Ps 65:1</re>
+            </p>
+            <r2>1 Petr 3:15-18</r2>
+            <a>Io 14:23</a>
+            <e>Io 14:15-21</e>
+        </item>
+        <item id="56" ref="SuoE6" syear="B" wyear="*">
+            <r1>Act 10:25-26,34-35,44-48</r1>
+            <p>
+                <rd>Ps 97:1,2-3ab,3cd-4</rd>
+                <re>Ps 97:2b</re>
+            </p>
+            <r2>1 Io 4:7-10</r2>
+            <a>Io 14:23</a>
+            <e>Io 15:9-17</e>
+        </item>
+        <item id="57" ref="SuoE6" syear="C" wyear="*">
+            <r1>Act 15:1-2,22-29</r1>
+            <p>
+                <rd>Ps 66:2-3,5,6+8</rd>
+                <re>Ps 66:4</re>
+            </p>
+            <r2>Ap 21:10-14,22-23</r2>
+            <a>Io 14:23</a>
+            <e>Io 14:23-29</e>
+        </item>
+        <item id="58" ref="AotL" syear="A" wyear="*">
+            <r1>Act 1:1-11</r1>
+            <p>
+                <rd>Ps 46:2-3,6-7,8-9</rd>
+                <re>Ps 46:6</re>
+            </p>
+            <r2>Eph 1:17-23</r2>
+            <a>Mt 28:19a,20b</a>
+            <e>Mt 28:16-20</e>
+        </item>
+        <item id="58" ref="AotL" syear="B" wyear="*">
+            <r1>Act 1:1-11</r1>
+            <p>
+                <rd>Ps 46:2-3,6-7,8-9</rd>
+                <re>Ps 46:6</re>
+            </p>
+            <r2>Eph 4:1-13</r2>
+            <r2>Eph 4:1-7,11-13</r2>
+            <r2>Eph 1:17-23</r2>
+            <a>Mt 28:19a,20b</a>
+            <e>Mc 16:15-20</e>
+        </item>
+        <item id="58" ref="AotL" syear="C" wyear="*">
+            <r1>Act 1:1-11</r1>
+            <p>
+                <rd>Ps 46:2-3,6-7,8-9</rd>
+                <re>Ps 46:6</re>
+            </p>
+            <r2>Hebr 9:24-28,10:19-23</r2>
+            <r2>Eph 1:17-23</r2>
+            <a>Mt 28:19a,20b</a>
+            <e>Lc 24:46-53</e>
+        </item>
+        <item id="59" ref="SuoE7" syear="A" wyear="*">
+            <r1>Act 1:12-14</r1>
+            <p>
+                <rd>Ps 26:1,4,7-8a</rd>
+                <re>Ps 26:13</re>
+            </p>
+            <r2>1 Petr 4:13-16</r2>
+            <a>Io 14:18</a>
+            <e>Io 17:1-11a</e>
+        </item>
+    },
+        <item id="60" ref="SuoE7" syear="B" wyear="*">
+            <r1>Act 1:15-17,20a,20c-26</r1>
+            <p>
+                <rd>Ps 102:1-2,11-12,19-20ab</rd>
+                <re>Ps 102:19a</re>
+            </p>
+            <r2>1 Io 4:11-16</r2>
+            <a>Io 14:18</a>
+            <e>Io 17:11b-19</e>
+        </item>
+        <item id="61" ref="SuoE7" syear="C" wyear="*">
+            <r1>Act 7:55-60</r1>
+            <p>
+                <rd>Ps 96:1+2b,6+7c,9</rd>
+                <re>Ps 96:1a+9a</re>
+            </p>
+            <r2>Ap 22:12-14,16-17,20</r2>
+            <a>Io 14:18</a>
+            <e>Io 17:20-26</e>
+        </item>
+        <item id="62" ref="Pentecost" syear="*" wyear="*" spec="Ad Missam in vigilia">
+            <r1>Gen 11:1-9</r1>
+            <r1>Ex 19:3-8a,16-20b</r1>
+            <r1>Ez 37:1-14</r1>
+            <r1>Ioel 3:1-5</r1>
+            <p>
+                <rd>Ps 103:1-2a,24+35c,27-28,29bc-30</rd>
+                <re>Ps 103:30</re>
+            </p>
+            <r2>Rom 8:22-27</r2>
+            <a>#Veni, Sancte Spiritus, reple tuorum corda fidelium; et tui amoris in eis ignem accende.</a>
+            <e>Io 7:37-39</e>
+        </item>
+        <item id="63" ref="Pentecost" syear="A" wyear="*" spec="Ad Missam in die">
+            <r1>Act 2:1-11</r1>
+            <p>
+                <rd>Ps 103:1ab+24ac,29bc-30,31+34</rd>
+                <re>Ps 103:30</re>
+            </p>
+            <r2>1 Cor 12:3b-7,12-13</r2>
+            <a>#Veni, Sancte Spiritus, reple tuorum corda fidelium; et tui amoris in eis ignem accende.</a>
+            <e>Io 20:19-23</e>
+        </item>
+        <item id="63" ref="Pentecost" syear="B" wyear="*" spec="Ad Missam in die">
+            <r1>Act 2:1-11</r1>
+            <p>
+                <rd>Ps 103:1ab+24ac,29bc-30,31+34</rd>
+                <re>Ps 103:30</re>
+            </p>
+            <r2>Gal 5:16-25</r2>
+            <r2>1 Cor 12:3b-7,12-13</r2>
+            <a>#Veni, Sancte Spiritus, reple tuorum corda fidelium; et tui amoris in eis ignem accende.</a>
+            <e>Io 15:26-27,16:12-15</e>
+            <e>Io 20:19-23</e>
+        </item>
+        <item id="63" ref="Pentecost" syear="C" wyear="*" spec="Ad Missam in die">
+            <r1>Act 2:1-11</r1>
+            <p>
+                <rd>Ps 103:1ab+24ac,29bc-30,31+34</rd>
+                <re>Ps 103:30</re>
+            </p>
+            <r2>Rom 8:8-17</r2>
+            <r2>1 Cor 12:3b-7,12-13</r2>
+            <a>#Veni, Sancte Spiritus, reple tuorum corda fidelium; et tui amoris in eis ignem accende.</a>
+            <e>Io 14:15-16,23b-26</e>
+            <e>Io 20:19-23</e>
+        </item>
+        <item id="64" ref="SuiOT2" syear="A" wyear="*">
+            <r1>Is 49:3,5-6</r1>
+            <p>
+                <rd>Ps 39:2+4ab,7-8a,8b-9,10</rd>
+                <re>Ps 39:8a+9a</re>
+            </p>
+            <r2>1 Cor 1:1-3</r2>
+            <a>Io 1:14a,12a</a>
+            <e>Io 1:29-34</e>
+        </item>
+        <item id="65" ref="SuiOT2" syear="B" wyear="*">
+            <r1>1 Sam 3:3b-10,19</r1>
+            <p>
+                <rd>Ps 39:2+4ab,7-8a,8b-9,10</rd>
+                <re>Ps 39:8a+9a</re>
+            </p>
+            <r2>1 Cor 6:13c-15a,17-20</r2>
+            <a>Io 1:41,17b</a>
+            <e>Io 1:35-42</e>
+        </item>
+        <item id="66" ref="SuiOT2" syear="C" wyear="*">
+            <r1>Is 62:1-5</r1>
+            <p>
+                <rd>Ps 95:1-2a,2b-3,7-8a,9-10a+c</rd>
+                <re>Ps 95:3</re>
+            </p>
+            <r2>1 Cor 12:4-11</r2>
+            <a>2 Th 2:14</a>
+            <e>Io 2:1-11</e>
+        </item>
+        <item id="67" ref="SuiOT3" syear="A" wyear="*">
+            <r1>Is 8:23b-9:3</r1>
+            <p>
+                <rd>Ps 26:1,4,13-14</rd>
+                <re>Ps 26:1a</re>
+            </p>
+            <r2>1 Cor 1:10-13,17</r2>
+            <a>Mt 4:23</a>
+            <e>Mt 4:12-23</e>
+            <e>Mt 4:12-17</e>
+        </item>
+        <item id="68" ref="SuiOT3" syear="B" wyear="*">
+            <r1>Ion 3:1-5,10</r1>
+            <p>
+                <rd>Ps 24:4bc-5ab,6-7bc,8-9</rd>
+                <re>Ps 24:4a</re>
+            </p>
+            <r2>1 Cor 7:29-31</r2>
+            <a>Mc 1:15</a>
+            <e>Mc 1:14-20</e>
+        </item>
+        <item id="69" ref="SuiOT3" syear="C" wyear="*">
+            <r1>Neh 8:2-4a,5-6,8-10</r1>
+            <p>
+                <rd>Ps 18:8,9,10,15</rd>
+                <re>Io 6:63c</re>
+            </p>
+            <r2>1 Cor 12:12-30"</r2>
+            <r2>1 Cor 12:12-14,27</r2>
+            <a>Lc 4:18</a>
+            <e>Lc 1:1-4,4:14-21</e>
+        </item>
+        <item id="70" ref="SuiOT4" syear="A" wyear="*">
+            <r1>Soph 2:3,3:12-13</r1>
+            <p>
+                <rd>Ps 145:7,8-9a,9bc-10</rd>
+                <re>Mt 5:3</re>
+            </p>
+            <r2>1 Cor 1:26-31</r2>
+            <a>Mt 5:12a</a>
+            <e>Mt 5:1-12a</e>
+        </item>
+        <item id="71" ref="SuiOT4" syear="B" wyear="*">
+            <r1>Deut 18:15-20</r1>
+            <p>
+                <rd>Ps 94:1-2,6-7,8-9</rd>
+                <re>Ps 94:8</re>
+            </p>
+            <r2>1 Cor 7:32-35</r2>
+            <a>Mt 4:16</a>
+            <e>Mc 1:21-28</e>
+        </item>
+        <item id="72" ref="SuiOT4" syear="C" wyear="*">
+            <r1>Ier 1:4-5,17-19</r1>
+            <p>
+                <rd>Ps 70:1-2,3-4a,5-6ab,15ab+17</rd>
+                <re>Ps 71:15ab</re>
+            </p>
+            <r2>1 Cor 12:31-13:13</r2>
+            <r2>1 Cor 13:4-13</r2>
+            <a>Lc 4:18</a>
+            <e>Lc 4:21-30</e>
+        </item>
+        <item id="73" ref="SuiOT5" syear="A" wyear="*">
+            <r1>Is 58:7-10</r1>
+            <p>
+                <rd>Ps 111:4-5,6-7,8a+9</rd>
+                <re>Ps 111:4a</re>
+            </p>
+            <r2>1 Cor 2:1-5</r2>
+            <a>Io 8:12</a>
+            <e>Mt 5:13-16</e>
+        </item>
+        <item id="74" ref="SuiOT5" syear="B" wyear="*">
+            <r1>Iob 7:1-4,6-7</r1>
+            <p>
+                <rd>Ps 146:1-2,3-4,5-6</rd>
+                <re>Ps 146:3a</re>
+            </p>
+            <r2>1 Cor 9:16-19,22-23</r2>
+            <a>Mt 8:17</a>
+            <e>Mc 1:29-39</e>
+        </item>
+        <item id="75" ref="SuiOT5" syear="C" wyear="*">
+            <r1>Is 6:1-2a,3-8</r1>
+            <p>
+                <rd>Ps 137:1-2a,2bc-3,4-5,7c-8</rd>
+                <re>Ps 137:1c</re>
+            </p>
+            <r2>"1 Cor 15:1-11", "1 Cor 15:3-8,11"</r2>
+            <a>Mt 4:19</a>
+            <e>Lc 5:1-11</e>
+        </item>
+        <item id="76" ref="SuiOT6" syear="A" wyear="*">
+            <r1>Sir 15:16-21</r1>
+            <r1>Sir 15:15-20</r1>
+            <p>
+                <rd>Ps 118:1-2,4-5,17-18,33-34</rd>
+                <re>Ps 118:1b</re>
+            </p>
+            <r2>1 Cor 2:6-10</r2>
+            <a>Mt 11:25</a>
+            <e>Mt 5:17-37</e>
+            <e>Mt 5:20-22a,27-28,33-34a,37</e>
+        </item>
+        <item id="77" ref="SuiOT6" syear="B" wyear="*">
+            <r1>Lev 13:1-2,44-46</r1>
+            <p>
+                <rd>Ps 31:1-2,5,11</rd>
+                <re>Ps 31:7</re>
+            </p>
+            <r2>1 Cor 10:31-11:1</r2>
+            <a>Lc 7:16</a>
+            <e>Mc 1:40-45</e>
+        </item>
+        <item id="78" ref="SuiOT6" syear="C" wyear="*">
+            <r1>Ier 17:5-8</r1>
+            <p>
+                <rd>Ps 1:1-2,3,4+6</rd>
+                <re>Ps 39:5a</re>
+            </p>
+            <r2>1 Cor 15:12,16-20</r2>
+            <a>Lc 6:23ab</a>
+            <e>Lc 6:17,20-26</e>
+        </item>
+        <item id="79" ref="SuiOT7" syear="A" wyear="*">
+            <r1>Lev 19:1-2,17-18</r1>
+            <p>
+                <rd>Ps 102:1-2,3-4,8+10,12-13</rd>
+                <re>Ps 102:8a</re>
+            </p>
+            <r2>1 Cor 3:16-23</r2>
+            <a>1 Io 2:5</a>
+            <e>Mt 5:38-48</e>
+        </item>
+        <item id="80" ref="SuiOT7" syear="B" wyear="*">
+            <r1>Is 43:18-19,21-22,24b-25</r1>
+            <p>
+                <rd>Ps 40:2-3,4-5,13-14</rd>
+                <re>Ps 40:5b</re>
+            </p>
+            <r2>2 Cor 1:18-22</r2>
+            <a>Lc 4:18</a>
+            <e>Mc 2:1-12</e>
+        </item>
+        <item id="81" ref="SuiOT7" syear="C" wyear="*">
+            <r1>1 Sam 26:2,7-9,12-13,22-23</r1>
+            <p>
+                <rd>Ps 102:1-2,3-4,8+10,12-13</rd>
+                <re>Ps 102:8a</re>
+            </p>
+            <r2>1 Cor 15:45-49</r2>
+            <a>Io 13:34</a>
+            <e>Lc 6:27-38</e>
+        </item>
+        <item id="82" ref="SuiOT8" syear="A" wyear="*">
+            <r1>Is 49:14-15</r1>
+            <p>
+                <rd>Ps 61:2-3,6-7,8-9ab</rd>
+                <re>Ps 61:6a</re>
+            </p>
+            <r2>1 Cor 4:1-5</r2>
+            <a>Hebr 4:12</a>
+            <e>Mt 6:24-34</e>
+        </item>
+        <item id="83" ref="SuiOT8" syear="B" wyear="*">
+            <r1>Os 2:16b,17b,21-22</r1>
+            <p>
+                <rd>Ps 102:1-2,3-4,8+10,12-13</rd>
+                <re>Ps 102:8a</re>
+            </p>
+            <r2>2 Cor 3:1b-6</r2>
+            <a>Iac 1:18</a>
+            <e>Mc 2:18-22</e>
+        </item>
+        <item id="84" ref="SuiOT8" syear="C" wyear="*">
+            <r1>"Sir 27:5-8", "Sir 27:4-7"</r1>
+            <p>
+                <rd>Ps 91:2-3,13-14,15-16</rd>
+                <re>Ps 91:2a</re>
+            </p>
+            <r2>1 Cor 15:54-58</r2>
+            <a>Phil 2:15d,16a</a>
+            <e>Lc 6:39-45</e>
+        </item>
+        <item id="85" ref="SuiOT9" syear="A" wyear="*">
+            <r1>Deut 11:18,26-28,32</r1>
+            <p>
+                <rd>Ps 30:2-3a,3bc-4,17+25</rd>
+                <re>Ps 30:3b</re>
+            </p>
+            <r2>Rom 3:21-25a,28</r2>
+            <a>Io 15:5</a>
+            <e>Mt 7:21-27</e>
+        </item>
+        <item id="86" ref="SuiOT9" syear="B" wyear="*">
+            <r1>Deut 5:12-15</r1>
+            <p>
+                <rd>Ps 80:3-4,5-6ab,6c-8a,10-11b</rd>
+                <re>Ps 80:2a</re>
+            </p>
+            <r2>2 Cor 4:6-11</r2>
+            <a>Io 17:17b,17a</a>
+            <e>"Mc 2:23-3:6", "Mc 2:23-28"</e>
+        </item>
+        <item id="87" ref="SuiOT9" syear="C" wyear="*">
+            <r1>1 Reg 8:41-43</r1>
+            <p>
+                <rd>Ps 116:1,2</rd>
+                <re>Mc 16:15</re>
+            </p>
+            <r2>Gal 1:1-2,6-10</r2>
+            <a>Io 3:16</a>
+            <e>Lc 7:1-10</e>
+        </item>
+        <item id="88" ref="SuiOT10" syear="A" wyear="*">
+            <r1>Os 6:3-6</r1>
+            <p>
+                <rd>Ps 49:1+8,12-13,14-15</rd>
+                <re>Ps 49:23b</re>
+            </p>
+            <r2>Rom 4:18-25</r2>
+            <a>Lc 4:18</a>
+            <e>Mt 9:9-13</e>
+        </item>
+        <item id="89" ref="SuiOT10" syear="B" wyear="*">
+            <r1>Gen 3:9-15</r1>
+            <p>
+                <rd>Ps 129:1-2,3-4ab,4c-6,7-8</rd>
+                <re>Ps 129:7</re>
+            </p>
+            <r2>2 Cor 4:13-5:1</r2>
+            <a>Io 12:31b-32</a>
+            <e>Mc 3:20-35</e>
+        </item>
+        <item id="90" ref="SuiOT10" syear="C" wyear="*">
+            <r1>1 Reg 17:17-24</r1>
+            <p>
+                <rd>Ps 29:2+4,5-6,11+12a+13b</rd>
+                <re>Ps 29:2a</re>
+            </p>
+            <r2>Gal 1:11-19</r2>
+            <a>Lc 7:16</a>
+            <e>Lc 7:11-17</e>
+        </item>
+        <item id="91" ref="SuiOT11" syear="A" wyear="*">
+            <r1>Ex 19:2-6a</r1>
+            <p>
+                <rd>Ps 99:2,3,5</rd>
+                <re>Ps 99:3c</re>
+            </p>
+            <r2>Rom 5:6-11</r2>
+            <a>Mc 1:15</a>
+            <e>Mt 9:36-10:8</e>
+        </item>
+        <item id="92" ref="SuiOT11" syear="B" wyear="*">
+            <r1>Ez 17:22-24</r1>
+            <p>
+                <rd>Ps 91:2-3,13-14,15-16</rd>
+                <re>Ps 91:2a</re>
+            </p>
+            <r2>2 Cor 5:6-10</r2>
+            <a>#Semen est verbum Dei, sator autem Christus; omnis qui invenit eum, manebit in aeternum.</a>
+            <e>Mc 4:26-34</e>
+        </item>
+        <item id="93" ref="SuiOT11" syear="C" wyear="*">
+            <r1>2 Sam 12:7-10,13</r1>
+            <p>
+                <rd>Ps 31:1-2,5,7,11</rd>
+                <re>Ps 31:5c</re>
+            </p>
+            <r2>Gal 2:16,19-21</r2>
+            <a>1 Io 4:10b</a>
+            <e>"Lc 7:36-8:3", "Lc 7:36-50"</e>
+        </item>
+        <item id="94" ref="SuiOT12" syear="A" wyear="*">
+            <r1>Ier 20:10-13</r1>
+            <p>
+                <rd>Ps 68:8-10,14+17,33-35</rd>
+                <re>Ps 68:14c</re>
+            </p>
+            <r2>Rom 5:12-15</r2>
+            <a>Io 15:26b,27a</a>
+            <e>Mt 10:26-33</e>
+        </item>
+        <item id="95" ref="SuiOT12" syear="B" wyear="*">
+            <r1>Iob 38:1,8-11</r1>
+            <p>
+                <rd>Ps 106:23-24,25-26,28-29,30-31</rd>
+                <re>Ps 106:1b</re>
+            </p>
+            <r2>2 Cor 5:14-17</r2>
+            <a>Lc 7:16</a>
+            <e>Mc 4:35-41</e>
+        </item>
+        <item id="96" ref="SuiOT12" syear="C" wyear="*">
+            <r1>Zac 12:10-11,13:1</r1>
+            <p>
+                <rd>Ps 62:2abcd,2e-4,5-6,8-9</rd>
+                <re>Ps 62:2b</re>
+            </p>
+            <r2>Gal 3:26-29</r2>
+            <a>Io 10:27</a>
+            <e>Lc 9:18-24</e>
+        </item>
+        <item id="97" ref="SuiOT13" syear="A" wyear="*">
+            <r1>2 Reg 4:8-11,14-16a</r1>
+            <p>
+                <rd>Ps 88:2-3,16-17,18-19</rd>
+                <re>Ps 88:2a</re>
+            </p>
+            <r2>Rom 6:3-4,8-11</r2>
+            <a>1 Petr 2:9</a>
+            <e>Mt 10:37-42</e>
+        </item>
+        <item id="98" ref="SuiOT13" syear="B" wyear="*">
+            <r1>Sap 1:13-15,2:23-24</r1>
+            <p>
+                <rd>Ps 29:2+4,5-6,11+12a+13b</rd>
+                <re>Ps 29:2a</re>
+            </p>
+            <r2>2 Cor 8:7,9,13-15</r2>
+            <a>2 Tim 1:10</a>
+            <e>"Mc 5:21-43", "Mc 5:21-24,35b-43"</e>
+        </item>
+        <item id="99" ref="SuiOT13" syear="C" wyear="*">
+            <r1>1 Reg 19:16b,19-21</r1>
+            <p>
+                <rd>Ps 15:1-2a+5,7-8,9-10,11</rd>
+                <re>Ps 15:5a</re>
+            </p>
+            <r2>Gal 5:1,13-18</r2>
+            <a>"1 Sam 3:9", "Io 6:68c"</a>
+            <e>Lc 9:51-62</e>
+        </item>
+        <item id="100" ref="SuiOT14" syear="A" wyear="*">
+            <r1>Zac 9:9-10</r1>
+            <p>
+                <rd>Ps 144:1-2,8-9,10-11,13cd-14</rd>
+                <re>Ps 144:1</re>
+            </p>
+            <r2>Rom 8:9,11-13</r2>
+            <a>Mt 11:25</a>
+            <e>Mt 11:25-30</e>
+        </item>
+        <item id="101" ref="SuiOT14" syear="B" wyear="*">
+            <r1>Ez 2:2-5</r1>
+            <p>
+                <rd>Ps 122:1-2a,2bcd,3-4</rd>
+                <re>Ps 122:2cd</re>
+            </p>
+            <r2>2 Cor 12:7-10</r2>
+            <a>Lc 4:18</a>
+            <e>Mc 6:1-6</e>
+        </item>
+        <item id="102" ref="SuiOT14" syear="C" wyear="*">
+            <r1>Is 66:10-14c</r1>
+            <p>
+                <rd>Ps 65:1-3a,4-5,6-7a,16+20</rd>
+                <re>Ps 65:1</re>
+            </p>
+            <r2>Gal 6:14-18</r2>
+            <a>Col 3:15a,16a</a>
+            <e>"Lc 10:1-12,17-20", "Lc 10:1-9"</e>
+        </item>
+        <item id="103" ref="SuiOT15" syear="A" wyear="*">
+            <r1>Is 55:10-11</r1>
+            <p>
+                <rd>Ps 64:10abcd, 10e-11, 12-13, 14</rd>
+                <re>Lc 8:8</re>
+            </p>
+            <r2>Rom 8:18-23</r2>
+            <a>#Semen est verbum Dei, sator autem Christus; omnis qui invenit eum, manebit in aeternum.</a>
+            <e>"Mt 13:1-23", "Mt 13:1-9"</e>
+        </item>
+        <item id="104" ref="SuiOT15" syear="B" wyear="*">
+            <r1>Am 7:12-15</r1>
+            <p>
+                <rd>Ps 84:9ab-10,11-12,13-14</rd>
+                <re>Ps 84:8</re>
+            </p>
+            <r2>"Eph 1:3-14", "Eph 1:3-10"</r2>
+            <a>Eph 1:17-18</a>
+            <e>Mc 6:7-13</e>
+        </item>
+        <item id="105" ref="SuiOT15" syear="C" wyear="*">
+            <r1>Deut 30:10-14</r1>
+            <p>
+                <rd>"Ps 68:14+17,30-31,33-34,36ab+37", "Ps 18:8,9,10,11"</rd>
+                <re>"Ps 68:33", "Ps 18:9a"</re>
+            </p>
+            <r2>Col 1:15-20</r2>
+            <a>Io 6:63c,68c</a>
+            <e>Lc 10:25-37</e>
+        </item>
+        <item id="106" ref="SuiOT16" syear="A" wyear="*">
+            <r1>Sap 12:13,16-19</r1>
+            <p>
+                <rd>Ps 85:5-6,9-10,15-16a</rd>
+                <re>Ps 85:5a</re>
+            </p>
+            <r2>Rom 8:26-27</r2>
+            <a>Mt 11:25</a>
+            <e>"Mt 13:24-43", "Mt 13:24-30"</e>
+        </item>
+        <item id="107" ref="SuiOT16" syear="B" wyear="*">
+            <r1>Ier 23:1-6</r1>
+            <p>
+                <rd>Ps 22:1-3a,3b-4,5,6</rd>
+                <re>Ps 22:1</re>
+            </p>
+            <r2>Eph 2:13-18</r2>
+            <a>Io 10:27</a>
+            <e>Mc 6:30-34</e>
+        </item>
+    },
+        <item id="108" ref="SuiOT16" syear="C" wyear="*">
+            <r1>Gen 18:1-10a</r1>
+            <p>
+                <rd>Ps 14:2-3ab,3cd-4ab,5</rd>
+                <re>Ps 14:1a</re>
+            </p>
+            <r2>Col 1:24-28</r2>
+            <a>Lc 8:15</a>
+            <e>Lc 10:38-42</e>
+        </item>
+        <item id="109" ref="SuiOT17" syear="A" wyear="*">
+            <r1>1 Reg 3:5,7-12</r1>
+            <p>
+                <rd>Ps 118:57+72,76-77,127-128,129-130</rd>
+                <re>Ps 118:97a</re>
+            </p>
+            <r2>Rom 8:28-30</r2>
+            <a>Mt 11:25</a>
+            <e>"Mt 13:44-52", "Mt 13:44-46"</e>
+        </item>
+        <item id="110" ref="SuiOT17" syear="B" wyear="*">
+            <r1>2 Reg 4:42-44</r1>
+            <p>
+                <rd>Ps 144:10-11,15-16,17-18</rd>
+                <re>Ps 144:16</re>
+            </p>
+            <r2>Eph 4:1-6</r2>
+            <a>Lc 7:16</a>
+            <e>Io 6:1-15</e>
+        </item>
+        <item id="111" ref="SuiOT17" syear="C" wyear="*">
+            <r1>Gen 18:20-32</r1>
+            <p>
+                <rd>Ps 137:1-2a,2bc-3,6-7ab,7c-8</rd>
+                <re>Ps 137:3a</re>
+            </p>
+            <r2>Col 2:12-14</r2>
+            <a>Rom 8:15bc</a>
+            <e>Lc 11:1-13</e>
+        </item>
+        <item id="112" ref="SuiOT18" syear="A" wyear="*">
+            <r1>Is 55:1-3</r1>
+            <p>
+                <rd>Ps 144:8-9,15-16,17-18</rd>
+                <re>Ps 144:16</re>
+            </p>
+            <r2>Rom 8:35,37-39</r2>
+            <a>Mt 4:4b</a>
+            <e>Mt 14:13-21</e>
+        </item>
+        <item id="113" ref="SuiOT18" syear="B" wyear="*">
+            <r1>Ex 16:2-4,12-15</r1>
+            <p>
+                <rd>Ps 77:3+4bc,23-24,25+54</rd>
+                <re>Ps 77:24b</re>
+            </p>
+            <r2>Eph 4:17,20-24</r2>
+            <a>Mt 4:4b</a>
+            <e>Io 6:24-35</e>
+        </item>
+        <item id="114" ref="SuiOT18" syear="C" wyear="*">
+            <r1>Qo 1:2,2:21-23</r1>
+            <p>
+                <rd>Ps 89:3-4,5-6,12-13,14+17</rd>
+                <re>Ps 89:1</re>
+            </p>
+            <r2>Col 3:1-5,9-11</r2>
+            <a>Mt 5:3</a>
+            <e>Lc 12:13-21</e>
+        </item>
+        <item id="115" ref="SuiOT19" syear="A" wyear="*">
+            <r1>1 Reg 19:9a,11-13a</r1>
+            <p>
+                <rd>Ps 84:9ab-10,11-12,13-14</rd>
+                <re>Ps 84:8</re>
+            </p>
+            <r2>Rom 9:1-5</r2>
+            <a>Ps 129:5</a>
+            <e>Mt 14:22-33</e>
+        </item>
+        <item id="116" ref="SuiOT19" syear="B" wyear="*">
+            <r1>1 Reg 19:4-8</r1>
+            <p>
+                <rd>Ps 33:2-3,4-5,6-7,8-9</rd>
+                <re>Ps 33:9a</re>
+            </p>
+            <r2>Eph 4:30-5:2</r2>
+            <a>Io 6:51</a>
+            <e>Io 6:41-51</e>
+        </item>
+        <item id="117" ref="SuiOT19" syear="C" wyear="*">
+            <r1>Sap 18:6-9</r1>
+            <p>
+                <rd>Ps 32:1+12,18-19,20+22</rd>
+                <re>Ps 32:12b</re>
+            </p>
+            <r2>"Hebr 11:1-2,8-19", "Hebr 11:1-2,8-12"</r2>
+            <a>Mt 24:42a,44</a>
+            <e>"Lc 12:32-48", "Lc 12:35-40"</e>
+        </item>
+        <item id="118" ref="SuiOT20" syear="A" wyear="*">
+            <r1>Is 56:1,6-7</r1>
+            <p>
+                <rd>Ps 66:2-3,5,6+8</rd>
+                <re>Ps 66:4</re>
+            </p>
+            <r2>Rom 11:13-15,29-32</r2>
+            <a>Mt 4:23</a>
+            <e>Mt 15:21-28</e>
+        </item>
+        <item id="119" ref="SuiOT20" syear="B" wyear="*">
+            <r1>Prov 9:1-6</r1>
+            <p>
+                <rd>Ps 33:2-3,10-11,12-13,14-15</rd>
+                <re>Ps 33:9a</re>
+            </p>
+            <r2>Eph 5:15-20</r2>
+            <a>Io 6:56</a>
+            <e>Io 6:51-58</e>
+        </item>
+        <item id="120" ref="SuiOT20" syear="C" wyear="*">
+            <r1>Ier 38:4-6,8-10</r1>
+            <p>
+                <rd>Ps 39:2,3,4,18</rd>
+                <re>Ps 39:14b</re>
+            </p>
+            <r2>Hebr 12:1-4</r2>
+            <a>Io 10:27</a>
+            <e>Lc 12:49-53</e>
+        </item>
+        <item id="121" ref="SuiOT21" syear="A" wyear="*">
+            <r1>Is 22:19-23</r1>
+            <p>
+                <rd>Ps 137:1-2a,2bc-3,6+8bc</rd>
+                <re>Ps 137:8bc</re>
+            </p>
+            <r2>Rom 11:33-36</r2>
+            <a>Mt 16:18</a>
+            <e>Mt 16:13-20</e>
+        </item>
+        <item id="122" ref="SuiOT21" syear="B" wyear="*">
+            <r1>Ios 24:1-2a,15-17,18b</r1>
+            <p>
+                <rd>Ps 33:2-3,16-17,18-19,20-21,22-23</rd>
+                <re>Ps 33:9a</re>
+            </p>
+            <r2>Eph 5:21-32</r2>
+            <a>Io 6:63c,68c</a>
+            <e>Io 6:60-69</e>
+        </item>
+        <item id="123" ref="SuiOT21" syear="C" wyear="*">
+            <r1>Is 66:18-21</r1>
+            <p>
+                <rd>Ps 116:1,2</rd>
+                <re>Mc 16:15</re>
+            </p>
+            <r2>Hebr 12:5-7,11-13</r2>
+            <a>Io 14:6</a>
+            <e>Lc 13:22-30</e>
+        </item>
+        <item id="124" ref="SuiOT22" syear="A" wyear="*">
+            <r1>Ier 20:7-9</r1>
+            <p>
+                <rd>Ps 62:2,3-4,5-6,8-9</rd>
+                <re>Ps 62:2b</re>
+            </p>
+            <r2>Rom 12:1-2</r2>
+            <a>Eph 1:17-18</a>
+            <e>Mt 16:21-27</e>
+        </item>
+        <item id="125" ref="SuiOT22" syear="B" wyear="*">
+            <r1>Deut 4:1-2,6-8</r1>
+            <p>
+                <rd>Ps 14:2-3a,3cd-4ab,5</rd>
+                <re>Ps 14:1a</re>
+            </p>
+            <r2>Iac 1:17-18,21b-22,27</r2>
+            <a>Iac 1:18</a>
+            <e>Mc 7:1-8,14-15,21-23</e>
+        </item>
+        <item id="126" ref="SuiOT22" syear="C" wyear="*">
+            <r1>"Sir 3:19-21,30-31", "Sir 3:17-18,20,28-29"</r1>
+            <p>
+                <rd>Ps 67:4-5ac,6-7ab,10-11</rd>
+                <re>Ps 67:11b</re>
+            </p>
+            <r2>Hebr 12:18-19,22-24a</r2>
+            <a>Mt 11:29ab</a>
+            <e>Lc 14:1,7-14</e>
+        </item>
+        <item id="127" ref="SuiOT23" syear="A" wyear="*">
+            <r1>Ez 33:7-9</r1>
+            <p>
+                <rd>Ps 94:1-2,6-7,8-9</rd>
+                <re>Ps 94:8</re>
+            </p>
+            <r2>Rom 13:8-10</r2>
+            <a>2 Cor 5:19</a>
+            <e>Mt 18:15-20</e>
+        </item>
+        <item id="128" ref="SuiOT23" syear="B" wyear="*">
+            <r1>Is 35:4-7a</r1>
+            <p>
+                <rd>Ps 145:7,8-9a,9bc-10</rd>
+                <re>Ps 145:1</re>
+            </p>
+            <r2>Iac 2:1-5</r2>
+            <a>Mt 4:23</a>
+            <e>Mc 7:31-37</e>
+        </item>
+        <item id="129" ref="SuiOT23" syear="C" wyear="*">
+            <r1>"Sap 9:13-19", "Sap 9:13-18b"</r1>
+            <p>
+                <rd>Ps 89:3-4,5-6,12-13,14+17</rd>
+                <re>Ps 89:1</re>
+            </p>
+            <r2>Phm 9b-10,12-17</r2>
+            <a>Ps 118:135</a>
+            <e>Lc 14:25-33</e>
+        </item>
+        <item id="130" ref="SuiOT24" syear="A" wyear="*">
+            <r1>Sir 27:33-28:9</r1>
+            <p>
+                <rd>Ps 102:1-2,3-4,9-10,11-12</rd>
+                <re>Ps 102:8</re>
+            </p>
+            <r2>Rom 14:7-9</r2>
+            <a>Io 13:34</a>
+            <e>Mt 18:21-35</e>
+        </item>
+        <item id="131" ref="SuiOT24" syear="B" wyear="*">
+            <r1>Is 50:5-9a</r1>
+            <p>
+                <rd>Ps 114:1-2,3-4,5-6,8-9</rd>
+                <re>Ps 114:9</re>
+            </p>
+            <r2>Iac 2:14-18</r2>
+            <a>Gal 6:14</a>
+            <e>Mc 8:27-35</e>
+        </item>
+        <item id="132" ref="SuiOT24" syear="C" wyear="*">
+            <r1>Ex 32:7-11,13-14</r1>
+            <p>
+                <rd>Ps 50:3-4,12-13,17+19</rd>
+                <re>Lc 15:18</re>
+            </p>
+            <r2>1 Tim 1:12-17</r2>
+            <a>2 Cor 5:19</a>
+            <e>"Lc 15:1-32", "Lc 15:1-10"</e>
+        </item>
+        <item id="133" ref="SuiOT25" syear="A" wyear="*">
+            <r1>Is 55:6-9</r1>
+            <p>
+                <rd>Ps 144:2-3,8-9,17-18</rd>
+                <re>Ps 144:18a</re>
+            </p>
+            <r2>Phil 1:20c-24,27a</r2>
+            <a>Act 16:14b</a>
+            <e>Mt 20:1-16a</e>
+        </item>
+        <item id="134" ref="SuiOT25" syear="B" wyear="*">
+            <r1>Sap 2:12,17-20</r1>
+            <p>
+                <rd>Ps 53:3-4,5,6+8</rd>
+                <re>Ps 53:6b</re>
+            </p>
+            <r2>Iac 3:16-4:3</r2>
+            <a>2 Th 2:14</a>
+            <e>Mc 9:30-37</e>
+        </item>
+        <item id="135" ref="SuiOT25" syear="C" wyear="*">
+            <r1>Am 8:4-7</r1>
+            <p>
+                <rd>Ps 112:1-2,4-6,7-8</rd>
+                <re>Ps 112:1a+7b</re>
+            </p>
+            <r2>1 Tim 2:1-8</r2>
+            <a>2 Cor 8:9</a>
+            <e>"Lc 16:1-13", "Lc 16:10-13"</e>
+        </item>
+        <item id="136" ref="SuiOT26" syear="A" wyear="*">
+            <r1>Ez 18:25-28</r1>
+            <p>
+                <rd>Ps 24:4bc-5,6-7,8-9</rd>
+                <re>Ps 24:6a</re>
+            </p>
+            <r2>"Phil 2:1-11", "Phil 2:1-5"</r2>
+            <a>Io 10:27</a>
+            <e>Mt 21:28-32</e>
+        </item>
+        <item id="137" ref="SuiOT26" syear="B" wyear="*">
+            <r1>Num 11:25-29</r1>
+            <p>
+                <rd>Ps 18:8,10,12-13,14</rd>
+                <re>Ps 18:9a</re>
+            </p>
+            <r2>Iac 5:1-6</r2>
+            <a>Io 17:17b,17a</a>
+            <e>Mc 9:48-43,45,47-48</e>
+        </item>
+        <item id="138" ref="SuiOT26" syear="C" wyear="*">
+            <r1>Am 6:1a,4-7</r1>
+            <p>
+                <rd>Ps 145:7,8-9a,9bc-10</rd>
+                <re>Ps 145:1b</re>
+            </p>
+            <r2>1 Tim 6:11-16</r2>
+            <a>2 Cor 8:9</a>
+            <e>Lc 16:19-31</e>
+        </item>
+        <item id="139" ref="SuiOT27" syear="A" wyear="*">
+            <r1>Is 5:1-7</r1>
+            <p>
+                <rd>Ps 79:9+12,13-14,15-16,19-20</rd>
+                <re>Is 5:7a</re>
+            </p>
+            <r2>Phil 4:6-9</r2>
+            <a>Io 15:16</a>
+            <e>Mt 21:33-43</e>
+        </item>
+        <item id="140" ref="SuiOT27" syear="B" wyear="*">
+            <r1>Gen 2:18-24</r1>
+            <p>
+                <rd>Ps 127:1-2,3,4-5,6</rd>
+                <re>Ps 127:5</re>
+            </p>
+            <r2>Hebr 2:9-11</r2>
+            <a>1 Io 4:12</a>
+            <e>"Mc 10:2-16", "Mc 10:2-12"</e>
+        </item>
+        <item id="141" ref="SuiOT27" syear="C" wyear="*">
+            <r1>Hab 1:2-3,2:2-4</r1>
+            <p>
+                <rd>Ps 94:1-2,6-7,8-9</rd>
+                <re>Ps 94:8</re>
+            </p>
+            <r2>2 Tim 1:6-8,13-14</r2>
+            <a>1 Petr 1:25</a>
+            <e>Lc 17:5-10</e>
+        </item>
+        <item id="142" ref="SuiOT28" syear="A" wyear="*">
+            <r1>Is 25:6-10a</r1>
+            <p>
+                <rd>Ps 22:1-3a,3b-4,5,6</rd>
+                <re>Ps 22:6cd</re>
+            </p>
+            <r2>Phil 4:12-14,19-20</r2>
+            <a>Eph 1:17-18</a>
+            <e>"Mt 22:1-14", "Mt 22:1-10"</e>
+        </item>
+        <item id="143" ref="SuiOT28" syear="B" wyear="*">
+            <r1>Sap 7:7-11</r1>
+            <p>
+                <rd>Ps 89:12-13,14-15,16-17</rd>
+                <re>Ps 89:14</re>
+            </p>
+            <r2>Hebr 4:12-13</r2>
+            <a>Mt 5:3</a>
+            <e>"Mc 10:17-30", "Mc 10:17-27"</e>
+        </item>
+        <item id="144" ref="SuiOT28" syear="C" wyear="*">
+            <r1>2 Reg 5:14-17</r1>
+            <p>
+                <rd>Ps 97:1,2-3ab,3cd-4</rd>
+                <re>Ps 97:2b</re>
+            </p>
+            <r2>2 Tim 2:8-13</r2>
+            <a>1 Th 5:18</a>
+            <e>Lc 17:11-19</e>
+        </item>
+        <item id="145" ref="SuiOT29" syear="A" wyear="*">
+            <r1>Is 45:1,4-6</r1>
+            <p>
+                <rd>Ps 95:1+3,4-5,7-8,9-10a+c</rd>
+                <re>Ps 95:7b</re>
+            </p>
+            <r2>1 Th 1:1-5b</r2>
+            <a>Phil 2:15d,16a</a>
+            <e>Mt 22:15-21</e>
+        </item>
+        <item id="146" ref="SuiOT29" syear="B" wyear="*">
+            <r1>Is 53:10-11</r1>
+            <p>
+                <rd>Ps 32:4-5,18-19,20+22</rd>
+                <re>Ps 32:22</re>
+            </p>
+            <r2>Hebr 4:14-16</r2>
+            <a>Mc 10:45</a>
+            <e>"Mc 10:35-45", "Mc 10:42-45"</e>
+        </item>
+        <item id="147" ref="SuiOT29" syear="C" wyear="*">
+            <r1>Ex 17:8-13</r1>
+            <p>
+                <rd>Ps 120:1-2,3-4,5-6,7-8</rd>
+                <re>Ps 120:2</re>
+            </p>
+            <r2>2 Tim 3:14-4:2</r2>
+            <a>Hebr 4:12</a>
+            <e>Lc 18:1-8</e>
+        </item>
+        <item id="148" ref="SuiOT30" syear="A" wyear="*">
+            <r1>Ex 22:20-26</r1>
+            <p>
+                <rd>Ps 17:2-3a,3bc-4,47+51ab</rd>
+                <re>Ps 17:2</re>
+            </p>
+            <r2>1 Th 1:5c-10</r2>
+            <a>Io 14:23</a>
+            <e>Mt 22:34-40</e>
+        </item>
+        <item id="149" ref="SuiOT30" syear="B" wyear="*">
+            <r1>Ier 31:7-9</r1>
+            <p>
+                <rd>Ps 125:1-2ab,2cd-3,4-5,6</rd>
+                <re>Ps 125:3</re>
+            </p>
+            <r2>Hebr 5:1-6</r2>
+            <a>2 Tim 1:10</a>
+            <e>Mc 10:46-52</e>
+        </item>
+        <item id="150" ref="SuiOT30" syear="C" wyear="*">
+            <r1>"Sir 35:15b-17,20-22a", "Sor 35:12-14,16-18"</r1>
+            <p>
+                <rd>Ps 33:2-3,17-18,19+23</rd>
+                <re>Ps 33:7a</re>
+            </p>
+            <r2>2 Tim 4:6-8,16-18</r2>
+            <a>2 Cor 5:19</a>
+            <e>Lc 18:9-14</e>
+        </item>
+        <item id="151" ref="SuiOT31" syear="A" wyear="*">
+            <r1>Mal 1:14b-2:2b,8-10</r1>
+            <p>
+                <rd>Ps 130:1,2,3</rd>
+                <re>#Custodi animam meam in pace apud te, Domine.</re>
+            </p>
+            <r2>1 Th 2:7b-9,13</r2>
+            <a>Mt 23:9b,10b</a>
+            <e>Mt 23:1-12</e>
+        </item>
+        <item id="152" ref="SuiOT31" syear="B" wyear="*">
+            <r1>Deut 6:2-6</r1>
+            <p>
+                <rd>Ps 17:2-3a,3bc-4,47+51ab</rd>
+                <re>Ps 17:2</re>
+            </p>
+            <r2>Hebr 7:23-28</r2>
+            <a>Io 14:23</a>
+            <e>Mc 12:28b-34</e>
+        </item>
+        <item id="153" ref="SuiOT31" syear="C" wyear="*">
+            <r1>Sap 11:22-12:2</r1>
+            <p>
+                <rd>Ps 144:1-2,8-9,10-11,13cd-14</rd>
+                <re>Ps 144:1</re>
+            </p>
+            <r2>2 Th 1:11-2:2</r2>
+            <a>Io 3:16</a>
+            <e>Lc 19:1-10</e>
+        </item>
+        <item id="154" ref="SuiOT32" syear="A" wyear="*">
+            <r1>Sap 6:12-16</r1>
+            <p>
+                <rd>Ps 62:2,3-4,5-6,7-8</rd>
+                <re>Ps 62:2b</re>
+            </p>
+            <r2>"1 Th 4:13-18", "1 Th 4:13-14"</r2>
+            <a>Mt 24:42a,44</a>
+            <e>Mt 25:1-13</e>
+        </item>
+        <item id="155" ref="SuiOT32" syear="B" wyear="*">
+            <r1>1 Reg 17:10-16</r1>
+            <p>
+                <rd>Ps 145:7,8-9a,9bc-10</rd>
+                <re>Ps 145:1</re>
+            </p>
+            <r2>Hebr 9:24-28</r2>
+            <a>Mt 5:3</a>
+            <e>"Mc 12:38-44", "Mc 12:41-44"</e>
+        </item>
+        <item id="156" ref="SuiOT32" syear="C" wyear="*">
+            <r1>2 Mac 7:1-2,9-14</r1>
+            <p>
+                <rd>Ps 16:1,5-6,8b+15</rd>
+                <re>Ps 16:15b</re>
+            </p>
+            <r2>2 Th 2:16-3:5</r2>
+            <a>Ap 1:5a,6b</a>
+            <e>"Lc 20:27-38", "Lc 20:27,34-38"</e>
+        </item>
+        <item id="157" ref="SuiOT33" syear="A" wyear="*">
+            <r1>Prov 31:10-13,19-20,30-31</r1>
+            <p>
+                <rd>Ps 127:1-2,3,4-5</rd>
+                <re>Ps 127:1a</re>
+            </p>
+            <r2>1 Th 5:1-6</r2>
+            <a>Io 15:4a,5b</a>
+            <e>"Mt 25:14-30", "Mt 25:14-15,19-21"</e>
+        </item>
+        <item id="158" ref="SuiOT33" syear="B" wyear="*">
+            <r1>Dan 12:1-3</r1>
+            <p>
+                <rd>Ps 15:5+8,9-10,11</rd>
+                <re>Ps 15:1</re>
+            </p>
+            <r2>Hebr 10:11-14,18</r2>
+            <a>Lc 21:36</a>
+            <e>Mc 13:24-32</e>
+        </item>
+        <item id="159" ref="SuiOT33" syear="C" wyear="*">
+            <r1>Mal 3:19-20a</r1>
+            <p>
+                <rd>Ps 97:5-6,7-8,9a,9bc</rd>
+                <re>Ps 97:9</re>
+            </p>
+            <r2>2 Th 3:7-12</r2>
+            <a>Lc 21:28</a>
+            <e>Lc 21:5-19</e>
+        </item>
+        <item id="160" ref="SuiOT34" syear="A" wyear="*">
+            <r1>Ez 34:11-12,15-17</r1>
+            <p>
+                <rd>Ps 22:1-2a,2b-3,5-6</rd>
+                <re>Ps 22:1</re>
+            </p>
+            <r2>1 Cor 15:20-26,28</r2>
+            <a>Mc 11:9,10</a>
+            <e>Mt 25:31-46</e>
+        </item>
+        <item id="161" ref="SuiOT34" syear="B" wyear="*">
+            <r1>Dan 7:13-14</r1>
+            <p>
+                <rd>Ps 92:1ab,1c-2,5</rd>
+                <re>Ps 92:1a</re>
+            </p>
+            <r2>Ap 1:5-8</r2>
+            <a>Mc 11:9,10</a>
+            <e>Io 18:33b-37</e>
+        </item>
+        <item id="162" ref="SuiOT34" syear="C" wyear="*">
+            <r1>2 Sam 5:1-3</r1>
+            <p>
+                <rd>Ps 121:1-2,4-5</rd>
+                <re>Ps 121:1</re>
+            </p>
+            <r2>Col 1:12-20</r2>
+            <a>Mc 11:9,10</a>
+            <e>Lc 23:35-43</e>
+        </item>
+        <item id="163" ref="" syear="*" wyear="*">
+            <a>1 Sam 3:9</a>
+            <a>Io 6:68c</a>
+            <a>Mt 11:25</a>
+            <a>Lc 19:38,2:14</a>
+            <a>Io 1:14a,12b</a>
+            <a>Io 6:63c,68c</a>
+            <a>Io 8:12</a>
+            <a>Io 10:27</a>
+            <a>Io 14:6</a>
+            <a>Io 14:23</a>
+            <a>Io 15:15b</a>
+            <a>Io 17:17b,17a</a>
+            <a>Act 16:14b</a>
+            <a>Eph 1:17-18</a>
+            <a>Mt 24:42a+44</a>
+            <a>Lc 21:36</a>
+            <a>Ap 2:10c</a>
+        </item>
+        <item id="164" ref="SotMHT" syear="A" wyear="*">
+            <r1>Ex 34:4b-6,8-9</r1>
+            <p>
+                <rd>Dan 3:52,53,54,55,56</rd>
+                <re>Dan 3:52b</re>
+            </p>
+            <r2>2 Cor 13:11-13</r2>
+            <a>Ap 1:8</a>
+            <e>Io 3:16-18</e>
+        </item>
+        <item id="165" ref="SotMHT" syear="B" wyear="*">
+            <r1>Deut 4:32-34,39-40</r1>
+            <p>
+                <rd>Ps 32:4-5,6+9,18-19,20+22</rd>
+                <re>Ps 32:12b</re>
+            </p>
+            <r2>Rom 8:14-17</r2>
+            <a>Ap 1:8</a>
+            <e>Mt 28:16-20</e>
+        </item>
+        <item id="166" ref="SotMHT" syear="C" wyear="*">
+            <r1>Prov 8:22-31</r1>
+            <p>
+                <rd>Ps 8:4-5,6-7,8-9</rd>
+                <re>Ps 8:2a</re>
+            </p>
+            <r2>Rom 5:1-5</r2>
+            <a>Ap 1:8</a>
+            <e>Io 16:12-15</e>
+        </item>
+        <item id="167" ref="SotMHBaBoC" syear="A" wyear="*">
+            <r1>Deut 8:2-3,14b-16a</r1>
+            <p>
+                <rd>Ps 147:12-13,14-15,19-20</rd>
+                <re>Ps 147:12a</re>
+            </p>
+            <r2>1 Cor 10:16-17</r2>
+            <a>Io 6:51</a>
+            <e>Io 6:51-58</e>
+        </item>
+        <item id="168" ref="SotMHBaBoC" syear="B" wyear="*">
+            <r1>Ex 24:3-8</r1>
+            <p>
+                <rd>Ps 115:12-13,15+16bc,17-18</rd>
+                <re>Ps 115:13</re>
+            </p>
+            <r2>Hebr 9:11-15</r2>
+            <a>Io 6:51</a>
+            <e>Mc 14:12-16,22-26</e>
+        </item>
+        <item id="169" ref="SotMHBaBoC" syear="C" wyear="*">
+            <r1>Gen 14:18-20</r1>
+            <p>
+                <rd>Ps 109:1,2,3,4</rd>
+                <re>Ps 109:4bc</re>
+            </p>
+            <r2>1 Cor 11:23-26</r2>
+            <a>Io 6:51</a>
+            <e>Lc 9:11b-17</e>
+        </item>
+        <item id="170" ref="SotMSHoJ" syear="A" wyear="*">
+            <r1>Deut 7:6-11</r1>
+            <p>
+                <rd>Ps 102:1-2,3-4,6-7,8+10</rd>
+                <re>Ps 102:17</re>
+            </p>
+            <r2>1 Io 4:7-16</r2>
+            <a>Mt 11:29ab</a>
+            <e>Mt 11:25-30</e>
+        </item>
+        <item id="171" ref="SotMSHoJ" syear="B" wyear="*">
+            <r1>Os 11:1,3-4,8c-9</r1>
+            <p>
+                <rd>Is 12:2-3,4bcd,5-6</rd>
+                <re>Is 12:3</re>
+            </p>
+            <r2>Eph 3:8-12,14-19</r2>
+            <a>"1 Io 4:10b", "Mt 11:29ab"</a>
+            <e>Io 19:31-37</e>
+        </item>
+        <item id="172" ref="SotMSHoJ" syear="C" wyear="*">
+            <r1>Ez 34:11-16</r1>
+            <p>
+                <rd>Ps 22:1-3a,3b-4,5,6</rd>
+                <re>Ps 22:1</re>
+            </p>
+            <r2>Rom 5:5b-11</r2>
+            <a>"Io 10:14", "Mt 11:29ab"</a>
+            <e>Lc 15:3-7</e>
+        </item>
+        <item id="173" ref="" syear="*" wyear="*">
+            <re>#Veni, Domine, ad liberandum nos!</re>
+            <re>#Hodie vidimus gloriam tuam, Domine.</re>
+            <re>#Memento, Domine, fidelitatis et misericordiae tuae.</re>
+            <re>#Alleluia</re>
+            <re>#Confitemini Domino, quoniam bonus.</re>
+            <re>#Confitebimur tibi, Domine, quia mirabilia sunt opera tua.</re>
+            <re>#Cantate Domino canticum novum.</re>
+            <re>#Prope est Dominus invocantibus eum.</re>
+            <re>#Exaudi nos, Domine, et salva nos.</re>
+            <re>#Miserator et misericors Dominus.</re>
+        </item>
+        <item id="174" ref="" syear="*" wyear="*">
+            <p>
+                <rd>Ps 24:4bc-5ab,8-9,10+14</rd>
+                <re>Ps 24:1b</re>
+            </p>
+            <p>
+                <rd>Ps 84:9ab-10,11-12,13-14</rd>
+                <re>Ps 84:8a</re>
+            </p>
+            <p>
+                <rd>Ps 97:1,2-3ab,3cd-4,5-6</rd>
+                <re>Ps 97:3c</re>
+            </p>
+            <p>
+                <rd>Ps 71:2,7-8,10-11,12-13</rd>
+                <re>Ps 71:11</re>
+            </p>
+            <p>
+                <rd>Ps 50:3-4,5-6a,12-13,14+17</rd>
+                <re>Ps 50:3a</re>
+            </p>
+            <p>
+                <rd>Ps 90:1-2,10-11,12-13,14-15</rd>
+                <re>Ps 90:15b</re>
+            </p>
+            <p>
+                <rd>Ps 129:1-2,3-4ab,4c-6,7-8</rd>
+                <re>Ps 129:7</re>
+            </p>
+            <p>
+                <rd>Ps 21:8-9,17-18a,19-20,23-24</rd>
+                <re>Ps 21:2a</re>
+            </p>
+            <p>
+                <rd>Ps 135:1-3,4-6,7-9,24-26</rd>
+                <re>#Quoniam in aeternum misericordia eius.</re>
+            </p>
+            <p>
+                <rd>Ps 135:1+3+16,21-23,24-26</rd>
+                <re>#Quoniam in aeternum misericordia eius.</re>
+            </p>
+            <p>
+                <rd>Ps 117:1-2,16ab-17,22-23</rd>
+                <re>Ps 117:24</re>
+            </p>
+            <p>
+                <rd>Ps 65:1-3a,4-5,6-7a,16+20</rd>
+                <re>Ps 65:1</re>
+            </p>
+            <p>
+                <rd>Ps 46:2-3,6-7,8-9</rd>
+                <re>Ps 46:6a</re>
+            </p>
+            <p>
+                <rd>Ps 103:1ab+24ac,29bc-30,31+34</rd>
+                <re>Ps 103:30</re>
+            </p>
+            <p>
+                <rd>Ps 18:8,9,10,11</rd>
+                <re>Io 6:68c,63c</re>
+            </p>
+            <p>
+                <rd>Ps 26:1,4,13-14</rd>
+                <re>Ps 26:1a</re>
+            </p>
+            <p>
+                <rd>Ps 33:2-3,4-5,6-7,8-9</rd>
+                <re>Ps 33:2,9a</re>
+            </p>
+            <p>
+                <rd>Ps 62:2,3-4,5-6,8-9</rd>
+                <re>Ps 62:2b</re>
+            </p>
+            <p>
+                <rd>Ps 94:1-2,6-7,8-9ab</rd>
+                <re>Ps 94:8ab</re>
+            </p>
+            <p>
+                <rd>Ps 99:2,3,5</rd>
+                <re>Ps 99:3c</re>
+            </p>
+            <p>
+                <rd>Ps 102:1-2,3-4,8+10,12-13</rd>
+                <re>Ps 102:8a</re>
+            </p>
+            <p>
+                <rd>Ps 144:1-2,8-9,10-11,13cd-14</rd>
+                <re>Ps 144:1</re>
+            </p>
+            <p>
+                <rd>Ps 121:1-2,3-4a,4b-5,6-7,8-9</rd>
+                <re>Ps 121:1</re>
+            </p>
+        </item>
+        <item id="175" ref="MooA1" syear="*" wyear="*">
+            <r1>"Is 2:1-5", "Is 4:2-6"</r1>
+            <p>
+                <rd>"Ps 121:1-2,3-4a,8-9", "Ps 121:1-2,3-4a,4b-5,6-7,8-9"</rd>
+                <re>Ps 121:1</re>
+            </p>
+            
+            <a>Ps 79:4</a>
+            <e>Mt 8:5-11</e>
+        </item>
+        <item id="176" ref="TuoA1" syear="*" wyear="*">
+            <r1>Is 11:1-10</r1>
+            <p>
+                <rd>Ps 71:2,7-8,12-13,17</rd>
+                <re>Ps 71:7</re>
+            </p>
+            
+            <a>#Ecce Dominus noster cum virtute veniet, et illuminabit oculos servorum suorum.</a>
+            <e>Lc 10:21-24</e>
+        </item>
+        <item id="177" ref="WeoA1" syear="*" wyear="*">
+            <r1>Is 25:6-10a</r1>
+            <p>
+                <rd>Ps 22:1-3a,3b-4,5,6</rd>
+                <re>Ps 22:6cd</re>
+            </p>
+            
+            <a>#Ecce veniet Dominus, ut salvet populum suum; beati qui parati sunt occurrere illi.</a>
+            <e>Mt 15:29-37</e>
+        </item>
+        <item id="178" ref="ThoA1" syear="*" wyear="*">
+            <r1>Is 26:1-6</r1>
+            <p>
+                <rd>Ps 117:1+8-9,19-21,25-27a</rd>
+                <re>"Ps 117:26a", "#Alleluia."</re>
+            </p>
+            
+            <a>Is 55:6</a>
+            <e>Mt 7:21,24-27</e>
+        </item>
+        <item id="179" ref="FroA1" syear="*" wyear="*">
+            <r1>Is 29:17-24</r1>
+            <p>
+                <rd>Ps 26:1,4,13-14</rd>
+                <re>Ps 26:1a</re>
+            </p>
+            
+            <a>#Ecce Dominus noster cum virtute veniet, et illuminabit oculos servorum suorum.</a>
+            <e>Mt 9:27-31</e>
+        </item>
+        <item id="180" ref="SaoA1" syear="*" wyear="*">
+            <r1>Is 30:19-21,23-26</r1>
+            <p>
+                <rd>Ps 146:1-2,3-4,5-6</rd>
+                <re>Is 30:18</re>
+            </p>
+            
+            <a>Is 33:22</a>
+            <e>Mt 9:35-10:1,6-8</e>
+        </item>
+        <item id="181" ref="MooA2" syear="*" wyear="*">
+            <r1>Is 35:1-10</r1>
+            <p>
+                <rd>Ps 84:9ab-10,11-12,13-14</rd>
+                <re>Is 35:4d</re>
+            </p>
+            
+            <a>#Ecce veniet Rex, Dominus terrae, et ipse auferet iugum captivitatis nostrae.</a>
+            <e>Lc 5:17-26</e>
+        </item>
+        <item id="182" ref="TuoA2" syear="*" wyear="*">
+            <r1>Is 40:1-11</r1>
+            <p>
+                <rd>Ps 95:1-2,3+10ac,11-12,13</rd>
+                <re>Is 40:9-10</re>
+            </p>
+            
+            <a>#Prope est dies Domini; ecce veniet ad salvandum nos.</a>
+            <e>Mt 18:12-14</e>
+        </item>
+        <item id="183" ref="WeoA2" syear="*" wyear="*">
+            <r1>Is 40:25-31</r1>
+            <p>
+                <rd>Ps 102:1-2,3-4,8+10</rd>
+                <re>Ps 102:1a</re>
+            </p>
+            
+            <a>#Ecce veniet Dominus, ut salvet populum suum; beati qui parati sunt occurrere illi.</a>
+            <e>Mt 11:28-30</e>
+        </item>
+        <item id="184" ref="ThoA2" syear="*" wyear="*">
+            <r1>Is 41:13-20</r1>
+            <p>
+                <rd>Ps 144:1+9,10-11,12-13ab</rd>
+                <re>Ps 144:8</re>
+            </p>
+            
+            <a>Is 45:8</a>
+            <e>Mt 11:11-15</e>
+        </item>
+        <item id="185" ref="FroA2" syear="*" wyear="*">
+            <r1>Is 48:17-19</r1>
+            <p>
+                <rd>Ps 1:1-2,3,4+6</rd>
+                <re>Io 8:12</re>
+            </p>
+            
+            <a>#Dominus veniet, occurrite illi; ipse est princeps pacis.</a>
+            <e>Mt 11:16-19</e>
+        </item>
+        <item id="186" ref="SaoA2" syear="*" wyear="*">
+            <r1>Sir 48:1-4,9-11</r1>
+            <p>
+                <rd>Ps 79:2ac+3b,15-16,18-19</rd>
+                <re>Ps 79:4</re>
+            </p>
+            
+            <a>Lc 3:4,6</a>
+            <e>Mt 17:10-13</e>
+        </item>
+        <item id="187" ref="MooA3" syear="*" wyear="*">
+            <r1>Num 24:2-7,15-17a</r1>
+            <p>
+                <rd>Ps 24:4bc-5ab,6-7bc,8-9</rd>
+                <re>Ps 24:4b</re>
+            </p>
+            
+            <a>Ps 84:8</a>
+            <e>Mt 21:23-27</e>
+        </item>
+        <item id="188" ref="TuoA3" syear="*" wyear="*">
+            <r1>Soph 3:1-2,9-13</r1>
+            <p>
+                <rd>Ps 33:2-3,6-7,17-18,19+23</rd>
+                <re>Ps 33:7a</re>
+            </p>
+            
+            <a>#Veni, Domine, et noli tardare; relaxa facinora plebis tuae.</a>
+            <e>Mt 21:28-32</e>
+        </item>
+        <item id="189" ref="WeoA3" syear="*" wyear="*">
+            <r1>Is 45:6b-8,18,21b-25</r1>
+            <p>
+                <rd>Ps 84:9ab-10,11-12,13-14</rd>
+                <re>Is 45:8</re>
+            </p>
+            
+            <a>Is 40:9-10</a>
+            <e>Lc 7:19-23</e>
+        </item>
+        <item id="190" ref="ThoA3" syear="*" wyear="*">
+            <r1>Is 54:1-10</r1>
+            <p>
+                <rd>Ps 29:2+4,5-6,11-12a+13b</rd>
+                <re>Ps 29:2a</re>
+            </p>
+            
+            <a>Lc 3:4,6</a>
+            <e>Lc 7:24-30</e>
+        </item>
+        <item id="191" ref="FroA3" syear="*" wyear="*">
+            <r1>Is 56:1-3a,6-8</r1>
+            <p>
+                <rd>Ps 66:2-3,5,7-8</rd>
+                <re>Ps 66:4</re>
+            </p>
+            
+            <a>#Veni, Domine, visitare nos in pace, ut laetemur coram te corde perfecto.</a>
+            <e>Io 5:33-36</e>
+        </item>
+        <item id="192" ref="" syear="*" wyear="*">
+            <a>Ps 79:4</a>
+            <a>Ps 84:8</a>
+            <a>Is 33:22</a>
+            <a>Is 40:9-10</a>
+            <a>Is 45:8</a>
+            <a>Is 55:6</a>
+            <a>Lc 3:4,6</a>
+            <a>#Dominus veniet, occurrite illi; ipse est princeps pacis.</a>
+            <a>#Ecce Dominus noster cum virtute veniet, et illuminabit oculos servorum suorum.</a>
+            <a>#Ecce veniet Dominus, ut salvet populum suum; beati qui parati sunt occurrere illi.</a>
+            <a>#Ecce veniet Rex, Dominus terrae, et ipse auferet iugum captivitatis nostrae.</a>
+            <a>#Prope est dies Domini; ecce veniet ad salvandum nos.</a>
+            <a>#Veni, Domine, et noli tardare; relaxa facinora plebis tuae.</a>
+            <a>#Veni, Domine, visitare nos in p[ace, ut laetemur coram te corde perfecto.</a>
+        </item>
+        <item id="193" ref="Dec17" syear="*" wyear="*">
+            <r1>Gen 49:2,8-10</r1>
+            <p>
+                <rd>Ps 71:2,3-4ab,7-8,17</rd>
+                <re>Ps 71:7</re>
+            </p>
+            
+            <a>#Sapientia Altissimi, fortiter suaviterque disponens omnia: veni ad docendum nos viam prudentiae.</a>
+            <e>Mt 1:1-17</e>
+        </item>
+        <item id="194" ref="Dec18" syear="*" wyear="*">
+            <r1>Ier 23:5-8</r1>
+            <p>
+                <rd>Ps 71:2,12-13,18-19</rd>
+                <re>Ps 71:7</re>
+            </p>
+            
+            <a>#Dux domus Israel, qui Moysi in Sina legem dedisti: veni ad redimendum nos in bracchio extento.</a>
+            <e>Mt 1:18-24</e>
+        </item>
+        <item id="195" ref="Dec19" syear="*" wyear="*">
+            <r1>Iudic 13:2-7,24-25a</r1>
+            <p>
+                <rd>Ps 70:3-4a,5-6ab,16-17</rd>
+                <re>Ps 70:8a</re>
+            </p>
+            
+            <a>#Radix Iesse, stans in signum populorum: veni ad liberandum nos, iam noli tardare.</a>
+            <e>Lc 1:5-25</e>
+        </item>
+        <item id="196" ref="Dec20" syear="*" wyear="*">
+            <r1>Is 7:10-14</r1>
+            <p>
+                <rd>Ps 23:1-2,3-4ab,5-6</rd>
+                <re>Ps 23:7c+10b</re>
+            </p>
+            <a>#Clavis David, qui aperis portas aeterni Regni: veni et educ vinctum de domo carceris sedentem in tenebris.</a>
+            <e>Lc 1:26-38</e>
+        </item>
+        <item id="197" ref="Dec21" syear="*" wyear="*">
+            <r1>Cant 2:8-14</r1>
+            <r1>Soph 3:14-18a</r1>
+            <p>
+                <rd>Ps 32:2-3,11-12,20-21</rd>
+                <re>Ps 32:1a+3a</re>
+            </p>
+            <a>#Emmanuel, rex et legifer noster: veni ad salvandum nos, Domine, Deus noster.</a>
+            <e>Lc 1:39-45</e>
+        </item>
+        <item id="198" ref="Dec22" syear="*" wyear="*">
+            <r1>1 Sam 1:24-28</r1>
+            <p>
+                <rd>1 Sam 2:1,4-5,6-7,8abcd</rd>
+                <re>1 Sam 2:1a</re>
+            </p>
+            <a>#Rex gentium et lapis angularis Ecclesiae: veni et salva hominem quem de limo formasti.</a>
+            <e>Lc 1:46-56</e>
+        </item>
+        <item id="199" ref="Dec23" syear="*" wyear="*">
+            <r1>Mal 3:1-4,23-24</r1>
+            <p>
+                <rd>Ps 24:4bc-5ab,8-9,10+14</rd>
+                <re>Lc 21:28</re>
+            </p>
+            <a>#Rex gentium et lapis angularis Ecclesiae: veni et salva hominem quem de limo formasti.</a>
+            <e>Lc 1:57-66</e>
+        </item>
+        <item id="200" ref="Dec24" syear="*" wyear="*">
+            <r1>2 Sam 7:1-5,8b-12,14a,16</r1>
+            <p>
+                <rd>Ps 88:2-3,4-5,27+29</rd>
+                <re>Ps 88:2a</re>
+            </p>
+            <a>#Oriens, splendor lucis aeternae et sol iustitiae: veni et illumina sedentes in tenebris et umbra mortis.</a>
+            <e>Lc 1:67-79</e>
+        </item>
+        <item id="201" ref="" syear="*" wyear="*">
+            <a>#Sapientia Altissimi, fortiter suaviterque disponens omnia: veni ad docendum nos viam prudentiae.</a>
+            <a>#Dux domus Israel, qui Moysi in Sina legem dedisti: veni ad redimendum nos in bracchio extento.</a>
+            <a>#Radix Iesse, stans in signum populorum: veni ad liberandum nos, iam noli tardare.</a>
+            <a>#Clavis David, qui aperis portas aeterni Regni: veni et educ vinctum de domo carceris sedentem in tenebris.</a>
+            <a>#Oriens, splendor lucis aeternae et sol iustitiae: veni et illumina sedentes in tenebris et umbra mortis.</a>
+            <a>#Rex gentium et lapis angularis Ecclesiae: veni et salva hominem quem de limo formasti.</a>
+            <a>#Emmanuel, rex et legifer noster: veni ad salvandum nos, Domine, Deus noster.</a>
+        </item>
+        <item id="202" ref="Dec29" syear="*" wyear="*">
+            <r1>1 Io 2:3-11</r1>
+            <p>
+                <rd>Ps 95:1-2a,2b-3,5b-6</rd>
+                <re>Ps 95:11a</re>
+            </p>
+            <a>Lc 2:32</a>
+            <e>Lc 2:22-35</e>
+        </item>
+        <item id="203" ref="Dec30" syear="*" wyear="*">
+            <r1>1 Io 2:12-17</r1>
+            <p>
+                <rd>Ps 95:7-8a,8b-9,10</rd>
+                <re>Ps 95:11a</re>
+            </p>
+            <a>#Dies sanctificatus illuxit nobis: venite, gentes, et adorate Dominum: quia hodie descendit lux magna super terram.</a>
+            <e>Lc 2:36-40</e>
+        </item>
+        <item id="204" ref="Dec31" syear="*" wyear="*">
+            <r1>1 Io 2:18-21</r1>
+            <p>
+                <rd>Ps 95:1-2,11-12,13</rd>
+                <re>Ps 95:11a</re>
+            </p>
+            <a>Io 1:14a,12a</a>
+            <e>Io 1:1-18</e>
+        </item>
+        <item id="205" ref="Jan2" syear="*" wyear="*">
+            <r1>1 Io 2:22-28</r1>
+            <p>
+                <rd>Ps 97:1,2-3ab,3cd-4</rd>
+                <re>Ps 97:3a</re>
+            </p>
+            <a>Hebr 1:1-2</a>
+            <e>Io 1:19-28</e>
+        </item>
+        <item id="206" ref="Jan3" syear="*" wyear="*">
+            <r1>1 Io 2:29-3:6</r1>
+            <p>
+                <rd>Ps 97:1,3cd-4,5-6</rd>
+                <re>Ps 97:3a</re>
+            </p>
+            <a>Io 1:14a,12a</a>
+            <e>Io 1:29-34</e>
+        </item>
+        <item id="207" ref="Jan4" syear="*" wyear="*">
+            <r1>1 Io 3:7-10</r1>
+            <p>
+                <rd>Ps 7:1,7-8,9</rd>
+                <re>Ps 97:3a</re>
+            </p>
+            <a>Hebr 1:1-2</a>
+            <e>Io 1:35-42</e>
+        </item>
+        <item id="208" ref="Jan5" syear="*" wyear="*">
+            <r1>1 Io 3:11-21</r1>
+            <p>
+                <rd>Ps 99:2,3,4,5</rd>
+                <re>Ps 99:2a</re>
+            </p>
+            <a>#Dies sanctificatus illuxit nobis: venite, gentes, et adorate Dominum: quia hodie descendit lux magna super terram.</a>
+            <e>Io 1:43-51</e>
+        </item>
+        <item id="209" ref="Jan6" syear="*" wyear="*">
+            <r1>1 Io 5:5-13</r1>
+            <p>
+                <rd>Ps 147:12-13,14-15,19-20</rd>
+                <re>Ps 147:12a</re>
+                <re>#Alleluia.</re>
+            </p>
+            <a>Mc 9:6</a>
+            <e>Mc 1:7-11</e>
+            <e>Lc 3:23-38</e>
+            <e>Lc 3:23,31-34,36,38</e>
+        </item>
+        <item id="210" ref="Jan7" syear="*" wyear="*">
+            <r1>1 Io 5:14-21</r1>
+            <p>
+                <rd>Ps 149:1-2,3-4,5+6a+9b</rd>
+                <re>Ps 149:4a</re>
+                <re>#Alleluia.</re>
+            </p>
+            <a>Lc 7:16</a>
+            <e>Io 2:1-11</e>
+        </item>
+        <item id="211" ref="" syear="*" wyear="*">
+            <a>Io 1:14a,12a</a>
+            <a>Hebr 1:1-2</a>
+            <a>#Dies sanctificatus illuxit nobis: venite, gentes, et adorate Dominum: quia hodie descendit lux magna super terram.</a>
+        </item>
+        <item id="212" ref="Jan7" syear="*" wyear="*">
+            <r1>1 Io 3:22-4:6</r1>
+            <p>
+                <rd>Ps 2:7-8,10-11</rd>
+                <re>Ps 2:8a</re>
+            </p>
+            <a>Mt 4:23</a>
+            <e>Mt 4:12-17,23-25</e>
+        </item>
+        <item id="213" ref="Jan8" syear="*" wyear="*">
+            <r1>1 Io 4:7-10</r1>
+            <p>
+                <rd>Ps 71:2,3-4ab,7-8</rd>
+                <re>Ps 71:11</re>
+            </p>
+            <a>Lc 4:18</a>
+            <e>Mc 6:34-44</e>
+        </item>
+        <item id="214" ref="Jan9" syear="*" wyear="*">
+            <r1>1 Io 4:11-18</r1>
+            <p>
+                <rd>Ps 71:2,10-11,12-13</rd>
+                <re>Ps 71:11</re>
+            </p>
+            <a>1 Tim 3:16</a>
+            <e>Mc 6:45-52</e>
+        </item>
+        <item id="215" ref="Jan10" syear="*" wyear="*">
+            <r1>1 Io 4:19-5:4</r1>
+            <p>
+                <rd>Ps 71:2,14+15bc,17</rd>
+                <re>Ps 71:11</re>
+            </p>
+            <a>Lc 4:18</a>
+            <e>Lc 4:14-22a</e>
+        </item>
+        <item id="216" ref="Jan11" syear="*" wyear="*">
+            <r1>1 Io 5:5-13</r1>
+            <p>
+                <rd>Ps 147:12-13,14-15,19-20</rd>
+                <re>Ps 147:12a</re>
+                <re>#Alleluia.</re>
+            </p>
+            <a>Mt 4:23</a>
+            <e>Lc 5:12-16</e>
+        </item>
+        <item id="217" ref="Jan12" syear="*" wyear="*">
+            <r1>1 Io 5:14-21</r1>
+            <p>
+                <rd>Ps 149:1-2,3-4,5+6a+9b</rd>
+                <re>Ps 149:4a</re>
+                <re>#Alleluia.</re>
+            </p>
+            <a>Mt 4:16</a>
+            <e>Io 3:22-30</e>
+        </item>
+        <item id="218" ref="" syear="*" wyear="*">
+            <a>Mt 4:16</a>
+            <a>Mt 4:23</a>
+            <a>Lc 4:18</a>
+            <a>Lc 7:16</a>
+            <a>1 Tim 3:16</a>
+        </item>
+        <item id="219" ref="WeAsh" syear="*" wyear="*">
+            <r1>Ioel 2:12-18</r1>
+            <p>
+                <rd>Ps 50:3-4,5-6a,12-13,14+17</rd>
+                <re>Ps 50:3a</re>
+            </p>
+            <r2>2 Cor 5:20-6:2</r2>
+            <ae>Ps 94:8ab</ae>
+            <e>Mt 6:1-6,16-18</e>
+        </item>
+        <item id="220" ref="ThaAW" syear="*" wyear="*">
+            <r1>Deut 30:15-20</r1>
+            <p>
+                <rd>Ps 1:1-2,3,4+6</rd>
+                <re>Ps 39:5a</re>
+            </p>
+            <ae>Mt 4:17</ae>
+            <e>Lc 9:22-25</e>
+        </item>
+        <item id="221" ref="FraAW" syear="*" wyear="*">
+            <r1>Is 58:1-9a</r1>
+            <p>
+                <rd>Ps 50:3-4,5-6a,18-19</rd>
+                <re>Ps 50:19b</re>
+            </p>
+            <ae>Am 5:14</ae>
+            <e>Mt 9:14-15</e>
+        </item>
+        <item id="222" ref="SaaAW" syear="*" wyear="*">
+            <r1>Is 58:9b-14</r1>
+            <p>
+                <rd>Ps 85:1-2,3-4,5-6</rd>
+                <re>Ps 85:11a</re>
+            </p>
+            <ae>Ez 33:11</ae>
+            <e>Lc 5:27-32</e>
+        </item>
+        <item id="223" ref="" syear="*" wyear="*">
+            <ae>Ps 50:12a,14a</ae>
+            <ae>Ps 94:8ab</ae>
+            <ae>Ps 129:5,7</ae>
+            <ae>Ez 18:31</ae>
+            <ae>Ez 33:11</ae>
+            <ae>Ioel 2:12-13</ae>
+            <ae>Am 5:14</ae>
+            <ae>Mt 4:4b</ae>
+            <ae>Mt 4:17</ae>
+            <ae>Lc 8:15</ae>
+            <ae>Lc 15:18</ae>
+            <ae>Io 3:16</ae>
+            <ae>Io 6:63c,68c</ae>
+            <ae>Io 8:12</ae>
+            <ae>Io 11:25a,26</ae>
+            <ae>2 Cor 6:2b</ae>
+            <ae>#Semen est verbum Dei, sator autem Christus; omnis qui invenit eum, manebit in aeternum.</ae>
+            <ac>#Gloria et laus tibi, Christe.</ac>
+            <ac>#Gloria tibi, Christe, Sapientia Dei Patris.</ac>
+            <ac>#Gloria tibi, Christe, Verbum Dei.</ac>
+            <ac>#Gloria tibi, Domine, Fili Dei vivi.</ac>
+            <ac>#Laus et honor tibi, Domine Iesu.</ac>
+            <ac>#Laus tibi, Christe, Rex aeternae gloriae.</ac>
+            <ac>#Magna et mirabilia opera tua, Domine.</ac>
+            <ac>#Salus et gloria et virtus Domino Iesu Christo.</ac>
+        </item>
+        <item id="224" ref="MooL1" syear="*" wyear="*">
+            <r1>Lev 19:1-12,11-18</r1>
+            <p>
+                <rd>Ps 18:8,9,10,15</rd>
+                <re>Io 6:63</re>
+            </p>
+            <ae>2 Cor 6:2b</ae>
+            <e>Mt 25:31-46</e>
+        </item>
+        <item id="225" ref="TuoL1" syear="*" wyear="*">
+            <r1>Is 55:10-11</r1>
+            <p>
+                <rd>Ps 33:4-5,6-7,16-17,18-19</rd>
+                <re>Ps 33:18b</re>
+            </p>
+            <ae>Mt 4:4b</ae>
+            <e>Mt 6:7-15</e>
+        </item>
+        <item id="226" ref="WeoL1" syear="*" wyear="*">
+            <r1>Ion 3:1-10</r1>
+            <p>
+                <rd>Ps 50:3-4,12-13,18-19</rd>
+                <re>Ps 50:19b</re>
+            </p>
+            <ae>Ioel 2:12-13</ae>
+            <e>Lc 11:29-32</e>
+        </item>
+        <item id="227" ref="ThoL1" syear="*" wyear="*">
+            <r1>Est 4:17n,17p-r.17aa-bb,17gg-hh</r1>
+            <p>
+                <rd>Ps 137:1-2a,2bc-3,7c-8</rd>
+                <re>Ps 137:3a</re>
+            </p>
+            <ae>Ps 50:12a+14a</ae>
+            <e>Mt 7:7-12</e>
+        </item>
+        <item id="228" ref="FroL1" syear="*" wyear="*">
+            <r1>Ez 18:21-28</r1>
+            <p>
+                <rd>Ps 129:1-2,3-4ab,4c-6,7-8</rd>
+                <re>Ps 129:3</re>
+            </p>
+            <ae>Ez 18:31</ae>
+            <e>Mt 5:20-26</e>
+        </item>
+        <item id="229" ref="SaoL1" syear="*" wyear="*">
+            <r1>Deut 26:16-19</r1>
+            <p>
+                <rd>Ps 118:1-2,4-5,7-8</rd>
+                <re>Ps 118:1b</re>
+            </p>
+            <ae>2 Cor 6:2b</ae>
+            <e>Mt 5:43-48</e>
+        </item>
+        <item id="230" ref="MooL2" syear="*" wyear="*">
+            <r1>Dan 9:4b-10</r1>
+            <p>
+                <rd>Ps 78:8,9,11+13</rd>
+                <re>Ps 102:10a</re>
+            </p>
+            <ae>Io 6:63c,68c</ae>
+            <e>Lc 6:36-38</e>
+        </item>
+        <item id="231" ref="TuoL2" syear="*" wyear="*">
+            <r1>Is 1:10,16-20</r1>
+            <p>
+                <rd>Ps 49:8-9,16bc-17,21+23</rd>
+                <re>Ps 49:23b</re>
+            </p>
+            <ae>Ez 18:31</ae>
+            <e>Mt 23:1-12</e>
+        </item>
+        <item id="232" ref="WeoL2" syear="*" wyear="*">
+            <r1>Ier 18:18-20</r1>
+            <p>
+                <rd>Ps 30:5-6,14,15-16</rd>
+                <re>Ps 30:17b</re>
+            </p>
+            <ae>Io 8:12</ae>
+            <e>Mt 20:17-28</e>
+        </item>
+        <item id="233" ref="ThoL2" syear="*" wyear="*">
+            <r1>Ier 17:5-10</r1>
+            <p>
+                <rd>Ps 1:1-2,3,4+6</rd>
+                <re>Ps 39:5a</re>
+            </p>
+            <ae>Lc 8:15</ae>
+            <e>Lc 16:19-31</e>
+        </item>
+        <item id="234" ref="FroL2" syear="*" wyear="*">
+            <r1>Gen 37:3-4,12-13a,17b-28</r1>
+            <p>
+                <rd>Ps 104:16-17,18-19,20-21</rd>
+                <re>Ps 104:5a</re>
+            </p>
+            <ae>Io 3:16</ae>
+            <e>Mt 21:33-43,45-46</e>
+        </item>
+        <item id="235" ref="SaoL2" syear="*" wyear="*">
+            <r1>Mic 7:14-15,18-20</r1>
+            <p>
+                <rd>Ps 102:1-3,3-4,9-10,11-12</rd>
+                <re>Ps 102:8a</re>
+            </p>
+            <ae>Lc 15:18</ae>
+            <e>Lc 15:1-3,11-32</e>
+        </item>
+        <item id="236" ref="" syear="*" wyear="*">
+            <r1>Ex 17:1-7</r1>
+            <p>
+                <rd>Ps 94:1-2,6-7,8-9</rd>
+                <re>Ps 94:8</re>
+            </p>
+            <ae>Io 4:42,15</ae>
+            <e>Io 4:5-42</e>
+        </item>
+        <item id="237" ref="MooL3" syear="*" wyear="*">
+            <r1>2 Reg 5:1-15a</r1>
+            <p>
+                <rd>Ps 41:2,3</rd>
+                <rd>Ps 42:3,4</rd>
+                <re>Ps 41:3</re>
+            </p>
+            <ae>Ps 129:5+7</ae>
+            <e>Lc 4:24-30</e>
+        </item>
+        <item id="238" ref="TuoL3" syear="*" wyear="*">
+            <r1>Dan 3:25,34-43</r1>
+            <p>
+                <rd>Ps 24:4bc-5ab,6-7bc,8-9</rd>
+                <re>Ps 24:6a</re>
+            </p>
+            <ae>Ioel 2:12-13</ae>
+            <e>Mt 18:21-35</e>
+        </item>
+        <item id="239" ref="WeoL3" syear="*" wyear="*">
+            <r1>Deut 4:1,5-9</r1>
+            <p>
+                <rd>Ps 147:12-13,15-16,19-20</rd>
+                <re>Ps 147:12a</re>
+            </p>
+            <ae>Io 6:63c,68c</ae>
+            <e>Mt 5:17-19</e>
+        </item>
+        <item id="240" ref="ThoL3" syear="*" wyear="*">
+            <r1>Ier 7:23-28</r1>
+            <p>
+                <rd>Ps 94:1-2,6-7,8-9</rd>
+                <re>Ps 94:8</re>
+            </p>
+            <ae>Ioel 2:12-13</ae>
+            <e>Lc 11:14-23</e>
+        </item>
+        <item id="241" ref="FroL3" syear="*" wyear="*">
+            <r1></r1>
+            <p>
+                <rd></rd>
+                <re></re>
+            </p>
+            <a></a>
+            <e></e>
+        </item>
+        <item id="242" ref="SaoL3" syear="*" wyear="*">
+            <r1>Os 6:1-6</r1>
+            <p>
+                <rd>Ps 50:3-4,18-19,20-21ab</rd>
+                <re>Os 6:6</re>
+            </p>
+            <ae>Ps 94:8ab</ae>
+            <e></e>
+        </item>
+        <item id="243" ref="" syear="*" wyear="*">
+            <r1>Mic 7:7-9</r1>
+            <p>
+                <rd>Ps 26:1,7-8a,8b-9abc,13-14</rd>
+                <re>Ps 26:1a</re>
+            </p>
+            <a>Io 8:12</a>
+            <e>Io 9:1-41</e>
+        </item>
+        <item id="244" ref="MooL4" syear="*" wyear="*">
+            <r1>Is 65:17-21</r1>
+            <p>
+                <rd>Ps 29:2+4,5-6,11-12a+13b</rd>
+                <re>Ps 29:2a</re>
+            </p>
+            <ae>Am 5:14</ae>
+            <e>Io 4:43-54</e>
+        </item>
+        <item id="245" ref="TuoL4" syear="*" wyear="*">
+            <r1>Ez 47:1-9,12</r1>
+            <p>
+                <rd>Ps 45:2-3,5-6,8-9</rd>
+                <re>Ps 45:8</re>
+            </p>
+            <ae>Ps 50:12a+14a</ae>
+            <e>Io 5:1-16</e>
+        </item>
+        <item id="246" ref="WeoL4" syear="*" wyear="*">
+            <r1>Is 49:8-15</r1>
+            <p>
+                <rd>Ps 144:8-9,13cd-14,17-18</rd>
+                <re>Ps 144:8a</re>
+            </p>
+            <ae>Io 11:25a,26</ae>
+            <e>Io 5:17-30</e>
+        </item>
+        <item id="247" ref="ThoL4" syear="*" wyear="*">
+            <r1>Ex 32:7-14</r1>
+            <p>
+                <rd>Ps 105:19-20,21-22,23</rd>
+                <re>Ps 105:4a</re>
+            </p>
+            <ae>Io 3:16</ae>
+            <e>Io 5:31-47</e>
+        </item>
+        <item id="248" ref="FroL4" syear="*" wyear="*">
+            <r1>Sap 2:1a,12-22</r1>
+            <p>
+                <rd>Ps 33:17-18,19-20,21+23</rd>
+                <re>Ps 33:19a</re>
+            </p>
+            <ae>Mt 4:4b</ae>
+            <e>Io 7:1-2,10,25-30</e>
+        </item>
+        <item id="249" ref="SaoL4" syear="*" wyear="*">
+            <r1>Ier 11:18-20</r1>
+            <p>
+                <rd>Ps 7:2-3,9bc-10,11-12</rd>
+                <re>Ps 7:2a</re>
+            </p>
+            <ae>Lc 8:15</ae>
+            <e>Io 7:40-53</e>
+        </item>
+        <item id="250" ref="" syear="*" wyear="*">
+            <r1>2 Reg 4:18b-21,32-37</r1>
+            <p>
+                <rd>Ps 16:1,6-7,8b+15</rd>
+                <re>Ps 16:15b</re>
+            </p>
+            <ae>Io 11:25a,26</ae>
+            <e>Io 11:1-45</e>
+        </item>
+        <item id="251" ref="MooL5" syear="A" wyear="*">
+            <r1>Dan 13:1-9,15-17,19-30,32,62</r1>
+            <r1>Dan 13:41c-62</r1>
+            <p>
+                <rd>Ps 22:1-3a,3b-4,5,6</rd>
+                <re>Ps 22:4a</re>
+            </p>
+            <ae>Ez 33:11</ae>
+            <e>Io 8:1-11</e>
+        </item>
+        <item id="251" ref="MooL5" syear="B" wyear="*">
+            <r1>Dan 13:1-9,15-17,19-30,32,62</r1>
+            <r1>Dan 13:41c-62</r1>
+            <p>
+                <rd>Ps 22:1-3a,3b-4,5,6</rd>
+                <re>Ps 22:4a</re>
+            </p>
+            <ae>Ez 33:11</ae>
+            <e>Io 8:1-11</e>
+        </item>
+        <item id="251" ref="MooL5" syear="C" wyear="*">
+            <r1>Dan 13:1-9,15-17,19-30,32,62</r1>
+            <r1>Dan 13:41c-62</r1>
+            <p>
+                <rd>Ps 22:1-3a,3b-4,5,6</rd>
+                <re>Ps 22:4a</re>
+            </p>
+            <ae>Ez 33:11</ae>
+            <e>Io 8:1-11</e>
+            <e>Io 8:12-20</e>
+        </item>
+        <item id="252" ref="TuoL5" syear="*" wyear="*">
+            <r1>Num 21:4-9</r1>
+            <p>
+                <rd>Ps 101:2-3,16-18,19-21</rd>
+                <re>Ps 101:2</re>
+            </p>
+            <ae>#Semen est verbum Dei, sator autem Christus; omnis qui invenit eum, manebit in aeternum.</ae>
+            <e>Io 8:21-30</e>
+        </item>
+        <item id="253" ref="WeoL5" syear="*" wyear="*">
+            <r1>Dan 3:14-20,91-92,95</r1>
+            <p>
+                <rd>Dan 3:52,53,54,55,56</rd>
+                <re>Dan 3:52b</re>
+            </p>
+            <ae>Lc 8:15</ae>
+            <e>Io 8:31-42</e>
+        </item>
+        <item id="254" ref="ThoL5" syear="*" wyear="*">
+            <r1>Gen 17:3-9</r1>
+            <p>
+                <rd>Ps 104:4-5,6-7,8-9</rd>
+                <re>Ps 104:8a</re>
+            </p>
+            <ae>Ps 94:8ab</ae>
+            <e>Io 8:51-59</e>
+        </item>
+        <item id="255" ref="FroL5" syear="*" wyear="*">
+            <r1>Ier 20:10-13</r1>
+            <p>
+                <rd>Ps 17:2-3a,3bc-4,5-6,7</rd>
+                <re>Ps 17:7</re>
+            </p>
+            <ae>Io 6:63c,68c</ae>
+            <e>Io 10:31-42</e>
+        </item>
+        <item id="256" ref="SaoL5" syear="*" wyear="*">
+            <r1>Ez 37:21-28</r1>
+            <p>
+                <rd>Ier 31:10,11-12ab,13</rd>
+                <re>Ier 31:10d</re>
+            </p>
+            <ae>Ez 18:31</ae>
+            <e>Io 11:45-56</e>
+        </item>
+        <item id="257" ref="MooHW" syear="*" wyear="*">
+            <r1>Is 42:1-7</r1>
+            <p>
+                <rd>Ps 26:1,2,3,13-14</rd>
+                <re>Ps 26:1a</re>
+            </p>
+            <ae>#Ave, Rex noster: tu solus nostros es miseratus errores.</ae>
+            <e>Io 12:1-11</e>
+        </item>
+        <item id="258" ref="TuoHW" syear="*" wyear="*">
+            <r1>Is 49:1-6</r1>
+            <p>
+                <rd>Ps 70:1-2,3-4a,5-6ab,15+17</rd>
+                <re>Ps 70:15</re>
+            </p>
+            <ae>#Ave, Rex noster, Patri oboediens, ductus es ad crucifigendum, ut agnus mansuetus ad occisionem.</ae>
+            <e>Io 13:21-33,36-38</e>
+        </item>
+        <item id="259" ref="WeoHW" syear="*" wyear="*">
+            <r1>Is 50:4-9a</r1>
+            <p>
+                <rd>Ps 68:8-10,21bcd-22,31+33-34</rd>
+                <re>Ps 14c+14b</re>
+            </p>
+            <ae>#Ave, Rex noster: tu solus nostros es miseratus errores.</ae>
+            <ae>#Ave, Rex noster, Patri oboediens, ductus es ad crucifigendum, ut agnus mansuetus ad occisionem.</ae>
+            <e>Mt 26:14-25</e>
+        </item>
+        <item id="260" ref="Chrism" syear="*" wyear="*">
+            <r1>Is 61:1-3a,6a,8b-9</r1>
+            <p>
+                <rd>Ps 88:21-22,25+27</rd>
+                <re>Ps 88:2a</re>
+            </p>
+            <r2>Ap 1:5-8</r2>
+            <ae>Is 61:1</ae>
+            <e>Lc 4:16-21</e>
+        </item>
+        <item id="261" ref="MooE1" syear="*" wyear="*">
+            <r1>Act 2:14,22-23</r1>
+            <p>
+                <rd>Ps 15:1-2a+5,7-8,9-10,11</rd>
+                <re>Ps 15:1</re>
+            </p>
+            <a>Ps 117:24</a>
+            <e>Mt 28:8-15</e>
+        </item>
+        <item id="262" ref="TuoE1" syear="*" wyear="*">
+            <r1>Act 2:36-41</r1>
+            <p>
+                <rd>Ps 32:4-5,18-19,20+22</rd>
+                <re>Ps 32:5b</re>
+            </p>
+            <a>Ps 117:24</a>
+            <e>Io 20:11-18</e>
+        </item>
+        <item id="263" ref="WeoE1" syear="*" wyear="*">
+            <r1>Act 3:1-10</r1>
+            <p>
+                <rd>Ps 104:1-2,3-4,6-7,8-9</rd>
+                <re>Ps 104:5b</re>
+            </p>
+            <a>Ps 117:24</a>
+            <e>Lc 24:13-35</e>
+        </item>
+        <item id="264" ref="ThoE1" syear="*" wyear="*">
+            <r1>Act 3:11-26</r1>
+            <p>
+                <rd>Ps 8:2a+5,6-7,8-9</rd>
+                <re>Ps 8:2ab</re>
+            </p>
+            <a>Ps 117:24</a>
+            <e>Lc 24:35-48</e>
+        </item>
+        <item id="265" ref="FroE1" syear="*" wyear="*">
+            <r1>Act 4:1-12</r1>
+            <p>
+                <rd>Ps 117:1-2+4,22-24,25-27a</rd>
+                <re>Ps 117:22</re>
+            </p>
+            <a>Ps 117:24</a>
+            <e>Io 21:1-14</e>
+        </item>
+        <item id="266" ref="SaoE1" syear="*" wyear="*">
+            <r1>Act 4:13-21</r1>
+            <p>
+                <rd>Ps 117:1+14-15,16ab-18,19-21</rd>
+                <re>Ps 117:21a</re>
+            </p>
+            <a>Ps 117:24</a>
+            <e>Mc 16:9-15</e>
+        </item>
+        <item id="267" ref="MooE2" syear="*" wyear="*">
+            <r1>Act 4:23-31</r1>
+            <p>
+                <rd>Ps 2:1-3,4-6,7-9</rd>
+                <re>Ps 2:12d</re>
+            </p>
+            <a>Col 3:1</a>
+            <e>Io 3:1-8</e>
+        </item>
+        <item id="268" ref="TuoE2" syear="*" wyear="*">
+            <r1>Act 4:32-37</r1>
+            <p>
+                <rd>Ps 92:1ab,1c-2,5</rd>
+                <re>Ps 92:1a</re>
+                <re>#Alleluia.</re>
+            </p>
+            <a>Io 3:15</a>
+            <e>Io 3:7b-15</e>
+        </item>
+        <item id="269" ref="WeoE2" syear="*" wyear="*">
+            <r1>Act 5:17-26</r1>
+            <p>
+                <rd>Ps 33:2-3,4-5,6-7,8-9</rd>
+                <re>Ps 33:7a</re>
+            </p>
+            <a>Io 3:16</a>
+            <e>Io 3:16-21</e>
+        </item>
+        <item id="270" ref="ThoE2" syear="*" wyear="*">
+            <r1>Act 5:27-33</r1>
+            <p>
+                <rd>Ps 33:2+9,17-18,19-20</rd>
+                <re>Ps 33:7a</re>
+            </p>
+            <a>Io 20:29</a>
+            <e>Ip 3:31-36</e>
+        </item>
+        <item id="271" ref="FroE2" syear="*" wyear="*">
+            <r1>Act 5:34-42</r1>
+            <p>
+                <rd>Ps 26:1,4,13-14</rd>
+                <re>Ps 26:4ab</re>
+            </p>
+            <a>Mt 4:4b</a>
+            <e>Io 6:1-15</e>
+        </item>
+        <item id="272" ref="SaoE2" syear="*" wyear="*">
+            <r1>Act 6:1-7</r1>
+            <p>
+                <rd>Ps 32:1-2,4-5,18-19</rd>
+                <re>Ps 32:22</re>
+                <re>#Alleluia.</re>
+            </p>
+            <a>#Surrexit Christus qui creavit omnia, et misertus est humano generi.</a>
+            <e>Io 6:16-21</e>
+        </item>
+        <item id="273" ref="MooE3" syear="*" wyear="*">
+            <r1>Act 6:8-15</r1>
+            <p>
+                <rd>Ps 118:23-24,26-27,29-30</rd>
+                <re>Ps 118:1b</re>
+                <re>#Alleluia.</re>
+            </p>
+            <a>Mt 4:4b</a>
+            <e>Io 6:22-29</e>
+        </item>
+        <item id="274" ref="TuoE3" syear="*" wyear="*">
+            <r1>Act 7:51-8:1a</r1>
+            <p>
+                <rd>Ps 30:3cd-4,6ab+7b+8a,17+21ab</rd>
+                <re>Ps 30:6a</re>
+                <re>#Alleluia.</re>
+            </p>
+            <a>Io 6:35ab</a>
+            <e>Io 6:30-35</e>
+        </item>
+        <item id="275" ref="WeoE3" syear="*" wyear="*">
+            <r1>Act 8:1b-8</r1>
+            <p>
+                <rd>Ps 65:1-3a,4-5,6-7a</rd>
+                <re>Ps 65:1</re>
+                <re>#Alleluia.</re>
+            </p>
+            <a>Io 6:40</a>
+            <e>Io 6:35-40</e>
+        </item>
+        <item id="276" ref="ThoE3" syear="*" wyear="*">
+            <r1>Act 8:26-40</r1>
+            <p>
+                <rd>Ps 65:8-9,16-17,20</rd>
+                <re>Ps 65:1</re>
+                <re>#Alleluia.</re>
+            </p>
+            <a>Io 6:51</a>
+            <e>Io 6:44-51</e>
+        </item>
+        <item id="277" ref="FroE3" syear="*" wyear="*">
+            <r1>Act 9:1-20</r1>
+            <p>
+                <rd>Ps 116:1,2</rd>
+                <re>Mc 16:15</re>
+                <re>#Alleluia.</re>
+            </p>
+            <a>Io 6:56</a>
+            <e>Io 6:52-59</e>
+        </item>
+        <item id="278" ref="SaoE3" syear="*" wyear="*">
+            <r1>Act 9:31-42</r1>
+            <p>
+                <rd>Ps 115:12-13,14-15,16-17</rd>
+                <re>Ps 115:12</re>
+                <re>#Alleluia.</re>
+            </p>
+            <a>Io 6:63c,68c</a>
+            <e>Io 6:60-69</e>
+        </item>
+        <item id="279" ref="MooE4" syear="A" wyear="*">
+            <r1>Act 11:1-18</r1>
+            <p>
+                <rd>Ps 41:2-3,42:3,4</rd>
+                <re>Ps 41:3a</re>
+                <re>#Alleluia.</re>
+            </p>
+            <a>Io 10:14</a>
+            <e>Io 10:1-10</e>
+            <e>Io 10:11-18</e>
+        </item>
+        <item id="279" ref="MooE4" syear="B" wyear="*">
+            <r1>Act 11:1-18</r1>
+            <p>
+                <rd>Ps 41:2-3,42:3,4</rd>
+                <re>Ps 41:3a</re>
+                <re>#Alleluia.</re>
+            </p>
+            <a>Io 10:14</a>
+            <e>Io 10:1-10</e>
+        </item>
+        <item id="279" ref="MooE4" syear="C" wyear="*">
+            <r1>Act 11:1-18</r1>
+            <p>
+                <rd>Ps 41:2-3,42:3,4</rd>
+                <re>Ps 41:3a</re>
+                <re>#Alleluia.</re>
+            </p>
+            <a>Io 10:14</a>
+            <e>Io 10:1-10</e>
+        </item>
+        <item id="280" ref="TuoE4" syear="*" wyear="*">
+            <r1>Act 11:19-26</r1>
+            <p>
+                <rd>Ps 86:1-3,4-5,6-7</rd>
+                <re>Ps 116:1a</re>
+                <re>#Alleluia.</re>
+            </p>
+            <a>Io 10:27</a>
+            <e>Io 10:22-30</e>
+        </item>
+        <item id="281" ref="WeoE4" syear="*" wyear="*">
+            <r1>Act 12:24-13:5a</r1>
+            <p>
+                <rd>Ps 66:2-3,5,6+8</rd>
+                <re>Ps 66:4</re>
+                <re>#Alleluia.</re>
+            </p>
+            <a>Io 8:12</a>
+            <e>Io 12:44-50</e>
+        </item>
+        <item id="282" ref="ThoE4" syear="*" wyear="*">
+            <r1>Act 13:13-25</r1>
+            <p>
+                <rd>Ps 88:2-3,21-22,25+27</rd>
+                <re>Ps 88:2a</re>
+                <re>#Alleluia.</re>
+            </p>
+            <a>Ap 1:5ab</a>
+            <e>Io 13:16-20</e>
+        </item>
+        <item id="283" ref="FroE4" syear="*" wyear="*">
+            <r1>Act 13:26-33</r1>
+            <p>
+                <rd>Ps 2:6-7,8-9,10-11</rd>
+                <re>Ps 2:7</re>
+                <re>#Alleluia.</re>
+            </p>
+            <a>Io 14:6</a>
+            <e>Io 14:1-6</e>
+        </item>
+        <item id="284" ref="SaoE4" syear="*" wyear="*">
+            <r1>Act 13:44-52</r1>
+            <p>
+                <rd>Ps 97:1,2-3ab,3cd-4</rd>
+                <re>Ps 97:3cd</re>
+                <re>#Alleluia.</re>
+            </p>
+            <a>Io 8:31b-32</a>
+            <e>Io 14:7-14</e>
+        </item>
+        <item id="285" ref="MooE5" syear="*" wyear="*">
+            <r1>Act 14:5-8</r1>
+            <p>
+                <rd>Ps 113B:1-2,3-4,15-16</rd>
+                <re>Ps 113B:1</re>
+                <re>#Alleluia.</re>
+            </p>
+            <a>Io 14:26</a>
+            <e>Io 14:21-26</e>
+        </item>
+        <item id="286" ref="TuoE5" syear="*" wyear="*">
+            <r1>Act 14:19-28</r1>
+            <p>
+                <rd>Ps 144:10-11,12-13ab,21</rd>
+                <re>Ps 144:12a</re>
+                <re>#Alleluia.</re>
+            </p>
+            <a>Lc 24:46,26</a>
+            <e>Io 14:27-31a</e>
+        </item>
+        <item id="287" ref="WeoE5" syear="*" wyear="*">
+            <r1>Act 15:1-6</r1>
+            <p>
+                <rd>Ps 121:1-2,3-4a,4b-5</rd>
+                <re>Ps 121:1</re>
+                <re>#Alleluia.</re>
+            </p>
+            <a>Io 15:4a,5b</a>
+            <e>Io 15:1-8</e>
+        </item>
+        <item id="288" ref="ThoE5" syear="*" wyear="*">
+            <r1>Act 15:7-21</r1>
+            <p>
+                <rd>Ps 95:1-2a,2b-3,10</rd>
+                <re>Ps 95:3</re>
+                <re>#Alleluia.</re>
+            </p>
+            <a>Io 10:27</a>
+            <e>Io 15:9-11</e>
+        </item>
+        <item id="289" ref="FroE5" syear="*" wyear="*">
+            <r1>Act 15:22-31</r1>
+            <p>
+                <rd>Ps 56:8-9,10-12</rd>
+                <re>Ps 56:10a</re>
+                <re>#Alleluia.</re>
+            </p>
+            <a>Io 15:15b</a>
+            <e>Io 15:12-17</e>
+        </item>
+        <item id="290" ref="SaoE5" syear="*" wyear="*">
+            <r1>Act 16:1-10</r1>
+            <p>
+                <rd>Ps 99:2,3,5</rd>
+                <re>Ps 99:2a</re>
+                <re>#Alleluia.</re>
+            </p>
+            <a>Col 3:1</a>
+            <e>Io 15:18-21</e>
+        </item>
+        <item id="291" ref="MooE6" syear="*" wyear="*">
+            <r1>Act 16:11-15</r1>
+            <p>
+                <rd>Ps 149:1-2,3-4,2-6a+9b</rd>
+                <re>Ps 149:4a</re>
+                <re>#Alleluia.</re>
+            </p>
+            <a>Io 15:26b,27a</a>
+            <e>Io 15:26-16:4a</e>
+        </item>
+        <item id="292" ref="TuoE6" syear="*" wyear="*">
+            <r1>Act 16:22-34</r1>
+            <p>
+                <rd>Ps 137:1-2a,2bc-3,7c-8</rd>
+                <re>Ps 137:7c</re>
+                <re>#Alleluia.</re>
+            </p>
+            <a>Io 16:7,13</a>
+            <e>Io 16:5-11</e>
+        </item>
+        <item id="293" ref="WeoE6" syear="*" wyear="*">
+            <r1>Act 17:15,22-18,1</r1>
+            <p>
+                <rd>Ps 148:1-2,11-12ab,12c-14a,14bcd</rd>
+                <re>#Pleni sun caeli et terra gloria tua.</re>
+                <re>#Alleluia.</re>
+            </p>
+            <a>Io 14:16</a>
+            <e>Io 16:12-15</e>
+        </item>
+        <item id="294" ref="ThoE6" syear="*" wyear="*">
+            <r1>Act 18:1-8</r1>
+            <p>
+                <rd>Ps 97:1,2-3ab,3cd-4</rd>
+                <re>Ps 97:2b</re>
+                <re>#Alleluia.</re>
+            </p>
+            <a>Io 14:18</a>
+            <e>Io 16:16-20</e>
+        </item>
+        <item id="295" ref="FroE6" syear="*" wyear="*">
+            <r1>Act 18:9-18</r1>
+            <p>
+                <rd>Ps 46:2-3,4-5,6-7</rd>
+                <re>Ps 46:8a</re>
+                <re>#Alleluia.</re>
+            </p>
+            <a>Lc 24:46,26</a>
+            <e>Io 16:20-23a</e>
+        </item>
+        <item id="296" ref="SaoE6" syear="*" wyear="*">
+            <r1>Act 18:23-28</r1>
+            <p>
+                <rd>Ps 46:2-3,8-9,10</rd>
+                <re>Ps 46:8a</re>
+                <re>#Alleluia.</re>
+            </p>
+            <a>Io 16:28</a>
+            <e>Io 16:23b-28</e>
+        </item>
+        <item id="297" ref="MooE7" syear="*" wyear="*">
+            <r1>Act 19:1-8</r1>
+            <p>
+                <rd>Ps 67:2-3,4-5ac,6-7ab</rd>
+                <re>Ps 67:33a</re>
+                <re>#Alleluia.</re>
+            </p>
+            <a>Col 3:1</a>
+            <e>Io 16:29-33</e>
+        </item>
+        <item id="298" ref="TuoE7" syear="*" wyear="*">
+            <r1>Act 20:17-27</r1>
+            <p>
+                <rd>Ps 67:10-11,20:21</rd>
+                <re>Ps 67:33a</re>
+                <re>#Alleluia.</re>
+            </p>
+            <a>Io 14:16</a>
+            <e>Io 17:1-11a</e>
+        </item>
+        <item id="299" ref="WeoE7" syear="*" wyear="*">
+            <r1>Act 20:28-38</r1>
+            <p>
+                <rd>Ps 67:29-30,33-35a,35b-36c</rd>
+                <re>Ps 67:33a</re>
+                <re>#Alleluia.</re>
+            </p>
+            <a>Io 17:17b,17a</a>
+            <e>Io 17:11b-19</e>
+        </item>
+        <item id="300" ref="ThoE7" syear="*" wyear="*">
+            <r1>Act 22:30,23:6-11</r1>
+            <p>
+                <rd>Ps 15:1-2a+5,7-8,9-10,11</rd>
+                <re>Ps 15:1</re>
+                <re>#Alleluia.</re>
+            </p>
+            <a>Io 17:21</a>
+            <e>Io 17:20-26</e>
+        </item>
+        <item id="301" ref="FroE7" syear="*" wyear="*">
+            <r1>Act 25:13b-21</r1>
+            <p>
+                <rd>Ps 102:1-2,11-12,19-20ab</rd>
+                <re>Ps 102:19a</re>
+                <re>#Alleluia.</re>
+            </p>
+            <a>Io 14:26</a>
+            <e>Io 21:15-19</e>
+        </item>
+        <item id="302" ref="SaoE7" syear="*" wyear="*">
+            <r1>Act 28:16-20,30-31</r1>
+            <p>
+                <rd>Ps 10:4,5+7</rd>
+                <re>Ps 10:7b</re>
+                <re>#Alleluia.</re>
+            </p>
+            <a>Io 16:7,13</a>
+            <e>Io 21:20-25</e>
+        </item>
+        <!-- Page 213 -->
+        <!--
+        <item id="" ref="" syear="*" wyear="*">
+            <r1></r1>
+            <p>
+                <rd></rd>
+                <re></re>
+            </p>
+            <r2></r2>
+            <a></a>
+            <e></e>
+        </item>
+        -->
+    </index>
+</lectionary>
